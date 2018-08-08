@@ -1,0 +1,133 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    font-family: '微软雅黑 Regular', '微软雅黑';
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+#logo .cn {
+    font-size: 14px;
+}
+
+#logo .eng {
+    font-size: 10px;
+}
+
+.box{
+position:absolute;
+    left: 40%;
+    top:  30%;
+width:348px;
+height:307px;
+background-color:white;
+border-radius:0.3em;
+border:solid #666666 0.5px;
+}
+.thehead{
+position:absolute;
+width:348px;
+height:47px;
+line-height:53px;
+}
+
+.touch{
+padding-bottom:11px;
+margin-left:70px;
+font-family:'PingFangSC-Regular', 'PingFang SC';
+font-weight:400;
+font-style:normal;
+font-size:16px;
+cursor:pointer;
+}
+.touch.selected{
+border-bottom:rgb(0,169,157) solid 2px;
+color:rgb(0,169,157);
+}
+.users{
+position:absolute;
+width:272px;
+height:36px;
+margin-top:90px;
+margin-left:38px;
+border-radius:0.2em;
+border:solid #aaa 0.5px
+}
+.pass{
+position:absolute;
+width:272px;
+height:36px;
+margin-top:160px;
+margin-left:38px;
+border-radius:0.2em;
+border:solid #aaa 0.5px
+}
+
+.theicon{
+position:absolute;
+margin-top:10px;
+margin-right:10px;
+width:20px;
+height:20px;
+opacity:0.8;
+}
+.thestyle{
+margin-top:3px;
+margin-left:10px;
+width:233px;
+height:32px;
+border:0px;
+outline:none;
+}
+.button{
+position:absolute;
+background-color:#00A99D;
+margin-left:38px;
+margin-top:240px;
+text-align:center;
+line-height:30px;
+width:272px;
+height:30px;
+font-family:'微软雅黑 Regular', '微软雅黑';
+font-weight:400;
+font-style:normal;
+font-size:14px;
+color:#FFFFFF;
+border-radius:0.2em;
+border:0px;
+outline:none;
+cursor:pointer;
+}
+
+.tip1{
+position:absolute;
+margin-top:60px;
+margin-left:75px;
+width:202px;
+height:16px;
+font-size:14px;
+text-align:center;
+display:none;
+color:#FF0000;
+}
+
+.tip2{
+position:absolute;
+margin-top:200px;
+margin-left:250px;
+width:61px;
+height:17px;
+font-family:'微软雅黑 Regular', '微软雅黑';
+font-weight:400;
+font-style:normal;
+font-size:12px;
+color:#666666;
+cursor:pointer;
+}

@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>   
+<body>
+  <h1>标题文本</h1>
+  <p>段落文本</p>
+  <div style="width:200px;height:200px;">
+    <p>span标签</p>
+  </div>
+  <input type="button" value="渐隐收起"/><input type="button" value="渐显展开" />
+  <div id="show" style="height:200px;width:300px;background-color: blue;border:solid 1px red;"></div>
+
+  <ul style="width:250px;height:300px;border:solid 1px red;padding-left:1.5em;">
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场chdf 1845</a></li>
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场 1845</a></li>
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场 1845</a></li>
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场 1845</a></li>
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场 1845</a></li>
+      <li><a href="#">互联网创业“喧嚣”渐散 青年创客做深细分市场 1845</a></li>
+  </ul>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+<script src="../selfjs/self.js"></script>
+<script type="application/javaScript">
+  $(function(){
+    //预设默认的前景色和背景色
+    $.fn.color.defaults = {
+      bcolor : "pink",
+      fcolor : "black"
+    }
+    $.fn.color.format = function(str){
+      return "<strong>"+ str +"</strong>";
+    }
+    $("h1").color();
+   
+
+    $.fn.color.format = function(str){
+      return "<span style='font-size:40px;'>"+ str +"</span>";
+    }
+    $("div").color();
+    $("p").color("#fff");  
+
+    var $span = $("span");
+    $span.parent().css("border","solid 1px black");
+    $span.hide(1000).show(1000);
+
+    $("input").eq(0).click(function(){
+      $("#show").hideOut(4000);
+    })
+    $("input").eq(1).click(function(){
+      $("#show").showIn(4000);
+    })
+    var $a = $("li a");
+    $a.each(function(){
+      var str = $(this).text();   //遍历每一条新闻
+      str = $(this).fixedWidth(str,30);
+      $(this).text(str);
+    })
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!--<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css"
+          href="./css/signup.css">
+</head>
+<body style=" background-image: url(./images/login/bg.jpg); background-attachment: inherit">
+<div id="logo">
+    <div>
+        <div id="logo-img" style="float: left">
+            <img src="./images/login/logo.png"/>
+        </div>
+        <div style="position: relative; top: 0px;">
+          <!--  <span class="cn">中金岭南凡口铅锌矿选矿厂信息化系统</span><br>-->
+        </div>
+    </div>
+</div>
+<div class="box">
+    <div class="thehead">
+        <span id="staff" class="touch">员工登陆</span>
+        <span id="client" class="touch">客户登陆</span>
+    </div>
+    <div id="staff_login">
+        <span id="error_box" class="tip1"></span>
+        <div class="users">
+            <input id="code" class="thestyle" type="text" value tabindex="0" placeholder="请输入工号"/>
+            <img class="theicon" src="./images/login/user.png"/>
+        </div>
+        <div class="pass">
+            <input id="password" class="thestyle" type="password" value maxlength="12" placeholder="请输入密码"/>
+            <img class="theicon" src="./images/login/pass.png"/>
+        </div>
+        <div class="tip2">
+            <abbr title="请联系管理员重置密码">忘记密码？</abbr>
+        </div>
+        <input id="register1" class="button" type="submit" value="登录"/>
+    </div>
+    <div id="client_login">
+        <span id="error_box2" class="tip1"></span>
+        <div class="users">
+            <input id="code2" class="thestyle" type="text" value tabindex="0" placeholder="请输入工号"/>
+            <img class="theicon" src="./images/login/user.png"/>
+        </div>
+        <div class="pass">
+            <input id="password2" class="thestyle" type="password" value maxlength="12" placeholder="请输入密码"/>
+            <img class="theicon" src="./images/login/pass.png"/>
+        </div>
+        <div class="tip2">
+            <abbr title="请联系管理员重置密码">忘记密码？</abbr>
+        </div>
+        <input id="register2" class="button" type="submit" value="登录"/>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquerysession.js"></script>
+<script src="./js/servers.js"></script>
+
+<script type="text/javascript">   
+    $(function () {
+        /** 登录组件的一些逻辑 */
+        $('#staff').addClass('selected');
+        $('#client_login').hide();
+        $('#staff_login').show();
+        
+        $('#staff').click(function () {
+            $('#client').removeClass('selected');
+            $('#staff').addClass('selected');
+            $('#client_login').hide();
+            $('#staff_login').show();
+        });
+
+        $('#client').click(function () {
+            $('#staff').removeClass('selected');
+            $('#client').addClass('selected');
+            $('#staff_login').hide();
+            $('#client_login').show();
+        })
+        /*用来实现enter回车键实现登录*/
+        $(document).keyup(function(event){
+            if(event.keyCode ==13){
+                //判断一个元素的当前状态是隐藏或者显示  
+                if(($("#staff_login").is(':visible')) && ($("#client_login").is(":hidden"))){
+                    $("#register1").trigger('click')
+                    }else{
+                        $("#register2").trigger('click')
+                    }
+                }
+              });
+              $("#register1").click(function () {
+                document.location = './home.html';
+              })
+              $("#register2").click(function () {
+                document.location = './home.html';
+              })
+       /* $("#register1").click(function () {
+            var username = $("#code").val()
+            var password = $("#password").val()
+            $.post(servers.backup() + "user/login", {code: username, password: password}, function (result) {
+                var resCode = result.code
+                if (resCode == 0) {
+                    console.log(result)
+                    $.session.set('user', JSON.stringify(result.data));
+                    document.location = './home.html';
+                }else{
+                    //console.log("用户错误")
+                    alert("账号或密码错误！")
+                }
+            })
+        })
+        
+        $("#register2").click(function () {
+            var username = $("#code2").val()
+            var password = $("#password2").val()
+            $.post(servers.backup() + "customer/login", {code: username, password: password}, function (result) {
+                var resCode = result.code
+                if (resCode == 0) {
+                    $.session.set('user', JSON.stringify(result.data));
+                    document.location = './jsp/home.html';
+                }else{
+                    //console.log("客户错误")
+                    alert("账号或密码错误！")
+                }
+            })
+        })*/
+        /** 获取所有的权限 */
+        $.get(servers.backup() + 'modelOperation/getAll', {}, function (result) {
+            var modelOperations = result.data
+            window.localStorage.setItem('modelOperations', JSON.stringify(modelOperations))
+        })
+        /** 如果所有角色的三级菜单和操作 */
+        $.get(servers.backup() + 'role/getAllRoleModelOperation', {}, function (result) {
+            var roleModelOperation = result.data
+            window.localStorage.setItem('roleModelOperation', JSON.stringify(roleModelOperation))
+        })
+        /** 获取所有的operations并用远足存储起来 */
+        $.get(servers.backup() + 'operation/getAll', {}, function (result) {
+            var operations = result.data.sort(function (a, b) {
+                return a.code - b.code
+            })
+            window.localStorage.setItem('operations', JSON.stringify(operations))
+        })
+        $.get(servers.backup() + 'model/getAll', {}, function (result) {
+            var all_menu3s = result.data.sort(function (a, b) {
+                return a.code - b.code
+            })
+            window.localStorage.setItem('all_menu3s', JSON.stringify(all_menu3s))
+        })
+    })
+</script>
+</body>
+</html>

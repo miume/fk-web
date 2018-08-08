@@ -1,0 +1,121 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>主页</title>
+    <link href="./fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/home.css">
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="parent">
+    <div class="top">
+        <div class="top-left" style="padding-left: 5px;">
+            <div class="fl" style="position: relative;top: 12px;"><img src="./images/login/logo.png" width="88px"
+                                                                       height="35px"></div>
+            <div class="top-left-text">中金岭南凡口铅锌矿选矿厂信息化系统</div>
+            <div class="menus1 fl">
+                <ul>
+    
+                </ul>
+            </div>
+        </div>
+        <div class="fr vertical_center" style="height: auto;">
+            <!--个人中心-->
+            <div class="vertical_center fl" style="height: 100%;border-left: 1px #ffffff dotted;">
+                <div style="padding: 0 13px 0 13px;">
+                    <a class="text_center" href="#" style="color: white;font-size: 22px;" id="personal_center">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </div>
+            </div>
+            <!--用户角色-->
+            <div style="border-left: 1px #ffffff dotted;border-right: 1px #ffffff dotted;" class="fl">
+               <div style="padding: 0 10px 0 10px;height: 100%;" class="vertical_center">
+                    <span id="user_role"></span>
+                </div>
+            </div>
+            <!--退出登录-->
+            <div class="vertical_center fl" style="height: 100%;">
+                <div style="padding: 0 13px 0 13px;">
+                    <a href="#" id="exit" style="color: white;font-size: 22px;">
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="left">
+        <div class="menus2" style="height:100%;overflow-y: auto;">
+            <div>
+                <i class="fa fa-bars"></i><span>&nbsp;&nbsp;菜单</span>
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+
+    </div>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+
+<script src="./layui/layui.all.js" charset="utf-8"></script>
+<script src="./layer/layer/layer.js"></script>
+<script src="./js/jquerysession.js"></script>
+
+<script src="./js/servers.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/Chart.js"></script>
+<script type="application/javascript">
+    $(function () {
+
+        (function () {
+            Date.prototype.Format = function (fmt) { //author: meizz
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                }
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+
+            }
+        })()
+
+        function createVersion() {
+            var date = new Date();
+            return "<span>v</span>4.275." + ( date.getMonth() + 1) + date.getDate() + ".BETA";
+        }
+
+        /** 日期显示 */
+      //  $('.top-left-text')[0].innerHTML = "<span>长远锂科MES系统&nbsp;<strong id='version' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + createVersion() + "</strong></span>"
+       /*  var userStr = $.session.get('user')
+        if (!userStr) {
+            //console.log('用户已经失去登录，请重新登录')
+            //alert('用户已经失去登录，请重新登录')
+            document.location = './login.html';
+        }
+       var userJson = JSON.parse(userStr)*/
+        //console.log(userJson)
+        var menu1Wrapper = $('.menus1 ul')
+        var menu2Wrapper = $('.menus2 ul')
+       
+       // $("#user_role").text(userJson.name)
+        
+        home.init(null, menu1Wrapper, menu2Wrapper)
+    })
+
+</script>
+</body>
+</html>

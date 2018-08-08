@@ -1,0 +1,325 @@
+html, body, parent {
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    min-width: 600px;
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #333333;
+    color: #fff;
+}
+.left {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    font-weight: 400;
+}
+
+.right {
+    position: absolute;
+    overflow-x: auto;
+    overflow-y: auto;
+    left: 110px;
+    right: 0;
+    top: 50px;
+    height: 100%;
+    background: #ffffff;
+    min-width: 300px;
+}
+/*
+.menus1 {
+    width: 110px;
+    height: 100%;
+    background: #20232b;
+    color: #fff;
+    border-right: 1px #0b0b13 solid;
+}*/
+.menus1 {
+    position: relative;
+    border-right: 1px #333333 solid;
+    left: 10px;
+    font-size: 15px;
+    padding: 5px;
+    display: inline-block;
+
+}
+
+.menus2 {
+    position: absolute;
+    width: 120px;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    top: 0px;
+    background: #2b2e36;
+}
+
+.top-left-text {
+    position: relative;
+    top: 0px;
+    left: 10px;
+    bottom: 0px;
+    line-height: 54px;
+    font-size: 15px;
+    color: #fff;
+    float: left;
+}
+.top-left-text #version {
+    position: relative;
+    top: 0.5px;
+}
+
+.top-right {
+    position: absolute;
+    right: 0;
+    width: 30%;
+}
+
+ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.menus1 ul {
+    list-style: none;
+    padding-top: 40px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.hide {
+    display: none;
+}
+
+
+
+.menus1 ul li {
+    position: relative;
+    left: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.menus1 ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+.menus2 div {
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    line-height: 40px;
+    font-weight: 400;
+}
+.menus2 .menu3-tab-bar{
+    padding: 1px;
+}
+.menus2 ul .menu2-tab-bar li {
+    text-align: center;
+    font-size: 13px;
+    background: #515151;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.menus2 ul .menu2-tab-bar li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.li-selected {
+    background: #4779d2;
+}
+
+.right img {
+    width: 100%;
+    height: 100%;
+}
+
+.menus2 .models ul li a {
+    text-decoration: none;
+    position: relative;
+}
+
+body .layui-ext-yourskin .layui-layer-btn {
+    background-color: #62a49a;
+}
+
+.parent #user-info-hover {
+    padding: 5px 0 10px 0;
+    border: #333333 solid 1px;
+    border-bottom: none;
+    border-radius: 1%;
+
+}
+
+.parent .top-right #hover-body {
+    position: absolute;
+    min-width: 150px;
+    min-height: 79px;
+    top: 51px;
+    right: 0px;
+    background: #333333;
+    z-index: 100;
+    opacity: 1;
+}
+
+.top-right a {
+    color: #fff;
+    text-decoration: none;
+}
+
+ /*c.top-right a:hover {
+   olor: #b2b0a0;
+}*/
+
+#hover-body {
+    border-radius: 1%;
+    align-items: center;
+    text-align: center;
+}
+
+
+#user-info-hover a {
+    padding: 15px;
+    background-color: #4779d2;
+}
+
+.move-left {
+    position: relative;
+    right: 180px;
+}
+
+.whiteFontMenu3 a {
+    color: #ffffff;
+}
+
+.whiteFontMenu3 a:hover {
+    color: #3dc1f8;
+}
+
+.chosenMenu3 a {
+    color: #3dc1f8;
+    font-weight: 400;
+}
+
+.layui-table tr th {
+    text-align: center;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+.display-component-container {
+    min-width: 880px;
+}
+.display-component-container thead td {
+    padding: 5px;
+    border: 1px darkgrey solid;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    font-weight: 400;
+}
+/*覆盖部分内容*/
+.display-component-container .normal_td{
+    color: black;
+}
+.display-component-container .normal1_td{
+    font:15px bold;
+    
+}
+.display-component-container .normal11_td{
+    font:15px bold;
+    width:90px;
+}
+
+.display-component-container .checkBox_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 30px;
+}
+.display-component-container .edit_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
+}
+.display-component-container .delete_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
+}
+
+.display-component-container tbody td {
+    padding: 5px;
+    border: 1px darkgrey solid;
+    font-size: 12px;
+    color: black;
+    text-align: center;
+    font-weight: 400;
+    height:30px;
+}
+
+.display-component-container a {
+    text-decoration: none;
+    color: #1E9FFF;
+}
+.display-component-container .disableHref{
+    cursor:default;
+    color:grey;
+    text-decoration:none;
+}
+
+.block-quote {
+    padding: 20px 10px 40px 10px;
+    background: #f2f2f2;
+}
+.whitespace {
+    height: 20px;
+}
+.img-container {
+    background-color: #40444c;
+}
+.img-container table td{
+    padding: 0;
+    font-size: 6px;
+}
+.grey {
+    background: #f2f2f2;
+}
+.roundBtn {
+    border-radius: 8%;
+}
+.blue {
+    background: #4779d2;
+}
+.blue_font {
+    color: #1E9FFF;
+}
+.vertical_center {
+    display: flex;
+    align-items: center;
+}
+
+.horizontal_center {
+    margin: 0 auto;
+}
+
+.text_center {
+    text-align: center;
+}
