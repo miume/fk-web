@@ -33,24 +33,17 @@ border:solid #666666 0.5px;
 }
 .thehead{
 position:absolute;
-width:348px;
-height:47px;
-line-height:53px;
-}
-
-.touch{
-padding-bottom:11px;
-margin-left:70px;
+width:100px;
+height:53px;
+margin:0 auto;
 font-family:'PingFangSC-Regular', 'PingFang SC';
 font-weight:400;
 font-style:normal;
-font-size:16px;
-cursor:pointer;
+font-size:20px;
+left:124px;
+top:30px;
 }
-.touch.selected{
-border-bottom:rgb(0,169,157) solid 2px;
-color:rgb(0,169,157);
-}
+
 .users{
 position:absolute;
 width:272px;

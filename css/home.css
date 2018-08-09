@@ -18,16 +18,17 @@ html, body, parent {
     position: absolute;
     top: 50px;
     left: 0;
-    width: 110px;
+    width: 120px;
     height: 100%;
     font-weight: 400;
+    background: #2b2e36;
 }
 
 .right {
     position: absolute;
     overflow-x: auto;
     overflow-y: auto;
-    left: 110px;
+    left: 120px;
     right: 0;
     top: 50px;
     height: 100%;
@@ -35,31 +36,28 @@ html, body, parent {
     min-width: 300px;
 }
 /*
-.menus1 {
+.navigations {
     width: 110px;
     height: 100%;
     background: #20232b;
     color: #fff;
     border-right: 1px #0b0b13 solid;
 }*/
-.menus1 {
+.navigations {
     position: relative;
     border-right: 1px #333333 solid;
-    left: 10px;
+    left: 30px;
+    height: 50px;
     font-size: 15px;
-    padding: 5px;
     display: inline-block;
-
 }
 
-.menus2 {
+.menus1 {
     position: absolute;
     width: 120px;
-    height: 100%;
     bottom: 0;
     right: 0;
     top: 0px;
-    background: #2b2e36;
 }
 
 .top-left-text {
@@ -88,9 +86,8 @@ ul {
     list-style: none;
 }
 
-.menus1 ul {
+.navigations ul {
     list-style: none;
-    padding-top: 40px;
     font-size: 14px;
     font-weight: 400;
 }
@@ -99,33 +96,31 @@ ul {
     display: none;
 }
 
-
-
-.menus1 ul li {
-    position: relative;
-    left: 0px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+.navigations ul li {
     text-align: center;
+    padding-top:8px;
+    padding-bottom: 10px;
+    display: inline-table;
 }
 
-.menus1 ul li a {
+.navigations ul li a {
     text-decoration: none;
-    color: #fff;
-    font-size: 13px;
+    font-size: 15px;
+    float: left;
+    padding:5px;
 }
 
-.menus2 div {
+.menus1 div {
     color: #fff;
     text-align: center;
     font-size: 13px;
     line-height: 40px;
     font-weight: 400;
 }
-.menus2 .menu3-tab-bar{
+.menus1 .menu3-tab-bar{
     padding: 1px;
 }
-.menus2 ul .menu2-tab-bar li {
+.menus1 ul .menu1-tab-bar li {
     text-align: center;
     font-size: 13px;
     background: #515151;
@@ -133,13 +128,13 @@ ul {
     padding-bottom: 1px;
 }
 
-.menus2 ul .menu2-tab-bar li a {
+.menus1 ul .menu1-tab-bar li a {
     text-decoration: none;
     color: #ffffff;
 }
 
-.li-selected {
-    background: #4779d2;
+.li-selected a{
+    color: #4779d2;
 }
 
 .right img {
@@ -147,7 +142,7 @@ ul {
     height: 100%;
 }
 
-.menus2 .models ul li a {
+.menus1 .models ul li a {
     text-decoration: none;
     position: relative;
 }
@@ -200,16 +195,26 @@ body .layui-ext-yourskin .layui-layer-btn {
     position: relative;
     right: 180px;
 }
-
-.whiteFontMenu3 a {
+.whiteFontMenu a {
     color: #ffffff;
 }
 
-.whiteFontMenu3 a:hover {
+.whiteFontMenu a:hover {
+    color: #3dc1f8;
+}
+.chosenMenu a {
+    color: #3dc1f8;
+    font-weight: 400;
+}
+.whiteFontMenu2 a {
+    color: #ffffff;
+}
+
+.whiteFontMenu2 a:hover {
     color: #3dc1f8;
 }
 
-.chosenMenu3 a {
+.chosenMenu2 a {
     color: #3dc1f8;
     font-weight: 400;
 }
@@ -227,6 +232,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 .display-component-container {
     min-width: 880px;
+    padding:20px;
 }
 .display-component-container thead td {
     padding: 5px;
@@ -308,7 +314,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 .blue {
     background: #4779d2;
 }
-.blue_font {
+.blue_font a{
     color: #1E9FFF;
 }
 .vertical_center {

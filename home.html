@@ -13,7 +13,7 @@
             <div class="fl" style="position: relative;top: 12px;"><img src="./images/login/logo.png" width="88px"
                                                                        height="35px"></div>
             <div class="top-left-text">中金岭南凡口铅锌矿选矿厂信息化系统</div>
-            <div class="menus1 fl">
+            <div class="navigations fl">
                 <ul>
     
                 </ul>
@@ -22,7 +22,7 @@
         <div class="fr vertical_center" style="height: auto;">
             <!--个人中心-->
             <div class="vertical_center fl" style="height: 100%;border-left: 1px #ffffff dotted;">
-                <div style="padding: 0 13px 0 13px;">
+                <div style="padding: 15px;">
                     <a class="text_center" href="#" style="color: white;font-size: 22px;" id="personal_center">
                         <i class="fa fa-cog"></i>
                     </a>
@@ -36,7 +36,7 @@
             </div>
             <!--退出登录-->
             <div class="vertical_center fl" style="height: 100%;">
-                <div style="padding: 0 13px 0 13px;">
+                <div style="padding:15px;">
                     <a href="#" id="exit" style="color: white;font-size: 22px;">
                         <i class="fa fa-sign-out"></i>
                     </a>
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="left">
-        <div class="menus2" style="height:100%;overflow-y: auto;">
+        <div class="menus1" style="height:93%;overflow-y: auto;">
             <div>
                 <i class="fa fa-bars"></i><span>&nbsp;&nbsp;菜单</span>
             </div>
@@ -93,27 +93,18 @@
             }
         })()
 
-        function createVersion() {
-            var date = new Date();
-            return "<span>v</span>4.275." + ( date.getMonth() + 1) + date.getDate() + ".BETA";
-        }
-
-        /** 日期显示 */
-      //  $('.top-left-text')[0].innerHTML = "<span>长远锂科MES系统&nbsp;<strong id='version' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + createVersion() + "</strong></span>"
-       /*  var userStr = $.session.get('user')
-        if (!userStr) {
-            //console.log('用户已经失去登录，请重新登录')
-            //alert('用户已经失去登录，请重新登录')
-            document.location = './login.html';
-        }
-       var userJson = JSON.parse(userStr)*/
+        var userStr = $.session.get('user')
+        if(!userStr) {
+            document.location = './login.html'
+        } 
+        var userJson = JSON.parse(userStr)
         //console.log(userJson)
+        var navigationsWrapper = $('.navigations ul')
         var menu1Wrapper = $('.menus1 ul')
-        var menu2Wrapper = $('.menus2 ul')
        
        // $("#user_role").text(userJson.name)
         
-        home.init(null, menu1Wrapper, menu2Wrapper)
+        home.init(userJson, navigationsWrapper, menu1Wrapper)
     })
 
 </script>
