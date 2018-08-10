@@ -10,13 +10,13 @@ html, body, parent {
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 55px;
     background: #333333;
     color: #fff;
 }
 .left {
     position: absolute;
-    top: 50px;
+    top: 55px;
     left: 0;
     width: 120px;
     height: 100%;
@@ -215,6 +215,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 .chosenMenu2 a {
+    margin-left:20px;
     color: #3dc1f8;
     font-weight: 400;
 }
@@ -292,7 +293,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 .block-quote {
-    padding: 20px 10px 40px 10px;
+    padding: 20px;
     background: #f2f2f2;
 }
 .whitespace {

@@ -121,7 +121,8 @@ var home = {
                 home.menu1Wrapper.append(
                     "<div id='menu1-li-" + (element.id) + "' class='menu1-tab-bar'>" +
                     "<li class='menu1-tab-bar-item'>" +
-                    "<i class='fa fa-caret-right'></i> &nbsp" +
+                    //"<i class='fa fa-caret-right'></i> &nbsp" +
+                    "<div class='fl'><img src='./" + (element.path) + "' alt='' width='20px' height='20px' style='position:relative;top: 8px;left: 10px;'></div>"+
                     "<a href='#'>" + element.name + "</a>" +
                     "</li>" +
                     "</div>" +
@@ -139,7 +140,7 @@ var home = {
             if(selectedMenu1Code != null && localStorage.getItem('selectedMenu3') != null){
                 var selectedTabBarId = 'menu1-li-' + selectedMenu1Code;
                 var selectedTabBarItem = $('#' + selectedTabBarId);  //一级菜单
-                selectedTabBarItem.find('li').children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+                //selectedTabBarItem.find('li').children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
                 menu1List.forEach(function(ele){
                     if(selectedMenu1Code == ele.id){
                         home.menu2s = ele.secondLevelMenus;
@@ -191,21 +192,22 @@ var home = {
                 var menu1Id = 'menu1-li-' + localStorage.getItem('selectedMenu1');
                 if($('.chosenMenu1').attr('id') != menu1Id) {
                     $('.chosenMenu1').next().addClass('hide')
-                    $('.chosenMenu1').find('li').children('i').removeClass('fa-caret-down').addClass('fa-caret-right');
+                   // $('.chosenMenu1').find('li').children('i').removeClass('fa-caret-down').addClass('fa-caret-right');
                 }
                 $('.chosenMenu1').removeClass('chosenMenu1');
                 $('#' + menu1Id ).addClass('chosenMenu1');
+                 
                 const _this_next = $('#' + menu1Id).next();
                 _this_next.attr('class').indexOf('hide') > -1 ?
                     (function () {
                         _this_next.removeClass('hide');
-                        $('#' + menu1Id).find('li').children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+                       /** $('#' + menu1Id).find('li').children('i').removeClass('fa-caret-right').addClass('fa-caret-down');**/
                     })() :
                     (function () {
                         _this_next.addClass('hide')
-                        $('#' + menu1Id).find('li').children('i').removeClass('fa-caret-down').addClass('fa-caret-right')
+                       /** $('#' + menu1Id).find('li').children('i').removeClass('fa-caret-down').addClass('fa-caret-right')*/
                     })()
-
+                    
                     /**获取二级菜wrapper */
                     var menu2Wrapper = _this_next.children('ul');
                     /**获取一级菜单下隐藏的二级菜单的id */
