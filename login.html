@@ -53,7 +53,7 @@
                 }
               });
        $("#register").click(function () {
-          var username = $("#code").val()
+            var username = $("#code").val()
             var password = $("#password").val()
             $.post(servers.backup() + "user/login", {id: username, password: password}, function (result) {
                 var resCode = result.code
