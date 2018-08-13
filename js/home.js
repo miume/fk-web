@@ -1,6 +1,34 @@
 var home = {
     urls: {
-        
+        role : {
+            getAllByPage : function() {
+                return servers.backup() + "role/getAllByPage" ;
+            },
+            getAll : function() {
+                return servers.backup() + "role/getAll" ;
+            },
+            getById : function() {
+                return servers.backup() + "role/getById" ;
+            },
+            getByNameLikeByPage : function() {
+                return servers.backup() + "role/getByNameLikeByPage" ;
+            },
+            add : function() {
+                return servers.backup() + "role/add" ;
+            },
+            assignPermissions : function() {
+                return servers.backup() + "role/assignPermissions" ;
+            },
+            deleteById : function() {
+                return servers.backup() + "role/deleteById" ;
+            },
+            deleteByIds : function() {
+                return servers.backup() + "role/deleteByIds" ;
+            },
+            update : function() {
+                return servers.backup() + "role/update" ;
+            },
+        }
     }
    
     /** start */
@@ -253,7 +281,7 @@ var home = {
                         page = ele.page;
                     }
                 })
-                var path = "./components/html/" + page + ".html";
+                var path = "html/" + page + ".html";
                 $right.load(path);
             })
         }
