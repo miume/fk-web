@@ -9,7 +9,7 @@
         <div class="fr">
             <p>
                 <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input list="source" id="departmentName" placeholder="请输入部门名称">
+                <input list="source" id="searchDepartmentName" placeholder="请输入部门名称">
                 <datalist id="source">
                     <option value="生产部">
                     <option value="销售部">
@@ -49,4 +49,17 @@
             $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>')
         })
     </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="addDptModal" class="hide hideModal">
+            <p><span>部门编码:</span><input type="text" placeholder="自增长（无需传参）" id="addDepartmentId" disabled="disabled"></p>
+            <p><span>部门名称:</span><input type="text" placeholder="新增部门名称" id="addDepartmentName"></p>
+            <p><span>部门信息:</span><input type="text" placeholder="新增部门信息" id="addDepartmentInfo"></p>
+            <p><span>所属部门编码:</span><input type="text" placeholder="没有所属部门填-1" id="addParentDepartmentId"></p>
+    </div>
+    <div id="updateDptModal" class="hide hideModal">
+        <p><span>部门编码:</span><input type="text" placeholder="" id="updateDepartmentId" disabled="disabled"></p>
+        <p><span>部门名称:</span><input type="text" placeholder="" id="updateDepartmentName"></p>
+        <p><span>部门信息:</span><input type="text" placeholder="" id="updateDepartmentInfo"></p>
+        <p><span>所属部门编码:</span><input type="text" placeholder="" id="updateParentDepartmentId"></p>
+    </div>
   </div
