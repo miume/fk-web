@@ -361,3 +361,6 @@ body .layui-ext-yourskin .layui-layer-btn {
 .text_center {
     text-align: center;
 }
+.hide{
+    display: none;
+}
