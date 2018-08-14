@@ -29,6 +29,16 @@ var home = {
                 return servers.backup() + "role/update" ;
             },
         }
+        ,operation : {
+            getAllByPage : function() {
+                return servers.backup() + "actionLog/getAllByPage" ;
+            },
+            getByDate : function() {
+                return servers.backup() + "actionLog/getByDate" ;
+            },
+            
+
+        }
     }
    
     /** start */
