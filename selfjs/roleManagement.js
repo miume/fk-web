@@ -147,6 +147,7 @@ var roleManagement = {
          /**绑定刷新事件 */
         ,bindRefreshEvents : function(buttons){
             buttons.off('click').on('click',function(){
+                
             })
         }
          /**绑定搜索事件 */
