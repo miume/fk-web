@@ -54,7 +54,44 @@ var role_management = {
         /**绑定新增事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                $("#updateModal").removeClass("hide");
+                layer.open({
+                    type : 1,
+                    title : "新增",
+                    content : $("#updateModal"),
+                    area : ['380px', '200px'],
+                    btn : ['确定' , '取消'],
+                    offset : ['40%' , '45%'],
+                    yes : function(index) {
+                        var name = $("#roleNames").val();
+                        var description = $("#roledescription").val();
+                        if(name===null){
+                            layer.msg('角色名称不能为空!');
+                            return 
+                        }
+                        $.post(home.urls.role.add() , {
+                            name : name,
+                            description : description
+                        }, function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%' , '55%'],
+                                time : 700
+                            })
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    role_management.init();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        })
+                        $("#updateModal").addClass("hide");
+                        layer.close(index);
+                    },
+                    btn2 : function(index) {
+                        $("#updateModal").addClass("hide");
+                        layer,close(index);
+                    }
+                })
             })
         }
         /**绑定批量删除事件 */
@@ -87,8 +124,8 @@ var role_management = {
                     "<td>"+(e.name ? e.name : ' ')+"</td>" +
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.description ? e.description : ' ')+"</td>" +
-                    "<td>"+(e.startTime ? new Date(e.startTime).Format('yyyy-dd-MM') : ' ')+"</td>" +
-                    "<td>"+(e.updateTime ? new Date(e.updateTime).Format('yyyy-dd-MM') : ' ')+"</td>" +
+                    "<td>"+(e.createTime ? new Date(e.createTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
+                    "<td>"+(e.updateTime ? new Date(e.updateTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
                     "<td><a href='#' class='editor' id='edit-"+(e.id)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' id='editPeople-"+(e.id)+"'><i class='fa fa-user-circle' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' id='editRoles-"+(e.id)+"'><i class='fa fa-key fa-rotate-90' aria-hidden='true'></i></a></td>" +
@@ -114,22 +151,26 @@ var role_management = {
                     btn: ['确定', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var id = _this.attr('id').substr(7);
-                        $.post(home.urls.role.deleteById(), {
-                            id:id
-                        }, function(result){
-                            layer.msg(result.message, {
-                                offset: ['40%', '55%'],
-                                time: 700
-                            })
-                            if(result.code === 0){
-                                var time = setTimeout(function () {
-                                    role_management.init();
-                                    clearTimeout(time)
-                                },500)
+                        var id = parseInt(_this.attr('id').substr(7)) ;
+                        console.log(id)
+                        $.ajax({
+                            type : "DELETE",
+                            url : home.urls.role.deleteById() ,
+                            data : {"id" : id},
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        role_management.init()
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
                             }
-                            layer.close(index);
                         })
+                        layer.close(index)
                     },
                     btn2 : function(index){
                         layer.close(index);
@@ -140,18 +181,48 @@ var role_management = {
         ,bindEditorRolesEvents : function(buttons) {
             buttons.off('click').on('click',function() {
                var id = $(this).attr('id').substr(5);
+               
                $.get(home.urls.role.getById(),{ id:id }, function(result) {
                    var roles = result.data;
+                   var id = roles.id;
+                   $("#roleNames").val(roles.name);
+                   $("#roledescription").val(roles.description);
+                   $("#updateModal").removeClass("hide");
                    layer.open({
                        type: 1,
+                       title: '编辑',
                        content: $("#updateModal"),
-                       area: ['480px', '280px'],
+                       area: ['380px', '200px'],
                        btn: ['确定', '取消'],
                        offset: ['40%','45%'],
                        yes: function(index){
-
+                           var name = $("#roleNames").val();
+                           var description = $("#roledescription").val();
+                           if(name===null){
+                               layer.msg('角色名称不能为空!');
+                               return 
+                           }
+                           $.post(home.urls.role.update() ,{
+                               id : id,
+                               name : name,
+                               description : description
+                           }, function(result) {
+                               layer.msg(result.message, {
+                                   offset : ['40%', '55%'],
+                                   time : 700
+                               })
+                               if(result.code === 0) {
+                                   var time = setTimeout(function() {
+                                       role_management.init();
+                                       clearTimeout(time);
+                                   },500)
+                               }
+                           })
+                           $("#updateModal").css("display","none");
+                           layer.close(index);
                        },
                        btn2 : function(index) {
+                           $("#updateModal").css("display","none");
                            layer.close(index);
                        }
                    })
