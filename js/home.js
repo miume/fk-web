@@ -27,7 +27,7 @@ var home = {
             },
             update : function() {
                 return servers.backup() + "role/update" ;
-            },
+            }
         },
         loginLog:{
             getAllByPage : function(){
@@ -45,8 +45,34 @@ var home = {
                 return servers.backup() + "actionLog/getByDate" ;
             },
             
-
         }
+        ,department : {
+            deleteByIds : function() {
+                return servers.backup() + "department/deleteByIds" ;
+            },
+            deleteById : function() {
+                return servers.backup() + "department/deleteById" ;
+            },
+            add : function() {
+                return servers.backup() + "department/add" ;
+            },
+            getAll : function() {
+                return servers.backup() + "department/getAll" ;
+            },
+            getAllByPage : function() {
+                return servers.backup() + "department/getAllByPage" ;
+            },
+            getByNameLikeByPage : function() {
+                return servers.backup() + "department/getByNameLikeByPage" ;
+            },
+            getById : function() {
+                return servers.backup() + "department/getById" ;
+            },
+            update : function() {
+                return servers.backup() + "department/update" ;
+            },
+        }
+        
     }
    
     /** start */

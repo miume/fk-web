@@ -120,9 +120,9 @@ var roleManagement = {
                                     rolesIdS.push(parseInt($(this).val()));
                                 }
                             })
-                            console.log(rolesIdS)
+                            //console.log(rolesIdS.toString())
                             $.post(home.urls.role.deleteByIds(), {
-                                _method : "delete", ids : rolesIdS
+                                _method : "delete", ids : rolesIdS.toString()
                             },function(result) {
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {

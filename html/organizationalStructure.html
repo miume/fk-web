@@ -1,8 +1,65 @@
 <div id='model-li-hide-1' class="display-component-container">
-    
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input list="source" id="searchDepartmentName" placeholder="请输入部门名称">
+                <datalist id="source">
+                    <option value="生产部">
+                    <option value="销售部">
+                    <option value="管理部">
+                </datalist> 
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="departmentTable">
+        <thead>
+            <tr>
+                <td class="checkBox_td"><input type="checkbox" /></td>
+                <td>序号</td>
+                <td>部门编码</td>
+                <td>部门名称</td>
+                <td>部门信息</td>
+                <td>所属部门编码</td>
+                <td>所属部门名称</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="department_page"></div>
+    <script src="selfjs/department.js"></script>
     <script type="application/javascript">
+        $(function() {
+            department.init();
+        });
         $(function() {
             $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>')
         })
     </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="addDptModal" class="hide hideModal">
+            <p><span>部门编码:</span><input type="text" placeholder="自增长（无需传参）" id="addDepartmentId" disabled="disabled"></p>
+            <p><span>部门名称:</span><input type="text" placeholder="新增部门名称" id="addDepartmentName"></p>
+            <p><span>部门信息:</span><input type="text" placeholder="新增部门信息" id="addDepartmentInfo"></p>
+            <p><span>所属部门编码:</span><input type="text" placeholder="没有所属部门填-1" id="addParentDepartmentId"></p>
+    </div>
+    <div id="updateDptModal" class="hide hideModal">
+        <p><span>部门编码:</span><input type="text" placeholder="" id="updateDepartmentId" disabled="disabled"></p>
+        <p><span>部门名称:</span><input type="text" placeholder="" id="updateDepartmentName"></p>
+        <p><span>部门信息:</span><input type="text" placeholder="" id="updateDepartmentInfo"></p>
+        <p><span>所属部门编码:</span><input type="text" placeholder="" id="updateParentDepartmentId"></p>
+    </div>
   </div
