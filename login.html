@@ -78,7 +78,7 @@
             var roleModelOperation = result.data
             window.localStorage.setItem('roleModelOperation', JSON.stringify(roleModelOperation))
         })*/
-        /** 获取所有的operations并用远足存储起来 */
+        /** 获取所有的operations并用远足存储起来 
         $.get(servers.backup() + 'operation/getAll', {}, function (result) {
             var operations = result.data.sort(function (a, b) {
                 return a.code - b.code
@@ -91,7 +91,7 @@
                 return a.rank - b.rank
             })
             window.localStorage.setItem('all_menu3s', JSON.stringify(all_menu3s))
-        })
+        })*/
     })
 </script>
 </body>

@@ -1,11 +1,11 @@
-var role_management = {
+var roleManagement = {
     init: function() {
         /**获取角色信息分页显示 */
-        role_management.funcs.renderTable();
-        var out = $("#rolManagement_page").width();
+        roleManagement.funcs.renderTable();
+        var out = $("#rolManagement-page").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
-            $('#rolManagement_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            $('#rolManagement-page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
             clearTimeout(time);
         }, 30);
     }
@@ -18,12 +18,12 @@ var role_management = {
             $.get(home.urls.role.getAllByPage(), { page : 0 }, function(result) {
                 var roles = result.data.content;
                 const $tbody = $("#roleManagementTable").children("tbody");
-                role_management.funcs.renderHandler($tbody, roles, 0);
-                role_management.pageSize = result.data.length;
+                roleManagement.funcs.renderHandler($tbody, roles, 0);
+                roleManagement.pageSize = result.data.length;
                 var page = result.data;
                 /**分页信息 */
                 layui.laypage.render({
-                    elem: "rolManagement_page",
+                    elem: "rolManagement-page",
                     count : 10 * page.totalPages,
                     /**页面变换后的逻辑 */
                     jump: function(obj, first) {
@@ -35,25 +35,27 @@ var role_management = {
                                 var roles = result.data.content;
                                 var page = obj.curr - 1;
                                 const $tbody = $("#roleManagementTable").children("tbody");
-                                role_management.funcs.renderHandler($tbody, roles, page);
-                                role_management.pageSize = result.data.length;
+                                roleManagement.funcs.renderHandler($tbody, roles, page);
+                                roleManagement.pageSize = result.data.length;
                             })
                         }
                     }
                 })
             })
             /**绑定新增事件 */
-            role_management.funcs.bindAddEvents($("#addButton"));
+            roleManagement.funcs.bindAddEvents($("#addButton"));
             /**绑定批量删除事件 */
-            role_management.funcs.bindDeleteByIdsEvents($("#deleteButton"));
+            roleManagement.funcs.bindDeleteByIdsEvents($("#deleteButton"));
             /**绑定刷新事件 */
-            role_management.funcs.bindRefreshEvents($("#refreshButton"));
+            roleManagement.funcs.bindRefreshEvents($("#refreshButton"));
             /**绑定搜索事件 */
-            role_management.funcs.bindSearchEvents($("#searchButton"));
+            roleManagement.funcs.bindSearchEvents($("#searchButton"));
         }
         /**绑定新增事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on('click',function(){
+                $("#roleNames").val("");
+                $("#roledescription").val("");
                 $("#updateModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -79,7 +81,7 @@ var role_management = {
                             })
                             if(result.code === 0) {
                                 var time = setTimeout(function() {
-                                    role_management.init();
+                                    roleManagement.init();
                                     clearTimeout(time);
                                 },500)
                             }
@@ -97,13 +99,54 @@ var role_management = {
         /**绑定批量删除事件 */
         ,bindDeleteByIdsEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                if($(".role-checkBox:checked").length === 0) {
+                    layer.msg('您还没选中任何数据!', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                }else {
+                    layer.open({
+                        type : 1,
+                        title : "批量删除",
+                        content : "<h5 style='text-align:center;'>您确定要删除所有数据吗？</h5>",
+                        area: ['200px','140px'],
+                        offset : ['40%', '55%'],
+                        btn: ['确定', '取消'],
+                        yes : function(index) {
+                            var rolesIdS = [];
+                            /**存取所有选中行的id值 */
+                            $(".role-checkbox").each(function() {
+                                if($(this).prop("checked")) {
+                                    rolesIdS.push(parseInt($(this).val()));
+                                }
+                            })
+                            console.log(rolesIdS)
+                            $.post(home.urls.role.deleteByIds(), {
+                                _method : "delete", ids : rolesIdS
+                            },function(result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        roleManagement.init()
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                }) 
+                            })
+                            layer.close(index);
+                        }
+                        ,btn2 : function(index) {
+                            layer.close(index);
+                        }
+                    })
+                }
             })
         }
          /**绑定刷新事件 */
         ,bindRefreshEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
             })
         }
          /**绑定搜索事件 */
@@ -119,7 +162,7 @@ var role_management = {
             roles.forEach(function(e){
                 $tbody.append(
                     "<tr>" + 
-                    "<td><input type='checkbox' value="+e.id+"></td>" +
+                    "<td><input type='checkbox' value="+e.id+" class='role-checkbox' /></td>" +
                     "<td>"+(i++)+"</td>" +
                     "<td>"+(e.name ? e.name : ' ')+"</td>" +
                     "<td>"+(e.id)+"</td>" +
@@ -133,10 +176,14 @@ var role_management = {
                     "</tr>"
                 )
             })
+           
+            /**实现全选 */
+            var checkedBoxLength = $(".role-checkBox:checked").length;
+            home.funcs.bindselectAll($("#role-checkBoxAll"), $(".role-checkbox"), checkedBoxLength, $("#roleManagementTable"));
             /**绑定单条记录删除事件 */
-            role_management.funcs.bindDeleteByIdEvents($(".delete"))
+            roleManagement.funcs.bindDeleteByIdEvents($(".delete"));
             /**绑定编辑角色事件 */
-            role_management.funcs.bindEditorRolesEvents($(".editor"))
+            roleManagement.funcs.bindEditorRolesEvents($(".editor"));
             /**绑定成员管理事件 */
             /**绑定编辑权限事件 */
         }
@@ -151,24 +198,19 @@ var role_management = {
                     btn: ['确定', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var id = parseInt(_this.attr('id').substr(7)) ;
+                        var id = parseInt(_this.attr('id').substr(7))
                         console.log(id)
-                        $.ajax({
-                            type : "DELETE",
-                            url : home.urls.role.deleteById() ,
-                            data : {"id" : id},
-                            success: function (result) {
-                                if (result.code === 0) {
-                                    var time = setTimeout(function () {
-                                        role_management.init()
-                                        clearTimeout(time)
-                                    }, 500)
-                                }
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
-                                    time: 700
-                                })
+                        $.post(home.urls.role.deleteById() , { _method : "delete", id : id }, function (result) {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    roleManagement.init()
+                                    clearTimeout(time)
+                                }, 500)
                             }
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })    
                         })
                         layer.close(index)
                     },
@@ -181,7 +223,8 @@ var role_management = {
         ,bindEditorRolesEvents : function(buttons) {
             buttons.off('click').on('click',function() {
                var id = $(this).attr('id').substr(5);
-               
+               $("#roleNames").val("");
+               $("#roledescription").val("");
                $.get(home.urls.role.getById(),{ id:id }, function(result) {
                    var roles = result.data;
                    var id = roles.id;
@@ -213,7 +256,7 @@ var role_management = {
                                })
                                if(result.code === 0) {
                                    var time = setTimeout(function() {
-                                       role_management.init();
+                                       roleManagement.init();
                                        clearTimeout(time);
                                    },500)
                                }

@@ -305,5 +305,28 @@ var home = {
                 
             })
         }
+        /**绑定全选事件 */
+        /**
+         * selectAllBox ：表示thead中的checkbox的id
+         * subCheckBoxes ：表示每行的class
+         * checkedBoxLen ：表示被选中的行数
+         * $table ：表示表格的id
+         */
+        ,bindselectAll : function (selectAllBox, subCheckBoxes, checkedBoxLen, $table) {
+            selectAllBox.off('change').on('change', function() {
+                var status = selectAllBox.prop('checked');
+                subCheckBoxes.each(function() {
+                    $(this).prop('checked',status);
+                })
+            })
+            subCheckBoxes.off('click').on('click', function() {
+                var statusNow = $(this).prop('checked');
+                if(statusNow == false) {
+                    selectAllBox.prop('checked', false);
+                } else if(statusNow === true && checkedBoxLen.length === $table.children('tbody').children('tr').length) {
+                    selectAllBox.prop('checked', true);
+                }
+            })
+        }
     }
 }
