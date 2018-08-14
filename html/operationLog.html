@@ -1,0 +1,68 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span>开始日期：<input id="beginDate" type="text" placeholder="请选择时间"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>结束日期：<input id="endData" type="text" placeholder="请选择时间"></span>&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="downloadButton"><a href="#"><i class="layui-icon">&#xe608;</i>下载</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="operationLogTable">
+        <thead>
+            <tr>
+                <td class="checkBox_td"><input type="checkbox" /></td>
+                <td>序号</td>
+                <td>用户名称</td>
+                <td>工号</td>
+                <td>操作对象</td>
+                <td>操作类型</td>
+                <td class="dataDescription">操作数据描述</td>
+                <td>操作时间</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="operationLogPage"></div>
+    <!-- 提交需要注意路径 -->
+    <script src="selfjs/operationLog.js"></script>
+    <script type="application/javascript">
+        $(function(){
+            operationLog.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#beginDate',
+                btns: ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endData',
+                btns: ['now']
+            })
+        })
+    </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="updateModal" class="hide">
+        <p><input ></p>
+    </div>
+</div>
