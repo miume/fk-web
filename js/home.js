@@ -28,6 +28,14 @@ var home = {
             update : function() {
                 return servers.backup() + "role/update" ;
             },
+        },
+        loginLog:{
+            getAllByPage : function(){
+                return servers.backup() + "loginLog/getAllByPage";
+            },
+            getByDate : function(){
+                return servers.backup() + "loginLog/getByDate";
+            }
         }
         ,operation : {
             getAllByPage : function() {

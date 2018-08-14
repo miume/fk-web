@@ -1,0 +1,57 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            开始日期：<input type="text" id="startTime-login" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            结束日期：<input type="text" id="endTime-login" placeholder="请选择时间">
+            <span id="searchButton-login"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            <span id="downloadButton-login"><a href="#"><i class="layui-icon">&#xe615;</i>下载</a></span>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="deleteButton-login"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="loginLogManagementTable">
+        <thead>
+            <tr>
+                <td class="checkBox_td"><input type="checkbox" /></td>
+                <td>序号</td>
+                <td>用户名称</td>
+                <td>工号</td>
+                <td>登录IP</td>
+                <td>登录机器名</td>
+                <td>登录时间</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="loginLogManagement_page"></div>
+    <script src="selfjs/loginLogManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            login_log_management.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime-login',
+                btns:['now'],
+                done:function(value,date){
+                    var date = value.splite('-').join('/')
+                    $('#startTime-login').value = date;
+                }
+            });
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#endTime-login'
+            });
+        })
+    </script>
+</div>
