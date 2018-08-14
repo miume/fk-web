@@ -223,7 +223,9 @@ body .layui-ext-yourskin .layui-layer-btn {
 .layui-table tr th {
     text-align: center;
 }
-
+body .layui-ext-yourskin .layui-layer-btn {
+    background-color: #62a49a;
+}
 .fl {
     float: left;
 }
@@ -231,7 +233,18 @@ body .layui-ext-yourskin .layui-layer-btn {
 .fr {
     float: right;
 }
+.hideModal {
+    text-align: center;
+    padding-top: 10px;
 
+}
+input {
+    border-radius:3px; 
+    border:1px solid #c8cccf;
+}
+.hideModal p {
+    margin: 10px 0 10 0;
+}
 .display-component-container {
     min-width: 880px;
     padding:20px;
