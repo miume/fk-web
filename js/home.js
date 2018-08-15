@@ -35,7 +35,10 @@ var home = {
             },
             getByDate : function(){
                 return servers.backup() + "loginLog/getByDate";
-            }
+            },
+            deleteByIds:function(){
+                return servers.backup() + "loginLog/deleteByIds"; 
+            },
         }
         ,operation : {
             getAllByPage : function() {

@@ -17,7 +17,7 @@
     <table id="loginLogManagementTable">
         <thead>
             <tr>
-                <td class="checkBox_td"><input type="checkbox" /></td>
+                <td class="checkBox_td"><input type="checkbox" id="loginLog-checkBoxAll"></td>
                 <td>序号</td>
                 <td>用户名称</td>
                 <td>工号</td>
@@ -42,15 +42,20 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem:'#startTime-login',
-                btns:['now'],
+                btns: ['now'],
                 done:function(value,date){
-                    var date = value.splite('-').join('/')
-                    $('#startTime-login').value = date;
+                    
                 }
             });
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
             var laydate = layui.laydate;
             laydate.render({
-                elem:'#endTime-login'
+                elem:'#endTime-login',
+                btns: ['now'],
+                
             });
         })
     </script>
