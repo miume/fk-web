@@ -1,4 +1,30 @@
 <div class="display-component-container" id="model-li-hide-2">
+    <style type="text/css">
+        #rolesPermissiomTable {
+            width:100%;
+            background-color: white;
+            margin-top:20px;
+        }
+        #tableHead {
+            width : 90%;
+            margin : 0 auto;
+        }
+        #tableDiv {
+            width : 90%;
+            height : 500px;
+            margin : 0 auto;
+            overflow-y: auto;
+        }
+        #tableTbody td,
+        #tableTbody tr{
+            font-size: 12px;
+            text-align: left;
+            position: relative;
+        }
+        #rolesPermissiomTable i {
+            color:rgb(134,134,134);
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p>
@@ -47,5 +73,31 @@
     <div id="updateModal" class="hide hideModal">
         <p><span>角色名称:</span><input type="text" placeholder="请输入角色名称" id="roleNames"></p>
         <p><span>角色描述:</span><input type="text" placeholder="请输入角色描述" id="roledescription"></p>
+    </div>
+    <!--编辑权限 弹出界面-->
+    <div id="rolesPermissiomTable" class="hide">
+        <!--固定表头-->
+        <table id="tableHead">
+            <colgroup style="width:29.5%;"></colgroup>
+            <colgroup style="width:6.5%;"></colgroup>
+            <colgroup style="width:63%;"></colgroup>
+            <thead  style="text-align:center;background: #f8f8f8;color:black;">
+                <tr>
+                    <td>子模块选择</td>
+                    <td>选择</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+        </table>
+        <div id="tableDiv">
+        <table id="tableTbody">
+            <colgroup style="width:30.4%;"></colgroup>
+            <colgroup style="width:6.6%;"></colgroup>
+            <colgroup style="width:63%;"></colgroup>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
     </div>
 </div> 
