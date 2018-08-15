@@ -2,10 +2,11 @@ var operationLog = {
     init: function () {
         /**获取操作日志信息分页显示 */
         operationLog.funcs.renderTable();
-        var out = $("operationLogPage").width();
+        
+        var out = $("#operationLogPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
-            $('#operationLogPage').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            $("#operationLogPage").css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
             clearTimeout(time);
         },30);
     }
@@ -47,7 +48,7 @@ var operationLog = {
             /**绑定下载事件 */
             operationLog.funcs.bingDownloadEvents($("#downloadButton"));
             /**绑定批量删除事件 */
-            operationLog.funcs.bindDeleteByIdsEvents($("#deleteButton"))
+            operationLog.funcs.bindDeleteByIdsEvents($("#deleteButton"));
         }
         /**绑定搜索事件 */
         ,bingSearchEvents : function (buttons) {
@@ -130,6 +131,14 @@ var operationLog = {
             $tbody.empty();
             var i = 1 + page * 10;
             operations.forEach(function(e){
+                var shortDescription = e.description;
+                if(shortDescription==null){
+                    shortDescription = "无";
+                }else if(shortDescription.length > 10 ){
+                    shortDescription = shortDescription.substr(0,20)+"...";
+                }else(
+                    shortDescription = e.description 
+                );
                 $tbody.append(
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+"></td>" +
@@ -138,12 +147,15 @@ var operationLog = {
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.object ? e.object : ' ')+"</td>" +
                     "<td>"+(e.type ? e.type : ' ')+"</td>" +
-                    "<td>"+(e.description ? e.description : ' ')+"</td>" +
+                    "<td>"+"<div>"+"<abbr title=\""+(e.description ? e.description : '无')+"\">"+(shortDescription)+"</abbr>"+"</div>"+"</td>"+
                     "<td>"+(e.time ? e.time : ' ')+"</td>" +
                     "</tr>"
                 )
             })
         }
+
+        
+        
         // ,bindDeleteByIdsEvents : function(buttons){
         //     buttons.off('click').on('click',function(){
         //         var _this = $(this);
