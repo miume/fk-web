@@ -49,15 +49,58 @@ var login_log_management = {
             login_log_management.funcs.bindDeleteByIdsEvents($("#deleteButton-login"));                                               
         }
         /**绑定搜索事件 */
-        ,bindSearchEvents:function(buttons){
+        ,bindSearchEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                var dateStart = new Date($(startTime-login).val()).Format('yyyy/MM/dd')
+                var dateEnd = new Date($(endTime-login).val()).Format('yyyy/MM/dd')
             })
         }
         /**绑定批量删除事件 */
         ,bindDeleteByIdsEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                if($('.loginLog-checkbox:checked').length === 0){
+                    layer.msg('亲，您还没有选中任何数据!',{
+                        offset:['%40','55%'],
+                        time:700
+                    })
+                }else{
+                    layer.open({
+                        type:1,
+                        title:'批量删除',
+                        content:"<h5 style='text-align:center;'>您确定要删除所有数据吗？</h5>",
+                        area: ['200px','140px'],
+                        offset : ['40%', '55%'],
+                        btn: ['确定', '取消'],
+                        yes : function(index) {
+                            var loginsIds = [];
+                            /**存取所有选中行的id值 */
+                            $(".loginLog-checkbox").each(function() {
+                                if($(this).prop("checked")) {
+                                    loginsIds.push(parseInt($(this).val()));
+                                }
+                            })
+                            console.log(loginsIds)
+                            $.post(home.urls.loginLog.deleteByIds(), {
+                                _method : "delete", ids : loginsIds.toString()
+                            },function(result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        login_log_management.init()
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                }) 
+                            })
+                            layer.close(index);
+                        }
+                        ,btn2 : function(index) {
+                            layer.close(index);
+                        }
+                    })
+                }
             })
         }
          /**绑定下载事件 */
@@ -73,7 +116,7 @@ var login_log_management = {
             loginLogs.forEach(function(e){
                 $tbody.append(
                     "<tr>" + 
-                    "<td><input type='checkbox' value="+e.id+"></td>" +
+                    "<td><input type='checkbox' value="+e.id+" class='loginLog-checkbox'></td>" +
                     "<td>"+(i++)+"</td>" +
                     "<td>"+(e.user.name ? e.user.name : ' ')+"</td>" +
                     "<td>"+(e.user.id)+"</td>" +
@@ -82,7 +125,11 @@ var login_log_management = {
                     "<td>"+(e.time ? new Date(e.time).Format('yyyy-MM-dd') : ' ')+"</td>" +
                     "</tr>"
                 )
-            })            
+            })
+            
+            /**实现全选 */
+            var checkedBoxLength = $(".loginLog-checkbox:checked").length;
+            home.funcs.bindselectAll($("#loginLog-checkBoxAll"), $(".loginLog-checkbox"), checkedBoxLength, $("#loginLogManagementTable"));
         }        
     }
 }
