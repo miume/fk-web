@@ -53,9 +53,11 @@ var operationLog = {
         /**绑定搜索事件 */
         ,bingSearchEvents : function (buttons) {
             buttons.off('click').on('click',function(){
-                var beginDate = $('#beginDate').val();
-                var endDate = $('#endData').val();
-                $.get(home.urls.operation.getByDate(),{startDate: beginDate, endDate: endDate},function(result){
+                var beginDates = $('#beginDate').val();
+                // console.log(beginDate);
+                var endDates = $('#endData').val();
+                // console.log(endDate);
+                $.get(home.urls.operation.getByDate(),{startDate: beginDates, endDate: endDates},function(result){
                     var page = result.data;
                     var operations = result.data.content; //获取数据
                     const $tbody = $("#operationLogTable").children("tbody");
@@ -96,8 +98,8 @@ var operationLog = {
         /**绑定批量删除事件 */
         ,bindDeleteByIdsEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                if($('.checkbox:checked').length == 0) {
-                    layer.msg('亲,您还没有选中任何数据！', {
+                if($(".operation-checkbox:checked").length === 0) {
+                    layer.msg('您还没有选中任何数据！', {
 						offset: ['40%', '55%'],
 						time: 700
 					})
@@ -106,21 +108,37 @@ var operationLog = {
                         type: 1,
 						title: '批量删除',
 						content: "<h5 style='text-align: center;padding-top: 8px'>确认要删除选中记录吗?</h5>",
-						area: ['190px', '130px'],
+						area: ['200px', '140px'],
 						btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function(index) {
                             var operationLogIds = [];
-                            $('.checkbox').each(function(){
-                                if($(this).prop('checked')) {
-                                    operationLogIds.push({
-                                        id: $(this).val()
-                                    })
+                            /**存取所有选中行的id值 */
+                            $(".operation-checkbox").each(function(){
+                                if($(this).prop("checked")) {
+                                    operationLogIds.push(parseInt($(this).val()));
                                 }
                             })
-                            $.ajax({
-                                // url:home.urls.operation.
+                            // console.log(operationLogIds.toString());
+                            $.post(home.urls.operation.deleteByIds(), {
+                                _method : "delete", ids : operationLogIds.toString()
+                            },function(result) {
+
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        operationLog.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
                             })
+                            layer.close(index);
+                        }
+                        ,btn2 : function(index) {
+                            layer.close(index);
                         }
                     })
                 }
@@ -141,54 +159,24 @@ var operationLog = {
                 );
                 $tbody.append(
                     "<tr>" + 
-                    "<td><input type='checkbox' value="+e.id+"></td>" +
+                    "<td><input type='checkbox' value="+e.id+" class='operation-checkbox' /></td>" +
                     "<td>"+(i++)+"</td>" +
                     "<td>"+(e.user ? e.user : ' ')+"</td>" +
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.object ? e.object : ' ')+"</td>" +
                     "<td>"+(e.type ? e.type : ' ')+"</td>" +
-                    "<td>"+"<div>"+"<abbr title=\""+(e.description ? e.description : '无')+"\">"+(shortDescription)+"</abbr>"+"</div>"+"</td>"+
+                    "<td>"+"<div>"+"<abbr title=\""+(e.description ? e.description : '无')+"\" style=\"cursor:pointer\">"+(shortDescription)+"</abbr>"+"</div>"+"</td>"+
                     "<td>"+(e.time ? e.time : ' ')+"</td>" +
                     "</tr>"
                 )
             })
+            /**实现全选 */
+            var checkedBoxLength = $(".operation-checkbox:checked").length;
+            home.funcs.bindselectAll($("#operation-checkBoxAll"), $(".operation-checkbox"), checkedBoxLength, $("#operationLogTable"));
         }
 
         
         
-        // ,bindDeleteByIdsEvents : function(buttons){
-        //     buttons.off('click').on('click',function(){
-        //         var _this = $(this);
-        //         layer.open({
-        //             type: 1,
-        //             title: '删除',
-        //             content: "<h5 style='text-align:center;'>确定要删除删除该记录吗？</h5>",
-        //             area: ['200px','140px'],
-        //             btn: ['确定','取消'],
-        //             offset: ['40%','55%'],
-        //             yes: function(index) {
-        //                 var id = _this.attr('id').substr(7);
-        //                 $.post(home.urls.operation.deleteById(), {
-        //                     _method:"delete",id:id
-        //                 }, function(result){
-        //                     layer.msg(result.message, {
-        //                         offset: ['40%', '55%'],
-        //                         time: 700
-        //                     })
-        //                     if(result.code == 0){
-        //                         var time = setTimeout(function(){
-        //                             operationLog.init();
-        //                             clearTimeout(time)
-        //                         },500)
-        //                     }
-        //                     layer.close(index);
-        //                 })
-        //             },
-        //             btn2 : function(index){
-        //                 layer.close(index);
-        //             }
-        //         })
-        //     })
-        // }
+
     }
 }

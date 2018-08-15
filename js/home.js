@@ -44,7 +44,9 @@ var home = {
             getByDate : function() {
                 return servers.backup() + "actionLog/getByDate" ;
             },
-            
+            deleteByIds : function() {
+                return servers.backup() + "actionLog/deleteByIds" ;
+            }
         }
         ,department : {
             deleteByIds : function() {
@@ -72,18 +74,6 @@ var home = {
                 return servers.backup() + "department/update" ;
             },
         }
-
-        ,operation : {
-            getAllByPage : function() {
-                return servers.backup() + "actionLog/getAllByPage" ;
-            },
-            getByDate : function() {
-                return servers.backup() + "actionLog/getByDate" ;
-            },
-            
-
-        }
-
     }
    
     /** start */
