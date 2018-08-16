@@ -1,3 +1,204 @@
-<div class="display-component-container" id="model-li-hide-2">
-        <h1>用户管理界面</h1>
+<div class="display-component-container" >
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                <style type="text/css">
+                    .the_head {
+                        background: rgb(107,107,107);
+                        color: white;
+                        text-align: center;
+                        list-style: none;
+                        padding: 5px;
+                        font-weight: 600;
+                    }
+                    #setRole_body{
+                        display: none; 
+                        margin-left: 25px;
+                        margin-right: 20px;
+                        margin-top: 40px;
+                    }
+            
+                    .clear {
+                        clear: both;
+                    }
+            
+                    #setRole_body header {
+                        text-align: center;
+                        float: left;
+                        border: rgb(112,118,139) solid 1px;
+                        position: relative;
+                        font-size: 15px;
+                    }
+            
+                    #setRole_body ul {
+                        padding-left: 0;
+                        height: 100%;
+                        margin: 0;
+                    }
+            
+                    #setRole_body button {
+                        padding : 5 30;
+                        margin-top:90px;
+                        margin-left:15px;
+                    }
+            
+                    #setRole_body ul .roles {
+                        list-style: none;
+                        text-align: right;
+                        padding: 8px;
+                        font-size: 14px;
+                        font-weight: 400;
+                        border-bottom: 1px rgb(112,118,139) solid;
+                        overflow: hidden;            
+                    }
+            
+                    #setRole_body ul li input {
+                        margin-right: 30px;
+                        margin-left: 25px;
+                    }
+            
+                    .contents{
+                        float: left;
+                        height: 355px;
+                        border: rgb(112,118,139) solid 1px;
+                        overflow-y: scroll;    
+                    }
+            
+                    .middle{
+                        float: left;
+                        height: 355px;
+                        border-bottom: rgb(112,118,139) solid 1px;
+                        border-top: rgb(112,118,139) solid 1px;
+                    }
+            
+                    #user_department ul li {
+                        cursor: pointer;
+                        padding: 10px;
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                    #user_department ul {
+                        text-align: center;
+                        border: 1px darkgrey solid;
+                    }
+                    .selected_department {
+                        background: rgb(112,118,139);
+                    }
+                </style>
+        <div class="block-quote">
+                <div class="fl">
+                    <p>
+                        <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                        <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
+                        <span id="initPasswordButton"><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>重置密码</a></span>&nbsp;&nbsp;
+                        <span id="editPasswordButton"><a href="#"><i class="fa fa-unlock-alt" aria-hidden="true"></i>修改初始密码</a></span>
+                    </p>
+                </div>
+                <div class="fr">
+                    <p>
+                        <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="text" placeholder="请输入用户名" id="inputUserName" />
+                        <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                    </p>
+                </div>
+            </div>
+            <!--留白-->
+            <div class="whitespace"></div>
+            <div style="position:relative; margin-top: 20px;">
+                <div id="user_department" style="width:13%; float:left;">
+                    <ul>
+        
+                    </ul>
+                </div>
+        
+                <div id="user_message" style="width:85%; float:right;">
+                    <table id="user_table" style="width: 100%;">
+                        <thead style="background: #666666;">
+                            <tr>
+                                <td class="checkBox_td">
+                                    <input id="user_checkAll" type="checkbox">
+                                </td>
+                                <td>用户名称</td>
+                                <td>工号</td>
+                                <td>家庭住址</td>
+                                <td>所属角色</td>
+                                <td>部门</td>
+                                <td>手机号码</td>
+                                <td>性别</td>
+                                <td>是否启用</td>
+                                <td>设置部门</td>
+                                <td>设置角色</td>
+                                <td class="edit_td">编辑</td>
+                                <td class="delete_td">删除</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div id="user_page"></div>
+                </div>
+            </div>
+
+            <div id="setRole_body">
+
+                <header style="width: 41%">   
+                        <li class="the_head">未分配角色</li>
+                </header>
+                <header style="width: 16%">   
+                        <li class="the_head">操作</li>
+                </header>
+                <header style="width: 41%">   
+                        <li class="the_head">已分配角色</li>
+                </header>
+        
+                <div class="clear"></div>
+        
+                <div class="contents" style="width: 41%">
+                        <ul id="un_role">
+                        </ul>
+                </div>
+                <div class="middle" style="width: 16%">
+                        <ul id="button">
+                            <button id="add_roles"></button>
+                            <button id="delete_roles"></button>
+                        </ul>
+                </div>
+                <div class="contents" style="width: 41%">
+                        <ul id="have_role">
+                        </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <script src="selfjs/userManagement.js"></script>
+            <script type="application/javascript">
+                $(function () {
+                /** 页面加载完的一瞬间 */
+                user_manage.init()
+                })
+                </script>
+        <!--隐藏部分 （弹出框显示部分）-->
+        <div id="addUserModal" style="width: 500px;" class="hide hideModal"> <!--class="hide hideModal"-->
+                <div class= "fl">
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">用户编码:</sapn><input type="text"  id="addUserId" ></p>
+                                <p>
+                                        <sapn style="display: inline-block;width: 60px;text-align: right" id="addUserSex">性别:</sapn>
+                                        <input type="radio" name="sex" value="nan"  checked>&nbsp;&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="sex" value="nv" >&nbsp;&nbsp;女
+                                </p>
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">家庭住址:</sapn><input type="text"  id="addUserAdress"></p>
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right" id="addUserEnable">启用:</sapn>
+                                        <input type="radio" name="enable" value="true"  checked>&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="enable" value="false"  >&nbsp;&nbsp;否
+                                </p>
+                </div>
+                <div class= "fr">
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">用户名称:</sapn><input type="text"  id="addUserName" ></p>
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">所属部门:</sapn><select style="width: 150px;" id="addUserDepartmentName"></select></p>
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">电话号码:</sapn><input type="text"  id="addUserTel"></p>
+                                <p><sapn style="display: inline-block;width: 60px;text-align: right">岗位名称:</sapn><select style="width: 150px;" id="addUserJobName"></select></p>
+                </div>
+                
+        </div>
+
+        
 </div>

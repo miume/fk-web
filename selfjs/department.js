@@ -58,7 +58,7 @@ var department = {
             $.get(home.urls.department.getAll(),{},function(result) {
                 var departments = result.data;
                 const $selector = $("#searchDepartmentName");
-                department.funcs.renderHandler4($selector, departments);
+                department.funcs.renderHandler3($selector, departments);
             })
         }
         ,renderAddSelector : function() {
@@ -76,15 +76,18 @@ var department = {
             $.get(home.urls.department.getById(),{id : id},function(result) {
                 var dpts = result.data;
                 const $selector2 = $("#updateParentDepartmentName");
-                department.funcs.renderHandler3($selector2,dpts);
-                    $("#updateParentDepartmentName").on('click',function() {
-                        $.get(home.urls.department.getAll(),{},function(result) {
-                            var departments = result.data;
-                            department.funcs.renderHandler1($selector2, departments);
-                        })
+                department.funcs.renderHandler2($selector2,dpts);
+            //     $("#updateParentDepartmentName").off('click')
+                $("#updateParentDepartmentName").on('click',function() {
+                    $(this).off('click');
+                    $.get(home.urls.department.getAll(),{},function(result) {
+                        var departments = result.data;
+                        department.funcs.renderHandler1($selector2, departments);
                     })
-
+                   
+                })
             })
+               
         }
         /**绑定新增事件 */
         ,bindAddEvents : function(buttons){
@@ -276,21 +279,14 @@ var department = {
                 )
             })
         }
-        /**getById()*/
-        ,renderHandler2 : function($selector, departments) {
-            $selector.empty() ;
-                $selector.append(
-                        "<option value=\"" + (departments.id) +"\""+ ">"+ (e.name) + "</option>"
-                )
-        }
         /**getById()----parentDepartmentId */
-        ,renderHandler3 : function($selector, departments) {
+        ,renderHandler2 : function($selector, departments) {
             $selector.empty() ;
                 $selector.append(
                         "<option value=\"" + (departments.parentDepartment ? departments.parentDepartment.id : ' ') +"\""+ ">"+ (departments.parentDepartment ? departments.parentDepartment.name : ' ') + "</option>"
                 )
         }
-        ,renderHandler4 : function($selector, departments) {    
+        ,renderHandler3 : function($selector, departments) {    
             $selector.empty() ;
             var v = -1;
             var s = "请选择部门";

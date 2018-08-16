@@ -79,6 +79,59 @@ var home = {
             update : function() {
                 return servers.backup() + "department/update" ;
             },
+            getTop: function() {
+                return servers.backup() + "department/getTop" ;
+            },
+            getSonByParent: function() {
+                return servers.backup() + "department/getSonByParent" ;
+            },
+        }
+        ,user : {
+            add : function() {
+                return servers.backup() + "user/add" ;
+            },
+            assignRolesToUsers : function() {
+                return servers.backup() + "user/assignRolesToUsers";
+            },
+            deleteById : function() {
+                return servers.backup() + "user/deleteById" ;
+            },
+            deleteByIds : function() {
+                return servers.backup() + "user/deleteByIds" ;
+            },
+            getAll : function() {
+                return servers.backup() + "user/getAll" ;
+            },
+            getAllByPage : function() {
+                return servers.backup() + "user/getAllByPage" ;
+            },
+            getByDepartment : function() {
+                return servers.backup() + "user/getByDepartment" ;
+            },
+            getById : function() {
+                return servers.backup() + "user/getById" ;
+            },
+            getByNameLikeByPage : function() {
+                return servers.backup() + "user/getByNameLikeByPage" ;
+            },
+            getPermissionsById : function() {
+                return servers.backup() + "user/getPermissionsById" ;
+            },
+            getRolesById : function() {
+                return servers.backup() + "user/getRolesById" ;
+            },
+            login : function() {
+                return servers.backup() + "user/login" ;
+            },
+            resetPassword : function() {
+                return servers.backup() + "user/resetPassword" ;
+            },
+            update : function() {
+                return servers.backup() + "user/update" ;
+            },
+            updatePassword : function() {
+                return servers.backup() + "user/updatePassword" ;
+            },
         }
     }
    
