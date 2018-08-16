@@ -52,7 +52,10 @@ var home = {
             },
             deleteByIds : function() {
                 return servers.backup() + "actionLog/deleteByIds" ;
-            }
+            },
+            getByDateToExcel : function() {
+                return servers.backup() + "actionLog/getByDateToExcel"
+            },
         }
         ,department : {
             deleteByIds : function() {
