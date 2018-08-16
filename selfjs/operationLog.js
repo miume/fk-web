@@ -71,8 +71,8 @@ var operationLog = {
                         jump: function(obj, first) {
                             if(!first) {
                                 $.get(home.urls.operation.getByDate(),{
-                                    startDate: beginDate,
-                                    endDate: endDate,
+                                    startDate: beginDates,
+                                    endDate: endDates,
                                     page : obj.curr - 1 ,
                                     size : obj.limit
                                 },function(result) {
