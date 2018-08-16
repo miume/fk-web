@@ -47,6 +47,8 @@ var operationLog = {
             operationLog.funcs.bingSearchEvents($("#searchButton"));
             /**绑定下载事件 */
             operationLog.funcs.bingDownloadEvents($("#downloadButton"));
+            /**绑定刷新事件 */
+            operationLog.funcs.bindRefreshEvents($("#refreshButton"));
             /**绑定批量删除事件 */
             operationLog.funcs.bindDeleteByIdsEvents($("#deleteButton"));
         }
@@ -57,7 +59,7 @@ var operationLog = {
                 // console.log(beginDate);
                 var endDates = $('#endData').val();
                 // console.log(endDate);
-                $.get(home.urls.operation.getByDate(),{startDate: beginDates, endDate: endDates},function(result){
+                $.post(home.urls.operation.getByDate(),{startDate: beginDates, endDate: endDates},function(result){
                     var page = result.data;
                     var operations = result.data.content; //获取数据
                     const $tbody = $("#operationLogTable").children("tbody");
@@ -70,7 +72,7 @@ var operationLog = {
                         /**页面变换后的逻辑 */
                         jump: function(obj, first) {
                             if(!first) {
-                                $.get(home.urls.operation.getByDate(),{
+                                $.post(home.urls.operation.getByDate(),{
                                     startDate: beginDates,
                                     endDate: endDates,
                                     page : obj.curr - 1 ,
@@ -89,10 +91,15 @@ var operationLog = {
 
             })
         }
-        /**绑定下载事件 */
+        /**绑定导出事件 */
         ,bingDownloadEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                var beginDates = $('#beginDate').val();
+                var endDates = $('#endData').val();
+                // var fileName = beginDates + "--" + endDates + ".xlsx";
+                var href = home.urls.operation.getByDateToExcel()+"?startDate="+ beginDates + "&endDate=" + endDates;
+                // $("#downloadA").attr("download",fileName);
+                $("#downloadA").attr("href",href);
             })
         }
         /**绑定批量删除事件 */
@@ -144,6 +151,24 @@ var operationLog = {
                 }
             })
         }
+        /**绑定刷新事件 */
+        ,bindRefreshEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                var index = layer.load(2, { offset : ['40%','50%']});
+                var time = setTimeout(function(){
+                    layer.msg('刷新成功', {
+                        offset : ['40%','50%'],
+                        time : 700
+                    })
+                    operationLog.init();
+                    $("#beginDate").val("");
+                    $("#endData").val("");
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
+            })
+        }
+
         ,renderHandler : function ($tbody, operations, page) {
             //清空表格
             $tbody.empty();
