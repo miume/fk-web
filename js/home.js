@@ -27,7 +27,10 @@ var home = {
             },
             update : function() {
                 return servers.backup() + "role/update" ;
-            }
+            },
+            getPermissionsById : function() {
+                return servers.backup() + "role/getPermissionsById" ;
+            },
         },
         loginLog:{
             getAllByPage : function(){
@@ -35,7 +38,10 @@ var home = {
             },
             getByDate : function(){
                 return servers.backup() + "loginLog/getByDate";
-            }
+            },
+            deleteByIds:function(){
+                return servers.backup() + "loginLog/deleteByIds"; 
+            },
         }
         ,operation : {
             getAllByPage : function() {
@@ -44,7 +50,9 @@ var home = {
             getByDate : function() {
                 return servers.backup() + "actionLog/getByDate" ;
             },
-            
+            deleteByIds : function() {
+                return servers.backup() + "actionLog/deleteByIds" ;
+            }
         }
         ,department : {
             deleteByIds : function() {
@@ -72,18 +80,6 @@ var home = {
                 return servers.backup() + "department/update" ;
             },
         }
-
-        ,operation : {
-            getAllByPage : function() {
-                return servers.backup() + "actionLog/getAllByPage" ;
-            },
-            getByDate : function() {
-                return servers.backup() + "actionLog/getByDate" ;
-            },
-            
-
-        }
-
     }
    
     /** start */
@@ -119,7 +115,7 @@ var home = {
         home.navigations = userJson.navigations;
         home.menu1s = [];
         home.menu2s = [];
-        console.log(home.navigations)
+        //console.log(home.navigations)
         /**遍历用户导航信息，从而获取导航菜单，一级菜单和二级菜单 填充home.navigations,home.menu1,home.menu2 */
         /**得先对获取得导航菜单、一级菜单、二级菜单进行排序 */
         var navigationsCodes = []  //用户导航菜单去重
@@ -309,7 +305,7 @@ var home = {
                     /**填充三级菜单 */
                     menu2Wrapper.empty();
                     home.menu2s.forEach(function(ele){
-                        console.log(ele)
+                        //console.log(ele)
                         menu2Wrapper.append("<li id='menu2-li-" + (ele.id) +"' class='menu2-tab-bar whiteFontMenu2'><a href='#'>"+ (ele.name) +"</a></li>",null);
                     })
                     /**此处二级菜单已填充完毕 */
