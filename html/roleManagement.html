@@ -24,6 +24,61 @@
         #rolesPermissiomTable i {
             color:rgb(134,134,134);
         }
+        .theHead {
+            background : rgb(107,107,107);
+            color : white;
+            text-align :center;
+            list-style: none;
+            padding : 5px;
+            font-weight : 600;
+        }
+        #assignRole {
+            background-color: white;
+            margin:20px;
+        }
+        #assignRole button {
+            padding : 5 30;
+            margin-top:90px;
+            margin-left:15px;
+        }
+        #assignRole header {
+            text-align: center;
+            float: left;
+            border : rgb(112,118,139) solid 1px;
+            position : relative;
+            font-size : 15px;
+        }
+        #assignRole ul {
+            padding-left: 0px;
+            height : 100%;
+            margin : 0;
+        }
+        #assignRole ul li input {
+            margin-right: 30px;
+            margin-left: 25px;
+        }
+        #assignRole ul .roles {
+            list-style: none;
+            text-align: right;
+            padding: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px rgb(112,118,139) solid;
+            overflow: hidden;            
+        }
+
+        .contents {
+            float : left;
+            height  : 350px;
+            border : rgb(112,118,139) solid 1px;
+            overflow-y : scroll;
+        }
+        .middle {
+            float: left;
+            height : 350px;
+            border-bottom: rgb(112,118,139) solid 1px;
+            border-top: rgb(112,118,139) solid 1px;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -81,7 +136,7 @@
             <colgroup style="width:29.5%;"></colgroup>
             <colgroup style="width:6.5%;"></colgroup>
             <colgroup style="width:63%;"></colgroup>
-            <thead  style="text-align:center;background: #f8f8f8;color:black;">
+            <thead style="text-align:center;background: #f8f8f8;color:black;">
                 <tr>
                     <td>子模块选择</td>
                     <td>选择</td>
@@ -100,4 +155,33 @@
         </table>
     </div>
     </div>
+    <!--设置角色 弹出界面-->
+    <div id="assignRole" class="hide">
+        <!--固定表头-->
+        <header style="width:40%;">
+            <li class="theHead">未分配角色</li>
+        </header>
+        <header style="width:19%">
+            <li class="theHead">操作</li>
+        </header>
+        <header style="width:40%">
+            <li class="theHead">已分配角色</li>
+        </header>
+        
+        <div class="clear"></div>
+
+        <div class="contents" style="width:40%">
+            <ul id="unsignedRoles"></ul>
+        </div>
+
+        <div class="middle" style="width:19%">
+             <ul id="button">
+                    <button id="add_roles"><i class="layui-icon layui-btn-small">&#xe602;</i></button>
+                    <button id="delete_roles"><i class="layui-icon layui-btn-small">&#xe603;</i></button>
+                </ul>
+        </div>
+
+        <div class="contents" style="width:40%">
+            <ul id="signedRoles"></ul>
+        </div>
 </div> 

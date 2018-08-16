@@ -73,7 +73,7 @@ var roleManagement = {
                     yes : function(index) {
                         var name = $("#roleNames").val();
                         var description = $("#roledescription").val();
-                        if(name===null){
+                        if(name === ""){
                             layer.msg('角色名称不能为空!');
                             return 
                         }
@@ -105,7 +105,7 @@ var roleManagement = {
         /**绑定批量删除事件 */
         ,bindDeleteByIdsEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                if($(".role-checkBox:checked").length === 0) {
+                if($(".role-checkbox:checked").length === 0) {
                     layer.msg('您还没选中任何数据!', {
                         offset : ['40%', '55%'],
                         time : 700
@@ -216,7 +216,7 @@ var roleManagement = {
                     "<td>"+(e.createTime ? new Date(e.createTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
                     "<td>"+(e.updateTime ? new Date(e.updateTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
                     "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
-                    "<td><a href='#' id = 'editPeople-"+(e.id)+"'><i class='fa fa-user-circle' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class = 'assignRoleToUsers' id = 'editPeople-"+(e.id)+"'><i class='fa fa-user-circle' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class = 'editRolesPermission' id='editRoles-"+(e.id)+"'><i class='fa fa-key fa-rotate-90' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class = 'delete' id='delete-"+(e.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>"
@@ -231,6 +231,7 @@ var roleManagement = {
             /**绑定编辑角色事件 */
             roleManagement.funcs.bindEditorRolesEvents($(".editor"));
             /**绑定成员管理事件 */
+            roleManagement.funcs.bindAssignRoleToUsers($(".assignRoleToUsers"));
             /**绑定编辑权限事件 */
             roleManagement.funcs.bindEditRolesPermissions($(".editRolesPermission"))
         }
@@ -290,7 +291,7 @@ var roleManagement = {
                        yes: function(index){
                            var name = $("#roleNames").val();
                            var description = $("#roledescription").val();
-                           if(name===null){
+                           if(name===""){
                                layer.msg('角色名称不能为空!');
                                return 
                            }
@@ -464,10 +465,8 @@ var roleManagement = {
                         $(".allOperations:checked").each(function(){
                             container.push($(this).parent('td').next('td'));
                         })
-                        console.log(container.length)
+                        //console.log(container.length)
                         container.forEach(function(ele){
-                            var operationId 
-                            var roleId 
                             var secondLevelMenuId = ele.attr('id').substr(14)   //二级菜单
                             var subCheckbox = ele.children('.operationbox:checked');
                             subCheckbox.each(function() {
@@ -478,6 +477,7 @@ var roleManagement = {
                                 })
                             })
                         })
+                        //console.log(roleModalOperations)
                         $.ajax({
                             url: home.urls.role.assignPermissions(),
                             contentType : 'application/json',
@@ -503,6 +503,99 @@ var roleManagement = {
                 })
             })
         }
-
+        /**绑定成员管理事件 */
+        ,bindAssignRoleToUsers : function(buttons) {
+            buttons.off('click').on('click', function() {
+                console.log(1)
+                $("#assignRole").removeClass('hide');
+                var roleId = $(this).attr('id').substr(11);
+                $.get(home.urls.role.getAssignUsersById(), { id : roleId }, function(result) {
+                    var res = result.data;
+                    var assignUsers = res.assignUsers;
+                    var unassignUsers = res.unassignUsers;
+                    $("#unsignedRoles").empty();
+                    $("#signedRoles").empty();
+                    unassignUsers.forEach(function(e) {
+                        $("#unsignedRoles").append(
+                            "<li class='roles' id='leftRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input type='checkbox' class='leftRoles' value="+ (e.id) +" /></li>"
+                        )
+                    })
+                    assignUsers.forEach(function(e) {
+                        $("#signedRoles").append(
+                            "<li class='roles' id='rightRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input class='rightRoles' type='checkbox' value="+ (e.id) +" /></li>"
+                        )
+                    })
+                    layer.open({
+                        type : 1,
+                        title : "设置角色",
+                        content : $("#assignRole"), 
+                        area : ['620px', '500px'],
+                        btn : ['确定' , '取消'],
+                        offset: ['20%', '35%'],
+                        closeBtn : 0,
+                        yes : function(index) {
+                            /**分配角色给用户 */
+                            var userIds = new Array();
+                            $(".rightRoles").each(function() {
+                                userIds.push($(this).val());
+                            })
+                            console.log(userIds);
+                            $.post(home.urls.role.assignRoleToUsers() , {
+                                roleId : roleId,
+                                userIds : userIds.toString()
+                            }, function(result){
+                                if(result.code === 0) {
+                                    var time = setTimeout(function() {
+                                        roleManagement.init();
+                                        clearTimeout(time);
+                                    }, 500);
+                                }
+                                layer.msg(result.message,{
+                                    offset : ['40%', '55%'],
+                                    time : 700
+                                })
+                            })
+                            $("#assignRole").addClass('hide');
+                            layer.close(index);
+                        },
+                        btn2 : function(index) {
+                            $("#assignRole").addClass('hide');
+                            layer.close(index);
+                        }
+                    })
+                    roleManagement.funcs.bindrightMoveEvents($("#add_roles"));
+                    roleManagement.funcs.bindleftMoveEvents($("#delete_roles"));
+                })
+            })
+        }
+        /**绑定设置角色里面 右移事件 */
+        ,bindrightMoveEvents : function(buttons) {
+            buttons.off('click').on('click', function() {
+                $(".leftRoles").each(function() {
+                    if($(this).prop("checked")){
+                        var id = $(this).val();
+                        var name = $(this).parent().text();
+                        $("#signedRoles").append(
+                            "<li class='roles' id='rightRoles-"+ (id) +"'>"+ (name) +"&nbsp;&nbsp;&nbsp;<input class='rightRoles' type='checkbox' value="+ (id) +" /></li>"
+                        )  
+                        $("#leftRoles-"+id).remove();
+                    } 
+                })
+            })
+        }
+        ,bindleftMoveEvents : function(buttons) {
+            buttons.off('click').on('click', function() {
+                $(".rightRoles").each(function() {
+                    if($(this).prop("checked")) {
+                        var id = $(this).val();
+                        var name = $(this).parent().text();
+                        $("#unsignedRoles").append(
+                            "<li class='roles' id='leftRoles-"+ (id) +"'>"+ (name) +"&nbsp;&nbsp;&nbsp;<input class='leftRoles' type='checkbox' value="+ (id) +" /></li>"
+                        )
+                        $("#rightRoles-"+id).remove();
+                    }
+                })
+            })
+        }
     }
 }
