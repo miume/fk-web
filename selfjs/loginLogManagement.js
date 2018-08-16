@@ -46,13 +46,59 @@ var login_log_management = {
             /**绑定下载事件 */
             login_log_management.funcs.bindDownloadEvents($("#downloadButton-login")); 
             /**绑定批量删除事件 */
-            login_log_management.funcs.bindDeleteByIdsEvents($("#deleteButton-login"));                                               
+            login_log_management.funcs.bindDeleteByIdsEvents($("#deleteButton-login"));
+            /**绑定刷新事件 */
+            login_log_management.funcs.bindRefreshEvents($("#refreashLogin"));                                               
+        }
+        /**绑定刷新事件 */
+        ,bindRefreshEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    login_log_management.init();
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
+            })
         }
         /**绑定搜索事件 */
         ,bindSearchEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                var dateStart = new Date($(startTime-login).val()).Format('yyyy/MM/dd')
-                var dateEnd = new Date($(endTime-login).val()).Format('yyyy/MM/dd')
+                var dateStart = $('#startTime-login').val();
+                var dateEnd = $('#endTime-login').val();
+                $.post(home.urls.loginLog.getByDate(),{startDate: dateStart, endDate: dateEnd},function(result){
+                    var page = result.data;
+                    var operations = result.data.content; //获取数据
+                    const $tbody = $("#loginLogManagementTable").children("tbody");
+                    login_log_management.funcs.renderHandler($tbody, operations, 0);
+                    login_log_management.pageSize = result.data.length;
+                    /**分页信息 */
+                    layui.laypage.render({
+                        elem: "loginLogManagement_page",
+                        count: 10 * page.totalPages,
+                        /**页面变换后的逻辑 */
+                        jump: function(obj, first) {
+                            if(!first) {
+                                $.post(home.urls.loginLog.getByDate(),{
+                                    startDate: dateStart,
+                                    endDate: dateEnd,
+                                    page : obj.curr - 1 ,
+                                    size : obj.limit
+                                },function(result) {
+                                    var operations = result.data.content;
+                                    var page = obj.curr - 1;
+                                    const $tbody = $("#loginLogManagementTable").children("tbody");
+                                    login_log_management.funcs.renderHandler($tbody, operations, page);
+                                    login_log_management.pageSize = result.data.length;
+                                })
+                            }
+                        }
+                })
+            })
             })
         }
         /**绑定批量删除事件 */
@@ -106,6 +152,13 @@ var login_log_management = {
          /**绑定下载事件 */
         ,bindDownloadEvents : function(buttons){
             buttons.off('click').on('click',function(){
+                var dateStart = $('#startTime-login').val();
+                var dateEnd = $('#endTime-login').val();
+                //$.post(home.urls.loginLog.getByDateToExcel(),{startDate: dateStart, endDate: dateEnd},function(result){
+
+                //})
+                var url = home.urls.loginLog.getByDateToExcel() + "?startDate=" + dateStart + "&endDate=" + dateEnd;
+                $("#download-id").attr("href",url);
 
             })
         }
@@ -118,11 +171,11 @@ var login_log_management = {
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='loginLog-checkbox'></td>" +
                     "<td>"+(i++)+"</td>" +
-                    "<td>"+(e.user.name ? e.user.name : ' ')+"</td>" +
-                    "<td>"+(e.user.id)+"</td>" +
+                    "<td>"+(e&&e.user&&e.user.name ? e.user.name : '')+"</td>" +
+                    "<td>"+(e&&e.user&&e.user.id ? e.user.id : '')+"</td>" +
                     "<td>"+(e.ipAddress)+"</td>" +
-                    "<td>"+(e.address ? e.address : ' ')+"</td>" +
-                    "<td>"+(e.time ? new Date(e.time).Format('yyyy-MM-dd') : ' ')+"</td>" +
+                    "<td>"+(e.address ? e.address : '')+"</td>" +
+                    "<td>"+(e.time ? new Date(e.time).Format('yyyy-MM-dd') : '')+"</td>" +
                     "</tr>"
                 )
             })

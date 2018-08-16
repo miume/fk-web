@@ -31,6 +31,12 @@ var home = {
             getPermissionsById : function() {
                 return servers.backup() + "role/getPermissionsById" ;
             },
+            getAssignUsersById : function() {
+                return servers.backup() + "role/getAssignUsersById" ;
+            },
+            assignRoleToUsers : function() {
+                return servers.backup() + "role/assignRoleToUsers" ;
+            },
         },
         loginLog:{
             getAllByPage : function(){
@@ -42,6 +48,9 @@ var home = {
             deleteByIds:function(){
                 return servers.backup() + "loginLog/deleteByIds"; 
             },
+            getByDateToExcel : function(){
+                return servers.backup() + "loginLog/getByDateToExcel";
+            },
         }
         ,operation : {
             getAllByPage : function() {
@@ -52,7 +61,10 @@ var home = {
             },
             deleteByIds : function() {
                 return servers.backup() + "actionLog/deleteByIds" ;
-            }
+            },
+            getByDateToExcel : function() {
+                return servers.backup() + "actionLog/getByDateToExcel"
+            },
         }
         ,department : {
             deleteByIds : function() {
