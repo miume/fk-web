@@ -48,6 +48,9 @@ var home = {
             deleteByIds:function(){
                 return servers.backup() + "loginLog/deleteByIds"; 
             },
+            getByDateToExcel : function(){
+                return servers.backup() + "loginLog/getByDateToExcel";
+            },
         }
         ,operation : {
             getAllByPage : function() {
