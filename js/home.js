@@ -31,6 +31,12 @@ var home = {
             getPermissionsById : function() {
                 return servers.backup() + "role/getPermissionsById" ;
             },
+            getAssignUsersById : function() {
+                return servers.backup() + "role/getAssignUsersById" ;
+            },
+            assignRoleToUsers : function() {
+                return servers.backup() + "role/assignRoleToUsers" ;
+            },
         },
         loginLog:{
             getAllByPage : function(){
