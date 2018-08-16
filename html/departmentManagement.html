@@ -1,3 +1,64 @@
-<div class="display-component-container" id="model-li-hide-2">
-    wtf
-</div>
+<div id='model-li-hide-1' class="display-component-container">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                    <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                </p>
+            </div>
+            <div class="fr">
+                <p>
+                    <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select id="searchDepartmentName" style="width:120px;">
+                        <option value="-1">请选择部门名称</option>
+                    </select>
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="departmentTable">
+            <thead>
+                <tr>
+                    <td class="checkBox_td"><input type="checkbox" id = "department-checkBoxAll" /></td>
+                    <td>序号</td>
+                    <td>部门编码</td>
+                    <td>部门名称</td>
+                    <td>部门信息</td>
+                    <td>所属部门编码</td>
+                    <td>所属部门名称</td>
+                    <td>编辑</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+    
+            </tbody>
+        </table>
+        <div id="department_page"></div>
+        <script src="selfjs/department.js"></script>
+        <script type="application/javascript">
+            $(function() {
+                department.init();
+            });
+            $(function() {
+                $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>')
+            })
+        </script>
+        <!--隐藏部分（弹出框显示部分）-->
+        <div id="addDptModal" class="hide hideModal">
+                <p><sapn style="display: inline-block;width: 90px;text-align: right">部门编码:</sapn><input type="text" placeholder="自增长（无需传参）" id="addDepartmentId" disabled="disabled"></p>
+                <p><sapn style="display: inline-block;width: 90px;text-align: right">部门名称:</sapn><input type="text" placeholder="新增部门名称" id="addDepartmentName"></p>
+                <p><sapn style="display: inline-block;width: 90px;text-align: right">部门信息:</sapn><input type="text" placeholder="新增部门信息" id="addDepartmentInfo"></p>
+                <p><sapn style="display: inline-block;width: 90px;text-align: right">所属部门名称:</sapn><select style="width: 150px;" id="addParentDepartmentName">
+                        <option value="-1">无父部门</option>
+                </select></p>
+        </div>
+        <div id="updateDptModal" class="hide hideModal">
+            <p><span style="display: inline-block;width: 90px;text-align: right">部门编码:</span><input type="text" placeholder="" id="updateDepartmentId" disabled="disabled"></p>
+            <p><span style="display: inline-block;width: 90px;text-align: right">部门名称:</span><input type="text" placeholder="" id="updateDepartmentName"></p>
+            <p><span style="display: inline-block;width: 90px;text-align: right">部门信息:</span><input type="text" placeholder="" id="updateDepartmentInfo"></p>
+            <p><sapn style="display: inline-block;width: 90px;text-align: right">所属部门名称:</sapn><select style="width: 150px;" id="updateParentDepartmentName"></select></p>
+        </div>
+      </div
