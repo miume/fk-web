@@ -148,6 +148,17 @@ var home = {
         ,materialManagement : {
             
         }
+        ,operationManagement : {
+            getAllByPage : function() {
+                return servers.backup() + "operation/getAllByPage" ;
+            },
+            getById : function() {
+                return servers.backup() + "operation/getById" ;
+            },
+            update : function() {
+                return servers.backup() + "operation/update" ;
+            },
+        }
     }
    
     /** start */

@@ -1,0 +1,34 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span>操作管理</span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="operationManagementTable">
+        <thead>
+            <tr>
+                <td>code</td>
+                <td>操作名称</td>
+                <td>编辑</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="operationManagementPage"></div>
+    <script src="selfjs/operationManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            operationManagement.init();
+        })
+    </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="updateModal" class="hide hideModal">
+        <p><span>操作名称:</span><input type="text" placeholder="请输入操作名称" id="operationNames"></p>
+    </div>
+</div>
