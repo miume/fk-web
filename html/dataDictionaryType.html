@@ -1,0 +1,42 @@
+<div class="display-component-container" >
+    <meta charset="utf-8">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                字典类别：<input type="text" id="dictionaryType">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="editButton"><a href="#"><i class="layui-icon">&#xe642;</i>编辑</a></span>&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="dataTypeTable">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>编号</td>
+                <td>名称</td>
+                <td>值</td>
+            </tr>
+            <tbody>
+
+            </tbody>
+        </thead>
+    </table>
+    <div id="dataType_page"></div>
+    <script src="selfjs/dataDictionaryType.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            dataTypeManagement.init();
+        })
+    </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="updateModal" class="hide hideModal">
+            <p><span>编号:</span><input type="text" id="dataTypeNum"></p>
+            <p><span>名称:</span><input type="text" id="dataTypeName"></p>
+            <p><span>值:</span><input type="text" id="dataTypeValue"></p>
+    </div>
+</div>
