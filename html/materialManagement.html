@@ -1,0 +1,74 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                结束日期：<input id="endData" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="materialManagementTable">
+        <thead>
+            <tr>
+                <td rowspan="2" class="checkBox_td"><input type="checkbox" id="materialManagement-checkBoxAll" /></td>
+                <td rowspan="2">时间</td>
+                <td colspan="9">实际用量（t）</td>
+                <td rowspan="2">录入时间</td>
+                <td rowspan="2">录入人</td>
+                <td rowspan="2">修改时间</td>
+                <td rowspan="2">修改人</td>
+                <td rowspan="2">操作</td>
+            </tr>
+            <tr>
+                <td>硫酸铜</td>
+                <td>丁黄药</td>
+                <td>乙黄药</td>
+                <td>乙硫氮</td>
+                <td>二号油</td>
+                <td>DS剂</td>
+                <td>硫酸</td>
+                <td>石灰</td>
+                <td>钢球</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="materialManagementPage"></div>
+    <script src="selfjs/materialManagement.js"></script>
+    <script type="application/javascript">
+        $(function(){
+            materialManagement.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                btns: ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endData',
+                btns: ['now']
+            })
+        })
+    </script>
+</div>

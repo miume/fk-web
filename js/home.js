@@ -52,7 +52,7 @@ var home = {
                 return servers.backup() + "loginLog/getByDateToExcel";
             },
         }
-        ,operation : {
+        ,operationLog : {
             getAllByPage : function() {
                 return servers.backup() + "actionLog/getAllByPage" ;
             },
@@ -144,6 +144,9 @@ var home = {
             updatePassword : function() {
                 return servers.backup() + "user/updatePassword" ;
             },
+        }
+        ,materialManagement : {
+            
         }
     }
    

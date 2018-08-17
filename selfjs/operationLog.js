@@ -16,7 +16,7 @@ var operationLog = {
         /**渲染页面 */
         renderTable: function() { 
             /**获取所有的记录 */
-            $.get(home.urls.operation.getAllByPage(),{ page : 0}, function(result) {
+            $.get(home.urls.operationLog.getAllByPage(),{ page : 0}, function(result) {
                 var operations = result.data.content;
                 const $tbody = $("#operationLogTable").children("tbody");
                 operationLog.funcs.renderHandler($tbody, operations, 0);
@@ -29,7 +29,7 @@ var operationLog = {
                     /**页面变换后的逻辑 */
                     jump: function(obj, first) {
                         if(!first) {
-                            $.get(home.urls.operation.getAllByPage(),{
+                            $.get(home.urls.operationLog.getAllByPage(),{
                                 page : obj.curr - 1 ,
                                 size : obj.limit
                             },function (result) {
@@ -45,7 +45,7 @@ var operationLog = {
             })
             /**绑定搜索事件 */
             operationLog.funcs.bingSearchEvents($("#searchButton"));
-            /**绑定下载事件 */
+            /**绑定导出事件 */
             operationLog.funcs.bingDownloadEvents($("#downloadButton"));
             /**绑定刷新事件 */
             operationLog.funcs.bindRefreshEvents($("#refreshButton"));
@@ -54,12 +54,14 @@ var operationLog = {
         }
         /**绑定搜索事件 */
         ,bingSearchEvents : function (buttons) {
-            buttons.off('click').on('click',function(){
+            buttons.off('click').on('click',function() {
                 var beginDates = $('#beginDate').val();
-                // console.log(beginDate);
                 var endDates = $('#endData').val();
-                // console.log(endDate);
-                $.post(home.urls.operation.getByDate(),{startDate: beginDates, endDate: endDates},function(result){
+                if(beginDates === "" && endDates === ""){
+                    layer.msg('日期选择不能为空！');
+                    return
+                }
+                $.post(home.urls.operationLog.getByDate(),{startDate: beginDates, endDate: endDates},function(result){
                     var page = result.data;
                     var operations = result.data.content; //获取数据
                     const $tbody = $("#operationLogTable").children("tbody");
@@ -72,7 +74,7 @@ var operationLog = {
                         /**页面变换后的逻辑 */
                         jump: function(obj, first) {
                             if(!first) {
-                                $.post(home.urls.operation.getByDate(),{
+                                $.post(home.urls.operationLog.getByDate(),{
                                     startDate: beginDates,
                                     endDate: endDates,
                                     page : obj.curr - 1 ,
@@ -88,17 +90,18 @@ var operationLog = {
                         }
                     })
                 })
-
             })
         }
         /**绑定导出事件 */
-        ,bingDownloadEvents : function(buttons){
-            buttons.off('click').on('click',function(){
+        ,bingDownloadEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
                 var beginDates = $('#beginDate').val();
                 var endDates = $('#endData').val();
-                // var fileName = beginDates + "--" + endDates + ".xlsx";
-                var href = home.urls.operation.getByDateToExcel()+"?startDate="+ beginDates + "&endDate=" + endDates;
-                // $("#downloadA").attr("download",fileName);
+                if(beginDates === "" && endDates === ""){
+                    layer.msg('日期选择不能为空！');
+                    return
+                }
+                var href = home.urls.operationLog.getByDateToExcel()+"?startDate="+ beginDates + "&endDate=" + endDates;
                 $("#downloadA").attr("href",href);
             })
         }
@@ -127,7 +130,7 @@ var operationLog = {
                                 }
                             })
                             // console.log(operationLogIds.toString());
-                            $.post(home.urls.operation.deleteByIds(), {
+                            $.post(home.urls.operationLog.deleteByIds(), {
                                 _method : "delete", ids : operationLogIds.toString()
                             },function(result) {
 
