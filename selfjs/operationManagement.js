@@ -52,7 +52,7 @@ var operationManagement = {
                 "<tr>" + 
                 "<td>"+(e.id)+"</td>" +
                 "<td>"+(e.name ? e.name : '无')+"</td>" +
-                "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='fa fa-edit' aria-hidden='true'></i></a></td>" +
+                "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                 "</tr>"
             )
         })
