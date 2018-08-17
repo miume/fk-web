@@ -1,0 +1,130 @@
+<div class="display-component-container">
+    <style type="text/css">
+        header  {
+            text-align: center;
+            float: left;
+            width:25%;
+            border:#949494 solid 1px;
+            position:relative;
+            top: 1px;
+        }
+        header li{
+            background : #5179cc;
+            padding: 10px;
+            text-align: center;
+            list-style-type: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .menu {
+            float: left;
+            width:25%;
+            height:60%;
+            border: #949494 solid 1px;
+            overflow-y:scroll;
+        }
+        footer {
+            color: #5179cc;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            float: left;
+            width: 25%;
+            border: #949494 solid 1px;
+            position: relative;
+            bottom: 1px;
+            padding: 10px 0 10px 0;
+        }
+        footer a {
+            text-decoration: none;
+            color: #569196;
+        }
+        footer a :hover {
+            color: #01AAED;
+        }
+        footer a:active {
+            color: #2D93CA;
+        }
+        .menu ul {
+            padding-left: 0px;
+            height: 100%;
+            margin: 0;
+        }
+        .menu ul li {
+            list-style: none;
+            text-align: center;
+            padding: 10px 45px 10px 45px;
+            font-size: 13px;
+            font-weight: 500;
+            color: black;
+            border-bottom: 1px #949494 solid;
+            overflow:hidden;
+        }
+        .menu ul li a {
+            color: #2c2e35;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+               <span class="blue_font">菜单管理</span> 
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <!--上 header-->
+    <div class="headers">
+        <header>
+            <li>导航菜单</li>
+        </header>
+        <header>
+            <li>一级菜单</li>
+        </header>
+        <header>
+            <li>二级菜单</li>
+        </header>
+        <header>
+            <li>操作</li>
+        </header>
+    </div>
+    <div class="clear"></div>
+    <!--中 middle-->
+    <div class="menu">
+        <ul id="navigations"></ul>
+    </div>
+
+    <div class="menu">
+        <ul id="firstMenu"></ul>
+    </div>
+
+    <div class="menu">
+        <ul id="secondMenu"></ul>
+    </div>
+
+    <div class="menu">
+        <ul id="operations"></ul>
+    </div>
+    <div class="clear"></div>
+    <!--下 footer-->
+    <div class="footers">
+        <footer>
+            <a href="#" class="addBtn" id="add-1" style="color:white;">+添加导航菜单</a>
+        </footer>
+        <footer>
+            <a href="#" class="addBtn" id="add-2">+添加一级菜单</a>
+        </footer>
+        <footer>
+            <a href="#" class="addBtn" id="add-3">+添加二级菜单</a>
+        </footer> 
+        <footer>
+            <a href="#" class="addBtn" id="operation-manage">+添加操作</a>
+        </footer>   
+    </div>
+    <script src="selfjs/menuManagement.js"></script>
+    <script>
+        $(function() {
+            menuManagement.init();
+        })
+    </script>
+</div>
