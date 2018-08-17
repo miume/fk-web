@@ -338,7 +338,7 @@ input {
     font-size: 14px;
 }
 .block-quote span{
-    color:#62a49a;
+    color:#1E9FFF;
 }
 .whitespace {
     height: 20px;
@@ -360,7 +360,7 @@ input {
     background: #4779d2;
 }
 .blue_font a{
-    color: #1E9FFF;
+    color:#1E9FFF;
 }
 .vertical_center {
     display: flex;
