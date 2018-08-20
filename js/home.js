@@ -205,7 +205,6 @@ var home = {
                 return servers.backup() + "secondLevelMenu/shift" ;
             },
         }
-<<<<<<< HEAD
         ,operationManagement : {
             getAllByPage : function() {
                 return servers.backup() + "operation/getAllByPage";
@@ -216,7 +215,7 @@ var home = {
             update : function() {
                 return servers.backup() + "operation/update";
             }
-=======
+        }
         ,dataDictionary : {
             add : function(){
                 return servers.backup() + "dataDictionary/add";
@@ -254,7 +253,6 @@ var home = {
             update : function(){
                 return servers.backup() + "dataDictionary/update";
             },
->>>>>>> ck5
         }
     }
    
