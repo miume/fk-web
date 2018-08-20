@@ -205,6 +205,44 @@ var home = {
                 return servers.backup() + "secondLevelMenu/shift" ;
             },
         }
+        ,dataDictionary : {
+            add : function(){
+                return servers.backup() + "dataDictionary/add";
+            },
+            deleteById : function(){
+                return servers.backup() + "dataDictionary/deleteById";
+            },
+            deleteByIds : function(){
+                return servers.backup() + "dataDictionary/deleteByIds";
+            },
+            getAll : function(){
+                return servers.backup() + "dataDictionary/getAll";
+            },
+            getAllByPage : function(){
+                return servers.backup() + "dataDictionary/getAllPage";
+            },
+            getAllByParentId : function(){
+                return servers.backup() + "dataDictionary/getAllByParentId";
+            },
+            getAllChildrensByPage : function(){
+                return servers.backup() + "dataDictionary/getAllChildrensByPage";
+            },
+            getAllParents : function(){
+                return servers.backup() + "dataDictionary/getAllParents";
+            },
+            getByDicId : function(){
+                return servers.backup() + "dataDictionary/getByDicId";
+            },
+            getById : function(){
+                return servers.backup() + "dataDictionary/getById";
+            },
+            getChildrensByPageNameLike : function(){
+                return servers.backup() + "dataDictionary/getChildrensByPageNameLike";
+            },
+            update : function(){
+                return servers.backup() + "dataDictionary/update";
+            },
+        }
     }
    
     /** start */
