@@ -44,7 +44,7 @@ var dataTypeManagement = {
             /**绑定新增事件 */
             dataTypeManagement.funcs.bindAddEvents($("#addButton"));
             /**绑定批量删除事件 */
-            dataTypeManagement.funcs.bindDeleteByIdsEvents($("#deleteButton"));
+            dataTypeManagement.funcs.bindDeleteTypeById($("#deleteButton"));
             /**绑定刷新事件 */
             dataTypeManagement.funcs.bindRefreshEvents($("#refreshButton"));
             /**绑定查询事件 */
@@ -65,10 +65,66 @@ var dataTypeManagement = {
                 }, 200)
             })
         }
+        /**绑定批量删除事件 */
+        ,bindDeleteTypeById : function(buttons){
+            buttons.off('click').on('click',function(){
+
+            })
+        }
+        /**绑定查询事件 */
+        ,bindSearchEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                
+            })
+        }
         /**绑定新增事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on('click',function(){
-
+                $("#dataTypeNum").val("");
+                $("#dataTypeName").val("");
+                $("#dataTypeValue").val("");
+                $("#updateModal").removeClass("hide");
+                layer.open({
+                    type : 1,
+                    title : "新增",
+                    content : $("#updateModal"),
+                    area : ['380px', '200px'],
+                    btn : ['确定' , '取消'],
+                    offset : ['40%' , '45%'],
+                    closeBtn: 0,
+                    yes : function(index) {
+                        var name = $("#dataTypeName").val();
+                        var num = $("#dataTypeNum").val();
+                        var value = $("#dataTypeValue").val();
+                        if(name === ""&&num === ""&&value === ""){
+                            layer.msg('所填信息不能为空!');
+                            return 
+                        }
+                        $.post(home.urls.dataDictionary.add() , {
+                            dicName : name,
+                            dicId : num,
+                            dicContent : value,
+                            dicParentId : -1
+                        }, function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%' , '55%'],
+                                time : 700
+                            })
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    dataTypeManagement.init();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        })
+                        $("#updateModal").addClass("hide");
+                        layer.close(index);
+                    },
+                    btn2 : function(index) {
+                        $("#updateModal").addClass("hide");
+                        layer,close(index);
+                    }
+                })
             })
         }
         ,renderHandler : function($tbody, dataTypes, page){
@@ -83,10 +139,30 @@ var dataTypeManagement = {
                     "<td>"+(e&&e.content&&e.content.dicId ? e.content.dicId : '')+"</td>" +
                     "<td>"+(e&&e.content&&e.content.dicName ? e.content.dicName : '')+"</td>" +
                     "<td>"+(e&&e.content&&e.content.dicContent ? e.content.dicContent : '')+"</td>" +
-                    "<td><a href='#' class='editor' id='edit-"+(e.content.dicId)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" + 
-                    "<td><a href='#' class = 'delete' id='delete-"+(e.content.dicId)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editor' id='edit-"+(e.content.id)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" + 
+                    "<td><a href='#' class = 'delete' id='delete-"+(e.content.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>"
                 )
+            })
+
+            /**实现全选 */
+            var checkedBoxLength = $(".dataType-checkbox:checked").length;
+            home.funcs.bindselectAll($("#dataType-checkBoxAll"), $(".dataType-checkbox"), checkedBoxLength, $("#dataTypeTable"));
+            /**绑定单条记录删除事件 */
+            dataTypeManagement.funcs.bindDeleteByIdEvents($(".delete"));
+            /**绑定编辑角色事件 */
+            dataTypeManagement.funcs.bindEditorRolesEvents($(".editor"));
+        }
+        /**绑定单条删除事件 */
+        ,bindDeleteByIdEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                
+            })
+        }
+        /**绑定编辑事件 */
+        ,bindEditorRolesEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                
             })
         }
     }
