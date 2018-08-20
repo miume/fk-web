@@ -70,6 +70,10 @@ var login_log_management = {
             buttons.off('click').on('click',function(){
                 var dateStart = $('#startTime-login').val();
                 var dateEnd = $('#endTime-login').val();
+                if(dateStart === "" && dateEnd === ""){
+                    layer.msg('日期选择不能为空！');
+                    return
+                }
                 $.post(home.urls.loginLog.getByDate(),{startDate: dateStart, endDate: dateEnd},function(result){
                     var page = result.data;
                     var operations = result.data.content; //获取数据
@@ -157,6 +161,10 @@ var login_log_management = {
                 //$.post(home.urls.loginLog.getByDateToExcel(),{startDate: dateStart, endDate: dateEnd},function(result){
 
                 //})
+                if(dateStart === "" && dateEnd === ""){
+                    layer.msg('日期选择不能为空！');
+                    return
+                }
                 var url = home.urls.loginLog.getByDateToExcel() + "?startDate=" + dateStart + "&endDate=" + dateEnd;
                 $("#download-id").attr("href",url);
 
