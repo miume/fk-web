@@ -178,6 +178,9 @@ var home = {
             getById : function() {
                 return servers.backup() + "firstLevelMenu/getById" ;
             },
+            deleteById : function() {
+                return servers.backup() + "firstLevelMenu/deleteById" ;
+            },
             shift : function() {
                 return servers.backup() + "firstLevelMenu/shift" ;
             },
@@ -201,8 +204,19 @@ var home = {
             getById : function() {
                 return servers.backup() + "secondLevelMenu/getById" ;
             },
+            deleteById : function() {
+                return servers.backup() + "secondLevelMenu/deleteById" ;
+            },
             shift : function() {
                 return servers.backup() + "secondLevelMenu/shift" ;
+            },
+            assignOperations : function() {
+                return servers.backup() + "secondLevelMenu/assignOperations" ;
+            },
+        }
+        ,operation : {
+            getAll : function() {
+                return servers.backup() + "operation/getAll" ;
             },
         }
     }

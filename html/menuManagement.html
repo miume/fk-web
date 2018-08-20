@@ -67,6 +67,16 @@
         .selected ,.selected-menu1 ,.selected-menu2{
             background: #f2f2f2;
         }
+        /**弹出表格的样式*/
+        #operationModal {
+            width : 100%;
+            margin-top : 20px;
+        }
+        #operationTable {
+            width : 90%;
+            position: relative;
+            margin: 0 20px ;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -112,7 +122,7 @@
     <!--下 footer-->
     <div class="footers">
         <footer>
-            <a href="#" class="addBtn" id="add" style="color:white;">+添加导航菜单</a>
+            <a href="#" id="add" style="color:white;" >+添加导航菜单</a>
         </footer>
         <footer>
             <a href="#" class="addBtn" id="add-1">+添加一级菜单</a>
@@ -132,10 +142,26 @@
     </script>
     <!--隐藏部分-->
     <div class="hide hideModal" id="EditNavigations">
-        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="navigationNames"></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p><span>路径：</span><input type="text" id="roledescription"></p>
+        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="navigationNames"></p>
+        <!--
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>路径：</span><input type="text" id="roledescription"></p>-->
     </div>
     <div class="hide hideModal" id="EditMenus">
-        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="menuNames"></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="menuNames"></p>
+    </div>
+    <!--新增操作-->
+    <div class="hide" id="operationModal">
+        <table id='operationTable'>
+            <thead>
+                <tr>
+                    <td><input type="checkbox" id="operationBoxAll" /></td>
+                    <td>编码</td>
+                    <td>操作名称</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 </div>
