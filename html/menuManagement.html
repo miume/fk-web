@@ -64,6 +64,9 @@
         .menu ul li a {
             color: #2c2e35;
         }
+        .selected ,.selected-menu1 ,.selected-menu2{
+            background: #f2f2f2;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -109,13 +112,13 @@
     <!--下 footer-->
     <div class="footers">
         <footer>
-            <a href="#" class="addBtn" id="add-1" style="color:white;">+添加导航菜单</a>
+            <a href="#" class="addBtn" id="add" style="color:white;">+添加导航菜单</a>
         </footer>
         <footer>
-            <a href="#" class="addBtn" id="add-2">+添加一级菜单</a>
+            <a href="#" class="addBtn" id="add-1">+添加一级菜单</a>
         </footer>
         <footer>
-            <a href="#" class="addBtn" id="add-3">+添加二级菜单</a>
+            <a href="#" class="addBtn" id="add-2">+添加二级菜单</a>
         </footer> 
         <footer>
             <a href="#" class="addBtn" id="operation-manage">+添加操作</a>
@@ -127,4 +130,12 @@
             menuManagement.init();
         })
     </script>
+    <!--隐藏部分-->
+    <div class="hide hideModal" id="EditNavigations">
+        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="navigationNames"></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p><span>路径：</span><input type="text" id="roledescription"></p>
+    </div>
+    <div class="hide hideModal" id="EditMenus">
+        <p><span>菜单名称：</span><input type="text" placeholder="请输入菜单名称" id="menuNames"></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
 </div>
