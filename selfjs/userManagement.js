@@ -42,11 +42,18 @@ var userManage = {
         , changeDepart: function (set_department) {
             set_department.off('click')
             set_department.on('click', function () {
-                var _self = $(this)
-                $(this).next().addClass("hide")
+                var dv = $(this)
+                if(dv.next('div').is(":hidden")){
+                    dv.siblings('.models').hide();
+                    dv.next('div').show();
+                } else{  
+                    dv.next('div').hide();
+                }
+            //    $(this).siblings('.models').hide();
+                $(this).next().addClass('hide').css('hide','hidden')
                 $('.setdepartment').removeClass('selected_department').css('color', '')
                 $('.sondepartment').removeClass('selected_department').css('color', '')
-                _self.addClass('selected_department').css('color', '#ffffff')
+                $(this).addClass('selected_department').css('color', '#ffffff')
 
                 var id_name = $(this).attr('id')   
                 var the_departmentId = id_name.substr(10)   // 获取父部门 ID
@@ -66,7 +73,10 @@ var userManage = {
                     $sul.empty()
                     users.forEach(function(e){
                         $sul.append(
-                            "<li class='sondepartment' id='setdepart-" + (e.id) + "'>" + (e.name) + "</li>"
+                        "<div id='setdepart-" + (e.id) + "' class='sondepartment'>" +
+                        "<li style='position:relative;left: 15px;'>" + e.name +"</li>" +
+                        "</div>"
+                        //    "<li class='sondepartment' id='setdepart-" + (e.id) + "' style='position:relative;left: 10px;'>" + (e.name) + "</li>"
                         )    
                     })
                     var son_department = $('.sondepartment')
