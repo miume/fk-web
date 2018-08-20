@@ -145,52 +145,64 @@ var home = {
                 return servers.backup() + "user/updatePassword" ;
             },
         }
-        ,materialManagement : {
-            
-        }
-        ,operationManagement : {
-            getAllByPage : function() {
-                return servers.backup() + "operation/getAllByPage" ;
-            },
-            getById : function() {
-                return servers.backup() + "operation/getById" ;
+        ,navigations : {
+            getAll : function() {
+                return servers.backup() + "navigation/getAll" ;
             },
             update : function() {
-                return servers.backup() + "operation/update" ;
-            }
-        ,dictionary : {
-            add : function(){
-                return servers.backup() + "dataDictionary/add";
+                return servers.backup() + "navigation/update" ;
             },
-            deleteById : function(){
-                return servers.backup() + "dataDictionary/deleteById";
+            add : function() {
+                return servers.backup() + "navigation/add" ;
             },
-            deleteByIds : function(){
-                return servers.backup() + "dataDictionary/deleteByIds";
+            getById : function() {
+                return servers.backup() + "navigation/getById" ;
             },
-            getAll : function(){
-                return servers.backup() + "dataDictionary/getAll";
+            shift : function() {
+                return servers.backup() + "navigation/shift" ;
             },
-            getAllByPage : function(){
-                return servers.backup() + "dataDictionary/getAllByPage";
+            getFirstLevelMenusById : function() {
+                return servers.backup() + "navigation/getFirstLevelMenusById" ;
             },
-            getAllByParentId : function(){
-                return servers.backup() + "dataDictionary/getAllByParentId";
+        }
+        ,menu1 : {
+            getAll : function() {
+                return servers.backup() + "firstLevelMenu/getAll" ;
             },
-            getAllChildrensByPage : function(){
-                return servers.backup() + "dataDictionary/getAllChildrensByPage";
+            update : function() {
+                return servers.backup() + "firstLevelMenu/update" ;
             },
-            getAllParents : function(){
-                return servers.backup() + "dataDictionary/getAllParents";
+            add : function() {
+                return servers.backup() + "firstLevelMenu/add" ;
             },
-            getById : function(){
-                return servers.backup() + "dataDictionary/getById";
+            getById : function() {
+                return servers.backup() + "firstLevelMenu/getById" ;
             },
-            getChildrensByPageNameLike : function(){
-                return servers.backup() + "dataDictionary/getChildrensByPageNameLike";
+            shift : function() {
+                return servers.backup() + "firstLevelMenu/shift" ;
             },
-            update : function(){
-                return servers.backup() + "dataDictionary/update";
+            getSecondLevelMenusById : function() {
+                return servers.backup() + "firstLevelMenu/getSecondLevelMenusById" ;
+            },
+        }
+        ,menu2 : {
+            getAll : function() {
+                return servers.backup() + "secondLevelMenu/getAll" ;
+            },
+            getOperationsById : function() {
+                return servers.backup() + "secondLevelMenu/getOperationsById" ;
+            },
+            update : function() {
+                return servers.backup() + "secondLevelMenu/update" ;
+            },
+            add : function() {
+                return servers.backup() + "secondLevelMenu/add" ;
+            },
+            getById : function() {
+                return servers.backup() + "secondLevelMenu/getById" ;
+            },
+            shift : function() {
+                return servers.backup() + "secondLevelMenu/shift" ;
             },
         }
     }
@@ -239,12 +251,12 @@ var home = {
         userJson.navigations.forEach(function(element){
             home.navigationsWrapper.append("<li id='navigations-li-" + (element.id) + "' class='menu-tab-bar whiteFontMenu'><a href='#'>" + element.name + "</a></li>", null);
         })
-        /**选中的一级菜单id 默认为1 */
+        /**选中的导航菜单id 默认为1 */
         var selectedNavigations = localStorage.getItem('selectedNavigation') || $(home.navigationsWrapper.children('li')[0]).attr('id').substr(15);
         var selectedMenu1 = localStorage.getItem('selectedMenu1');
         var selectedMenu2 = localStorage.getItem('selectedMenu2');
         
-        /**给选的一级菜单追加默认selected类标签，也是默认样式 */
+        /**给选的导航菜单追加默认selected类标签，也是默认样式 */
         $('#navigations-li-'+ selectedNavigations).addClass('chosenMenu');
         home.navigationsClicks = home.navigationsWrapper.children('.menu-tab-bar');
         //console.log(home.navigationsClicks)
@@ -493,5 +505,4 @@ var home = {
             })
         }
     }
-}
 }
