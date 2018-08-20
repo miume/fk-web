@@ -199,9 +199,9 @@ var department = {
             buttons.off('click').on('click',function(){
                 
                 var departmentName = $("#searchDepartmentName").find("option:selected").text();
-                console.log(departmentName)
+            //    console.log(departmentName)
                 var departmentId = $("#searchDepartmentName").find("option:selected").val();
-                console.log(departmentId)
+            //    console.log(departmentId)
                 $.get(home.urls.department.getByNameLikeByPage(),
                 {
                     name : departmentName, page : 0

@@ -144,6 +144,12 @@ var home = {
             updatePassword : function() {
                 return servers.backup() + "user/updatePassword" ;
             },
+            updateDepartmentById : function() {
+                return servers.backup() + "user/updateDepartmentById" ;
+            },
+            updateEnableById : function() {
+                return servers.backup() + "user/updateEnableById" ;
+            }
         }
     }
    
