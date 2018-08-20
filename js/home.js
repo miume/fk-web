@@ -155,8 +155,8 @@ var home = {
             getAll : function() {
                 return servers.backup() + "navigation/getAll" ;
             },
-            update : function() {
-                return servers.backup() + "navigation/update" ;
+            updateNameById : function() {
+                return servers.backup() + "navigation/updateNameById" ;
             },
             add : function() {
                 return servers.backup() + "navigation/add" ;
@@ -175,8 +175,8 @@ var home = {
             getAll : function() {
                 return servers.backup() + "firstLevelMenu/getAll" ;
             },
-            update : function() {
-                return servers.backup() + "firstLevelMenu/update" ;
+            updateNameById : function() {
+                return servers.backup() + "firstLevelMenu/updateNameById" ;
             },
             add : function() {
                 return servers.backup() + "firstLevelMenu/add" ;
@@ -201,8 +201,8 @@ var home = {
             getOperationsById : function() {
                 return servers.backup() + "secondLevelMenu/getOperationsById" ;
             },
-            update : function() {
-                return servers.backup() + "secondLevelMenu/update" ;
+            updateNameById : function() {
+                return servers.backup() + "secondLevelMenu/updateNameById" ;
             },
             add : function() {
                 return servers.backup() + "secondLevelMenu/add" ;

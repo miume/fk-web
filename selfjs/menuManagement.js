@@ -64,6 +64,9 @@ var menuManagement = {
       ,renderMenu1 : function(id) {
           $.get(home.urls.navigations.getFirstLevelMenusById() , { id : id } , function(result) {
                 var currentMenu1s = result.data;
+                currentMenu1s.sort(function(a,b) {
+                    return a.rank - b.rank;
+                })
                 /**清空一级菜单的container */
                 $("#firstMenu").empty();
                 currentMenu1s.forEach(function(ele) {
@@ -101,7 +104,7 @@ var menuManagement = {
             currentMenu2s.forEach(function(e) {
                 $("#secondMenu").append(
                     "<li class='item' id='menu2-" + (e.id) + "'><div class='fl'><a href='#' class='mainClick'>" + (e.name) + "</a></div>" +
-                    "<div class='fr' style='position: relative;top: 2px;'>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu3-up-" + (e.id) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;" +
+                    "<div class='fr' style='position: relative;top: 2px;'>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu2-up-" + (e.id) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;" +
                     "<a href='#' class='shift-down' id='menu2-down-" + (e.id) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;" +
                     "<a href='#' class='editBtn' id='menu2-edit-" + (e.id) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu2-del-" + (e.id) + "'><i class='fa fa-trash-o'></i></a></div></li>")
             })
@@ -158,40 +161,54 @@ var menuManagement = {
                 return
             }
             if(_this.attr('id') != 'operation-manage'){
-                $("#menuNames").val('');
-                $("#EditMenus").removeClass('hide');
+                var content,area;
+                if(clickId == 1) {
+                    $("#menu1Names").val('');
+                    $("#path").val('');
+                    content = $("#EditMenu1s");
+                    area = ['280px', '200px'];
+                }
+                if(clickId == 2) {
+                    $("#menu1Names").val('');
+                    $("#path").val('');
+                    content = $("#EditMenus");
+                    area = ['280px', '180px'];
+                }
+                content.removeClass('hide');
                 layer.open({
                     type : 1,
                     title : '添加',
-                    content : $("#EditMenus"),
-                    area : ['280px', '180px'],
+                    content : content,
+                    area : area,
                     btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
+                    offset : ['35%', '35%'],
                     closeBtn : 0,
                     yes : function(index) {
-                        var menuName = $("#menuNames").val();
-                        if(menuName === ''){
-                            layer.msg("新增菜单名称为空！");
-                            return 
-                        }
                         /**请求添加元素的接口地址 */
-                        var addUrl;
+                        var addUrl, menuName;
                         /**请求添加所要传输的数据 */
                         var addData;
                         if(clickId == 1) {
+                            menuName = $("#menu1Names").val();
                             addUrl = home.urls.menu1.add();
                             addData = {
                                 name : menuName,
+                                path : $("#path").val(),
                                 'navigation.id' : $('#navigations').children('.selected').attr('id').substr(12)
                             }  
                         }      
                         if(clickId == 2) {
+                            menuName = $("#menuNames").val();
                             addUrl = home.urls.menu2.add();
                             addData = {
                                 name : menuName,
                                 'navigation.id' : $('#navigations').children('.selected').attr('id').substr(12),
                                 'firstLevelMenu.id' : $('#firstMenu').children('.selected-menu1').attr('id').substr(6)
                             }       
+                        }
+                        if(menuName === ''){
+                            layer.msg("新增菜单名称为空！");
+                            return 
                         }
                         console.log(addUrl)
                         console.log(addData)
@@ -218,11 +235,11 @@ var menuManagement = {
                             })
                             
                         })
-                        $("#EditMenus").addClass('hide');
+                        content.addClass('hide');
                         layer.close(index);
                     }
                     ,btn2 : function(index) {
-                        $("#EditMenus").addClass('hide');
+                        content.addClass('hide');
                         layer.close(index);
                     }
             })
@@ -314,8 +331,8 @@ var menuManagement = {
       ,bindCrubEvent: function () {
           menuManagement.funcs.bindDeleteEventListener($(".deleteBtn"));
           menuManagement.funcs.bindEditEventListener($(".editBtn"));
-          menuManagement.funcs.bindShiftUpListener($(".shift-down"));
-          menuManagement.funcs.bindShiftDownListener($(".shift-up"));
+          menuManagement.funcs.bindShiftUpListener($(".shift-up"));
+          menuManagement.funcs.bindShiftDownListener($(".shift-down"));
      }
      ,bindDeleteEventListener : function(buttons) {
          buttons.off('click').on('click', function() {
@@ -387,35 +404,38 @@ var menuManagement = {
      ,bindEditEventListener : function(buttons) {
         buttons.off('click').on('click', function() {
             var _this = $(this);
-            var id , detailUrl , container,content,flag,updateUrl;
+            var id , detailUrl , container,content,flag,updateUrl,textId;
             switch (_this.attr('id').charAt(4)) {
                 case '1' :
                     (function () {
                         detailUrl = home.urls.menu1.getById();
-                        updateUrl = home.urls.menu1.update();
-                        content = $("#EditMenus");
+                        updateUrl = home.urls.menu1.updateNameById();
+                        content = $("#EditMenu1s");
                         container = $("#firstMenu");
                         id = _this.attr('id').substr(11);
+                        textId = $("#menu1-"+id);
                         flag = 1;
                     })();
                     break;
                 case '2' :
                     (function () {
                         detailUrl = home.urls.menu2.getById();
-                        updateUrl = home.urls.menu2.update();
+                        updateUrl = home.urls.menu2.updateNameById();
                         content = $("#EditMenus");
                         container = $("#secondMenu");
                         id = _this.attr('id').substr(11);
+                        textId = $("#menu2-"+id);
                         flag = 2;
                     })();
                     break;
                 default : {
                     (function () {
                         detailUrl = home.urls.navigations.getById();
-                        updateUrl = home.urls.navigations.update();
-                        content = $("#EditNavigations");
+                        updateUrl = home.urls.navigations.updateNameById();
+                        content = $("#EditMenus");
                         container = $("#navigations");
                         id = _this.attr('id').substr(16);
+                        textId = $("#navigations-"+id);
                         flag = 0;
                     })();
                     break;
@@ -425,10 +445,10 @@ var menuManagement = {
             $.get(detailUrl, { id : id }, function(result) {
                 var menu = result.data;
                 var area;
-                if(flag === 0) {
-                    $("#navigationNames").val(menu.name);
+                if(flag === 1) {
+                    $("#menu1Names").val(menu.name);
                     $("#path").val(menu.path);
-                    area = ['330px' ,'160px'];
+                    area = ['330px' ,'210px'];
                 }
                 else {
                     $("#menuNames").val(menu.name);
@@ -444,33 +464,33 @@ var menuManagement = {
                     offset : ['40%', '45%'],
                     yes : function(index) {
                         var updateData;
-                        if(flag === 0) {
+                        if(flag === 1) {
                             updateData = {
                                 id : id,
-                                name : $("#navigationNames").val(),
+                                name : $("#menu1Names").val(),
                                 path : $("#path").val()
                             }
                         }
                         else {
                             updateData = {
                                 id : id,
-                                name : $("#menuNames").val()
+                                name : $("#menuNames").val(),
+                                //path : $("#path").val()
                             }
                         }
                         /**更新菜单 */
                         $.post(updateUrl, updateData, function(result) {
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    /**如果成功了,要更新相应的菜单外壳，先清空。然后append */
+                                    textId.children('div').children('.mainClick').text(updateData.name)
+                                    clearTimeout(time)
+                                },500)
+                            }
                             layer.msg(result.message, {
                                 offset : ['40%', '55%'],
                                 time : 700
                             })
-                            if(result.code === 0) {
-                                var time = setTimeout(function() {
-                                    /**如果成功了,要更新相应的菜单外壳，先清空。然后append */
-                                    var list = container.children("#" + _this.parent('li').attr('id'));
-                                    list.children('.mainClick').text(updateData.name)
-                                    clearTimeout(time)
-                                },500)
-                            }
                         })
                         content.addClass("hide");
                         layer.close(index);
@@ -486,13 +506,79 @@ var menuManagement = {
     /**上移事件 */
     ,bindShiftUpListener : function(buttons) {
         buttons.off('click').on('click', function() {
-            console.log('shift-up')
+            var _this = $(this);
+            /**点击向上的箭头会交换上一个菜单的rank值 */
+            var menuType = $(this).attr('id').charAt(4);
+            var shiftUrl ,currentId ,beforeId;
+            if(menuType == 1) {
+                shiftUrl = home.urls.menu1.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(6);
+                beforeId = $(this).parent('div').parent('li').prev('li')[0] ? $(this).parent('div').parent('li').prev('li').attr('id').substr(6) : undefined;
+            }else if(menuType == 2){
+                shiftUrl = home.urls.menu2.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(6);
+                beforeId = $(this).parent('div').parent('li').prev('li')[0] ? $(this).parent('div').parent('li').prev('li').attr('id').substr(6) : undefined;
+            }else {
+                shiftUrl = home.urls.navigations.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(12);
+                beforeId = $(this).parent('div').parent('li').prev('li')[0] ? $(this).parent('div').parent('li').prev('li').attr('id').substr(12) : undefined;
+            }
+            if(beforeId != undefined) {
+                $.get(shiftUrl, { id1 : beforeId , id2 : currentId } , function(result) {
+                    layer.msg(result.message, {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    if(result.code === 0) {
+                        var time = setTimeout(function() {
+                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
+                             var beforeOne = _this.parent('div').parent('li').prev('li').detach()
+                             var currentOne = _this.parent('div').parent('li')
+                             currentOne.after(beforeOne)
+                            clearTimeout(time)
+                        },500)
+                    }
+                })
+            }
         })
     }
     /**下移事件 */
     ,bindShiftDownListener : function(buttons) {
         buttons.off('click').on('click', function() {
-            console.log('shift-down')
+            var _this = $(this);
+            /**点击向下的箭头会交换下一个菜单的rank值 */
+            var menuType = $(this).attr('id').charAt(4);
+            var shiftUrl ,currentId,afterCode ;
+            if(menuType == 1) {
+                shiftUrl = home.urls.menu1.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(6);
+                afterCode = $(this).parent('div').parent('li').next('li')[0] ? $(this).parent('div').parent('li').next('li').attr('id').substr(6) : undefined;
+            }else if(menuType == 2){
+                shiftUrl = home.urls.menu2.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(6);
+                afterCode = $(this).parent('div').parent('li').next('li')[0] ? $(this).parent('div').parent('li').next('li').attr('id').substr(6) : undefined;
+            }else {
+                shiftUrl = home.urls.navigations.shift();
+                currentId = $(this).parent('div').parent('li').attr('id').substr(12);
+                afterCode = $(this).parent('div').parent('li').next('li')[0] ? $(this).parent('div').parent('li').next('li').attr('id').substr(12) : undefined;
+            }
+            if(afterCode != undefined) {
+                $.get(shiftUrl, { id1 : afterCode , id2 : currentId } , function(result) {
+                    layer.msg(result.message, {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    if(result.code === 0) {
+                        var time = setTimeout(function() {
+                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
+                             var afterOne = _this.parent('div').parent('li').next('li').detach()
+                             var currentOne = _this.parent('div').parent('li')
+                             currentOne.before(afterOne)
+                            clearTimeout(time)
+                        },500)
+                    }
+                })
+            }
         })
     }
   }
