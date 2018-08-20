@@ -254,6 +254,29 @@ var home = {
                 return servers.backup() + "dataDictionary/update";
             },
         }
+        ,materialTypeInfo : {
+            getAllByPage : function() {
+                return servers.backup() + "materialType/getAllByPage";
+            },
+            add : function() {
+                return servers.backup() + "materialType/add" ;
+            },
+            deleteById : function() {
+                return servers.backup() + "materialType/deleteById";
+            },
+            getAll : function() {
+                return servers.backup() + "materialType/getAll";
+            },
+            getById : function() {
+                return servers.backup() + "materialType/getById";
+            },
+            getByNameLikeByPage : function() {
+                return servers.backup() + "materialType/getByNameLikeByPage";
+            },
+            update : function() {
+                return servers.backup() + "/materialType/update";
+            },
+        }
     }
    
     /** start */
