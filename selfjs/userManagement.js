@@ -685,7 +685,7 @@ var userManage = {
                        type: 1,
                        title: '设置角色',
                        content: $("#setRoleModal"),
-                       area: ['620px', '500px'],
+                       area: ['620px', '550px'],
                        btn: ['确定', '取消'],
                        offset: ['20%','35%'],
                        yes: function(index){
