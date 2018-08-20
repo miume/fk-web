@@ -243,14 +243,17 @@ var home = {
             deleteById : function(){
                 return servers.backup() + "dataDictionary/deleteById";
             },
-            deleteByIds : function(){
-                return servers.backup() + "dataDictionary/deleteByIds";
+            deleteDataById : function(){
+                return servers.backup() + "dataDictionary/deleteDataById";
+            },
+            deleteTypeById : function(){
+                return servers.backup() + "dataDictionary/deleteTypeById";
             },
             getAll : function(){
                 return servers.backup() + "dataDictionary/getAll";
             },
             getAllByPage : function(){
-                return servers.backup() + "dataDictionary/getAllPage";
+                return servers.backup() + "dataDictionary/getAllByPage";
             },
             getAllByParentId : function(){
                 return servers.backup() + "dataDictionary/getAllByParentId";
