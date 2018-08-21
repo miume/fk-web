@@ -1,0 +1,75 @@
+<div class="display-component-container" >
+    <style type="text/css"> 
+        #dataType ul li {
+            cursor: pointer;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .selected_data {
+            background: rgb(112,118,139);
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                字典数据：<input type="text" id="dictionaryData">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+
+    <div style="position:relative; margin-top: 20px;">
+        <div id="dataType" style="width:13%; float:left;">
+            <ul style="text-align: center;border:1px darkgrey solid;">
+
+            </ul>
+        </div>
+        <div id="data" style="width:85%; float:right;">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <td class="checkBox_td">
+                            <input id="data_checkAll" type="checkbox">
+                        </td>
+                        <td>字典编号</td>
+                        <td>字典名称</td>
+                        <td>字典值</td>
+                        <td>显示顺序</td>
+                        <td>说明</td>
+                        <td class="edit_td">编辑</td>
+                        <td class="delete_td">删除</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        <div id="dataPage"></div>
+        </div>
+    </div>
+    <script src="selfjs/dataDictionary.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            dataManagement.init();
+        });
+        // $(function() {
+        //     $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>')
+        // })
+    </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="updateModal" style="width: 500px; margin: 5px 10px;" class="hide hideModal">
+        <div class="fl">
+            <p><span>字典编号：<input type="text" id="dataId"></input>
+            字典名称：<input type="text" id="dataName"></input></span></p>
+            <p><span>&nbsp;&nbsp;&nbsp;&nbsp;字典值：<input type="text" id="dataValue"></input>
+            显示顺序：<input type="text" id="sequence"></input></span></p>
+            <p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;说明：</span><input type="text" id="description"></input></p>
+        </div>
+    </div>
+</div>
