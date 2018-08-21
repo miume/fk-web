@@ -237,44 +237,53 @@ var home = {
             }
         }
         ,dataDictionary : {
-            add : function(){
-                return servers.backup() + "dataDictionary/add";
+            addData : function(){
+                return servers.backup() + "dataDictionary/addData";
             },
-            deleteById : function(){
-                return servers.backup() + "dataDictionary/deleteById";
+            addType : function(){
+                return servers.backup() + "dataDictionary/addType";
             },
             deleteDataById : function(){
                 return servers.backup() + "dataDictionary/deleteDataById";
             },
+            deleteDataByIds : function(){
+                return servers.backup() + "dataDictionary/deleteDataByIds";
+            },
             deleteTypeById : function(){
                 return servers.backup() + "dataDictionary/deleteTypeById";
             },
-            getAll : function(){
-                return servers.backup() + "dataDictionary/getAll";
+            deleteTypesByIds : function(){
+                return servers.backup() + "dataDictionary/deleteTypesByIds";
             },
-            getAllByPage : function(){
-                return servers.backup() + "dataDictionary/getAllByPage";
+            getAllDataByPageNameLike : function(){
+                return servers.backup() + "dataDictionary/getAllDataByPageNameLike";
             },
-            getAllByParentId : function(){
-                return servers.backup() + "dataDictionary/getAllByParentId";
+            getAllDataByTypeByPage : function(){
+                return servers.backup() + "dataDictionary/getAllDataByTypeByPage";
             },
-            getAllChildrensByPage : function(){
-                return servers.backup() + "dataDictionary/getAllChildrensByPage";
+            getAllDataByTypeId : function(){
+                return servers.backup() + "dataDictionary/getAllDataByTypeId";
             },
-            getAllParents : function(){
-                return servers.backup() + "dataDictionary/getAllParents";
+            getAllTypes : function(){
+                return servers.backup() + "dataDictionary/getAllTypes";
             },
-            getByDicId : function(){
-                return servers.backup() + "dataDictionary/getByDicId";
+            getAllTypesByNameLikeByPage : function(){
+                return servers.backup() + "dataDictionary/getAllTypesByNameLikeByPage";
             },
-            getById : function(){
-                return servers.backup() + "dataDictionary/getById";
+            getAllTypesByPage : function(){
+                return servers.backup() + "dataDictionary/getAllTypesByPage";
             },
-            getChildrensByPageNameLike : function(){
-                return servers.backup() + "dataDictionary/getChildrensByPageNameLike";
+            getDataById : function(){
+                return servers.backup() + "dataDictionary/getDataById";
             },
-            update : function(){
-                return servers.backup() + "dataDictionary/update";
+            getTypeById : function(){
+                return servers.backup() + "dataDictionary/getTypeById";
+            },
+            updateData : function(){
+                return servers.backup() + "dataDictionary/updateData";
+            },
+            updateType : function(){
+                return servers.backup() + "dataDictionary/updateType";
             },
         }
     }
