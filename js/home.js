@@ -303,6 +303,32 @@ var home = {
                 return servers.backup() + "/materialType/update";
             },
         }
+        ,materialConsumptionItem : {
+            add : function() {
+                return servers.backup() + "materialConsumptionItem/add";
+            },
+            deleteById : function() {
+                return servers.backup() + "materialConsumptionItem/deleteById" ;
+            },
+            deleteByIds : function() {
+                return servers.backup() + "materialConsumptionItem/deleteByIds";
+            },
+            getAll : function() {
+                return servers.backup() + "materialConsumptionItem/getAll";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "materialConsumptionItem/getAllByPage";
+            },
+            getById : function() {
+                return servers.backup() + "materialConsumptionItem/getById";
+            },
+            getByMaterialTypeAndNameLikeByPage : function() {
+                return servers.backup() + "materialConsumptionItem/getByMaterialTypeAndNameLikeByPage";
+            },
+            update : function() {
+                return servers.backup() + "materialConsumptionItem/update";
+            },
+        }
     }
    
     /** start */
