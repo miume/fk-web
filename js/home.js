@@ -287,6 +287,9 @@ var home = {
             deleteById : function() {
                 return servers.backup() + "materialType/deleteById";
             },
+            deleteByIds : function() {
+                return servers.backup() + "materialType/deleteByIds";
+            },
             getAll : function() {
                 return servers.backup() + "materialType/getAll";
             },

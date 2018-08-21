@@ -56,7 +56,7 @@ var operationManagement = {
                 "</tr>"
             )
         })
-        /**绑定编辑角色事件 */
+        /**绑定编辑操作事件 */
         operationManagement.funcs.bindEditorOperationsEvents($(".editor"));
     }
     ,bindEditorOperationsEvents : function(buttons) {

@@ -5,7 +5,7 @@ var materialTypeInfo = {
         var out = $("#materialTypeInfoPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
-            $('#rolManagement-page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            $('#materialTypeInfoPage').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
             clearTimeout(time);
         },30);
     }
@@ -35,8 +35,8 @@ var materialTypeInfo = {
                                 var materialTypes = result.data.content;
                                 var page = obj.curr - 1;
                                 const $tbody = $("#materialTypeInfoTable").children("tbody");
-                                materialTypes.funcs.renderHandler($tbody, materialTypes, page);
-                                materialTypes.pageSize = result.data.length;
+                                materialTypeInfo.funcs.renderHandler($tbody, materialTypes, page);
+                                materialTypeInfo.pageSize = result.data.length;
                             })
                         }
                     }
@@ -55,6 +55,7 @@ var materialTypeInfo = {
         ,bindAddEvents : function(buttons) {
             buttons.off('click').on('click',function(){
                 $("#materialNames").val("");
+                $("#updateModal").removeClass("hide");
                 layer.open({
                     type: 1,
                     title: "新增",
@@ -66,7 +67,7 @@ var materialTypeInfo = {
                     yes: function(index) {
                         var name = $("#materialNames").val();
                         if(name === ""){
-                            layer.msg('物料名称不能为空');
+                            layer.msg('物料类型不能为空');
                             return
                         }
                         $.post(home.urls.materialTypeInfo.add(),{
@@ -77,6 +78,7 @@ var materialTypeInfo = {
                                 time : 700
                             })
                             if(result.code === 0) {
+                                layer.msg('添加成功');
                                 var time = setTimeout(function() {
                                     materialTypeInfo.init();
                                     clearTimeout(time);
@@ -111,16 +113,16 @@ var materialTypeInfo = {
                         btn: ['确定', '取消'],
                         closeBtn: 0,
                         yes : function(index) {
-                            var rolesIdS = [];
+                            var materialIdS = [];
                             /**存取所有选中行的id值 */
                             $(".material-checkbox").each(function() {
                                 if($(this).prop("checked")) {
-                                    rolesIdS.push(parseInt($(this).val()));
+                                    materialIdS.push(parseInt($(this).val()));
                                 }
                             })
                             //console.log(rolesIdS.toString())
                             $.post(home.urls.materialTypeInfo.deleteByIds(), {
-                                _method : "delete", ids : rolesIdS.toString()
+                                _method : "delete", ids : materialIdS.toString()
                             },function(result) {
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
@@ -143,24 +145,123 @@ var materialTypeInfo = {
             })
         }
         /**绑定刷新事件 */
-        // ,bindRefreshEvents
+        ,bindRefreshEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    materialTypeInfo.init();
+                    $("#inputmaterialNames").val("");
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
+            })
+        }
+        /**绑定搜索事件 */
+        ,bindSearchEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                var materialName = $("#inputmaterialNames").val();
+                $.get(home.urls.materialTypeInfo.getByNameLikeByPage(), { name : materialName }, function(result) {
+                    var materials = result.data.content;
+                    const $tbody = $("#materialTypeInfoTable").children("tbody");
+                    materialTypeInfo.funcs.renderHandler($tbody, materials, 0);
+                    materialTypeInfo.pageSize = result.data.length;
+                    var page = result.data;
+                    /**分页信息 */
+                    layui.laypage.render({
+                        elem: "materialTypeInfoPage",
+                        count : 10 * page.totalPages,
+                        /**页面变换后的逻辑 */
+                        jump: function(obj, first) {
+                            if(!first) {
+                                $.get(home.urls.materialTypeInfo.getByNameLikeByPage(),{
+                                    name : materialName,
+                                    page : obj.curr - 1 ,
+                                    size : obj.limit
+                                }, function (result) {
+                                    var materials = result.data.content;
+                                    var page = obj.curr - 1;
+                                    const $tbody = $("#materialTypeInfoTable").children("tbody");
+                                    materialTypeInfo.funcs.renderHandler($tbody, materials, page);
+                                    materialTypeInfo.pageSize = result.data.length;
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        }
         ,renderHandler : function($tbody, materials, page) {
              //清空表格
-             $tbody.empty() ;
-             var i = 1 + page * 10;
+            $tbody.empty() ;
+            // var i = 1 + page * 10;
             materials.forEach(function(e) {
                 $tbody.append(
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='material-checkBox' /></td>" +
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.name ? e.name : ' ')+"</td>" +
-                    "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "</tr>"
                 )
             })
-            var checkedBoxLength = $(".role-checkBox:checked").length;
-            home.funcs.bindselectAll($("#role-checkBoxAll"), $(".role-checkbox"), checkedBoxLength, $("#roleManagementTable"));
+            var checkedBoxLength = $(".material-checkBox:checked").length;
+            home.funcs.bindselectAll($("#material-checkBoxAll"), $(".material-checkbox"), checkedBoxLength, $("#materialTypeInfoTable"));
+            /**绑定编辑操作名称事件 */
+            materialTypeInfo.funcs.bindEditorMaterialsEvents($(".editor"));
 
+        }
+        ,bindEditorMaterialsEvents: function(buttons) {
+            buttons.off('click').on('click',function() {
+                var id = $(this).attr('id').substr(5);
+                $("#materialNames").val("");
+                $.get(home.urls.materialTypeInfo.getById(),{ id:id }, function(result) {
+                    var materials = result.data;
+                    var id = materials.id;
+                    $("#materialNames").val(materials.name);
+                    $("#updateModal").removeClass("hide");
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        content: $("#updateModal"),
+                        area: ['380px', '200px'],
+                        btn: ['确定', '取消'],
+                        offset: ['40%','45%'],
+                        closeBtn: 0,
+                        yes: function(index) {
+                            var name = $("#materialNames").val();
+                            if(name === "") {
+                                layer.msg('物料名称不能为空！');
+                                return
+                            }
+                            $.post(home.urls.materialTypeInfo.update(), {
+                                id : id,
+                                name : name
+                            }, function(result) {
+                                layer.msg(result.message, {
+                                    offset : ['40%', '55%'],
+                                    time : 700
+                                })
+                                if(result.code === 0) {
+                                    var time = setTimeout(function() {
+                                        materialTypeInfo.init();
+                                        clearTimeout(time);
+                                    },500)
+                                }
+                            })
+                            $("#updateModal").css("display","none");
+                            layer.close(index);
+                        },
+                        btn2 : function(index) {
+                            $("#updateModal").css("display","none");
+                           layer.close(index);
+                        }
+                    })
+                })
+            })
         }
     }
 }
