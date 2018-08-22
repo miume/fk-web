@@ -40,8 +40,7 @@ var record = {
             var startTime = startYear+'-'+startMonth+'-'+startDay;
             $.get(home.urls.checkRecord.getByEquipmentAndDate(),{
                 startDate : startTime,
-                endDate : endTime,
-                asc : 1
+                endDate : endTime
             },function(result) {
                 var records = result.data.content;
                 var $tbody =  $("#recordTable").children("tbody");
@@ -57,8 +56,7 @@ var record = {
                         if(!first) {
                             $.get(home.urls.checkRecord.getByEquipmentAndDate(),{
                                 startDate : startTime,
-                                endDate : endTime,
-                                asc : 1
+                                endDate : endTime
                             }, function (result) {
                                 var records = result.data.content;
                                 var page = obj.curr - 1;
@@ -284,8 +282,7 @@ var record = {
                 $.get(home.urls.checkRecord.getByEquipmentAndDate(),{
                     startDate: startTime,
                     endDate : endTime,
-                    equipmentCode : equipmentId,
-                    asc : 1
+                    equipmentCode : equipmentId
                 },function(result){
                     var records = result.data.content;
                 var $tbody =  $("#recordTable").children("tbody");
@@ -302,8 +299,7 @@ var record = {
                             $.get(home.urls.checkRecord.getByEquipmentAndDate(),{
                                 startDate: startTime,
                                 endDate : endTime,
-                                equipmentCode : equipmentId,
-                                asc : 1
+                                equipmentCode : equipmentId
                             }, function (result) {
                                 var records = result.data.content;
                                 var page = obj.curr - 1;

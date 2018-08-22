@@ -14,7 +14,7 @@ var plan = {
     ,funcs: {
         /**渲染表格 */
         renderTable : function(){
-            $.get(home.urls.maintenanceSchedule.getNotCompleteByPage(),{asc:1},function(result) {
+            $.get(home.urls.maintenanceSchedule.getNotCompleteByPage(),{},function(result) {
                 var equipments = result.data.content;
                 var $tbody =  $("#equipmentTable").children("tbody");
                 plan.funcs.renderHandler($tbody,equipments,0);
@@ -29,8 +29,7 @@ var plan = {
                         if(!first) {
                             $.get(home.urls.maintenanceSchedule.getNotCompleteByPage(),{
                                 page : obj.curr - 1 ,
-                                size : obj.limit,
-                                asc:1
+                                size : obj.limit
                             }, function (result) {
                                 var equipments = result.data.content;
                                 var page = obj.curr - 1;
@@ -156,8 +155,7 @@ var plan = {
                 } else {
                     $.get(home.urls.maintenanceSchedule.getByNameLikeByPage(),{
                         name : equipmentName,
-                        description : description,
-                        asc:1
+                        description : description
                     },function(result){
                         var plans = result.data.content
                         var $tbody =  $("#equipmentTable").children("tbody");
@@ -173,8 +171,7 @@ var plan = {
                         if(!first) {
                             $.get(home.urls.maintenanceSchedule.getByNameLikeByPage(),{
                                 page : obj.curr - 1 ,
-                                size : obj.limit,
-                                asc:1
+                                size : obj.limit
                             }, function (result) {
                                 var plans = result.data.content;
                                 var page = obj.curr - 1;
