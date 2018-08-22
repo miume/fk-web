@@ -219,8 +219,8 @@ var dataTypeManagement = {
             home.funcs.bindselectAll($("#dataType-checkBoxAll"), $(".dataType-checkbox"), checkedBoxLength, $("#dataTypeTable"));
             /**绑定单条记录删除事件 */
             dataTypeManagement.funcs.bindDeleteByIdEvents($(".delete"));
-            /**绑定编辑角色事件 */
-            dataTypeManagement.funcs.bindEditorRolesEvents($(".editor"));
+            /**绑定编辑事件 */
+            dataTypeManagement.funcs.bindEditorEvents($(".editor"));
         }
         /**绑定单条删除事件 */
         ,bindDeleteByIdEvents : function(buttons){
@@ -257,7 +257,7 @@ var dataTypeManagement = {
             })
         }
         /**绑定编辑事件 */
-        ,bindEditorRolesEvents : function(buttons){
+        ,bindEditorEvents : function(buttons){
             buttons.off('click').on('click',function(){
                 var id = $(this).attr('id').substr(5);
                 $("#dataTypeName").val("");
