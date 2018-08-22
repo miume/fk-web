@@ -4,6 +4,8 @@ var materialConsumptionItem = {
         /**获取物料消耗项目信息分页显示 */
         materialConsumptionItem.funcs.renderTable();
         materialConsumptionItem.funcs.renderDropBox();
+
+        // materialConsumptionItem.funcs.renderDropBox();
         var out = $("#materialConsumptionItemPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -164,6 +166,7 @@ var materialConsumptionItem = {
                     })
                     materialConsumptionItem.init();
                     $("#inputmaterialItemNames").val("");
+                    // $("#mtn").empty();
                     layer.close(index);
                     clearTimeout(time);
                 }, 200)
@@ -302,7 +305,9 @@ var materialConsumptionItem = {
         }
         /**渲染页面下拉框 */
         ,renderDropBox : function() {
-            $("#mtn").append('<option></option>');
+            $("#mtn").empty();
+
+            $("#mtn").append('<option value=\"-1\"></option>');
             $.get(home.urls.materialTypeInfo.getAll(),{},function(result) {
                 var materialTypes = result.data;
                 materialTypes.forEach(function(e) {
