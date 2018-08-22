@@ -1,0 +1,5 @@
+var timeManagement = {
+    init : function(){
+        
+    }
+}

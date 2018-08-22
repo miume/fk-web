@@ -26,5 +26,166 @@
                     <td>编辑</td>
                 </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>3月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>4月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>5月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>6月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>7月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>8月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>9月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>10月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>11月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>12月</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>
+            </tr>
+        </tbody>
     </table>
+    <script src="selfjs/temporal.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            tiemManagement.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#timeTemporal',
+                type:'year'
+            });
+        })
+    </script>
 </div>

@@ -406,6 +406,17 @@ var home = {
             },
         }
 
+        ,temporal : {
+            download : function() {
+                return servers.backup() + "temporalInterval/download";
+            },
+            edit : function() {
+                return servers.backup() + "temporalInterval/edit";
+            },
+            getAllByYear : function() {
+                return servers.backup() + "temporalInterval/getAllByYear";
+            },
+        }
     }
    
     /** start */
