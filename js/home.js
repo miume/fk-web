@@ -312,7 +312,6 @@ var home = {
                 return servers.backup() + "/materialType/update";
             },
         }
-<<<<<<< HEAD
         ,materialConsumptionItem : {
             add : function() {
                 return servers.backup() + "materialConsumptionItem/add";
@@ -339,7 +338,6 @@ var home = {
                 return servers.backup() + "materialConsumptionItem/update";
             },
         }
-=======
         ,maintenanceSchedule : {
             add : function() {
                 return servers.backup() + "maintenanceSchedule/add";
@@ -408,7 +406,6 @@ var home = {
             },
         }
 
->>>>>>> check
     }
    
     /** start */
