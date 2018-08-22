@@ -2,35 +2,35 @@
     <div class="block-quote">
         <div class="fl">
             <p>
-                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增检修计划</a></span>&nbsp;&nbsp;
+                <span id="expertButton"><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
             </p>
         </div>
         <div class="fr">
             <p>
-                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="searchDepartmentName" style="width:120px;" placeholder="请输入用户名">
-                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;
+                <span>检修设备：</span><input type="text" style="width:120px;" id="checkEquipment">&nbsp;&nbsp;
+                <span>故障描述：</span><input type="text" style="width:120px;" id="problemDescription">&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>
             </p>
         </div>
     </div>
     <!--留白-->
     <div class="whitespace"></div>
-        <table id="userTable">
+        <table id="equipmentTable">
             <thead>
             <tr>
-                <td class="checkBox_td">
-                    <input id="user_checkAll" type="checkbox">
-                </td>
                 <td>序号</td>
-                <td>设备ID</td>
-                <td>保修时间</td>
-                <td>保修人</td>
+                <td>检修计划ID</td>
+                <td>检修设备</td>
+                <td>报修人</td>
+                <td>报修时间</td>
                 <td>故障描述</td>
                 <td>备注</td>
                 <td>标志位</td>
-                <td class="edit_td">编辑</td>
-                <td class="delete_td">删除</td>
+                <td>编辑</td>
+                <td>删除</td>
+                <td>操作</td>
             </tr>
             </thead>
             <tbody>
@@ -45,8 +45,52 @@
             plan.init();
         });
     </script>
-    <!--隐藏部分（弹出框显示部分）-->
-            
+    <!--隐藏部分（弹出框显示部分）--><!--class="hide models"-->
+    <div class="whitespace"></div>
+    <div id="addPlanModal"  class="hide models">
+        <p><span style="display: inline-block;width:80px;text-align: right;">检修设备：</span><select id="addEquipmentName" style="width:250px"></select></p>
+        <p><span style="display: block;width:80px;height:90px;float:left;text-align: right;">故障描述：</span><textarea id="addDescription" style="width:250px;height:90px;"></textarea></p>
+        <p><span style="display: block;width:80px;height:90px;float:left;text-align: right;">备注：</span><textarea id="addNote" style="width:250px;height:90px;"></textarea></p>
+    </div>      
+    <div id="updatePlanModal"  class="hide models">
+        <p><span style="display: inline-block;width:80px;text-align: right;">检修设备：</span><select id="updateEquipmentName" style="width:250px"></select></p>
+        <p><span style="display: block;width:80px;height:90px;float:left;text-align: right;">故障描述：</span><textarea id="updateDescription" style="width:250px;height:90px;"></textarea></p>
+        <p><span style="display: block;width:80px;height:90px;float:left;text-align: right;">备注：</span><textarea id="updateNote" style="width:250px;height:90px;"></textarea></p>
+    </div>    
+    <div id="backModal"  class="hide models">
+        <p><span style="display: inline-block;width:80px;text-align: right;">维修人：</span><select id="backRepairMan" style="width:180px"></select></p>
+        <p><span style="display: inline-block;width:80px;text-align: right;">到达时间：</span><input  id="backStartTime" style="width:180px" placeholder="请选择到达时间"></p>
+        <p><span style="display: inline-block;width:80px;text-align: right;">故障原因：</span><input type="text" id="backProblemReason" style="width:180px"></p>
+        <p><span style="display: inline-block;width:80px;text-align: right;">处理结果：</span><input type="text" id="backHandleResult" style="width:180px"></p>
+        <p><span style="display: inline-block;width:80px;text-align: right;">完成时间：</span><input  id="backEndTime" style="width:180px" placeholder="请选择完成时间"></p>
+        <p><span style="display: inline-block;width:80px;text-align: right;">备注：</span><input type="text" id="backNote" style="width:180px"></p>
+    </div>  
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#backStartTime',
+                type:'datetime',
+                btns: ['now'],
+                done:function(value,date){
+                    
+                }
+            });
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#backEndTime',
+                type:'datetime',
+                btns: ['now'],
+                done:function(value,date){
+                    
+                }
+            });
+        })
+    </script>  
             
            
             

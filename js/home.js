@@ -300,6 +300,74 @@ var home = {
                 return servers.backup() + "/materialType/update";
             },
         }
+        ,maintenanceSchedule : {
+            add : function() {
+                return servers.backup() + "maintenanceSchedule/add";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "maintenanceSchedule/getAllByPage";
+            },
+            getById : function() {
+                return servers.backup() + "maintenanceSchedule/getById";
+            },
+            getByNameLikeByPage : function() {
+                return servers.backup() + "maintenanceSchedule/getAllByNameAndDescriptionLikeByPage";
+            },
+            update : function() {
+                return servers.backup() + "maintenanceSchedule/update";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "maintenanceSchedule/deleteByIds";
+            },
+            download : function() {
+                return servers.backup() + "maintenanceSchedule/download";
+            },
+            saveToRecord : function() {
+                return servers.backup() + "";
+            },
+            getNotCompleteByPage : function() {
+                return servers.backup() + "maintenanceSchedule/getAllNotCompleteByPage";
+            }
+        }
+        ,checkRecord : {
+            add : function() {
+                return servers.backup() + "backFillInfo/add";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "backFillInfo/getAllByPage";
+            },
+            download : function() {
+                return servers.backup() + "backFillInfo/getByDateToExcel";
+            },
+            getById : function() {
+                return servers.backup() + "backFillInfo/getById";
+            },
+            update : function() {
+                return servers.backup() + "backFillInfo/update";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "backFillInfo/deleteByIds";
+            },
+            getByEquipmentAndDate : function() {
+                return servers.backup() + "backFillInfo/getAllByEquipmentAndTime";
+            },
+
+        }
+        ,equipment : {
+            add : function() {
+                return servers.backup() + "equipmentInfo/add";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "equipmentInfo/getAllByPage";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "equipmentInfo/deleteByIds";
+            },
+            update : function() {
+                return servers.backup() + "equipmentInfo/update";
+            },
+        }
+
     }
    
     /** start */
