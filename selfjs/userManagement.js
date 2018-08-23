@@ -684,8 +684,9 @@ var userManage = {
                $.get(home.urls.user.getById(),{id : id},function(result) {
                    var info = result.data
                    var name = info.name
-                //   console.log(name)
-                     $("#assignUserName").innerHTML = name  
+                  console.log(name)
+                  $("#assignUserName").empty();
+                    $("#assignUserName").append(name); 
                }) 
                
                $("#setRoleModal").removeClass("hide");
