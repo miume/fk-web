@@ -87,6 +87,8 @@ var plan = {
         /**新增检修计划 */
         ,bindAddEvents : function(buttons) {
             buttons.off('click').on('click',function() {
+                var userId = home.user.id;
+            //    console.log(name);
                 plan.funcs.renderSelector();
                 $("#addPlanModal").removeClass("hide");
                 layer.open({
@@ -105,6 +107,7 @@ var plan = {
                         var note = $("#addNote").val();
                     //    console.log(note)
                         $.post(home.urls.maintenanceSchedule.add(),{
+                            "enter.id" : userId,
                             "equipmentInfoId.id" : dptId,
                             "description" : description,
                             "remarks" : note,
