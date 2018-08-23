@@ -2,18 +2,21 @@
     <div class="block-quote">
         <div class="fl">
             <p>
+                <span style="font-size:20px">物料消耗管理（制药室）</span>
                 开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                结束日期：<input id="endData" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                结束日期：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;
             </p>
         </div>
-        <div class="fr">
+        <!-- <div class="fr">
             <p>
                 <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
-        </div>
+        </div> -->
     </div>
     <!--留白-->
     <div class="whitespace"></div>
@@ -22,26 +25,18 @@
             <tr>
                 <td rowspan="2" class="checkBox_td"><input type="checkbox" id="materialManagement-checkBoxAll" /></td>
                 <td rowspan="2">时间</td>
-                <td colspan="9">实际用量（t）</td>
+                <td id="dynNum" colspan="">实际用量（t）</td>
                 <td rowspan="2">录入时间</td>
                 <td rowspan="2">录入人</td>
                 <td rowspan="2">修改时间</td>
                 <td rowspan="2">修改人</td>
-                <td rowspan="2">操作</td>
+                <td rowspan="2">编辑</td>
             </tr>
-            <tr>
-                <td>硫酸铜</td>
-                <td>丁黄药</td>
-                <td>乙黄药</td>
-                <td>乙硫氮</td>
-                <td>二号油</td>
-                <td>DS剂</td>
-                <td>硫酸</td>
-                <td>石灰</td>
-                <td>钢球</td>
+            <tr id="dynamicAdd">
+                
             </tr>
         </thead>
-        <tbody>
+        <tbody id="materialItemTbody">
 
         </tbody>
     </table>
@@ -66,7 +61,31 @@
             var laydate = layui.laydate;
             //执行一个laydate实例
             laydate.render({
-                elem: '#endData',
+                elem: '#endDate',
+                btns: ['now']
+            })
+        })
+    </script>
+    <!--新增 弹出界面-->
+    <div id="updateModal" class="hide hideModal">
+        <div style="margin-right:42px">
+                <p>
+                    <span style="font-size:20px;">日期：</span><input id="inputDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="keepButton" style="font-size:20px"><a href="#">保存</a></span>&nbsp;&nbsp;
+                    <span id="cancelButton" style="font-size:20px"><a href="#">取消</a></span>&nbsp;
+                </p>
+        </div>
+        <table id="dynTable">
+
+        </table>
+    </div>
+
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#inputDate',
                 btns: ['now']
             })
         })

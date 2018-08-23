@@ -338,6 +338,20 @@ var home = {
                 return servers.backup() + "materialConsumptionItem/update";
             },
         }
+        ,materialConsumptionManagement : {
+            add : function() {
+                return servers.backup() + "materialConsumptionHeader/add";
+            },
+            exportByStartDateAndEndDate : function() {
+                return servers.backup() + "materialConsumptionHeader/exportByStartDateAndEndDate";
+            },
+            getByStartDateAndEndDateByPage : function() {
+                return servers.backup() + "materialConsumptionHeader/getByStartDateAndEndDateByPage";
+            },
+            update : function() {
+                return servers.backup() + "materialConsumptionHeader/update";
+            },
+        }
     }
    
     /** start */
