@@ -839,14 +839,18 @@ var userManage = {
                    $("#updateUserTel").val(users.contact);
                    $("#updateUserAddress").val(users.address);
                    if(users.sex === "男"){
-                    $("input[name='upSex']:first").attr('checked', 'true');
+                    $("input[name='upSex']:first").prop('checked', true);
+                    $("input[name='upSex']:last").prop('checked', false);
                    }else {
-                    $("input[name='upSex']:last").attr('checked', 'true');
+                    $("input[name='upSex']:first").prop('checked', false);
+                    $("input[name='upSex']:last").prop('checked', true);
                    }
                    if(users.enable){
-                    $("input[name='upEnable']:first").attr('checked', 'true');
+                    $("input[name='upEnable']:first").attr('checked', true);
+                    $("input[name='upEnable']:last").attr('checked', false);
                     }else {
-                    $("input[name='upEnable']:last").attr('checked', 'true');
+                    $("input[name='upEnable']:first").attr('checked', false);
+                    $("input[name='upEnable']:last").attr('checked', true);
                     }
                    $("#updateUserModal").removeClass("hide");
                    layer.open({
