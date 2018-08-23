@@ -416,6 +416,9 @@ var home = {
             getAllByYear : function() {
                 return servers.backup() + "temporalInterval/getAllByYear";
             },
+            getById : function(){
+                return servers.backup() + "temporalInterval/getById";
+            }
         }
     }
    
