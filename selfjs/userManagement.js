@@ -363,8 +363,16 @@ var userManage = {
          /**绑定刷新事件 */
         ,bindRefreshEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                userManage.funcs.renderTable();
-                userManage.init();
+                var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    userManage.init();
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
             })
         }
          /**绑定搜索事件 */

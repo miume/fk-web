@@ -265,8 +265,17 @@ var record = {
         } 
         /**刷新界面 */
         ,bindRefreshEvents : function(buttons) {
-            buttons.off('click').on('click',function() {
-               record.init();
+            buttons.off('click').on('click',function() { 
+               var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    record.init();
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
             })
         }
         /**查询 */
