@@ -161,7 +161,7 @@ var record = {
                                         recordId.push(parseInt($(this).val()));
                                     }
                                 })
-                                console.log(recordId.toString())
+                            //    console.log(recordId.toString())
                                 var backenterId = $("#updateRepairMan").find("option:selected").val();  
                                 var startTime = $("#updateStartTime").val();
                                 var reason = $("#updateProblemReason").val();
@@ -333,8 +333,6 @@ var record = {
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='record-checkbox'></td>" +
                     "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.id) + "</td>" +
-                    "<td>" + (e.maintenanceSchedule.id) + "</td>" +
                     "<td>" + (e.maintenanceSchedule.equipmentInfoId.name) +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enter ? e.maintenanceSchedule.enter.name : ' ') +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enteringTime) +"</td>" +
