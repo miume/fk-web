@@ -350,7 +350,7 @@ var record = {
             })
             /**实现全选 */
             var checkedBoxLength = $(".record-checkBox:checked").length;
-            home.funcs.bindselectAll($("#record_checkBoxAll"), $(".record-checkbox"), checkedBoxLength, $("#recordTable"));
+            home.funcs.bindselectAll($("#record_checkAll"), $(".record-checkbox"), checkedBoxLength, $("#recordTable"));
         }
         /**getAllequipments , 获取所有设备，以下拉框形式呈现*/ 
         ,renderHandler1 : function($selector, equipments) {    
