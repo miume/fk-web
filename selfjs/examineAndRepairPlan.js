@@ -87,6 +87,8 @@ var plan = {
         /**新增检修计划 */
         ,bindAddEvents : function(buttons) {
             buttons.off('click').on('click',function() {
+                var userId = home.user.id;
+            //    console.log(name);
                 plan.funcs.renderSelector();
                 $("#addPlanModal").removeClass("hide");
                 layer.open({
@@ -99,12 +101,13 @@ var plan = {
                     closeBtn : 0,
                     yes : function(index){
                         var dptId = $("#addEquipmentName").find("option:selected").val();
-                        console.log(dptId)
+                    //    console.log(dptId)
                         var description = $("#addDescription").val();
-                        console.log(description)
+                    //    console.log(description)
                         var note = $("#addNote").val();
-                        console.log(note)
+                    //    console.log(note)
                         $.post(home.urls.maintenanceSchedule.add(),{
+                            "enter.id" : userId,
                             "equipmentInfoId.id" : dptId,
                             "description" : description,
                             "remarks" : note,
@@ -140,8 +143,17 @@ var plan = {
         }
         /**刷新事件 */
         ,bindRefreshEvents : function(buttons) {
-            buttons.off('click').on('click',function() {
-               plan.init(); 
+            buttons.off('click').on('click',function() {  
+               var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    plan.init(); 
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
             })
         }
         /**查询事件 */
@@ -195,7 +207,6 @@ var plan = {
                 $tbody.append(
                     "<tr>" + 
                     "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.id) + "</td>" +
                     "<td>" + (e.equipmentInfoId.name) + "</td>" +
                     "<td>" + (e.enter ? e.enter.name : ' ') + "</td>" +
                     "<td>" + (e.enteringTime) + "</td>" +
@@ -229,7 +240,7 @@ var plan = {
             buttons.off('click').on('click',function() {
                 var id = $(this).attr('id').substr(5)
                 plan.funcs.renderUpdateSelector(id);
-                console.log(id)
+            //    console.log(id)
                 $.get(home.urls.maintenanceSchedule.getById(),{id : id},function(result) {
                     var plan = result.data
                     $("#updateDescription").val(plan.description);
@@ -289,7 +300,7 @@ var plan = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                     //    var id = parseInt(_this.attr('id').substr(7)) ;
-                        console.log(id)
+                    //    console.log(id)
                         $.post(home.urls.maintenanceSchedule.deleteByIds() ,{_method:"delete",ids : id},function (result) {
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
@@ -315,11 +326,7 @@ var plan = {
         ,bindBackEvents : function(buttons) {
             buttons.off('click').on('click',function() {
                 var id = $(this).attr('id').substr(5);
-                $.get(home.urls.maintenanceSchedule.getById(),{id : id},function(result) {
-                    var plan = result.data
-                    var equipmentId = plan.equipmentInfoId.id
-                    var enterId = (plan.enter ? plan.enter.id : ' ');
-
+                plan.funcs.renderBackSelector();
                     $("#backModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -338,10 +345,7 @@ var plan = {
                         var backNote = $("#backNote").val();
                         $.post(home.urls.checkRecord.add(),{
                             "maintenanceSchedule.id" : id ,
-                            "maintenanceSchedule.equipmentInfoId.id" : equipmentId,
-                            "maintenanceSchedule.enter.id" : enterId,
                             "backEnter.id" : backenterId,
-                        //    id : id,
                             arriveTime : startTime,
                             cause : reason,
                             result : result,
@@ -367,10 +371,6 @@ var plan = {
                         layer.close(index);
                     }
                 })
-                })
-                plan.funcs.renderBackSelector();
-                
-
             })
         }
     }

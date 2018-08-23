@@ -161,7 +161,7 @@ var record = {
                                         recordId.push(parseInt($(this).val()));
                                     }
                                 })
-                                console.log(recordId.toString())
+                            //    console.log(recordId.toString())
                                 var backenterId = $("#updateRepairMan").find("option:selected").val();  
                                 var startTime = $("#updateStartTime").val();
                                 var reason = $("#updateProblemReason").val();
@@ -265,8 +265,17 @@ var record = {
         } 
         /**刷新界面 */
         ,bindRefreshEvents : function(buttons) {
-            buttons.off('click').on('click',function() {
-               record.init();
+            buttons.off('click').on('click',function() { 
+               var index = layer.load(2 , { offset : ['40%','58%'] });
+                var time = setTimeout(function() {
+                    layer.msg('刷新成功', {
+                        offset : ['40%', '55%'],
+                        time : 700
+                    })
+                    record.init();
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
             })
         }
         /**查询 */
@@ -324,8 +333,6 @@ var record = {
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='record-checkbox'></td>" +
                     "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.id) + "</td>" +
-                    "<td>" + (e.maintenanceSchedule.id) + "</td>" +
                     "<td>" + (e.maintenanceSchedule.equipmentInfoId.name) +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enter ? e.maintenanceSchedule.enter.name : ' ') +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enteringTime) +"</td>" +
@@ -341,7 +348,7 @@ var record = {
             })
             /**实现全选 */
             var checkedBoxLength = $(".record-checkBox:checked").length;
-            home.funcs.bindselectAll($("#record_checkBoxAll"), $(".record-checkbox"), checkedBoxLength, $("#recordTable"));
+            home.funcs.bindselectAll($("#record_checkAll"), $(".record-checkbox"), checkedBoxLength, $("#recordTable"));
         }
         /**getAllequipments , 获取所有设备，以下拉框形式呈现*/ 
         ,renderHandler1 : function($selector, equipments) {    
