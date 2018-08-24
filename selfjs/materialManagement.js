@@ -12,6 +12,8 @@ var materialManagement = {
     }
     /**当前总记录数，用户控制全选逻辑 */
     ,pageSize: 0
+    ,count : 0
+    ,count_data : 0
     ,funcs: {
         /**渲染页面 */
         renderTable: function() {
@@ -20,6 +22,7 @@ var materialManagement = {
                 var materialHead = result.data;
                 $("#dynNum").attr("colspan" , materialHead.length);
                 const $tr = $("#dynamicAdd");
+                console.log(materialHead);
                 materialManagement.funcs.renderHead($tr, materialHead);
                 /**获取当前日期 */
                 // .Format('yyyy-MM-dd')
@@ -79,7 +82,7 @@ var materialManagement = {
             $tr.empty();
             materialHeads.forEach(function(e) {
                 $tr.append(
-                    "<td abbr=\""+  e.id +"\">"+ e.name +"</td>"
+                    "<td id=\""+  e.id +"\">"+ e.name +"</td>"
                 )
             }) 
 
@@ -90,11 +93,16 @@ var materialManagement = {
             $tbody.empty();
             var i = 1 + page * 10;
             materialItems.forEach(function(e) {
-                // console.log(e.id);
+                // console.log(e);
+                // e.materialConsumptionDetails.forEach(function(a) {
+                //     console.log(a.item.id);
+                // })
+                // console.log(e.materialConsumptionDetails);
                 $tbody.append(
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='materialItem-checkbox' /></td>" +
                     "<td>"+(e.date ? e.date : ' ')+"</td>"+
+                    // materialManagement.funcs.creatNullDate(e) +
                     materialManagement.funcs.getArrayDate(e.materialConsumptionDetails) +
                     "<td>"+(e.enterTime ? e.enterTime : ' ')+"</td>" +
                     "<td>"+(e.enterUser ? e.enterUser.name : ' ')+"</td>" +
@@ -103,12 +111,13 @@ var materialManagement = {
                     "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "</tr>"
                 )
+                // materialManagement.funcs.insertDateToTd(e);
             })
              /**实现全选 */
              var checkedBoxLength = $(".materialItem-checkbox:checked").length;
              home.funcs.bindselectAll($("#materialManagement-checkBoxAll"), $(".materialItem-checkbox"), checkedBoxLength, $("#materialManagementTable"));
              /**绑定编辑操作名称事件 */
-            //  materialManagement.funcs.bindEditEvents($(".editor"));
+             materialManagement.funcs.bindEditEvents($(".editor"));
         }
         /**动态得到对象中数组的元素 */
         ,getArrayDate : function(result){
@@ -118,6 +127,46 @@ var materialManagement = {
             }
             return arrayDate;
         }
+        /**创建动态表格，设置其值为空,同时赋予id */
+        // ,creatNullDate : function(result) {
+        //     var arrayDate = {};
+        //     // for(var i=0; i<result.length; i++) {
+        //     //     arrayDate = arrayDate + "<td id=\""+ result.item.id +"\">"+ "0" +"</td>"
+        //     // }
+        //     result.materialConsumptionDetails.forEach(function(a) {
+        //         arrayDate = arrayDate + "<td id=\"dyn-\""+materialManagement.count+"-\""+ a.item.id +"\">"+ "0" +"</td>"
+        //         materialManagement.count=materialManagement.count+1;
+        //     })
+        //     return arrayDate;
+        // }
+        /**为每一行数据，在对应的id上插入对应的值 */
+        // ,insertDateToTd : function(result){
+        //     result.materialConsumptionDetails.forEach(function(a) {
+
+        //         // var ll = ".dyn-"+a.item.id
+        //         // 为什么无法设置td属性
+        //         // console.log(a.item.id);
+        //         $("#dyn-"+materialManagement.count_data+"-"+a.item.id).text(a.value);
+        //         materialManagement.count=materialManagement.count+1;
+        //         // console.log(a.value);
+        //         // console.log(ll);
+        //     })
+        // }
+
+        /**动态得到对象中数组的元素-test */
+        // ,getArrayDate : function(result){
+        //     var arrayDate ={};
+        //     // for(var i=0 ; i<result.length; i++){
+        //     //     arrayDate = arrayDate + "<td>"+ (result[i] ? result[i].value : ' ') +"</td>";
+                
+        //     // }
+        //     result.forEach(function(e) {
+                
+        //     })
+
+        //     return arrayDate;
+        // }
+       
         /**得到当前日期的前一个月 */
         ,getPreMonth : function() {
             var preDate = new Date();
@@ -203,6 +252,7 @@ var materialManagement = {
                 var href = home.urls.materialConsumptionManagement.exportByStartDateAndEndDate()+"?startDate="+ beginDates + "&endDate=" + endDates;
                 console.log(href);
                 $("#downloadA").attr("href",href);
+             
             })
         }
         /**绑定编辑事件 */
@@ -210,42 +260,79 @@ var materialManagement = {
         //     buttons.off('click').on('click',function() {
         //         var id = $(this).attr('id').substr(5);
         //         // 清空操作
-                
+        //         // console.log(id);
+        //         $("#inputDate").val("");
+        //         $.
         //     })
         // }
+
         /**绑定数据录入事件 */
         ,bindAddByIdsEvents : function(buttons) {
             buttons.off('click').on('click',function() {
+                $("#inputDate").val("");
                 $.get(home.urls.materialConsumptionItem.getAll(),{},function(result) {
                     var materialConsumptions = result.data;
-                    // var itemLength = materialConsumptions.length;
+                    var itemLength = materialConsumptions.length;
                     console.log(materialConsumptions[1].name);
                     const $dynTable = $("#dynTable");
                     materialManagement.funcs.addWindowStyle($dynTable,materialConsumptions);
+                    var materialArrays = [];
                     $("#updateModal").removeClass("hide");
                     layer.open({
                         type: 1,
-                        title: '编辑',
+                        title: '数据录入',
                         content: $("#updateModal"),
                         area: ['450px', '350px'],
                         btn: ['确认', '取消'],
                         offset: ['35%', '30%'],
                         closeBtn: 0,
                         yes: function(index) {
-                            var materialConsumptionDetails = [2];
+                            // 实现json格式传数据
                             var inputDate = $("#inputDate").val();
                             var userStr = $.session.get('user');
                             var userJson = JSON.parse(userStr);
-                            // console.log(inputDate);
-                            // console.log(userJson);
-                            // var date = {
-                            //     date : inputDate,
-                            //     enterUser : { id :userJson.id },
-                            //     materialConsumptionDetails : {}
-
-                            // }
-
-
+                            // 数组内容数据
+                            for(var k=0; k<itemLength; k++){
+                                materialArrays.push({
+                                    item : { id : materialConsumptions[k].id },
+                                    value : $(".win-"+k).val()
+                                })
+                            }
+                            var data = {
+                                date : inputDate,
+                                enterUser : { id :userJson.id },
+                                materialConsumptionDetails : []
+                            }
+                            data.materialConsumptionDetails = materialArrays;
+                            $.ajax({
+                                url: home.urls.materialConsumptionManagement.add(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                            materialManagement.init()
+                                            clearTimeout(time)
+                                        }, 500);
+                                        $("#updateModal").css("display","none");
+                                        layer.close(index);
+                                    }
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                                
+                            })
+                               
+                            // $("#updateModal").css("display","none");
+                            // layer.close(index);
+                        }
+                        ,btn2: function (index) {
+                            $("#updateModal").css("display","none");
+                            layer.close(index);
                         }
                     })
                 })
@@ -256,15 +343,15 @@ var materialManagement = {
         ,addWindowStyle : function($dynTable, materialConsumptions ) {
             $dynTable.empty();
             var itemLength = materialConsumptions.length;
-            var inputArray = [];
+            // var inputArray = [];
             for(var j=0; j<itemLength;j=j+2) {
                 if(materialConsumptions[j+1]){
                     $dynTable.append(
                         "<tr>"+
                         "<td width=\"90px\" height=\"40px\" align=\"right\">" + (materialConsumptions[j] ? materialConsumptions[j].name:'') + ":&nbsp;</td>"+
-                        "<td height=\"40px\"><input size=\"10px\" type=\"text\" class=\"1\" placeholder=\"实际用量\" /></td>"+
+                        "<td height=\"40px\"><input size=\"10px\" type=\"text\" class=\"win-"+j+"\" placeholder=\"实际用量\" /></td>"+
                         "<td width=\"90px\" height=\"40px\" align=\"right\">" + (materialConsumptions[j+1] ? materialConsumptions[j+1].name:'') + ":&nbsp;</td>"+
-                        "<td  height=\"40px\"><input size=\"10px\" type=\"text\" class=\"2\" placeholder=\"实际用量\" /></td>"+
+                        "<td  height=\"40px\"><input size=\"10px\" type=\"text\" class=\"win-"+(j+1)+"\" placeholder=\"实际用量\" /></td>"+
                         "</tr>"
                     )
                     // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
@@ -273,7 +360,7 @@ var materialManagement = {
                     $dynTable.append(
                         "<tr>"+
                         "<td width=\"90px\" height=\"40px\" align=\"right\">" + (materialConsumptions[j] ? materialConsumptions[j].name:'') + ":&nbsp;</td>"+
-                        "<td height=\"40px\"><input size=\"10px\" type=\"text\" class=\"1\"  placeholder=\"实际用量\" /></td>"+
+                        "<td height=\"40px\"><input size=\"10px\" type=\"text\" class=\"win-"+j+"\"  placeholder=\"实际用量\" /></td>"+
                         "</tr>"
                     )
                     // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
@@ -289,12 +376,7 @@ var materialManagement = {
                 // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
                 // inputArray[j+1] = materialConsumptions[j+1].id+ "-" + $(".2").val();
             }
-            console.log(inputArray);
+            // console.log(inputArray);
         }
-
-        /**得到新增输入框操作操作 */
-        // ,getAddInput : function() {
-
-        // }
     }
 }
