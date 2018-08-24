@@ -1,0 +1,144 @@
+<div class="display-component-container">
+    <style type="text/css">
+       
+        #tab{
+            width: 100%;
+            overflow:hidden; 
+            margin:0 auto;
+			}
+        .list {
+            height: 45px;
+            width: 100%;
+        }
+        .table {
+
+            width: 100%;
+            height: 60%;
+
+        }
+		.list li{
+            height:45px;
+            float:left;
+            border:1px solid #999;
+            border-radius: 1em 1em 0 0 ;
+            border-bottom:none;
+            margin-bottom: -1px;
+            overflow: hidden;
+            position: relative;
+        }
+        .list li a{
+            display: block;
+            padding: 10px 20px;
+            border: 1px solid #fff;
+            
+            outline: none;
+        }
+        .list li a:hover ,.list li a:active{
+            color:#1E9FFF;
+        }
+        .selected{
+            color:#1E9FFF;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        table tr td{
+            width: 16.6%;
+            height: 35px;
+        }
+
+    </style>
+    <!--上-->
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                日期：<input type="text" id="inputDate" placeholder="请选择时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                班次：<select id="cycleName"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="search">生产调度台账</button>
+            </p>
+       </div>
+       <div class="fr">
+            <button>保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button>取消</button>
+       </div>
+    </div>
+    <div class="whitespace"></div>
+    <div class="hide" id="tab">
+        <!--选项卡-->
+        <div class="list">
+            <ul>
+                <li class="options"><a class="selected" id="#brokenSection" href="#">破碎工段</a></li>
+                <li class="options"><a id="#grindingSection" href="#">磨浮工段</a></li>
+                <li class="options"><a id="#concentrateSection" href="#">精矿工段</a></li>
+                <li class="options"><a id="#tailingSection" href="#">尾砂工段</a></li>
+        </ul>
+        </div>
+        <div class="clear"></div>
+        <!--选项卡对应的表格-->
+        <div class="table">
+            
+            <table class="selectedTable" id="brokenSection">
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+            </table>
+        
+            <table class="hide" id="grindingSection">
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+
+            </table>
+      
+            <table class="hide" id="concentrateSection">
+                <tr>
+                    <td>运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+            </table>
+    
+            <table class="hide" id="tailingSection">
+                <tr>
+                    <td>-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+                <tr>
+                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
+                </tr>
+            </table>
+       </div>
+    </div>
+    <script src="selfjs/dispatchAccount.js"></script>
+    <script type="application/javascript">
+        
+        $(function() {
+            dispatchAccount.init();
+        })
+        layui.use('laydate', function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: "#inputDate",
+                    btns: ['now']
+                })
+            })
+
+    </script>
+</div>
