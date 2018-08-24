@@ -283,6 +283,10 @@ input {
     font-weight: 400;
     height:30px;
 }
+.display-component-container button {
+    background-color:#1E9FFF;
+    color: #ffffff;
+}
 /*覆盖部分内容*/
 .display-component-container .normal_td{
     color: black;
@@ -380,3 +384,4 @@ input {
 .clear {
     clear: both;
 }
+

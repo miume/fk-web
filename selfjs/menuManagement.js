@@ -87,7 +87,7 @@ var menuManagement = {
             $(".selected-menu1").removeClass("selected-menu1");
             $(this).parent("div").parent("li").addClass("selected-menu1");
             var currentMenu1ClickId = $(this).parent("div").parent("li").attr("id").substr(6);
-            console.log(currentMenu1ClickId)
+            //console.log(currentMenu1ClickId)
             menuManagement.funcs.renderMenu2(currentMenu1ClickId);
        })
     }
@@ -210,20 +210,20 @@ var menuManagement = {
                             layer.msg("新增菜单名称为空！");
                             return 
                         }
-                        console.log(addUrl)
-                        console.log(addData)
+                        //console.log(addUrl)
+                        //console.log(addData)
                         $.post(addUrl, addData, function(result) {
-                            console.log('result.code='+result.code)
+                            //console.log('result.code='+result.code)
                             if(result.code === 0) {
                                 var time = setTimeout(function() {
                                     if(clickId == 1) {
                                         var clickNavigationId = $('#navigations').children('.selected').attr('id').substr(12);
-                                        console.log(clickNavigationId)
+                                        //console.log(clickNavigationId)
                                         menuManagement.funcs.renderMenu1(clickNavigationId);
                                     }
                                     if(clickId == 2) {
                                         var clickMenu1Id = $('#firstMenu').children('.selected-menu1').attr('id').substr(6);
-                                        console.log(clickMenu1Id)
+                                        //console.log(clickMenu1Id)
                                         menuManagement.funcs.renderMenu2(clickMenu1Id);
                                     }
                                     clearTimeout(time);
@@ -293,7 +293,7 @@ var menuManagement = {
           $tbody.empty();
           $.get(servers.backup() + 'operation/getAll' , {} ,function(result) {
               var operation = result.data;
-              console.log(operation)
+              //console.log(operation)
               operation.forEach(function(e) {
                   var contains = menuManagement.currentoperations.find(function (ele) {
                       return ele.id == e.id;
@@ -336,13 +336,13 @@ var menuManagement = {
      }
      ,bindDeleteEventListener : function(buttons) {
          buttons.off('click').on('click', function() {
-            console.log('delete')
+            //console.log('delete')
             var _this = $(this);
             var deleteUrl;
             var deleteMenu = _this.attr('id').charAt(4);
             var clickId = _this.attr('id').substr(10)
-            console.log('clickId' +clickId)
-            console.log("menu"+deleteMenu)
+            //console.log('clickId' +clickId)
+            //console.log("menu"+deleteMenu)
             if(deleteMenu == 1){
                 deleteUrl = home.urls.menu1.deleteById();
             }
@@ -366,7 +366,7 @@ var menuManagement = {
                             })
                         }
                         /**如果删除二级菜单成功 */
-                        console.log(deleteUrl.indexOf('menu2'))
+                        //console.log(deleteUrl.indexOf('menu2'))
                         if(result.code === 0 && deleteMenu == 2) {
                             var time = setTimeout(function () {
                                 var clickMenu1Id = $('#firstMenu').children('.selected-menu1').attr("id").substr(6);

@@ -273,6 +273,14 @@ var home = {
             update : function(){
                 return servers.backup() + "dataDictionary/update";
             },
+            getAllDataByTypeId : function(){
+                return servers.backup() + "dataDictionary/getAllDataByTypeId";
+            },
+        }
+        ,dispatchAccount :{
+            getByDateAndSchedule : function(){
+                return servers.backup() + "standingBookHeader/getByDateAndSchedule";
+            },
         }
     }
    
@@ -321,10 +329,12 @@ var home = {
             home.navigationsWrapper.append("<li id='navigations-li-" + (element.id) + "' class='menu-tab-bar whiteFontMenu'><a href='#'>" + element.name + "</a></li>", null);
         })
         /**选中的导航菜单id 默认为1 */
-        var selectedNavigations = localStorage.getItem('selectedNavigation') || $(home.navigationsWrapper.children('li')[0]).attr('id').substr(15);
-        var selectedMenu1 = localStorage.getItem('selectedMenu1');
-        var selectedMenu2 = localStorage.getItem('selectedMenu2');
-        
+        var selectedNavigations = localStorage.getItem('selectedNavigations') || $(home.navigationsWrapper.children('li')[0]).attr('id').substr(15);
+        var selectedMenu1 = localStorage.getItem('selectedMenu1') || null;
+        var selectedMenu2 = localStorage.getItem('selectedMenu2') || null;
+        console.log('selectedNavigations=' + selectedNavigations)
+        console.log('selectedMenu1=' + selectedMenu1)
+        console.log('selectedMenu2=' + selectedMenu2)
         /**给选的导航菜单追加默认selected类标签，也是默认样式 */
         $('#navigations-li-'+ selectedNavigations).addClass('chosenMenu');
         home.navigationsClicks = home.navigationsWrapper.children('.menu-tab-bar');
@@ -357,7 +367,6 @@ var home = {
                 localStorage.setItem('selectedNavigations', $(this).attr('id').substr(15));
                 localStorage.setItem('selectedMenu1', null);
                 localStorage.setItem('selectedMenu2', null);
-
                 //console.log(localStorage.getItem('selectedNavigations'));
                 /**首先将上一次selected的标签移除样式，然后给当前点击元素追加样式 */
                 $('.navigations .chosenMenu').removeClass('chosenMenu');
@@ -395,7 +404,7 @@ var home = {
                     "<div id='menu1-li-" + (element.id) + "' class='menu1-tab-bar'>" +
                     "<li class='menu1-tab-bar-item'>" +
                     //"<i class='fa fa-caret-right'></i> &nbsp" +
-                    "<div class='fl'><img src='./" + (element.path) + "' alt='' width='20px' height='20px' style='position:relative;top: 8px;left: 10px;'></div>"+
+                    "<div class='fl'><img src='./" + (element.path) + "' alt='' width='20px' height='20px' style='position:relative;top: 8px;left: 17px;'></div>"+
                     "<a href='#'>" + element.name + "</a>" +
                     "</li>" +
                     "</div>" +
@@ -407,13 +416,16 @@ var home = {
             home.menu1Clicks = $('.menu1-tab-bar');
             //console.log(home.menu1Clicks);
             //用于一级菜单保存记录，如果有点击过一级菜单，此处就有值，否则则为null
-            var selectedMenu1Code = localStorage.getItem('selectedMenu1');
+            var selectedMenu1Code = localStorage.getItem('selectedMenu1');           
             //console.log(selectedMenu1Code)
+            //console.log(localStorage.getItem('selectedMenu2'))
             /**如果记录了用户的一级菜单，就执行下面的逻辑 */
-            if(selectedMenu1Code != null && localStorage.getItem('selectedMenu3') != null){
+            if(selectedMenu1Code != null && localStorage.getItem('selectedMenu2') != 'null' ){
+                //console.log("selectedMenu1Code="+selectedMenu1Code)
+                //console.log(localStorage.getItem('selectedMenu2'))
                 var selectedTabBarId = 'menu1-li-' + selectedMenu1Code;
                 var selectedTabBarItem = $('#' + selectedTabBarId);  //一级菜单
-                //selectedTabBarItem.find('li').children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+                selectedTabBarItem.next().removeClass('hide')//二级菜单显示
                 menu1List.forEach(function(ele){
                     if(selectedMenu1Code == ele.id){
                         home.menu2s = ele.secondLevelMenus;
@@ -427,25 +439,34 @@ var home = {
                 var menu2Wrapper = selectedTabBarItem.next().children('ul');
                 menu2Wrapper.empty();
                 home.menu2s.forEach(function(ele){
-                    menu2Wrapper.append("li id='menu2-li-"+ (ele.id) +"' class='menu2-tab-bar whiteFontMenu2'><a href='#'>"+ ele.name +"</a></li>")
+                    menu2Wrapper.append("<li id='menu2-li-"+ (ele.id) +"' class='menu2-tab-bar whiteFontMenu2'><a href='#'>"+ ele.name +"</a></li>")
                 })
-                $('#menu3-li-' + localStorage.getItem('selectedMenu2')).addClass('chosenMenu2');
-                /**三级菜单加载完毕后，需要把后面对应的html加载进来 */
-                var path = "../components/html/" + localStorage.getItem('selectedMenu2') + ".html";
-                var right = $('.right');
+                var menu2Code = localStorage.getItem('selectedMenu2');
+                $('#menu2-li-' + menu2Code).addClass('chosenMenu2');
+                //console.log('#menu2-li-' + menu2Code)
+                /**二级菜单加载完毕后，需要把后面对应的html加载进来 */
+                var $right = $('.right');
+                var page;
+                //console.log(menu2Code)
+                home.menu2s.forEach(function(ele){
+                    if(menu2Code == ele.id){
+                        page = ele.page;
+                    }
+                })
+                var path = "html/" + page + ".html";
                 $right.load(path);
 
                 home.menu2Clicks = menu2Wrapper.children('li');
-                //console.log(home.menu2Clicks);
-                //home.funcs.addMenuClickEvent();
+                /**追加二级菜单点击事件 */
+                home.funcs.addMenu2ClickEvent();
             }
-            /** 初始化的时候给记忆中的一级菜单添加chosenMenu2类 */
-            var menu1Id = '#menu1-li-' + localStorage.getItem('selectedMenu1');
-           // console.log(menu1Id)
-            $(menu1Id).addClass('chosenMenu1');
 
-            /**给所以的一级菜单追加点击事件 */
-            home.funcs.addMenu1ClickEvent();
+             /** 初始化的时候给记忆中的一级菜单添加chosenMenu2类 */
+             var menu1Id = '#menu1-li-' + localStorage.getItem('selectedMenu1') ;
+             $(menu1Id).addClass('chosenMenu1');
+ 
+             /**给所以的一级菜单追加点击事件 */
+             home.funcs.addMenu1ClickEvent();
 
         }
         /**给一级菜单添加点击事件 */
@@ -461,7 +482,7 @@ var home = {
                 localStorage.setItem('selectedMenu2',null);
                 
                 var menu1Code = localStorage.getItem('selectedMenu1');
-                //console.log(menu1Code);
+                console.log(menu1Code);
                 var menu1Id = 'menu1-li-' + localStorage.getItem('selectedMenu1');
                 if($('.chosenMenu1').attr('id') != menu1Id) {
                     $('.chosenMenu1').next().addClass('hide')
@@ -486,7 +507,6 @@ var home = {
                     /**获取一级菜单下隐藏的二级菜单的id */
                     var menu1HideCode = _this_next.attr('id').substr(14);
                     /**获取当前一级菜单下所有的二级菜单的集合 */
-                    var menu1Code = 
                     home.menu1s.forEach(function(ele) {
                         if(menu1Code == ele.id) {
                             home.menu2s = ele.secondLevelMenus;
