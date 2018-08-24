@@ -117,7 +117,7 @@ var materialManagement = {
              var checkedBoxLength = $(".materialItem-checkbox:checked").length;
              home.funcs.bindselectAll($("#materialManagement-checkBoxAll"), $(".materialItem-checkbox"), checkedBoxLength, $("#materialManagementTable"));
              /**绑定编辑操作名称事件 */
-             materialManagement.funcs.bindEditEvents($(".editor"));
+            //  materialManagement.funcs.bindEditEvents($(".editor"));
         }
         /**动态得到对象中数组的元素 */
         ,getArrayDate : function(result){
@@ -262,7 +262,7 @@ var materialManagement = {
         //         // 清空操作
         //         // console.log(id);
         //         $("#inputDate").val("");
-        //         $.
+                
         //     })
         // }
 
@@ -326,9 +326,6 @@ var materialManagement = {
                                 }
                                 
                             })
-                               
-                            // $("#updateModal").css("display","none");
-                            // layer.close(index);
                         }
                         ,btn2: function (index) {
                             $("#updateModal").css("display","none");
@@ -343,7 +340,6 @@ var materialManagement = {
         ,addWindowStyle : function($dynTable, materialConsumptions ) {
             $dynTable.empty();
             var itemLength = materialConsumptions.length;
-            // var inputArray = [];
             for(var j=0; j<itemLength;j=j+2) {
                 if(materialConsumptions[j+1]){
                     $dynTable.append(
@@ -354,8 +350,6 @@ var materialManagement = {
                         "<td  height=\"40px\"><input size=\"10px\" type=\"text\" class=\"win-"+(j+1)+"\" placeholder=\"实际用量\" /></td>"+
                         "</tr>"
                     )
-                    // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
-                    // inputArray[j+1] = materialConsumptions[j+1].id+ "-" + $(".2").val();
                 }else{
                     $dynTable.append(
                         "<tr>"+
@@ -363,20 +357,8 @@ var materialManagement = {
                         "<td height=\"40px\"><input size=\"10px\" type=\"text\" class=\"win-"+j+"\"  placeholder=\"实际用量\" /></td>"+
                         "</tr>"
                     )
-                    // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
                 }
-                // inputArray[j].push(){
-                //     id = materialConsumptions[j].id,
-                //     value = $(".1").val()
-                // };
-                // inputArray[j+1].push(){
-                //     id = materialConsumptions[j].id,
-                //     value = $(".2").val()
-                // };
-                // inputArray[j] =  materialConsumptions[j].id + "-" + $(".1").val();
-                // inputArray[j+1] = materialConsumptions[j+1].id+ "-" + $(".2").val();
             }
-            // console.log(inputArray);
         }
     }
 }
