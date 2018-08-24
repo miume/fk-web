@@ -47,9 +47,26 @@
     </script>
     <!--隐藏部分（弹出框显示部分）-->
     <div id="updateModal" class="hide hideModal">
-        <p><span>时间:<input type="text" id="time"></span></p>
-        <p><span>开始日期:<input type="text" id="startTime">&nbsp;&nbsp;&nbsp;&nbsp;结束时间:<input type="text" id="endTime"></span></p>
-        <p><span>开始班次:<input type="text" id="startShift">&nbsp;&nbsp;&nbsp;&nbsp;结束班次:<input type="text" id="endShift"></span></p>
-        <p><span>备注:<input type="text" id="description"></span></p>
+        <p class="fl"><span>时间:<input type="text" id="time" disabled="disabled"></span></p>
+        <div class="clear"></div>
+        <p class="fl"><span>开始日期:<input type="text" id="startTime">&nbsp;&nbsp;&nbsp;&nbsp;结束时间:<input type="text" id="endTime"></span></p>
+        <p class="fl"><span>开始班次:<input type="text" id="startShift">&nbsp;&nbsp;&nbsp;&nbsp;结束班次:<input type="text" id="endShift"></span></p>
+        <p class="fl"><span>备注:<input type="text" id="description" style="width: 100px;height: 50px;"></span></p>
     </div>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime',
+            });
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#endTime',
+            });
+        })
+    </script>
 </div>
