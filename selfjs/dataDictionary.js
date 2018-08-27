@@ -28,6 +28,9 @@ var dataManagement = {
                     )
                 })
                 $($('.setDataType')[0]).addClass('selected_data').css('color', ' #ffffff')
+                var id_name = $(".selected_data").attr('id')
+                var typeId = id_name.substr(8)
+                dataManagement.funcs.dataType_set(typeId)
                 var set_data = $('.setDataType')
                 dataManagement.funcs.changeType(set_data)
             })
@@ -42,12 +45,14 @@ var dataManagement = {
                 var typeId = id_name.substr(8)
                 dataManagement.funcs.dataType_set(typeId)
             })
+
             //  dataManagement.funcs.dataType_set(dataTypeId)
         }
         /**渲染 */
         ,dataType_set : function(id){
             $.get(home.urls.dataDictionary.getAllDataByTypeByPage(),{
-                id : id
+                id : id,
+                page : 0
             },function(result){
                 var datas = result.data.content
                 const $tbody = $("#dataTable").children('tbody')
@@ -62,7 +67,7 @@ var dataManagement = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.dataDictionary.getAllDataByTypeByPage(), {
+                            $.get(home.urls.dataDictionary.getAllDataByTypeByPage(), {
                                 id: id,
                                 page: obj.curr - 1,
                                 size: obj.limit
@@ -88,13 +93,15 @@ var dataManagement = {
         /**绑定刷新事件 */
         ,bindRefreshEvents : function(buttons){
             buttons.off('click').on('click',function(){
+                var id_name = $(".selected_data").attr('id')
+                var typeId = id_name.substr(8)
                 var index = layer.load(2 , { offset : ['40%','58%'] });
                 var time = setTimeout(function() {
                     layer.msg('刷新成功', {
                         offset : ['40%', '55%'],
                         time : 700
                     })
-                    dataManagement.init();
+                    dataManagement.funcs.dataType_set(typeId);
                     layer.close(index);
                     clearTimeout(time);
                 }, 200)
@@ -113,7 +120,7 @@ var dataManagement = {
                     type : 1,
                     title : "新增",
                     content : $("#updateModal"),
-                    area : ['550px', '220px'],
+                    area : ['500px', '240px'],
                     btn : ['确定' , '取消'],
                     offset : ['40%' , '45%'],
                     closeBtn: 0,
@@ -121,7 +128,6 @@ var dataManagement = {
                         var name = $("#dataName").val();
                         var value = $("#dataValue").val();
                         var description = $("#description").val();
-                        var sequence = $("#sequence").val();
                         var id_name = $(".selected_data").attr('id');
                         var typeId = id_name.substr(8)
                         if(name === ""&&value === ""){
@@ -133,7 +139,6 @@ var dataManagement = {
                             dicName : name,
                             dicContent : value,
                             dicDescription : description,
-                            rank : sequence,
                         }, function(result) {
                             layer.msg(result.message, {
                                 offset : ['40%' , '55%'],
@@ -141,7 +146,9 @@ var dataManagement = {
                             })
                             if(result.code === 0) {
                                 var time = setTimeout(function() {
-                                    dataManagement.init();
+                                    var id_name = $(".selected_data").attr('id')
+                                    var typeId = id_name.substr(8)
+                                    dataManagement.funcs.dataType_set(typeId);
                                     clearTimeout(time);
                                 },500)
                             }
@@ -186,7 +193,9 @@ var dataManagement = {
                             },function(result) {
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
-                                        dataManagement.init()
+                                        var id_name = $(".selected_data").attr('id')
+                                        var typeId = id_name.substr(8)
+                                        dataManagement.funcs.dataType_set(typeId);
                                         clearTimeout(time)
                                     }, 500)
                                 }
@@ -258,7 +267,6 @@ var dataManagement = {
                     "<td>" + (e.id) + "</td>" +
                     "<td>" + (e.dicName) + "</td>" +
                     "<td>" + (e.dicContent) + "</td>" +
-                    "<td>" + (e.rank) + "</td>" +
                     "<td>" + (e.dicDescription) + "</td>" +
                     "<td><a href='#' class='edit' id='edit-" + (e.id) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='delete' id='de-" + (e.id) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
@@ -290,7 +298,9 @@ var dataManagement = {
                         $.post(home.urls.dataDictionary.deleteDataById() , { _method : "delete", id : id }, function (result) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    dataManagement.init()
+                                    var id_name = $(".selected_data").attr('id')
+                                    var typeId = id_name.substr(8)
+                                    dataManagement.funcs.dataType_set(typeId);
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -324,14 +334,13 @@ var dataManagement = {
                     $("#dataId").val(datas.id);
                     $("#dataName").val(datas.dicName);
                     $("#dataValue").val(datas.dicContent);
-                    $("#sequence").val(datas.rank);
                     $("#description").val(datas.dicDescription);
                     $("#updateModal").removeClass("hide");
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: $("#updateModal"),
-                        area: ['550px', '220px'],
+                        area: ['500px', '240px'],
                         btn: ['确定', '取消'],
                         offset: ['40%','45%'],
                         closeBtn: 0,
@@ -358,7 +367,9 @@ var dataManagement = {
                                 })
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
-                                        dataManagement.init();
+                                        var id_name = $(".selected_data").attr('id')
+                                        var typeId = id_name.substr(8)
+                                        dataManagement.funcs.dataType_set(typeId);
                                         clearTimeout(time);
                                     },500)
                                 }
