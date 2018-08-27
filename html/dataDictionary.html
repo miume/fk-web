@@ -40,7 +40,6 @@
                         <td>字典编号</td>
                         <td>字典名称</td>
                         <td>字典值</td>
-                        <td>显示顺序</td>
                         <td>说明</td>
                         <td class="edit_td">编辑</td>
                         <td class="delete_td">删除</td>
@@ -63,12 +62,12 @@
         // })
     </script>
     <!--隐藏部分（弹出框显示部分）-->
-    <div id="updateModal" style="width: 500px; margin: 5px 10px;" class="hide hideModal">
-        <div class="fl">
-            <p><span>字典编号：<input type="text" id="dataId"></input>
-            字典名称：<input type="text" id="dataName"></input></span></p>
+    <div id="updateModal" class="hide hideModal">
+        <div>
+            <p><span>
+            字典名称：<input type="text" id="dataName"></span></p>
             <p><span>&nbsp;&nbsp;&nbsp;&nbsp;字典值：<input type="text" id="dataValue"></input>
-            显示顺序：<input type="text" id="sequence"></input></span></p>
+            </span></p>
             <p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;说明：</span><input type="text" id="description"></input></p>
         </div>
     </div>
