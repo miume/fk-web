@@ -276,7 +276,7 @@ var materialManagement = {
                         type: 1,
                         title: '数据录入',
                         content: $("#updateModal"),
-                        area: ['450px', '350px'],
+                        area: ['500px', '350px'],
                         btn: ['确认', '取消'],
                         offset: ['35%', '30%'],
                         closeBtn: 0,
@@ -320,6 +320,10 @@ var materialManagement = {
 
                             })
                         }
+                        ,btn2: function (index) {
+                            $("#updateModal").css("display","none");
+                            layer.close(index);
+                        }
                     })
                 })
             })
@@ -340,7 +344,7 @@ var materialManagement = {
                         type: 1,
                         title: '数据录入',
                         content: $("#updateModal"),
-                        area: ['450px', '350px'],
+                        area: ['500px', '350px'],
                         btn: ['确认', '取消'],
                         offset: ['35%', '30%'],
                         closeBtn: 0,
@@ -397,6 +401,14 @@ var materialManagement = {
         /**新增窗口样式操作 */
         ,addWindowStyle : function($dynTable, materialConsumptions ) {
             $dynTable.empty();
+            $dynTable.append(
+                "<tr>"+
+                "<td width=\"90px\" height=\"40px\" align=\"right\">日期:</td>" +
+                "<td><input id=\"inputDate\" size=\"10px\" type=\"text\" placeholder=\"请选择时间\"></td>" +
+                "<td></td>"+
+                "<td></td>"+
+                "</tr>"
+            )
             var itemLength = materialConsumptions.length;
             for(var j=0; j<itemLength;j=j+2) {
                 if(materialConsumptions[j+1]){
@@ -417,6 +429,14 @@ var materialManagement = {
                     )
                 }
             }
+            layui.use('laydate',function(){
+                var laydate = layui.laydate;
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#inputDate',
+                    btns: ['now']
+                })
+            })
         }
     }
 }

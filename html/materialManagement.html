@@ -65,26 +65,10 @@
             })
         })
     </script>
-    <!--新增 弹出界面-->
+    <!--新增、编辑 弹出界面-->
     <div id="updateModal" class="hide hideModal">
-        <div style="margin-right:42px">
-                <p>
-                    <span style="font-size:20px;">日期：</span><input id="inputDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </p>
-        </div>
         <table id="dynTable">
 
         </table>
     </div>
-
-    <script type="application/javascript">
-        layui.use('laydate',function(){
-            var laydate = layui.laydate;
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#inputDate',
-                btns: ['now']
-            })
-        })
-    </script>
 </div>
