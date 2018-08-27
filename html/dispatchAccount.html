@@ -1,52 +1,5 @@
 <div class="display-component-container">
-    <style type="text/css">
-       
-        #tab{
-            width: 100%;
-            overflow:hidden; 
-            margin:0 auto;
-			}
-        .list {
-            height: 45px;
-            width: 100%;
-        }
-        .table {
-
-            width: 100%;
-            height: 60%;
-
-        }
-		.list li{
-            height:45px;
-            float:left;
-            border:1px solid #999;
-            border-radius: 1em 1em 0 0 ;
-            border-bottom:none;
-            margin-bottom: -1px;
-            overflow: hidden;
-            position: relative;
-        }
-        .list li a{
-            display: block;
-            padding: 10px 20px;
-            border: 1px solid #fff;
-            
-            outline: none;
-        }
-        .list li a:hover ,.list li a:active{
-            color:#1E9FFF;
-        }
-        .selected{
-            color:#1E9FFF;
-            font-size: 20px;
-            font-weight: bolder;
-        }
-        table tr td{
-            width: 16.6%;
-            height: 35px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="./css/account.css">
     <!--上-->
     <div class="block-quote">
         <div class="fl">
@@ -57,7 +10,7 @@
             </p>
        </div>
        <div class="fr">
-            <button>保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="save">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button>取消</button>
        </div>
     </div>
@@ -77,6 +30,8 @@
         <div class="table">
             
             <table class="selectedTable" id="brokenSection">
+                <tbody></tbody>
+                <!--
                 <tr>
                     <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
                 </tr>
@@ -85,44 +40,20 @@
                 </tr>
                 <tr>
                     <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
+                </tr>-->
             </table>
         
             <table class="hide" id="grindingSection">
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
+                <tbody></tbody>
 
             </table>
       
             <table class="hide" id="concentrateSection">
-                <tr>
-                    <td>运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
+                 <tbody></tbody>
             </table>
     
             <table class="hide" id="tailingSection">
-                <tr>
-                    <td>-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
-                <tr>
-                    <td>索道运行情况-运行时间</td><td></td><td>索道运行情况-1#机</td><td></td><td>索道运行情况-2#机</td><td></td>
-                </tr>
+                <tbody></tbody>
             </table>
        </div>
     </div>
@@ -136,7 +67,6 @@
                 var laydate = layui.laydate;
                 laydate.render({
                     elem: "#inputDate",
-                    btns: ['now']
                 })
             })
 

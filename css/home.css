@@ -239,7 +239,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 
 }
 input {
-    border-radius:3px; 
+    border: radius 1em;; 
     border:1px solid #c8cccf;
 }
 .hideModal p {
