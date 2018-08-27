@@ -433,8 +433,8 @@ var home = {
             update : function() {
                 return servers.backup() + "materialConsumptionHeader/update";
             },
-            getAllDataByTypeId : function(){
-                return servers.backup() + "dataDictionary/getAllDataByTypeId";
+            getById : function(){
+                return servers.backup() + "materialConsumptionHeader/getById";
             },
         }
         ,dispatchAccount :{

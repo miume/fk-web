@@ -105,6 +105,7 @@ var materialStatistics = {
 
                 datas.push(map);
             }
+            console.log(datas);
 
             return datas;
         }
