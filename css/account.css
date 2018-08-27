@@ -1,0 +1,52 @@
+#tab{
+    width: 100%;
+    height: 76%;
+    margin:0 auto;
+    }
+.list {
+    height: 40px;
+    width: 100%;
+}
+.table {
+    width: 100%;
+    height: 100%;
+    overflow-y:scroll; 
+
+}
+.list li{
+    height:40px;
+    float:left;
+    border:1px solid #999;
+    border-radius: 1em 1em 0 0 ;
+    border-bottom:none;
+    margin-bottom: -1px;
+    overflow: hidden;
+    position: relative;
+}
+.list li a{
+    display: block;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    
+    outline: none;
+}
+.list li a:hover ,.list li a:active{
+    color:#1E9FFF;
+}
+.selected{
+    color:#1E9FFF;
+    font-size: 18px;
+    font-weight: bolder;
+}
+table tr td{
+    width: 16.6%;
+    height: 35px;
+}
+table td input {
+    width:100%;
+    text-align: center;
+    border:none;
+}
+tbody td:first-child {
+    border-right:none;
+    }

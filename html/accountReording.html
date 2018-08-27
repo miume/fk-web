@@ -1,0 +1,86 @@
+<div class="display-component-container">
+    <link rel="stylesheet" type="text/css" href="./css/account.css">
+    <style>
+        #detailModal {
+            padding: 20px;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                日期：<input type="text" id="startDate" placeholder="请选择起始时间" />&nbsp;
+                至&nbsp;&nbsp;<input type="text" id="endDate" placeholder="请选择结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                班次：<select id="scheduleId"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table class="hide" id="accountRecordingTable">
+        <thead>
+            <td>序号</td>
+            <td>台账编号</td>
+            <td>班次</td>
+            <td>值班调度员</td>
+            <td>录入时间</td>
+            <td>备注</td>
+            <td>详情</td>
+            <td>编辑</td>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="accountRecording_page" style='text-align: center;'></div>
+    <script src="selfjs/accountRecording.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            accountRecording.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#startDate"
+                });
+                laydate.render({
+                    elem : "#endDate"
+                })
+            })
+        })
+    </script>
+    <!--弹出框隐藏部分-->
+    <div class="hide" id="detailModal">
+        <div>
+            <ul class="list">
+                <li class="options"><a class="selected" id="#brokenSection" href="#">破碎工段</a></li>
+                <li class="options"><a id="#grindingSection" href="#">磨浮工段</a></li>
+                <li class="options"><a id="#concentrateSection" href="#">精矿工段</a></li>
+                <li class="options"><a id="#tailingSection" href="#">尾砂工段</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <!--选项卡对应的表格-->
+        <div class="table">
+        <table class="selectedTable" id="brokenSection">
+            <tbody>
+            </tbody>
+        </table>
+        <table class="hide" id="grindingSection">
+            <tbody>
+                
+            </tbody>
+        </table>
+        <table class="hide" id="concentrateSection">
+            <tbody>
+                
+            </tbody>
+        </table>
+        <table class="hide" id="tailingSection">
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>

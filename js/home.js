@@ -438,8 +438,14 @@ var home = {
             },
         }
         ,dispatchAccount :{
-            getByDateAndSchedule : function(){
-                return servers.backup() + "standingBookHeader/getByDateAndSchedule";
+            generateStandingBook : function(){
+                return servers.backup() + "standingBookHeader/generateStandingBook";
+            },
+            add : function(){
+                return servers.backup() + "standingBookHeader/add";
+            },
+            getByDateAndScheduleByPage : function(){
+                return servers.backup() + "standingBookHeader/getByDateAndScheduleByPage";
             },
         }
     }
@@ -492,9 +498,9 @@ var home = {
         var selectedNavigations = localStorage.getItem('selectedNavigations') || $(home.navigationsWrapper.children('li')[0]).attr('id').substr(15);
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || null;
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null;
-        console.log('selectedNavigations=' + selectedNavigations)
-        console.log('selectedMenu1=' + selectedMenu1)
-        console.log('selectedMenu2=' + selectedMenu2)
+        //console.log('selectedNavigations=' + selectedNavigations)
+        //console.log('selectedMenu1=' + selectedMenu1)
+        //console.log('selectedMenu2=' + selectedMenu2)
         /**给选的导航菜单追加默认selected类标签，也是默认样式 */
         $('#navigations-li-'+ selectedNavigations).addClass('chosenMenu');
         home.navigationsClicks = home.navigationsWrapper.children('.menu-tab-bar');
