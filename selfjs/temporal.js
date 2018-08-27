@@ -104,7 +104,7 @@ var timeManagement = {
                         type : 1,
                         title : "新增",
                         content : $("#updateModal"),
-                        area : ['550px', '220px'],
+                        area : ['550px', '300px'],
                         btn : ['确定' , '取消'],
                         offset : ['40%' , '45%'],
                         closeBtn: 0,
@@ -114,7 +114,7 @@ var timeManagement = {
                             var endTime = $("#endTime").val();
                             var startShift = $("#startShift").val();
                             var endShift = $("#endShift").val();
-                            if(startTime===""&&endTime===""&&startShift===""&&endShift===""){
+                            if(startTime===""||endTime===""||startShift===""||endShift===""){
                                 layer.msg("所填信息不能为空！")
                                 return
                             }
@@ -173,7 +173,7 @@ var timeManagement = {
                             var endTime = $("#endTime").val();
                             var startShift = $("#startShift").val();
                             var endShift = $("#endShift").val();                            
-                            if(startTime===""&&endTime===""&&startShift===""&&endShift===""){
+                            if(startTime===""||endTime===""||startShift===""||endShift===""){
                                 layer.msg('所填信息不能为空!');
                                 return 
                             }
