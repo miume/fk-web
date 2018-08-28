@@ -1,9 +1,11 @@
 accountRecording = {
     addData : [],
     Id : [],
+    detail : [],
+    editor : [],
     flag : 0,  //用来区分是编辑还是详情
     init : function() {
-        accountRecording.funcs.bindSearchEvent($("#searchButton"));
+        accountRecording.funcs.bindInitSearchEvent();
         $.get(home.urls.dataDictionary.getAllDataByTypeId(),{
             id : 1
         }, function(result) {
@@ -16,7 +18,43 @@ accountRecording = {
         })
     }
     ,funcs : {
-        bindSearchEvent : function(buttons) {
+        bindInitSearchEvent : function() {
+            var date = new Date().Format("yyyy-MM-dd");
+            $.get(home.urls.dispatchAccount.getByDateAndScheduleByPage(),{
+                startDate : date,
+                endDate : date,
+                scheduleId : -1
+             }, function(result) {
+                var res = result.data.content;
+                const $tbody = $("#accountRecordingTable").children("tbody");
+                accountRecording.funcs.renderHandler($tbody,res,0);
+                var data = result.data;
+                /**分页消息 */
+                layui.laypage.render({
+                    elem : "accountRecording_page",
+                    count : 10 * data.totalPages,
+                    /**页面变换后的逻辑 */
+                    jump : function(obj,first) {
+                        if(!first) {
+                            $.get(home.urls.dispatchAccount.getByDateAndScheduleByPage(),{
+                                startDate : startDate,
+                                endDate : endDate,
+                                scheduleId : scheduleId,
+                                page : obj.curr - 1,
+                                size : obj.limit
+                             }, function(result) {
+                                var res = result.data.content;
+                                var page = obj.curr - 1;
+                                const $tbody = $("#accountRecordingTable").children("tbody");
+                                accountRecording.funcs.renderHandler($tbody,res,page);
+                             })
+                        }
+                    }
+                })
+            })
+            accountRecording.funcs.bindSearchEvent($("#searchButton"));
+        }
+        ,bindSearchEvent : function(buttons) {
             buttons.off('click').on('click',function() {
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
@@ -73,7 +111,7 @@ accountRecording = {
                     "<td>"+ (e.time ? e.time : '') +"</td>" +
                     "<td>"+ (e.ssbz ? e.ssbz : '') +"</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.id) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
-                    "<td><a href='#' class='editor' id='edit-'"+ (e.id) +"><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='editor' id='editor-"+ (e.id) +"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "</tr>"
                 )
             })
@@ -85,7 +123,14 @@ accountRecording = {
             buttons.off('click').on('click',function() {
                 accountRecording.flag = 0;
                 accountRecording.Id = $(this).attr("id").substr(7); 
-                console.log(clickId)
+                console.log(accountRecording.Id)
+                accountRecording.detail = [];
+                $.get(home.urls.dispatchAccount.getDetailByStandingBookId(),{
+                    id : accountRecording.Id
+                },function(result) {
+                     accountRecording.detail = result.data;
+               
+                console.log(accountRecording.detail)
                 $.get(home.urls.dispatchAccount.getAll(),{
                 },function(result) {
                     var items = result.data;
@@ -95,7 +140,7 @@ accountRecording = {
                         type : 1,
                         title : "查看台账",
                         content : $("#detailModal"),
-                        area : ["1000px","550px"],
+                        area : ["1020px","550px"],
                         offset : "auto",
                         btn : ["取消"],
                         closeBtn : 0,
@@ -107,34 +152,79 @@ accountRecording = {
                 })
                 
             })
+         })
         }
         ,bindEditorEvent : function(buttons) {
             buttons.off('click').on('click',function() {
                 accountRecording.flag = 1;
-                $.get(home.urls.dispatchAccount.getAll(),{
+                var Id = $(this).attr("id").substr(7); 
+                console.log($(this).attr("id"))
+                console.log(Id)
+                accountRecording.editor = [];
+                $.get(home.urls.dispatchAccount.getDetailByStandingBookId(),{
+                    id : Id
                 },function(result) {
-                    var items = result.data;
-                    $("#detailModal").removeClass("hide");
-                    accountRecording.funcs.renderHeader(items);
-                    layer.open({
-                        type : 1,
-                        title : "编辑台账",
-                        content : $("#detailModal"),
-                        area : ["1000px","550px"],
-                        offset : "auto",
-                        btn : ["保存" ,"取消"],
-                        closeBtn : 0,
-                        yes : function(index) {
-                            $("#detailModal").addClass("hide");
-                            layer.close(index);
-                        }
-                        ,btn2 : function(index) {
-                            $("#detailModal").addClass("hide");
-                            layer.close(index);
-                        }
+                     accountRecording.editor = result.data;
+                     console.log(result.data)
+                     console.log(accountRecording.editor)
+                     $.get(home.urls.dispatchAccount.getAll(),{},function(result) {
+                        var items = result.data;
+                        $("#detailModal").removeClass("hide");
+                        accountRecording.funcs.renderHeader(items);
+                        layer.open({
+                            type : 1,
+                            title : "编辑台账",
+                            content : $("#detailModal"),
+                            area : ["1020px","550px"],
+                            offset : "auto",
+                            btn : ["保存" ,"取消"],
+                            closeBtn : 0,
+                            yes : function(index) {
+                                accountRecording.addData.forEach(function(e) {
+                                    var item = e.standingBookItem.id;
+                                    e.itemValue = $("#"+item).val();
+                                })
+                                /**获取当前登录用户的信息 */
+                                var dataDictionary = accountRecording.editor.dataDictionary.id;
+                                var date = new Date(accountRecording.editor.date).getTime();
+                                var standingBook = accountRecording.editor.standingBook;
+                                var data = {
+                                    id : Id,
+                                    standingBook : standingBook,
+                                    date : date,
+                                    dataDictionary : { id : dataDictionary },
+                                    standingBookDetailList : accountRecording.addData
+                                }     
+                                $.ajax({
+                                    url : home.urls.dispatchAccount.update(),
+                                    contentType : "application/json" ,
+                                    dataType : "JSON",
+                                    type : "post",
+                                    data : JSON.stringify(data),
+                                    success : function(result) {
+                                        if(result.code === 0) {
+                                            var time = setTimeout(function() {
+                                                accountRecording.funcs.bindSearchEvent($("#searchButton"));
+                                                clearTimeout(time);
+                                            },500)
+                                        }
+                                        layer.msg(result.message, {
+                                            offset : ['40%', '55%'],
+                                            time : 700
+                                        })
+                                    }
+                                })
+                                $("#detailModal").addClass("hide");
+                                layer.close(index);
+                            }
+                            ,btn2 : function(index) {
+                                $("#detailModal").addClass("hide");
+                                layer.close(index);
+                            }
+                        })
                     })
-                })
             })
+          })
         }
         ,renderHeader : function(data) {
             var $table1 = $("#brokenSection").children('tbody');
@@ -188,36 +278,49 @@ accountRecording = {
             })
         }
         ,appendDetailRows : function(data,theadId) {
-            $.get(home.urls.dispatchAccount.getByStandingBookId(),{
-                id : accountRecording.Id
-            },function() {
-                var detail = result.data.standingBookDetailList;
-                //console.log(data.length)
-                /**每行显示三个字段，如果data.length能被3整除，直接每行三条数据渲染，不需要判断；若不能被3整除，则需要判断 */
-                for( var i = 0; i < parseInt(data.length / 3); i++ ) {
-                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td id="+ (data[3*i].id) +"></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td id="+ (data[3*i+1].id) +"></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td  id="+ (data[3*i+2].id) +"></td></tr>")
-                }  
-                var temp = parseInt(data.length / 3) * 3 ;
-                if(data.length % 3 === 1){
-                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td id="+ (data[temp].id) +"></td><td colspan='2'></td><td colspan='2'></td></tr>");
-                }        
-                if(data.length % 3 === 2){
-                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td id="+ (data[temp].id) +"></td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td  id="+ (data[temp+1].id) +"></td><td></td><td></td></tr>");
-                }       
-        })        
-    }
-        ,appendEditorRows : function(data,theadId) {
+            //console.log(data.length)
+            /**每行显示三个字段，如果data.length能被3整除，直接每行三条数据渲染，不需要判断；若不能被3整除，则需要判断 */
             for( var i = 0; i < parseInt(data.length / 3); i++ ) {
-                $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td><input type='text' id="+ (data[3*i].id) +" / ></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td><input type='text' id="+ (data[3*i+1].id) +" / ></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td><input type='text' id="+ (data[3*i+2].id) +" / ></td></tr>")
+                $("#"+theadId).append("<tr class='grey'><td>"+ (data[3*i].itemName) +"</td><td>"+ (accountRecording.detail[data[3*i].id] || '' ) +"</td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td>"+ (accountRecording.detail[data[3*i+1].id] || '' ) +"</td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td>"+ (accountRecording.detail[data[3*i+2].id] || '' ) +"</td></tr>")
             }  
             var temp = parseInt(data.length / 3) * 3 ;
             if(data.length % 3 === 1){
-                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td colspan='2'></td><td colspan='2'></td></tr>");
+                $("#"+theadId).append("<tr class='grey'><td>"+ (data[temp].itemName) +"</td><td>"+ (accountRecording.detail[data[temp].id] || '' ) +"</td><td colspan='2'></td><td colspan='2'></td></tr>");
             }        
             if(data.length % 3 === 2){
-                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td></td><td></td></tr>");
-            }         
-                
+                $("#"+theadId).append("<tr class='grey'><td>"+ (data[temp].itemName) +"</td><td>"+ (accountRecording.detail[data[temp].id] || '' ) +"</td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td>"+ (accountRecording.detail[data[temp+1].id] || '' ) +"</td><td></td><td></td></tr>");
+            }                
+    }
+        ,appendEditorRows : function(data,theadId) {
+            for( var i = 0; i < parseInt(data.length / 3); i++ ) {
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td><input type='text' id="+ (data[3*i].id) +" value="+ (accountRecording.editor[data[3*i].id] || "" ) +"></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td><input type='text' id="+ (data[3*i+1].id) +"  value="+ (accountRecording.editor[data[3*i+1].id] || ' ') +" ></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td><input type='text' id="+ (data[3*i+2].id) +" value="+ (accountRecording.editor[data[3*i+2].id] || ' ') +" ></td></tr>")
+                for(var i1 = 3 * i; i1 < 3 * i + 3; i1++) {
+                   accountRecording.addData.push({
+                        standingBookItem : { id : data[i1].id },
+                        itemValue : $("#" + data[i1].id).val() ,
+                        fieldId : data[i1].fieldId
+                    })
+                } 
+            }  
+            var temp = parseInt(data.length / 3) * 3 ;
+            if(data.length % 3 === 1){
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" value="+ (accountRecording.editor[data[temp].id] || "") +"></td><td colspan='2' class='grey'></td><td colspan='2' class='grey'></td></tr>");
+                accountRecording.addData.push({
+                    standingBookItem : { id : data[temp].id },
+                    itemValue : $("#" + data[temp].id).val() ,
+                    fieldId : data[temp].fieldId
+                })
+            }        
+            if(data.length % 3 === 2){
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" value="+ (accountRecording.editor[data[temp].id] || "") +"  ></td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" value="+ (accountRecording.editor[data[temp+1].id] || ' ') +" ></td><td class='grey'></td><td class='grey'></td></tr>");
+                for(var i1 = temp; i1 < temp + 2; i1++) {
+                    accountRecording.addData.push({
+                        standingBookItem : { id : data[temp].id },
+                        itemValue : $("#" + data[i1].id).val() ,
+                        fieldId : data[i1].fieldId
+                    })
+                }
+            }             
     }
         ,bindClickChangeEvents : function(buttons) {
             buttons.on('click', function() {

@@ -36,6 +36,8 @@ var dispatchAccount = {
                 })
                 /**绑定生成生产调度台账记录 */
                 dispatchAccount.funcs.bindAddDispatchAccount($("#save"));
+                /**取消生成生产调度台账记录 */
+                dispatchAccount.funcs.bindCancleDispatchAccount($("#cancel"));
             })
         }
         ,renderHeader : function(data) {
@@ -109,6 +111,7 @@ var dispatchAccount = {
                     $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td class='grey'>"+ (data[temp+1].itemName) +"</td><td><input id="+ (data[temp+1].id) +" type='text' /></td><td class='grey'></td><td class='grey'></td></tr>");
                     for(var i1 = temp; i1 < temp + 2; i1++) {
                         dispatchAccount.addData.push({
+                            standingBookItem : { id : data[temp].id },
                             itemValue : $("#" + data[i1].id).val() ,
                             fieldId : data[i1].fieldId
                         })
@@ -129,10 +132,6 @@ var dispatchAccount = {
         }
         ,bindAddDispatchAccount : function(buttons) {
             buttons.off('click').on('click', function() {
-                dispatchAccount.addData.forEach(function(e) {
-                    var item = e.standingBookItem.id;
-                    e.itemValue = $("#"+item).val();
-                })
                 console.log(dispatchAccount.addData)
                 layer.open({
                     type : 1,
@@ -143,11 +142,14 @@ var dispatchAccount = {
                     btn : ['确定','取消'],
                     closeBtn : 0,
                     yes : function(index) {
+                        dispatchAccount.addData.forEach(function(e) {
+                            var item = e.standingBookItem.id;
+                            e.itemValue = $("#"+item).val();
+                        })
                         /**获取当前登录用户的信息 */
                         var userStr = $.session.get('user')
                         var userJson = JSON.parse(userStr)
                         var data = {
-                            standingBook : "23454543",
                             date : new Date($("#inputDate").val()).getTime(),
                             user : { id : userJson.id},
                             dataDictionary : { id : $("#cycleName").val() },
@@ -178,6 +180,11 @@ var dispatchAccount = {
                         layer.close(index);
                     }
                 })
+            })
+        }
+        ,bindCancleDispatchAccount : function(buttons){
+            buttons.off('click').on('click',function() {
+                $("#tab").hide();
             })
         }
     }

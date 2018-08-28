@@ -326,10 +326,6 @@ input {
     height:30px;
 }
 
-.display-component-container a {
-    text-decoration: none;
-    color: #1E9FFF;
-}
 .display-component-container .disableHref{
     cursor:default;
     color:grey;

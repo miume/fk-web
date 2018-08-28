@@ -447,15 +447,15 @@ var home = {
             getByDateAndScheduleByPage : function(){
                 return servers.backup() + "standingBookHeader/getByDateAndScheduleByPage";
             },
-            getByStandingBookId : function(){
-                return servers.backup() + "standingBookHeader/getByStandingBookId";
+            getDetailByStandingBookId : function(){
+                return servers.backup() + "standingBookHeader/getDetailByStandingBookId";
             },
             update : function(){
                 return servers.backup() + "standingBookHeader/update";
             },
             getAll : function(){
                 return servers.backup() + "SectionInfo/getAll";
-            },
+            }
         }
         ,materialStatistics : {
             exportByDate: function () {
