@@ -1,47 +1,96 @@
 <div class="display-component-container" >
-    <h1>索道记录</h1>
-    <div class="block-quote">
-        <div class="fl">
-            <p>
-                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
-            </p>
-        </div>
-        <div class="fr">
-            <p>
-                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="searchName" style="width:120px;" placeholder="请输入搜素关键字">
-                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
-            </p>
-        </div>
-    </div>
-    <!--留白-->
-    <div class="whitespace"></div>
-    <table id="userTable">
-        <thead>
-                <tr>
-                        <td class="checkBox_td">
-                            <input id="user_checkAll" type="checkbox">
-                        </td>
-                        <td>序号</td>
-                        <td>名称</td>
-                        <td>表头1</td>
-                        <td>表头2</td>
-                        <td>备注</td>
-                        <td>编辑</td>
-                        <td>删除</td>
-                    </tr>
-        </thead>
-        <tbody>
+    <style type="text/css" rel="stylesheet">
+      .hidePage{
+          display : none;
+      }     
+    </style>
 
-        </tbody>
-    </table>
-    <div id="user_page"></div>
+    <div id="runMonitoring">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width: 150px">索道运行监视</span>
+                    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;
+                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="jumpToRecord"><a href="#"><i class="layui-icon">&#xe60a;</i> 运行历史记录</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="runMonitoringTable">
+            <thead>
+                <tr>
+                <!--    <td class="checkBox_td">  -->
+                <!--        <input id="user_checkAll" type="checkbox">  -->
+                <!--    </td>  -->
+                    <td>序号</td>
+                    <td>日期</td>
+                    <td>时间</td>
+                    <td>索道状态</td>
+                    <td>索道运行时长</td>
+                    <td>索道停止时长</td>
+                    <td>停止原因</td>
+                    <td>备注</td>
+                    <td>编辑原因</td>
+                    <td>编辑备注</td>
+                 </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <div id="user_page1"></div>
+    </div>
+
+    <div id="runRecord" class="hidePage">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width: 150px;">索道运行记录</span>
+                    <span>日期：</span><input id="startTime" placeholder="请选择开始时间">&nbsp;&nbsp;
+                    <select style="width: 60px" id="classType1"></select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input id="endTime" placeholder="请选择结束时间">&nbsp;&nbsp;
+                    <select style="width: 60px" id="classType2"></select>
+                    <span style="display:inline-block;width:50px"></span>                    
+                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 添加</a></span>&nbsp;&nbsp;
+                    <span id="expert"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;
+                    <span id="addremark1"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="runRecordTable">
+            <thead>
+                <tr>
+                <!--    <td class="checkBox_td"> -->
+                <!--        <input id="user_checkAll" type="checkbox">  -->
+                <!--    </td>  -->
+                    <td>序号</td>
+                    <td>日期</td>
+                    <td>时间</td>
+                    <td>索道状态</td>
+                    <td>索道运行时长</td>
+                    <td>索道停止时长</td>
+                    <td>停止原因</td>
+                    <td>备注</td>
+                    <td>编辑原因</td>
+                    <td>编辑备注</td>
+                </tr>
+            </thead>
+            <tbody>
+ 
+            </tbody>
+        </table>
+        <div id="user_page2"></div>
+    </div>
 
     <script src="selfjs/cablewayRecord.js"></script>
     <script type="application/javascript">
         $(function() {
-            record.init();
+            cablewayRecord.init();
         });
     </script>
     <!--隐藏部分（弹出框显示部分）-->
