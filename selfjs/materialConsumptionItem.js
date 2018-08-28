@@ -284,7 +284,7 @@ var materialConsumptionItem = {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
                                     time: 700
-                                })
+                                });
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
                                         materialConsumptionItem.init();

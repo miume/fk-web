@@ -177,8 +177,6 @@ var materialManagement = {
             buttons.off('click').on('click',function() {
                 var beginDates = $('#beginDate').val();
                 var endDates = $('#endDate').val();
-                // console.log(beginDates);
-                // console.log(endDates);
                 if(beginDates === "" && endDates === ""){
                     layer.msg('日期选择不能为空！');
                     return
@@ -247,7 +245,6 @@ var materialManagement = {
                     return
                 }
                 var href = home.urls.materialConsumptionManagement.exportByStartDateAndEndDate()+"?startDate="+ beginDates + "&endDate=" + endDates;
-                console.log(href);
                 $("#downloadA").attr("href",href);
              
             })
