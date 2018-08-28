@@ -1,4 +1,11 @@
 <div class="display-component-container">
+    <style>
+        #detailsWindow {
+            padding: 20px;
+            width: 100%;
+            height: 95%;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p>
@@ -13,20 +20,25 @@
     </div>
     <!--留白-->
     <div class="whitespace"></div>
-    <table id="materialStatisticsTable">
+    <div style="overflow-x: scroll;width:100%;height:78%"  >
+    <table id="materialStatisticsTable" style="width: 120%;">
         <thead>
             <tr>
-                <td rowspan="2">月份</td>
+                <td rowspan="2" >月份</td>
                 <td rowspan="2">时间</td>
                 <td id="dynNum" colspan="">实际用量（t）</td>
                 <td id="dynConsume" colspan="">实际单耗（kg/t）</td>
-                <td rowspan="2" colspan="2">操作</td>
+                <td colspan="2">操作</td>
             </tr>
             <tr id="dynamicAdd">
 
             </tr>
         </thead>
+        <tbody id="materialStatisticsTbody">
+
+        </tbody>
     </table>
+    </div>
     <div id="materialStatisticsPage"></div>
 
     <script src="selfjs/materialStatistics.js"></script>
@@ -40,7 +52,7 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: '#beginDate',
-                btns: ['now']
+                type : 'month'
             })
         })
     </script>
@@ -50,9 +62,52 @@
             //执行一个laydate实例
             laydate.render({
                 elem: '#endDate',
-                btns: ['now']
+                type : 'month'
             })
         })
     </script>
+
+    <!--生成报表 弹出界面-->
+    <div id="reportForm" class="hide hideModal">
+        <p>
+            时间：<input id="reportDate" type="text" placeholder="请选择时间" />&nbsp;
+        </p>
+    </div>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#reportDate',
+                type : 'month'
+            })
+        })
+    </script>
+
+    <!--详情 弹出界面-->
+    <div id="detailsWindow" class="hide" >
+        <table id="statisticsDetailTable" style="padding: 20px">
+            <thead id="statisticsDetailThead">
+                <tr>
+                    <td rowspan="2">物料名</td>
+                    <td rowspan="2">单价（元/t）</td>
+                    <td colspan="2">实际用量（t）</td>
+                    <td rowspan="2">计划单耗（kg/t）</td>
+                    <td colspan="2">实际单耗（kg/t）</td>
+                    <td rowspan="2">库存量（t）</td>
+                </tr>
+                <tr>
+                    <td>本月</td>
+                    <td>累计</td>
+                    <td>本月</td>
+                    <td>累计</td>
+                </tr>
+            </thead>
+            <tbody id="statisticsDetailTbody">
+
+            </tbody>
+        </table>
+
+    </div>
 </div>
 
