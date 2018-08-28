@@ -1,11 +1,24 @@
 var timeManagement = {
     init : function(){
-        timeManagement.funcs.renderTable();
+        timeManagement.funcs.renderOption();
     }
     ,pageSize : 0
     ,funcs : {
         renderTable:function(){
             var year = $("#timeTemporal").val()
+            $.get(home.urls.temporal.getAllByYear(),{statisticalYear : year},function(result){
+                var times = result.data;
+                const $tbody = $("#temporalTable").children("tbody");
+                timeManagement.funcs.renderHandler($tbody, times);
+            })
+            /**绑定查询事件 */
+            timeManagement.funcs.bindSearchEvents($("#searchButton"));
+            /**绑定导出事件 */
+            timeManagement.funcs.bindDownloadEvents($("#downloadButton"));
+        }
+        ,renderOption:function(){
+            var date = new Date();
+            var year = date.getFullYear();
             $.get(home.urls.temporal.getAllByYear(),{statisticalYear : year},function(result){
                 var times = result.data;
                 const $tbody = $("#temporalTable").children("tbody");
@@ -50,7 +63,6 @@ var timeManagement = {
                         // console.log(times[x].id)
                         $tbody.append(
                             "<tr>" + 
-                            "<td>"+(i++)+"</td>" +
                             "<td id='month'>"+(times[x].statisticalMonth)+"</td>" +
                             "<td>"+(times[x].startDate)+"</td>" +
                             "<td>"+(times[x].startShift)+"</td>" +
@@ -67,9 +79,9 @@ var timeManagement = {
                     }
                 }
                 if(flag == false){
+                    i++
                     $tbody.append(
                         "<tr>" +
-                        "<td>"+(i++)+"</td>" +
                         "<td id='month'>"+(i-1)+"</td>"+
                         "<td>"+"</td>" +
                         "<td>"+"</td>" +
@@ -134,7 +146,7 @@ var timeManagement = {
                                 })
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
-                                        timeManagement.init();
+                                        timeManagement.funcs.renderHandler();
                                         clearTimeout(time);
                                     },500)
                                 }
@@ -193,7 +205,7 @@ var timeManagement = {
                                 })
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
-                                        timeManagement.init();
+                                        timeManagement.funcs.renderHandler();
                                         clearTimeout(time);
                                     },500)
                                 }
