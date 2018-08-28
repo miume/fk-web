@@ -19,6 +19,7 @@ var timeManagement = {
         ,renderOption:function(){
             var date = new Date();
             var year = date.getFullYear();
+            $("#timeTemporal").val(year);
             $.get(home.urls.temporal.getAllByYear(),{statisticalYear : year},function(result){
                 var times = result.data;
                 const $tbody = $("#temporalTable").children("tbody");
