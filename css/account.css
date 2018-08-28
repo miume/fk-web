@@ -9,7 +9,7 @@
 }
 .table {
     width: 100%;
-    height: 100%;
+    height: 90%;
     overflow-y:scroll; 
 
 }
@@ -27,16 +27,18 @@
     display: block;
     padding: 10px 20px;
     border: 1px solid #fff;
-    
+    text-decoration: none;
     outline: none;
 }
-.list li a:hover ,.list li a:active{
+.list li a:link ,.list li a:visited,.list li a:hover ,.list li a:active{
     color:#1E9FFF;
+    text-decoration: none;
 }
 .selected{
     color:#1E9FFF;
     font-size: 18px;
     font-weight: bolder;
+    text-decoration: none;
 }
 table tr td{
     width: 16.6%;
@@ -49,4 +51,7 @@ table td input {
 }
 tbody td:first-child {
     border-right:none;
+    }
+tbody tr:not(:last-child) tr:last-child td {
+    border-bottom:none;
     }

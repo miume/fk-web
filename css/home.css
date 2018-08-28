@@ -253,7 +253,7 @@ input {
     text-decoration: none;
     color: #1E9FFF;
 }
-.display-component-container a:hover, a:active {
+.display-component-container a:link a:hover, a:active {
     text-decoration: none;
 }
 /*实现按钮变灰*/

@@ -447,6 +447,15 @@ var home = {
             getByDateAndScheduleByPage : function(){
                 return servers.backup() + "standingBookHeader/getByDateAndScheduleByPage";
             },
+            getByStandingBookId : function(){
+                return servers.backup() + "standingBookHeader/getByStandingBookId";
+            },
+            update : function(){
+                return servers.backup() + "standingBookHeader/update";
+            },
+            getAll : function(){
+                return servers.backup() + "SectionInfo/getAll";
+            },
         }
     }
    
