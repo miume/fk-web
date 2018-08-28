@@ -457,6 +457,23 @@ var home = {
                 return servers.backup() + "SectionInfo/getAll";
             },
         }
+        ,materialStatistics : {
+            exportByDate: function () {
+                return servers.backup() + "materialConsumptionReportHeader/exportByDate";
+            },
+            generateReport: function () {
+                return servers.backup() + "materialConsumptionReportHeader/generateReport";
+            },
+            getById: function () {
+                return servers.backup() + "materialConsumptionReportHeader/getById";
+            },
+            getByStartDateAndEndDateByPage: function () {
+                return servers.backup() + "materialConsumptionReportHeader/getByStartDateAndEndDateByPage";
+            },
+            reGenerateReport: function () {
+                return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
+            },
+        }
     }
    
     /** start */

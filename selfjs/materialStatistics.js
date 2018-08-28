@@ -1,71 +1,43 @@
 var materialStatistics = {
     init : function() {
         materialStatistics.funcs.renderTable();
+        var out = $("#materialManagementPage").width();
+        var time = setTimeout(function(){
+            var inside = $(".layui-laypage").width();
+            $("#materialManagementPage").css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            clearTimeout(time);
+        },30);
     }
-    ,dataTable
     ,funcs: {
         renderTable:function() {
-            $.get(home.urls.materialConsumptionItem.getAll(),{},function(result) {
+            /**渲染表头,获取所有数据 */
+            $.get(home.urls.materialConsumptionItem.getAll(),{}, function(result) {
                 var materialHead = result.data;
-                // console.log(materialHead);
-                var arr = [];
-                arr.push({
-                    field : "date",
-                    title : "时间"
-                });
-                materialHead.forEach(function(e) {
-                    arr.push({
-                        field : e.id,
-                        title : e.name,
-                    })
-                });
-                arr.push({
-                    field : "enterTime",
-                    title : "录入时间"
-                });
-                arr.push({
-                    field : "enterUser",
-                    title : "录入人"
-                });
-                arr.push({
-                    field : "modifyTime",
-                    title : "修改时间"
-                });
-                arr.push({
-                    field : "modifyUser",
-                    title : "修改人"
-                });
-                arr.push({
-                    field : "editor",
-                    title : "编辑"
-                });
-                // console.log(arr);
-                dataTable = jQuery("#dataTable").raytable({
-                    datasource: {data : [], keyfield : 'id'},
-                    columns : arr,
-                    pagesize: 10,
-                    maxPageButtons: 5
-                });
-                // console.log(dataTable);
-            });
-            var currentDate = new Date().Format('yyyy-MM-dd');
-            var preMonthDate = materialStatistics.funcs.getPreMonth();
-
-            $.get(home.urls.materialConsumptionManagement.getByStartDateAndEndDateByPage(),{
-                startDate : preMonthDate ,
-                endDate : currentDate
-            },function(result) {
-                $("#beginDate").val(preMonthDate);
-                $("#endDate").val(currentDate);
-                // console.log(result.data.content);
-                var itemDatas = materialStatistics.funcs.getMapData(result.data.content);
-
-                console.log(itemDatas);
-
-
-                dataTable.data( itemDatas , 'field');
+                $("#dynNum").attr("colspan" , materialHead.length);
+                $("#dynConsume").attr("colspan" , materialHead.length);
+                const $tr = $("#dynamicAdd");
+                var keyDyn = materialStatistics.funcs.renderHead($tr, materialHead);
+                var keyTwoDyn = materialStatistics.funcs.renderHead($tr, materialHead);
+                key = materialStatistics.funcs.getHeadKey(keyDyn);
+                /**获取当年1月份 */
+                var currentDate = new Date().Format('yyyy');
+                var startMonthDate = currentDate + "-01";
+                var endMonthDate = currentDate + "-12";
+                /**获取所有的记录 */
+                $.get(home.urls.materialStatistics.getByStartDateAndEndDateByPage(),{
+                    startDate : startMonthDate,
+                    endDate : endMonthDate
+                }, function(result) {
+                    $("#beginDate").val(startMonthDate);
+                    $("#endDate").val(endMonthDate);
+                    var page = result.data;
+                    var materialDatas = result.data.content;
+                    var mapDatas = materialStatistics.funcs.getMapData(materialDatas);
+                    console.log(mapDatas);
+                })
             })
         }
+
         ,getPreMonth : function() {
             var preDate = new Date();
             preDate.setMonth(preDate.getMonth()-1);
@@ -99,14 +71,61 @@ var materialStatistics = {
 
                 for(var j in result.materialConsumptionDetails){
                     var detail = result.materialConsumptionDetails[j];
-
                     map[detail.item.id] = detail.value;
                 }
-
                 datas.push(map);
             }
-            console.log(datas);
+            // console.log(datas);
+            return datas;
+        }
+        /**渲染表头 */
+        ,renderHead : function($tr , materialHeads) {
+            var keyDyn = [];
+            materialHeads.forEach(function(e) {
+                $tr.append(
+                    "<td id=\""+  e.id +"\">"+ e.name +"</td>"
+                );
+                keyDyn.push(e.id);
+            });
+            return keyDyn;
+        }
+        // 获取表头的健值对
+        ,getHeadKey : function(keyDyn) {
+            var key = [];
+            key.push("date");
+            keyDyn.forEach(function(e) {
+                key.push(e);
+            });
+            keyDyn.forEach(function(e) {
+                key.push(e+"t");
+            });
+            key.push("enterTime");
+            key.push("enterUser");
+            key.push("modifyTime");
+            key.push("modifyUser");
+            // console.log(key);
+            // console.log(key);
 
+            return key;
+        }
+        /**将数据渲染成健值对形式 */
+        ,getMapData : function (results) {
+            var datas = [];
+            for(var i in results) {
+                var result = results[i];
+                var map = {};
+                map["id"] = result.id||"";
+                map["date"] = result.date||"";
+                map["enterTime"] = result.enterTime||"";
+                map["enterUser"] = result.enterUser&&result.enterUser.name||"";
+                map["modifyTime"] = result.modifyTime||"";
+                map["modifyUser"] = result.modifyUser&&result.modifyUser.name||"";
+                for(var j in result.materialConsumptionDetails){
+                    var detail = result.materialConsumptionDetails[j];
+                    map[detail.item.id] = detail.value||"";
+                }
+                datas.push(map);
+            }
             return datas;
         }
     }
