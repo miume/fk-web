@@ -703,6 +703,7 @@ var userManage = {
                            $('.right_role').each(function () {
                                rolecodes.push($(this).val())
                            })
+                           console.log(rolecodes)
                            $.post(home.urls.user.assignRolesToUsers() ,{
                                userIds : id,
                                roleIds : rolecodes.toString()
