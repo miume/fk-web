@@ -78,7 +78,7 @@ var dispatchAccount = {
             //先渲染每个表格的大标题，然后每个大标题在单独渲染
             data.forEach(function(e) {
                 var theadId = "thead-"+e.id;
-                $table.append("<tr id="+ (theadId) +" style='border-right:none;'><td colspan='6'>"+ (e.itemTypeName) +"</td></tr>");
+                $table.append("<tr id="+ (theadId) +" style='border-right:none;'><td colspan='6' class='grey'>"+ (e.itemTypeName) +"</td></tr>");
                 var standingBookItemList = e.standingBookItemList;
                 dispatchAccount.funcs.appendRows(standingBookItemList,theadId);
             })
@@ -87,7 +87,7 @@ var dispatchAccount = {
             //console.log(data.length)
             /**每行显示三个字段，如果data.length能被3整除，直接每行三条数据渲染，不需要判断；若不能被3整除，则需要判断 */
                 for( var i = 0; i < parseInt(data.length / 3); i++ ) {
-                    $("#"+theadId).append("<tr><td>"+ (data[3*i].itemName) +"</td><td><input id="+ (data[3*i].id) +" type='text' /></td><td>"+ (data[3*i+1].itemName) +"</td><td><input id="+ (data[3*i+1].id) +" type='text' /></td><td>"+ (data[3*i+2].itemName) +"</td><td><input id="+ (data[3*i+2].id) +" type='text' /></td></tr>")
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td><input id="+ (data[3*i].id) +" type='text' /></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td><input id="+ (data[3*i+1].id) +" type='text' /></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td><input id="+ (data[3*i+2].id) +" type='text' /></td></tr>")
                     for(var i1 = 3 * i; i1 < 3 * i + 3; i1++) {
                         dispatchAccount.addData.push({
                             standingBookItem : { id : data[i1].id },
@@ -98,7 +98,7 @@ var dispatchAccount = {
                 }  
                 var temp = parseInt(data.length / 3) * 3 ;
                 if(data.length % 3 === 1){
-                    $("#"+theadId).append("<tr><td>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td colspan='2'></td><td colspan='2'></td></tr>");
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td colspan='2' class='grey'></td><td colspan='2' class='grey'></td></tr>");
                     dispatchAccount.addData.push({
                         standingBookItem : { id : data[temp].id },
                         itemValue : $("#" + data[temp].id).val() ,
@@ -106,10 +106,9 @@ var dispatchAccount = {
                     })
                 }        
                 if(data.length % 3 === 2){
-                    $("#"+theadId).append("<tr><td>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td>"+ (data[temp+1].itemName) +"</td><td><input id="+ (data[temp+1].id) +" type='text' /></td><td></td><td></td></tr>");
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td class='grey'>"+ (data[temp+1].itemName) +"</td><td><input id="+ (data[temp+1].id) +" type='text' /></td><td class='grey'></td><td class='grey'></td></tr>");
                     for(var i1 = temp; i1 < temp + 2; i1++) {
                         dispatchAccount.addData.push({
-                            standingBookItem : { id : data[i1].id },
                             itemValue : $("#" + data[i1].id).val() ,
                             fieldId : data[i1].fieldId
                         })
@@ -148,6 +147,7 @@ var dispatchAccount = {
                         var userStr = $.session.get('user')
                         var userJson = JSON.parse(userStr)
                         var data = {
+                            standingBook : "23454543",
                             date : new Date($("#inputDate").val()).getTime(),
                             user : { id : userJson.id},
                             dataDictionary : { id : $("#cycleName").val() },

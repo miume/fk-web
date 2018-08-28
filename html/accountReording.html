@@ -1,11 +1,63 @@
 <div class="display-component-container">
-    <link rel="stylesheet" type="text/css" href="./css/account.css">
     <style>
         #detailModal {
             padding: 20px;
             width: 100%;
-            height: 400px;
+            height: 95%;
         }
+        .list {
+           height: 40px;
+           width: 100%;
+       }
+       .table {
+           width: 100%;
+           height: 90%;
+           overflow-y:scroll; 
+        }
+        .list li{
+            height:40px;
+            float:left;
+            border:1px solid #999;
+            border-radius: 1em 1em 0 0 ;
+            border-bottom:none;
+            margin-bottom: -1px;
+            overflow: hidden;
+            position: relative;
+         }
+
+       .list li a{
+            display: block;
+            padding: 10px 20px;
+            border: 1px solid #fff;
+            text-decoration: none;
+            outline: none;
+          }
+       .list li a:link ,.list li a:visited,.list li a:hover ,.list li a:active{
+            color:#1E9FFF;
+            text-decoration: none;
+        }
+        .selected{
+            color:#1E9FFF;
+            font-size: 18px;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+        #detailModal tbody tr td{
+            width: 145px;
+            height: 35px;
+        }  
+        table td input {
+            width:100%;
+            text-align: center;
+            border:none;
+        }
+        tbody td:first-child {
+            border-right:none;
+        }
+        tbody tr:not(:last-child) tr:last-child td {
+            border-bottom:none;
+        }                
+  
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -51,8 +103,8 @@
     </script>
     <!--弹出框隐藏部分-->
     <div class="hide" id="detailModal">
-        <div>
-            <ul class="list">
+        <div class="list">
+            <ul>
                 <li class="options"><a class="selected" id="#brokenSection" href="#">破碎工段</a></li>
                 <li class="options"><a id="#grindingSection" href="#">磨浮工段</a></li>
                 <li class="options"><a id="#concentrateSection" href="#">精矿工段</a></li>

@@ -1,5 +1,7 @@
 accountRecording = {
     addData : [],
+    Id : [],
+    flag : 0,  //用来区分是编辑还是详情
     init : function() {
         accountRecording.funcs.bindSearchEvent($("#searchButton"));
         $.get(home.urls.dataDictionary.getAllDataByTypeId(),{
@@ -81,13 +83,14 @@ accountRecording = {
         }
         ,bindDetailEvent : function(buttons) {
             buttons.off('click').on('click',function() {
-                $.get(home.urls.dispatchAccount.generateStandingBook(),{
-                    date : '2018-08-25',
-                    scheduleId : 1
+                accountRecording.flag = 0;
+                accountRecording.Id = $(this).attr("id").substr(7); 
+                console.log(clickId)
+                $.get(home.urls.dispatchAccount.getAll(),{
                 },function(result) {
                     var items = result.data;
                     $("#detailModal").removeClass("hide");
-                    accountRecording.funcs.renderHeader(items.sectionInfos);
+                    accountRecording.funcs.renderHeader(items);
                     layer.open({
                         type : 1,
                         title : "查看台账",
@@ -107,13 +110,12 @@ accountRecording = {
         }
         ,bindEditorEvent : function(buttons) {
             buttons.off('click').on('click',function() {
-                $.get(home.urls.dispatchAccount.generateStandingBook(),{
-                    date : '2018-08-25',
-                    scheduleId : 1
+                accountRecording.flag = 1;
+                $.get(home.urls.dispatchAccount.getAll(),{
                 },function(result) {
                     var items = result.data;
                     $("#detailModal").removeClass("hide");
-                    accountRecording.funcs.renderHeader(items.sectionInfos);
+                    accountRecording.funcs.renderHeader(items);
                     layer.open({
                         type : 1,
                         title : "编辑台账",
@@ -174,23 +176,46 @@ accountRecording = {
             //先渲染每个表格的大标题，然后每个大标题在单独渲染
             data.forEach(function(e) {
                 var theadId = "thead-"+e.id;
-                $table.append("<tr id="+ (theadId) +" style='border-right:none;'><td colspan='6'>"+ (e.itemTypeName) +"</td></tr>");
+                $table.append("<tr id="+ (theadId) +" style='border-right:none;'><td colspan='6' class='grey'>"+ (e.itemTypeName) +"</td></tr>");
                 var standingBookItemList = e.standingBookItemList;
-                accountRecording.funcs.appendRows(standingBookItemList,theadId);
+                if(accountRecording.flag === 0) {
+                    accountRecording.funcs.appendDetailRows(standingBookItemList,theadId);
+                }
+                else {
+                    accountRecording.funcs.appendEditorRows(standingBookItemList,theadId);
+                }
+                
             })
         }
-        ,appendRows : function(data,theadId) {
-            //console.log(data.length)
-            /**每行显示三个字段，如果data.length能被3整除，直接每行三条数据渲染，不需要判断；若不能被3整除，则需要判断 */
+        ,appendDetailRows : function(data,theadId) {
+            $.get(home.urls.dispatchAccount.getByStandingBookId(),{
+                id : accountRecording.Id
+            },function() {
+                var detail = result.data.standingBookDetailList;
+                //console.log(data.length)
+                /**每行显示三个字段，如果data.length能被3整除，直接每行三条数据渲染，不需要判断；若不能被3整除，则需要判断 */
+                for( var i = 0; i < parseInt(data.length / 3); i++ ) {
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td id="+ (data[3*i].id) +"></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td id="+ (data[3*i+1].id) +"></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td  id="+ (data[3*i+2].id) +"></td></tr>")
+                }  
+                var temp = parseInt(data.length / 3) * 3 ;
+                if(data.length % 3 === 1){
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td id="+ (data[temp].id) +"></td><td colspan='2'></td><td colspan='2'></td></tr>");
+                }        
+                if(data.length % 3 === 2){
+                    $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td id="+ (data[temp].id) +"></td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td  id="+ (data[temp+1].id) +"></td><td></td><td></td></tr>");
+                }       
+        })        
+    }
+        ,appendEditorRows : function(data,theadId) {
             for( var i = 0; i < parseInt(data.length / 3); i++ ) {
-                $("#"+theadId).append("<tr><td>"+ (data[3*i].itemName) +"</td><td><input id="+ (data[3*i].id) +" type='text' /></td><td>"+ (data[3*i+1].itemName) +"</td><td><input id="+ (data[3*i+1].id) +" type='text' /></td><td>"+ (data[3*i+2].itemName) +"</td><td><input id="+ (data[3*i+2].id) +" type='text' /></td></tr>")
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[3*i].itemName) +"</td><td><input type='text' id="+ (data[3*i].id) +" / ></td><td class='grey'>"+ (data[3*i+1].itemName) +"</td><td><input type='text' id="+ (data[3*i+1].id) +" / ></td><td class='grey'>"+ (data[3*i+2].itemName) +"</td><td><input type='text' id="+ (data[3*i+2].id) +" / ></td></tr>")
             }  
             var temp = parseInt(data.length / 3) * 3 ;
             if(data.length % 3 === 1){
-                $("#"+theadId).append("<tr><td>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td colspan='2'></td><td colspan='2'></td></tr>");
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td colspan='2'></td><td colspan='2'></td></tr>");
             }        
             if(data.length % 3 === 2){
-                $("#"+theadId).append("<tr><td>"+ (data[temp].itemName) +"</td><td><input id="+ (data[temp].id) +" type='text' /><td>"+ (data[temp+1].itemName) +"</td><td><input id="+ (data[temp+1].id) +" type='text' /></td><td></td><td></td></tr>");
+                $("#"+theadId).append("<tr><td class='grey'>"+ (data[temp].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td class='grey'>"+ (data[temp+1].itemName) +"</td><td><input type='text' id="+ (data[temp].id) +" / ></td><td></td><td></td></tr>");
             }         
                 
     }
