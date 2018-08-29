@@ -500,6 +500,58 @@ var home = {
                 return servers.backup() + "clazz/update";
             },
         }
+        ,MaterialItem : {
+            add : function(){
+                return servers.backup() + "loadingMaterialItem/add";
+            },
+            deleteById : function(){
+                return servers.backup() + "loadingMaterialItem/deleteById";
+            },
+            deleteByIds : function(){
+                return servers.backup() + "loadingMaterialItem/deleteByIds";
+            },
+            getAll : function(){
+                return servers.backup() + "loadingMaterialItem/getAll";
+            },
+            getAllByPage : function(){
+                return servers.backup() + "loadingMaterialItem/getAllByPage";
+            },
+            getById : function(){
+                return servers.backup() + "loadingMaterialItem/getById";
+            },
+            getByNameLikeByPage : function(){
+                return servers.backup() + "loadingMaterialItem/getByNameLikeByPage";
+            },
+            update : function(){
+                return servers.backup() + "loadingMaterialItem/update";
+            },
+        }
+        ,truckLoading :{
+            add : function(){
+                return servers.backup() + "truckLoadingHeader/add"
+            },
+            deleteById : function(){
+                return servers.backup() + "truckLoadingHeader/deleteById"
+            },
+            deleteByIds : function(){
+                return servers.backup() + "truckLoadingHeader/deleteByIds"
+            },
+            exportById : function(){
+                return servers.backup() + "truckLoadingHeader/exportById"
+            },
+            getById : function(){
+                return servers.backup() + "truckLoadingHeader/getById"
+            },
+            getByStartDateAndEndDateAndClazzByPage : function(){
+                return servers.backup() + "truckLoadingHeader/getByStartDateAndEndDateAndClazzByPage"
+            },
+            isExists : function(){
+                return servers.backup() + "truckLoadingHeader/isExists"
+            },
+            update : function(){
+                return servers.backup() + "truckLoadingHeader/update"
+            },
+        }
     }
    
     /** start */
