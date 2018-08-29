@@ -474,6 +474,32 @@ var home = {
                 return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
             },
         }
+        ,clazz : {
+            add : function(){
+                return servers.backup() + "clazz/add";
+            },
+            deleteById : function(){
+                return servers.backup() + "clazz/deleteById";
+            },
+            deleteByIds : function(){
+                return servers.backup() + "clazz/deleteByIds";
+            },
+            getAll : function(){
+                return servers.backup() + "clazz/getAll";
+            },
+            getAllByPage : function(){
+                return servers.backup() + "clazz/getAllByPage";
+            },
+            getById : function(){
+                return servers.backup() + "clazz/getById";
+            },
+            getByNameLikeByPage : function(){
+                return servers.backup() + "clazz/getByNameLikeByPage";
+            },
+            update : function(){
+                return servers.backup() + "clazz/update";
+            },
+        }
     }
    
     /** start */
