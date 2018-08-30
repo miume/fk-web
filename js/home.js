@@ -474,6 +474,7 @@ var home = {
                 return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
             },
         }
+<<<<<<< HEAD
         ,clazz : {
             add : function(){
                 return servers.backup() + "clazz/add";
@@ -552,6 +553,36 @@ var home = {
                 return servers.backup() + "truckLoadingHeader/update"
             },
         }
+=======
+        ,ropeWayRunningRecord : {
+            add : function() {
+                return servers.backup() + "ropeWayInfo/add";
+            },
+            addCause : function() {
+                return servers.backup() + "ropeWayInfo/addCause";
+            },
+            addRemark : function() {
+                return servers.backup() + "ropeWayInfo/addRemarks";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "ropeWayInfo/getAllByPage";
+            },
+            getByDate : function() {
+                return servers.backup() + "ropeWayInfo/getByDate";
+            },
+            getById : function() {
+                return servers.backup() + "ropeWayInfo/getById";
+            },
+            download : function() {
+                return servers.backup() + "ropeWayInfo/getByDateToExcel";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "ropeWayInfo/deleteByIds";
+            }
+        }
+
+
+>>>>>>> zl10
     }
    
     /** start */

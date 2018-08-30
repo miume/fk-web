@@ -68,8 +68,7 @@ var record = {
                     }
                 })
             })
-            /**绑定修改事件 */
-            record.funcs.bindEditEvents($("#updateButton"));
+           
             /**绑定批量删除事件 */
             record.funcs.bindDeleteByIdsEvents($("#deleteButton"));
              /**绑定导出事件 */
@@ -82,8 +81,8 @@ var record = {
          /**渲染下拉框 */
          ,renderSelector : function() { 
                 const $selector1 = $("#checkEquipment");    
-                $.get(home.urls.equipment.getAllByPage(),{},function(result) {
-                    var equipments = result.data.content;
+                $.get(home.urls.dataDictionary.getAllDataByTypeId(),{id : 3},function(result) {
+                    var equipments = result.data;
                     record.funcs.renderHandler1($selector1, equipments);
                 })
         }
@@ -95,112 +94,7 @@ var record = {
                     record.funcs.renderHandler2($selector, users);
                 })
         }
-        /**修改记录 */
-        ,bindEditEvents : function(buttons) {
-            buttons.off('click').on('click',function() {
-            //    record.funcs.renderUpdateSelector();
-                if($(".record-checkBox:checked").length === 0) {
-                    layer.msg('您还没选中任何数据!', {
-                        offset : ['40%', '55%'],
-                        time : 700
-                    })
-                } else if($(".record-checkBox:checked").length >1){
-                    layer.msg('您一次只能修改一条数据 ！',{
-                        offset : ['40%', '55%'],
-                        time : 700
-                    })   
-                } else {
-                    // 获取当前记录的ID
-                    var recordId=[]
-                    $(".record-checkbox").each(function() {
-                        if($(this).prop("checked")) {
-                            recordId.push(parseInt($(this).val()));
-                        }
-                    })
-                    // 查询当前记录下的所有信息
-                    $.get(home.urls.checkRecord.getById(),{id : recordId.toString()},function(result){
-                        var record = result.data
-                        var scheduleId = record.maintenanceSchedule.id  // 获取检修计划的ID
-                        $selector = $("#updateRepairMan")
-                        $selector.empty();
-                        $selector.append(
-                            "<option value=\"" + (record.backEnter ? record.backEnter.id : ' ') +"\""+ ">"+ (record.backEnter ? record.backEnter.name : ' ') + "</option>"
-                        )
-                        $("#updateRepairMan").on('click',function(){
-                            $(this).off('click');
-                            $.get(home.urls.user.getAll(),{},function(result) {
-                                var users = result.data;
-                            //    record.funcs.renderHandler2($selector, users);
-                                $selector.empty() ;
-                                users.forEach(function(e){
-                                    $selector.append(
-                                    "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
-                                    )
-                                })
-                            })
-                        })
-                        $("#updateStartTime").val(record.arriveTime)
-                        $("#updateProblemReason").val(record.cause)
-                        $("#updateHandleResult").val(record.result)
-                        $("#updateEndTime").val(record.finishTime)
-                        $("#updateNote").val(record.remarks)
-
-                        $("#updateRecordModal").removeClass("hide");
-                        layer.open({
-                            type : 1,
-                            title : "修改检修记录",
-                            content : $("#updateRecordModal"),
-                            area : ['400px','300px'],
-                            btn : ['确定','取消'],
-                            offset: ['40%', '45%'],
-                            closeBtn : 0,
-                            yes : function(index){
-                                var recordId = [];
-                                $(".record-checkbox").each(function() {
-                                    if($(this).prop("checked")) {
-                                        recordId.push(parseInt($(this).val()));
-                                    }
-                                })
-                            //    console.log(recordId.toString())
-                                var backenterId = $("#updateRepairMan").find("option:selected").val();  
-                                var startTime = $("#updateStartTime").val();
-                                var reason = $("#updateProblemReason").val();
-                                var result = $("#updateHandleResult").val();
-                                var endTime = $("#updateEndTime").val();
-                                var backNote = $("#updateNote").val();
-                                $.post(home.urls.checkRecord.update(),{
-                                    "maintenanceSchedule.id" : scheduleId ,
-                                    "backEnter.id" : backenterId,
-                                    "id" : recordId.toString(),
-                                    "arriveTime" : startTime,
-                                    "cause" : reason,
-                                    "result" : result,
-                                    "finishTime" : endTime,
-                                    "remarks" : backNote
-                                },function(result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                        record.init()
-                                        clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
-                                    time: 700
-                            })
-                        })
-                        $("#updateRecordModal").css("display","none");
-                        layer.close(index);
-                    },
-                        btn2 : function(index) {
-                        $("#updateRecordModal").css("display","none");
-                        layer.close(index);
-                        }
-                        })
-                    })   
-                }
-            })
-        }
+      
         /**批量删除 */
         ,bindDeleteByIdsEvents : function(buttons) {
             buttons.off('click').on('click',function() {
@@ -333,7 +227,7 @@ var record = {
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='record-checkbox'></td>" +
                     "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.maintenanceSchedule.equipmentInfoId.name) +"</td>" +
+                    "<td>" + (e.maintenanceSchedule.equipmentInfoId.dicName) +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enter ? e.maintenanceSchedule.enter.name : ' ') +"</td>" +
                     "<td>" + (e.maintenanceSchedule.enteringTime) +"</td>" +
                     "<td>" + (e.maintenanceSchedule.description) +"</td>" +
@@ -343,13 +237,17 @@ var record = {
                     "<td>" + (e.result) +"</td>" +
                     "<td>" + (e.finishTime) +"</td>" +
                     "<td>" + (e.remarks) +"</td>" +
+                    "<td><a href='#' class='editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "</tr>"
                 )
             })
             /**实现全选 */
             var checkedBoxLength = $(".record-checkBox:checked").length;
             home.funcs.bindselectAll($("#record_checkAll"), $(".record-checkbox"), checkedBoxLength, $("#recordTable"));
+             /**绑定修改事件 */
+             record.funcs.bindEditEvents($(".editor"));
         }
+
         /**getAllequipments , 获取所有设备，以下拉框形式呈现*/ 
         ,renderHandler1 : function($selector, equipments) {    
             $selector.empty() ;
@@ -359,7 +257,7 @@ var record = {
             )
             equipments.forEach(function(e){
                 $selector.append(
-                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
+                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.dicName) + "</option>"
                 )
             })
         }
@@ -372,7 +270,90 @@ var record = {
                 )
             })
         }
+          /**修改记录 */
+          ,bindEditEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
+ 
+                    var id = $(this).attr('id').substr(5)
+                    console.log(id);
+                    // 查询当前记录下的所有信息
+                    $.get(home.urls.checkRecord.getById(),{id : id},function(result){
+                        var record = result.data
+                        var scheduleId = record.maintenanceSchedule.id  // 获取检修计划的ID
+                        $selector = $("#updateRepairMan")
+                        $selector.empty();
+                        $selector.append(
+                            "<option value=\"" + (record.backEnter ? record.backEnter.id : ' ') +"\""+ ">"+ (record.backEnter ? record.backEnter.name : ' ') + "</option>"
+                        )
+                        $("#updateRepairMan").on('click',function(){
+                            $(this).off('click');
+                            $.get(home.urls.user.getAll(),{},function(result) {
+                                var users = result.data;
+                            //    record.funcs.renderHandler2($selector, users);
+                                $selector.empty() ;
+                                users.forEach(function(e){
+                                    $selector.append(
+                                    "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
+                                    )
+                                })
+                            })
+                        })
+                        $("#updateStartTime").val(record.arriveTime)
+                        $("#updateProblemReason").val(record.cause)
+                        $("#updateHandleResult").val(record.result)
+                        $("#updateEndTime").val(record.finishTime)
+                        $("#updateNote").val(record.remarks)
 
+                        $("#updateRecordModal").removeClass("hide");
+                        layer.open({
+                            type : 1,
+                            title : "修改检修记录",
+                            content : $("#updateRecordModal"),
+                            area : ['400px','300px'],
+                            btn : ['确定','取消'],
+                            offset: ['40%', '45%'],
+                            closeBtn : 0,
+                            yes : function(index){
+                                
+                            //    console.log(recordId.toString())
+                                var backenterId = $("#updateRepairMan").find("option:selected").val();  
+                                var startTime = $("#updateStartTime").val();
+                                var reason = $("#updateProblemReason").val();
+                                var result = $("#updateHandleResult").val();
+                                var endTime = $("#updateEndTime").val();
+                                var backNote = $("#updateNote").val();
+                                $.post(home.urls.checkRecord.update(),{
+                                    "maintenanceSchedule.id" : scheduleId ,
+                                    "backEnter.id" : backenterId,
+                                    "id" : id,
+                                    "arriveTime" : startTime,
+                                    "cause" : reason,
+                                    "result" : result,
+                                    "finishTime" : endTime,
+                                    "remarks" : backNote
+                                },function(result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                        record.init()
+                                        clearTimeout(time)
+                                        }, 500)
+                                    }
+                                    layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                            })
+                        })
+                        $("#updateRecordModal").css("display","none");
+                        layer.close(index);
+                    },
+                        btn2 : function(index) {
+                        $("#updateRecordModal").css("display","none");
+                        layer.close(index);
+                        }
+                        })
+                    })   
+            })
+        }
 
        
        

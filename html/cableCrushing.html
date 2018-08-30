@@ -1,42 +1,165 @@
 <div class="display-component-container" >
-    <h1>索道碎矿</h1>
-    <div class="block-quote">
-        <div class="fl">
+    <style type="text/css" rel="stylesheet">
+        .hidePage{
+            display : none;
+        }  
+        .grayFont{
+            color : gray;
+        }   
+    </style>
+
+    <div class="block-quote" >
+        <div id="dayHead">
+            <div class="fl">
             <p>
-                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
+                <span style="display: inline-block;width:200px;">索道碎矿系统生产情况表</span>
+                <span>时间：</span><input type="text" id="monthTime" placeholder="请输入年月">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;
+                <span id="expertButton1"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
             </p>
+            </div>
         </div>
-        <div class="fr">
-            <p>
-                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="searchName" style="width:120px;" placeholder="请输入搜素关键字">
-                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
-            </p>
+        <div id="monthHead" class="hidePage" > <!---->
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:200px;">索道碎矿系统生产情况表</span>
+                    <span>时间：</span><input type="text" id="startTime" placeholder="请输入开始月份"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" id="endTime" placeholder="请输入结束月份">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>&nbsp;&nbsp;
+                    <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                </p>
+            </div>
         </div>
+        <div id="monthHead1">
+                <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:200px;">索道碎矿系统生产情况表</span>
+                    <span>时间：</span><input type="text" id="monthTime1" placeholder="请输入年月">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="saveButton"><a href="#"><i class="layui-icon">&#xe610;</i> 保存</a></span>&nbsp;&nbsp;
+                    <span id="expertButton3"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="backButton1"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                </p>
+                </div>
+            </div>
     </div>
     <!--留白-->
     <div class="whitespace"></div>
-    <table id="userTable">
-        <thead>
-                <tr>
-                        <td class="checkBox_td">
-                            <input id="user_checkAll" type="checkbox">
-                        </td>
-                        <td>序号</td>
-                        <td>名称</td>
-                        <td>表头1</td>
-                        <td>表头2</td>
-                        <td>备注</td>
-                        <td>编辑</td>
-                        <td>删除</td>
-                    </tr>
-        </thead>
-        <tbody>
+    <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+          <li class="layui-this" id="switchHead1">生产日报</li>
+          <li id="switchHead2">生产月报</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table id="dayReportTable">
+                    <thead>
+                        <tr>
+                            <td rowspan="2">日期</td>
+                            <td colspan="2">碎矿系统</td>
+                            <td colspan="10">索道系统</td>
+                            <td rowspan="2">周检</td>
+                            <td rowspan="2">铲矿</td>
+                            <td rowspan="2">吊棚</td>
+                            <td rowspan="2">避雷</td>
+                            <td rowspan="2">屙矿</td>
+                            <td rowspan="2">掉斗箱</td>
+                            <td rowspan="2">矿仓满</td>
+                            <td rowspan="2">备注</td>
+                            <td rowspan="2">编辑</td>
+                        </tr>
+                        <tr>
+                            <td>运转时间</td>
+                            <td>影响开机时间</td>
+                            <td>运转时间</td>
+                            <td>停机时间</td>
+                            <td>机械故障</td>
+                            <td>电器故障</td>
+                            <td>周检</td>
+                            <td>无矿</td>
+                            <td>加斗</td>
+                            <td>吊棚</td>
+                            <td>卫生</td>
+                            <td>其他</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                    </tbody>
+                </table>
+                <div id="day_page"></div>
+            </div>
+            <div class="layui-tab-item">
+                <div id="monthTable">
+                    <table id="monthReportTable">
+                        <thead>
+                            <tr>
+                                <td>月份</td>
+                                <td>时间区间</td>
+                                <td>统计科室</td>
+                                <td>制表人</td>
+                                <td>制表时间</td>
+                                <td>修改人</td>
+                                <td>修改时间</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td>1月</td>
+                            <td>2018-1-1至2018-1-25</td>
+                            <td>调度室</td>
+                            <td>张三</td>
+                            <td>2018-1-27 11:23:22</td>
+                            <td>修改人</td>
+                            <td>修改时间</td>
+                            <td><a href="#"></a></td>
+                        </tbody>
+                    </table>
+                    <div id="month_page1"></div>
+                </div>
+                <div id="datailTable">
+                        <table id="monthReportTable"> <!-- class="hidePage"-->
+                            <thead>
+                                <tr>
+                                    <td rowspan="2">日期</td>
+                                    <td colspan="2">碎矿系统</td>
+                                    <td colspan="10">索道系统</td>
+                                    <td rowspan="2">周检</td>
+                                    <td rowspan="2">铲矿</td>
+                                    <td rowspan="2">吊棚</td>
+                                    <td rowspan="2">避雷</td>
+                                    <td rowspan="2">屙矿</td>
+                                    <td rowspan="2">掉斗箱</td>
+                                    <td rowspan="2">矿仓满</td>
+                                    <td rowspan="2">备注</td>
+                                    <td rowspan="2">编辑</td>
+                                </tr>
+                                <tr>
+                                    <td>运转时间</td>
+                                    <td>影响开机时间</td>
+                                    <td>运转时间</td>
+                                    <td>停机时间</td>
+                                    <td>机械故障</td>
+                                    <td>电器故障</td>
+                                    <td>周检</td>
+                                    <td>无矿</td>
+                                    <td>加斗</td>
+                                    <td>吊棚</td>
+                                    <td>卫生</td>
+                                    <td>其他</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+    
+                            </tbody>
+                        </table>
+                        <div id="month_page2"></div>
+                    </div>
 
-        </tbody>
-    </table>
-    <div id="user_page"></div>
+            </div>
+        </div>
+      </div>
+    
 
     <script src="selfjs/cableCrushing.js"></script>
     <script type="application/javascript">
@@ -44,6 +167,50 @@
             crushing.init();
         });
     </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#monthTime',
+                type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime',
+                type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#endTime',
+                type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('element', function(){
+          var $ = layui.jquery
+          ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+          
+          
+        });
+        $("#switchHead1").off('click').on('click',function(){
+            $("#dayHead").removeClass("hidePage");
+            $("#monthHead").addClass("hidePage");
+        })
+        $("#switchHead2").off('click').on('click',function(){
+            $("#monthHead").removeClass("hidePage");
+            $("#dayHead").addClass("hidePage");
+        })
+        </script>
+        
     <!--隐藏部分（弹出框显示部分）-->
     <div id = "modal" class="hide models"></div>
 

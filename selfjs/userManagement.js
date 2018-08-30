@@ -696,7 +696,7 @@ var userManage = {
                        content: $("#setRoleModal"),
                        area: ['620px', '550px'],
                        btn: ['确定', '取消'],
-                       offset: ['20%','35%'],
+                       offset: "auto",
                        yes: function(index){
                            /**收集数据 */
                            var rolecodes = new Array()

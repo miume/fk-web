@@ -2,7 +2,6 @@
     <div class="block-quote">
         <div class="fl">
             <p>
-                <span id="updateButton"><a href="#"><i class="layui-icon">&#xe642;</i>修改</a></span>&nbsp;&nbsp;
                 <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
                 <span id="expertButton"><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
                
@@ -36,6 +35,7 @@
             <td>处理结果</td>
             <td>完成时刻</td>
             <td>备注</td>
+            <td>编辑</td>
         </tr>
         </thead>
         <tbody>
@@ -57,10 +57,7 @@
                 elem:'#startTime',
                 type:'date',
                 btns: ['now'],
-                done:function(value,date){
-                    
-                }
-            });
+            })
         })
     </script>
     <script type="application/javascript">
@@ -69,11 +66,8 @@
             laydate.render({
                 elem:'#endTime',
                 type:'date',
-                btns: ['now'],
-                done:function(value,date){
-                    
-                }
-            });
+                btns: ['now'], 
+            })
         })
     </script>
     <script type="application/javascript">
@@ -82,11 +76,7 @@
             laydate.render({
                 elem:'#updateStartTime',
                 type:'datetime',
-                btns: ['now'],
-                done:function(value,date){
-                    
-                }
-            });
+            })
         })
     </script>
     <script type="application/javascript">
@@ -95,11 +85,7 @@
             laydate.render({
                 elem:'#updateEndTime',
                 type:'datetime',
-                btns: ['now'],
-                done:function(value,date){
-                    
-                }
-            });
+            })
         })
     </script>
     <!--隐藏部分（弹出框显示部分）-->
