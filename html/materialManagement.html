@@ -1,4 +1,11 @@
 <div class="display-component-container">
+    <style>
+        #addModal {
+            padding: 40px;
+            width: 100%;
+            height: 95%;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p>
@@ -11,12 +18,6 @@
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;
             </p>
         </div>
-        <!-- <div class="fr">
-            <p>
-                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-            </p>
-        </div> -->
     </div>
     <!--留白-->
     <div class="whitespace"></div>
@@ -66,9 +67,30 @@
         })
     </script>
     <!--新增、编辑 弹出界面-->
-    <div id="updateModal" class="hide hideModal">
-        <table id="dynTable">
+    <div id="addModal" class="hide">
+        <div style="padding-bottom: 20px">
+            时间：<input id="inputDate" type="text"  placeholder="请选择时间" />
+        </div>
+        <table id="materialAddTable">
+            <thead>
+                <td>物料名</td>
+                <td>实际用量（t）</td>
+                <td>物料名</td>
+                <td>实际用量（t）</td>
+            </thead>
+            <tbody id="materialAddTbody">
 
+            </tbody>
         </table>
     </div>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#inputDate',
+                btns : ['now']
+            })
+        })
+    </script>
 </div>

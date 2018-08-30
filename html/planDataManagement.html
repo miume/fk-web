@@ -1,0 +1,104 @@
+<div class="display-component-container">
+    <style>
+        #addDateWindow {
+            padding: 40px;
+            width: 100%;
+            height: 95%;
+        }
+
+
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">计划数据管理</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                结束日期：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="overflow-x: scroll; width:100%; height: 70%">
+        <table id="planDataManagementTable" style="width: 180%">
+            <thead>
+                <tr>
+                    <td rowspan="2">时间</td>
+                    <td id="unitPrice" colspan="">单价（元/t）</td>
+                    <td id="planConsume" colspan="">计划单耗（kg/t）</td>
+                    <td id="storageNum" colspan="">库存量（t）</td>
+                    <td rowspan="2">录入时间</td>
+                    <td rowspan="2">录入人</td>
+                    <td rowspan="2">修改时间</td>
+                    <td rowspan="2">修改人</td>
+                    <td rowspan="2">编辑</td>
+                </tr>
+                <tr id="dynamicAdd">
+
+                </tr>
+            </thead>
+            <tbody id="planDataManagementTbody">
+
+            </tbody>
+        </table>
+    </div>
+    <div id="planDataManagementPage"></div>
+    <script src="selfjs/planDataManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            planDataManagement.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                type : 'month'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate',
+                type : 'month'
+            })
+        })
+    </script>
+
+    <!--数据录入 弹出界面-->
+    <div id="addDateWindow" class="hide" >
+        <div style="padding-bottom: 20px">
+            时间：<input id="inputDate" type="text"  placeholder="请选择时间" />
+        </div>
+        <table id="planDataAddTable">
+            <thead id="planDataAddThead">
+                <tr>
+                    <td>物料名</td>
+                    <td>单价（元/t）</td>
+                    <td>计划单耗（kg/t）</td>
+                    <td>库存量（t)</td>
+                </tr>
+            </thead>
+            <tbody id="planDataAddTbody">
+
+            </tbody>
+        </table>
+    </div>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#inputDate',
+                type : 'month'
+            })
+        })
+    </script>
+</div>

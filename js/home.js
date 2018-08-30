@@ -474,7 +474,6 @@ var home = {
                 return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
             },
         }
-<<<<<<< HEAD
         ,clazz : {
             add : function(){
                 return servers.backup() + "clazz/add";
@@ -553,7 +552,6 @@ var home = {
                 return servers.backup() + "truckLoadingHeader/update"
             },
         }
-=======
         ,ropeWayRunningRecord : {
             add : function() {
                 return servers.backup() + "ropeWayInfo/add";
@@ -580,9 +578,20 @@ var home = {
                 return servers.backup() + "ropeWayInfo/deleteByIds";
             }
         }
-
-
->>>>>>> zl10
+        ,planDataManagement : {
+            add : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/add";
+            },
+            getById : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/getById";
+            },
+            getByStartDateAndEndDateByPage : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/getByStartDateAndEndDateByPage";
+            },
+            update : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/update";
+            },
+        }
     }
    
     /** start */
