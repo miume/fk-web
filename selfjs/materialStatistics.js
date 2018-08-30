@@ -9,8 +9,9 @@ var materialStatistics = {
         },30);
     }
     ,key : []
+    ,pageSize : 0
     ,funcs: {
-        renderTable:function() {
+        renderTable : function() {
             /**渲染表头,获取所有数据 */
             $.get(home.urls.materialConsumptionItem.getAll(),{}, function(result) {
                 var materialHead = result.data;
@@ -42,7 +43,6 @@ var materialStatistics = {
                         count: page.totalElements ,
                         /**页面变换后的逻辑 */
                         jump: function(obj, first) {
-                            console.log(obj.curr - 1);
                             if(!first) {
                                 $.get(home.urls.materialStatistics.getByStartDateAndEndDateByPage(),{
                                     startDate : startMonthDate ,
@@ -66,7 +66,7 @@ var materialStatistics = {
             /**绑定刷新事件 */
             materialStatistics.funcs.bindRefreshEvents($("#refreshButton"));
             /**绑定生成报表事件 */
-            materialStatistics.funcs.bindAddByIdsEvents($("#reportButton"));
+            materialStatistics.funcs.bindreportByIdsEvents($("#reportButton"));
         }
         /**渲染数据 */
         ,renderHandler : function ($tbody, mapDatas, page , keys) {
@@ -150,19 +150,20 @@ var materialStatistics = {
 
             for(var i in results){
                 var result = results[i];
+                // console.log(result);
                 // 不能使用new map，否则会导致之数据格式不对
                 var map = {};
-                map["id"] = result.id||"";
-                map["month"] = (result.date.substring(0,4)+"-"+result.date.substr(5))||"";
-                map["date"] = (result.startDate + "至" + result.endDate)||"";
+                map["id"] = result.id||'';
+                map["month"] = result.date.substring(0,4)+"-"+result.date.substr(4);
+                map["date"] = (result.startDate + "至" + result.endDate)||'';
                 for(var j in result.details){
                     var detail = result.details[j];
-                    map[detail.item.id] = detail.curConsump||"";
-                    map["unit"+detail.item.id] = detail.curUnitConsump||"";
+                    // console.log(detail);
+                    map[detail.item.id] = detail.curConsump||'0';
+                    map["unit"+detail.item.id] = detail.curUnitConsump||'0';
                 }
                 datas.push(map);
             }
-            // console.log(datas);
             return datas;
         }
         /**渲染表头 */
@@ -252,7 +253,7 @@ var materialStatistics = {
                     layer.msg('刷新成功', {
                         offset : ['40%','50%'],
                         time : 700
-                    })
+                    });
                     materialStatistics.init();
                     layer.close(index);
                     clearTimeout(time);
@@ -260,7 +261,7 @@ var materialStatistics = {
             })
         }
         /**绑定生成报表事件 */
-        ,bindAddByIdsEvents : function(buttons) {
+        ,bindreportByIdsEvents : function(buttons) {
             buttons.off('click').on('click',function() {
                 $("#reportDate").val("");
                 $("#reportForm").removeClass("hide");
@@ -316,9 +317,6 @@ var materialStatistics = {
                     // console.log(detailData);
                     const $tbody = $("#statisticsDetailTbody");
                     materialStatistics.funcs.renderDetails($tbody,detailData);
-
-
-
                     $("#detailsWindow").removeClass("hide");
                     layer.open({
                         type: 1,
@@ -331,6 +329,10 @@ var materialStatistics = {
                         yes: function(index) {
                             var href = home.urls.materialStatistics.exportByDate()+"?date=" + detailDate;
                             location.href = href;
+                        }
+                        ,btn2: function (index) {
+                            $("#detailsWindow").css("display","none");
+                            layer.close(index);
                         }
                     })
                 })
@@ -346,7 +348,6 @@ var materialStatistics = {
                     enterUserId : userJson.id,
                     date : date
                 },function(result) {
-                    console.log(date);
                     if (result.code === 0) {
                         var time = setTimeout(function () {
                             materialStatistics.init();
@@ -361,4 +362,4 @@ var materialStatistics = {
             })
         }
     }
-}
+};

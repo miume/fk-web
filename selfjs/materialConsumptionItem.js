@@ -68,7 +68,7 @@ var materialConsumptionItem = {
                     materialTypes.forEach(function(e) {
                     $("#materialTypeName").append('<option value='+e.id+'>'+e.name+'</option>');
                     })
-                })
+                });
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
@@ -88,7 +88,7 @@ var materialConsumptionItem = {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
-                            })
+                            });
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
                                     materialConsumptionItem.init();

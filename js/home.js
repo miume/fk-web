@@ -474,6 +474,20 @@ var home = {
                 return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
             },
         }
+        ,planDataManagement : {
+            add : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/add";
+            },
+            getById : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/getById";
+            },
+            getByStartDateAndEndDateByPage : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/getByStartDateAndEndDateByPage";
+            },
+            update : function(){
+                return servers.backup() + "materialConsumptionPlanHeader/update";
+            },
+        }
     }
    
     /** start */
