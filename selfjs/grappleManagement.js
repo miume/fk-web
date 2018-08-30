@@ -18,7 +18,7 @@ var grapple = {
                 startDate : startDate,
                 endDate : endDate,
             },function(result){
-                var grapples = result.data;
+                var grapples = result.data.content;
                 const $tbody = $('#grappleTable').children('tbody');
                 grapple.funcs.renderHandler($tbody,grapples,0);
                 grapple.pageSize = result.data.length;
@@ -46,7 +46,94 @@ var grapple = {
                     }
                 })
             })
+            /**绑定数据录入事件 */
+            grapple.funcs.bindAddEvents($("#addButton"));
+            /**绑定批量删除事件 */
+            grapple.funcs.bindDeleteEvents($("#deleteButton"));
+            /**绑定刷新事件 */
+            grapple.funcs.bindRefreshEvents($("#refreshButton"));
+            /**绑定查询事件 */
+            grapple.funcs.bindSearchEvents($("#searchButton"));
         }
+        /**绑定刷新事件 */
+        ,bindRefreshEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
+                var index = layer.load(2, { offset : ['40%','50%']});
+                var time = setTimeout(function(){
+                    layer.msg('刷新成功', {
+                        offset : ['40%','50%'],
+                        time : 700
+                    })
+                    grapple.init();
+                    layer.close(index);
+                    clearTimeout(time);
+                }, 200)
+            })
+        }
+        /**绑定数据录入事件 */
+        ,bindAddEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                $("#selected").val("");
+                $("#confirm").removeClass("hide");
+                layer.open({
+                    type : 1,
+                    title : "确认",
+                    content : $("#confirm"),
+                    area : ['380px', '200px'],
+                    btn : ['确定' , '取消'],
+                    offset : ['40%' , '45%'],
+                    closeBtn: 0,
+                    yes : function(index){
+                        var value = $("#selected").val();
+                        $.get(home.urls.truckLoading.isExists(),{
+                            id : value,
+                        },function(result){
+                            if(!result.data){
+                                $("#confirm").addClass("hide");
+                                layer.close(index);
+                                // var time = setTimeout(function() {
+                                //     dataTypeManagement.init();
+                                //     clearTimeout(time);
+                                // },500)
+                                $("#modal").removeClass("hide");
+                                layer.open({
+                                    type: 1,
+                                    title: "新增",
+                                    content: $("#modal"),
+                                    area: ['80%', '70%'],
+                                    btn: ['保存', '取消'],
+                                    offset: ['10%', '10%'],
+                                    closeBtn: 0,
+                                    yes : function(index){
+                                        //实现json格式传数据
+                                        
+                                    }
+                                })
+                            }else{
+                                alert("该班次已存在");
+                            }
+                        })
+                    },
+                    btn2 : function(index) {
+                        $("#confirm").addClass("hide");
+                        layer,close(index);
+                    }
+                })
+            })
+        }
+        /**绑定批量删除事件 */
+        ,bindDeleteEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                
+            })
+        }
+        /**绑定查询事件 */
+        ,bindSearchEvents : function(buttons){
+            buttons.off('click').on('click',function(){
+                
+            })
+        }
+        /**渲染数据 */
         ,renderHandler : function($tbody,grapples,page){
             //清空表格
             $tbody.empty();
@@ -56,10 +143,46 @@ var grapple = {
                     "<td><input type='checkbox' value="+e.id+" class='grapple-checkbox'></td>" +
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.code)+"</td>" +
-                    "<td>"+(e&&e.typeValue ? e.typeValue : '')+"</td>" +
-                    "<td><a href='#' class='editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
-                    "<td><a href='#' class = 'delete' id='delete-"+(e.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
+                    "<td>"+(e.date)+"</td>" +
+                    "<td>"+(e.clazz.name)+"</td>" +
+                    "<td>"+(e.dispatcher.name)+"</td>" +
+                    "<td>"+(e.reporter.name)+"</td>" +
+                    "<td><a href='#' class ='view' id='view-"+(e.id)+"'>查看明细</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' class ='modify' id='modify-"+(e.id)+"'>修改明细</a></td>" +
                     "</tr>"
+                )
+            })
+
+            /**实现全选 */
+            var checkedBoxLength = $(".grapple_checkbox:checked").length;
+            home.funcs.bindselectAll($("#grapple_checkAll"), $(".grapple_checkbox"), checkedBoxLength, $("#grappleTable"));
+            /**绑定查看明细事件 */
+            grapple.funcs.bindViewEvents($('.view'));
+            /**绑定修改明细事件 */
+            grapple.funcs.bindModifyEvents($('.modify'));
+        }
+        /**绑定查看明细事件 */
+        ,bindViewEvents : function(buttons){
+            buttons.off("click").on("click",function(){
+                var id = $(".view").attr("id").substr(4);
+                $.get(home.urls.truckLoading.getById(),{id : id},function(result){
+                    var datas = result.data;
+                    var id = datas.id;
+                })
+            })
+        }
+        /**绑定修改明细事件 */
+        ,bindModifyEvents : function(buttons){
+            buttons.off("click").on("click",function(){
+                
+            })
+        }
+        /**渲染录入，修改,查看数据 */
+        ,renderDeatil : function($tbody,grapples,page){
+            $tbody.empty();
+            grapples.forEach(function(e){
+                $tbody.append(
+                    "<tr>" + 
+                    "<td>"
                 )
             })
         }

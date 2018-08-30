@@ -5,15 +5,15 @@
             <p>
                 <p class="fl" style="margin-left:20px;"><span>开始时间：<input type="text" id="startTime"></span></p>
                 <p class="fl" style="margin-left:20px;"><span>结束时间：<input type="text" id="endTime"></span></p>
-                <p class="fl" style="margin-left:20px;"><span>班　　次：<select>
-                    <option value="早班">早班</option><option value="中班">中班</option><option value="晚班">晚班</option><option value="-1">所有</option>
+                <p class="fl" style="margin-left:20px;"><span>班　　次：<select id="clazz">
+                    <option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option><option value="-1" selected="selected">所有</option>
                 </select></span></p>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
         <div class="fr">
             <p>
-                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>数据录入</a></span>&nbsp;&nbsp;
                 <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
                 <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
@@ -23,18 +23,18 @@
     <div class="whitespace"></div>
     <table id="grappleTable">
         <thead>
-                <tr>
-                        <td class="checkBox_td">
-                            <input id="grapple_checkAll" type="checkbox">
-                        </td>
-                        <td>序号</td>
-                        <td>装车编号</td>
-                        <td>装车日期</td>
-                        <td>所属班组</td>
-                        <td>值班调度员</td>
-                        <td>抓斗汇报人</td>
-                        <td>操作</td>
-                    </tr>
+            <tr>
+                <td class="checkBox_td">
+                    <input id="grapple_checkAll" type="checkbox">
+                </td>
+                <td>序号</td>
+                <td>装车编号</td>
+                <td>装车日期</td>
+                <td>班次</td>
+                <td>值班调度员</td>
+                <td>抓斗汇报人</td>
+                <td>操作</td>
+            </tr>
         </thead>
         <tbody>
 
@@ -48,8 +48,50 @@
             grapple.init();
         });
     </script>
-    <!--隐藏部分（弹出框显示部分）-->
-    <div id = "modal" class="hide models"></div>
+    <!--确认弹出页面-->
+    <div id="confirm" class="hide hideModal">
+        <p><span>班次:</span><select id="selected"><option value="1">早班</option>
+                                    <option value="2">中班</option>
+                                    <option value="3">晚班</option></select></p>
+    </div>
+    <!--新增，修改弹出页面-->
+    <div id = "modal" class="hide">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <p class="fl" style="margin-left:20px;"><span>抓斗汇报人：<input type="text" id="dispatcher"></span></p>
+                    <p class="fl" style="margin-left:20px;"><span>时间：<input type="text" id="time"></span></p>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="reportChart">
+            <thead id="reportChartThead">
+                <tr>
+                    <td></td>
+                    <td>次序</td>
+                    <td>送装车票时刻</td>
+                    <td>车皮数目</td>
+                    <td>要求装车矿仓</td>
+                    <td>车皮对好位时刻</td>
+                    <td>补好车皮时刻</td>
+                    <td>装车完成时刻</td>
+                    <td>过磅时间</td>
+                    <td>备注</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody id="reportChartTbody">
+
+            </tbody>
+            <div>
+                <p>
+                    <span id="addRow"><a href="#"><i class="layui-icon">&#xe608;</i>添加一行</a></span>
+                </p>
+            </div>
+        </table>
+    </div>
     <script type="application/javascript">
         layui.use('laydate',function(){
             var laydate = layui.laydate;
@@ -65,6 +107,16 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem:'#endTime',
+                value:new Date()
+                ,done:function(value,date){}
+            });
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#time',
                 value:new Date()
                 ,done:function(value,date){}
             });
