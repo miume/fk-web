@@ -53,9 +53,9 @@ var plan = {
         /**渲染下拉框 */
         ,renderSelector : function() { 
             const $selector1 = $("#addEquipmentName");    
-                $.get(home.urls.equipment.getAllByPage(),{},function(result) {
-                    var equipments = result.data.content;
-                    plan.funcs.renderHandler1($selector1, equipments);
+                $.get(home.urls.dataDictionary.getAllDataByTypeId(),{id : 3},function(result) {
+                    var equipments = result.data;
+                    plan.funcs.renderHandler2($selector1, equipments);
                 })
         }
         /*渲染编辑功能下拉框*/ 
@@ -65,13 +65,13 @@ var plan = {
                 const $selector2 = $("#updateEquipmentName");
                 $selector2.empty();
                 $selector2.append(
-                    "<option value=\"" + (equipments.equipmentInfoId.id) +"\""+ ">"+ (equipments.equipmentInfoId.name) + "</option>"
+                    "<option value=\"" + (equipments.equipmentInfoId.id) +"\""+ ">"+ (equipments.equipmentInfoId.dicName) + "</option>"
                 )
                 $("#updateEquipmentName").on('click',function() {
                     $(this).off('click');
-                    $.get(home.urls.equipment.getAllByPage(),{},function(result) {
-                        var equipments = result.data.content;
-                        plan.funcs.renderHandler1($selector2, equipments);
+                    $.get(home.urls.dataDictionary.getAllDataByTypeId(),{id : 3},function(result) {
+                        var equipments = result.data;
+                        plan.funcs.renderHandler2($selector2, equipments);
                     })  
                 })
             })    
@@ -207,7 +207,7 @@ var plan = {
                 $tbody.append(
                     "<tr>" + 
                     "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.equipmentInfoId.name) + "</td>" +
+                    "<td>" + (e.equipmentInfoId.dicName) + "</td>" +
                     "<td>" + (e.enter ? e.enter.name : ' ') + "</td>" +
                     "<td>" + (e.enteringTime) + "</td>" +
                     "<td>" + (e.description ? e.description : ' ') + "</td>" +
@@ -235,6 +235,14 @@ var plan = {
                 )
             })
         }
+        ,renderHandler2 : function($selector, equipments) {    
+            $selector.empty() ;
+            equipments.forEach(function(e){
+                $selector.append(
+                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.dicName) + "</option>"
+                )
+            })
+        }
         /**编辑检修计划 */
         ,bindEditEvents : function(buttons) {
             buttons.off('click').on('click',function() {
@@ -259,7 +267,9 @@ var plan = {
                         var dptId = $("#updateEquipmentName").find("option:selected").val();
                         var description = $("#updateDescription").val();
                         var note = $("#updateNote").val();
+                    
                         $.post(home.urls.maintenanceSchedule.update(),{
+                            "enter.id" : home.user.id,
                             "id" : id,
                             "equipmentInfoId.id" : dptId,
                             "description" : description,

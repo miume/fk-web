@@ -2,7 +2,10 @@
     <style type="text/css" rel="stylesheet">
       .hidePage{
           display : none;
-      }     
+      }  
+      .grayFont{
+          color : gray;
+      }   
     </style>
 
     <div id="runMonitoring">
@@ -10,8 +13,8 @@
             <div class="fl">
                 <p>
                     <span style="display: inline-block;width: 150px">索道运行监视</span>
-                    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;
-                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;-->
+                <!--    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
                     <span id="jumpToRecord"><a href="#"><i class="layui-icon">&#xe60a;</i> 运行历史记录</a></span>
                 </p>
             </div>
@@ -25,22 +28,21 @@
                 <!--        <input id="user_checkAll" type="checkbox">  -->
                 <!--    </td>  -->
                     <td>序号</td>
-                    <td>日期</td>
-                    <td>时间</td>
+                    <td>日期时间</td>
+                    <td>所属班次</td>
                     <td>索道状态</td>
                     <td>索道运行时长</td>
                     <td>索道停止时长</td>
                     <td>停止原因</td>
                     <td>备注</td>
-                    <td>编辑原因</td>
-                    <td>编辑备注</td>
+                    <td>操作</td>
                  </tr>
             </thead>
             <tbody>
 
             </tbody>
         </table>
-        <div id="user_page1"></div>
+        <div id="rope_page1"></div>
     </div>
 
     <div id="runRecord" class="hidePage">
@@ -48,15 +50,16 @@
             <div class="fl">
                 <p>
                     <span style="display: inline-block;width: 150px;">索道运行记录</span>
-                    <span>日期：</span><input id="startTime" placeholder="请选择开始时间">&nbsp;&nbsp;
-                    <select style="width: 60px" id="classType1"></select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
-                    <input id="endTime" placeholder="请选择结束时间">&nbsp;&nbsp;
-                    <select style="width: 60px" id="classType2"></select>
+                    <span>日期：</span><input type="text" id="startTime" placeholder="请选择开始时间">&nbsp;&nbsp;
+                    <select style="width: 100px" id="classType1"></select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" id="endTime" placeholder="请选择结束时间">&nbsp;&nbsp;
+                    <select style="width: 100px" id="classType2"></select>
                     <span style="display:inline-block;width:50px"></span>                    
-                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 添加</a></span>&nbsp;&nbsp;
-                    <span id="expert"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
-                    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;
-                    <span id="addremark1"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="expertButton"><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--    <span id="stopReason"><a href="#"><i class="layui-icon">&#xe609;</i> 停止原因</a></span>&nbsp;&nbsp;-->
+                <!--    <span id="addremark1"><a href="#"><i class="layui-icon">&#xe608;</i> 添加备注</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <span id="jumpToMonitoring"><a href="#"><i class="layui-icon">&#xe63c;</i></a> 索道运行监视</span>
                 </p>
             </div>
         </div>
@@ -76,15 +79,14 @@
                     <td>索道停止时长</td>
                     <td>停止原因</td>
                     <td>备注</td>
-                    <td>编辑原因</td>
-                    <td>编辑备注</td>
+                    <td>操作</td>
                 </tr>
             </thead>
             <tbody>
  
             </tbody>
         </table>
-        <div id="user_page2"></div>
+        <div id="rope_page2"></div>
     </div>
 
     <script src="selfjs/cablewayRecord.js"></script>
@@ -93,8 +95,36 @@
             cablewayRecord.init();
         });
     </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime',
+                type:'date',
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#endTime',
+                type:'date',
+            })
+        })
+    </script>
     <!--隐藏部分（弹出框显示部分）-->
-    <div id = "modal" class="hide models"></div>
+    <div id = "stopReasonModal" class="hide hideModal">
+        <p>
+            <span>停机原因：</span><select style="width: 150px" id="editStopReason"></select>
+        </p>
+    </div>
+    <div id = "remarkModal" class="hide hideModal">
+        <p>
+            <span style="display:block;width:50px;height:100px;float:left;">备注：</span><textarea style="width: 200px;height: 100px;" id="editRemark"></textarea>
+        </p>
+    </div>
+    
 
 
 </div>
