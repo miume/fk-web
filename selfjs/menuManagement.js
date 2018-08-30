@@ -254,7 +254,7 @@ var menuManagement = {
                     content : $("#operationModal"),
                     area : ['570px', '450px'],
                     btn : ['确认', '取消'],
-                    offset : ['35%', '35%'],
+                    offset : ['18%', '35%'],
                     closeBtn : 0,
                     yes : function(index) {
                         var operationIds = []; 

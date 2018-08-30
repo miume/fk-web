@@ -2,14 +2,12 @@ var dispatchAccount = {
     addData : [],
     init : function() {
         dispatchAccount.funcs.bindSearchEvent($("#search"));
-        $.get(home.urls.dataDictionary.getAllDataByTypeId(),{
-            id : 1
-        }, function(result) {
+        $.get(home.urls.dispatchAccount.getAllSchedule(),{}, function(result) {
             var cycle = result.data;
             $("#cycleName").empty();
             $("#cycleName").html("<option value='-1'>请选择班次</option>");
             cycle.forEach(function(e) {
-                $("#cycleName").append("<option value="+ (e.id) + ">"+ (e.dicName) +"</option>");
+                $("#cycleName").append("<option value="+ (e.id) + ">"+ (e.name) +"</option>");
             })
         })
     }

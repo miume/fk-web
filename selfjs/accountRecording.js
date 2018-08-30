@@ -6,14 +6,12 @@ accountRecording = {
     flag : 0,  //用来区分是编辑还是详情
     init : function() {
         accountRecording.funcs.bindInitSearchEvent();
-        $.get(home.urls.dataDictionary.getAllDataByTypeId(),{
-            id : 1
-        }, function(result) {
+        $.get(home.urls.dispatchAccount.getAllSchedule(),{}, function(result) {
             var cycle = result.data;
             $("#scheduleId").empty();
             $("#scheduleId").html("<option value='-1'>请选择班次</option>");
             cycle.forEach(function(e) {
-                $("#scheduleId").append("<option value="+ (e.id) + ">"+ (e.dicName) +"</option>");
+                $("#scheduleId").append("<option value="+ (e.id) + ">"+ (e.name) +"</option>");
             })
         })
     }
@@ -140,7 +138,7 @@ accountRecording = {
                         type : 1,
                         title : "查看台账",
                         content : $("#detailModal"),
-                        area : ["1020px","550px"],
+                        area : ["1050px","550px"],
                         offset : "auto",
                         btn : ["取消"],
                         closeBtn : 0,
@@ -175,7 +173,7 @@ accountRecording = {
                             type : 1,
                             title : "编辑台账",
                             content : $("#detailModal"),
-                            area : ["1020px","550px"],
+                            area : ["1050px","550px"],
                             offset : "auto",
                             btn : ["保存" ,"取消"],
                             closeBtn : 0,
