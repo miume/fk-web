@@ -89,6 +89,15 @@ var grapple = {
                             id : value,
                         },function(result){
                             if(!result.data){
+                                // $.get(home.urls.MaterialItem.getAll(),{},function(result){
+                                //     var key = [];
+                                //     var materialItem = result.data;
+                                //     materialItem.forEach(function(e){
+                                //         key.push(e.id);
+                                //     })
+                                //     // console.log(key)
+                                //     $.get(home.urls.)
+                                // })
                                 $("#confirm").addClass("hide");
                                 layer.close(index);
                                 // var time = setTimeout(function() {
@@ -160,14 +169,86 @@ var grapple = {
             /**绑定修改明细事件 */
             grapple.funcs.bindModifyEvents($('.modify'));
         }
+        /**map渲染 */
+        ,getMapData : function(results){
+            var datas = {};
+            for(var i in results) {
+                var result = results[i];
+                var key = result.item.id;
+                var maps = [];
+                if(datas[key] != undefined){
+                    maps = datas[key];
+                }
+                var map = {};
+                map["id"] = result.id||"";
+                map["item"] = result.item&&result.item.name||"";
+                map["rank"] = result.rank||"";
+                map["sendTime"] = result.sendTime||"";
+                map["num"] = result.num||"";
+                map["orebin"] = result.orebin.name||"";
+                map["contrapositionTime"] = result.contrapositionTime||"";
+                map["makeUpTime"] = result.makeUpTime||"";
+                map["finishTime"] = result.finishTime||"";
+                map["weighTime"] = result.weighTime||"";
+                map["note"] = result.note||"";
+                maps.push(map);
+                datas[key] = maps;                
+            }  
+            return datas;
+        }
+        
         /**绑定查看明细事件 */
         ,bindViewEvents : function(buttons){
             buttons.off("click").on("click",function(){
-                var id = $(".view").attr("id").substr(4);
-                $.get(home.urls.truckLoading.getById(),{id : id},function(result){
-                    var datas = result.data;
-                    var id = datas.id;
+                var id = $(".view").attr("id").substr(5);
+                $.get(home.urls.MaterialItem.getAll(),{},function(result){
+                    var keys = [];
+                    var materialItem = result.data;
+                    materialItem.forEach(function(e){
+                        keys.push(e.id)
+                    })
+                    // console.log(materialItem);
+                    $("#modal").removeClass("hide")
+                    $.get(home.urls.truckLoading.getById(),{id : id},function(result){
+                        var details = result.data.details
+                        var datas = grapple.funcs.getMapData(details);
+                        var headDatas = ["rank","sendTime","num","orebin","contrapositionTime","makeUpTime","finishTime","weighTime","note"]
+                        const $tbody = $("#reportChartTbody");
+                        $("#modal").removeClass("hide")
+                        keys.forEach((key)=>{
+                            var data = datas[key];
+                            // console.log("==========");
+                            // console.log(data);
+                            var flag = 0;
+                            // 2.循环写数据
+                            data.forEach((d)=>{
+                                if(flag == 0){
+                                    flag = flag + 1;
+                                    // 1.写类型
+                                    $tbody.append(
+                                        "<tr>"+
+                                        "<td rowspan='"+data.length+"'>"+data[0].item+"</td>"   +
+                                        "<td>123421343</td>"   +
+                                        "</tr>"      
+                                    );
+                                } else {
+                                    $tbody.append(
+                                        "<tr>"+
+                                        "<td>123421343</td>"   +
+                                        "</tr>"  
+                                    );
+                                }
+                            });
+                        });                      
+                    })
                 })
+            })
+        }
+        /**添加一行按钮操作 */
+        ,addRow : function(buttons){
+            buttons.off("click").on("click",function(){
+                $("#addModal").removeClass("hide");
+
             })
         }
         /**绑定修改明细事件 */
@@ -176,7 +257,7 @@ var grapple = {
                 
             })
         }
-        /**渲染录入，修改,查看数据 */
+        /**查看详情 */
         ,renderDeatil : function($tbody,grapples,page){
             $tbody.empty();
             grapples.forEach(function(e){
@@ -185,6 +266,8 @@ var grapple = {
                     "<td>"
                 )
             })
+            /**绑定添加一行事件 */
+            grapple.funcs.addRow($("#addRow"));
         }
     }
 }

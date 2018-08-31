@@ -50,11 +50,11 @@
     </script>
     <!--确认弹出页面-->
     <div id="confirm" class="hide hideModal">
-        <p><span>班次:</span><select id="selected"><option value="1">早班</option>
+        <p><span>班次:</span><select id="sel"><option value="1" selected="selected">早班</option>
                                     <option value="2">中班</option>
                                     <option value="3">晚班</option></select></p>
     </div>
-    <!--新增，修改弹出页面-->
+    <!--新增,修改,详情弹出页面-->
     <div id = "modal" class="hide">
         <div class="block-quote">
             <div class="fl">
@@ -69,7 +69,7 @@
         <table id="reportChart">
             <thead id="reportChartThead">
                 <tr>
-                    <td></td>
+                    <td style = "width:70px"></td>
                     <td>次序</td>
                     <td>送装车票时刻</td>
                     <td>车皮数目</td>
@@ -78,8 +78,8 @@
                     <td>补好车皮时刻</td>
                     <td>装车完成时刻</td>
                     <td>过磅时间</td>
-                    <td>备注</td>
                     <td>删除</td>
+                    <td>备注</td>
                 </tr>
             </thead>
             <tbody id="reportChartTbody">
@@ -91,6 +91,12 @@
                 </p>
             </div>
         </table>
+        <!--添加一行弹出页面-->
+        <div id="addModal" class="hide hideModal">
+            <p><span>原料:</span><select id="addMaterial"><option value="1" selected="selected">早班</option>
+                                        <option value="2">中班</option>
+                                        <option value="3">晚班</option></select></p>
+        </div>
     </div>
     <script type="application/javascript">
         layui.use('laydate',function(){
