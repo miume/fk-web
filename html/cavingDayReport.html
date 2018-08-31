@@ -46,36 +46,8 @@
             </tr> -->
         </tbody>
     </table>   
-    <div class="text_center" id="cavingDayReport_page"></div>
+    <div id="cavingDayReport_page"></div>
     
-    <script>
-        $(function() {
-                cavingDayReport.init();
-            
-        layui.use("laydate", function() {
-            var laydate = layui.laydate;
-            laydate.render({
-                elem : "#searchDate",
-                type : "month"
-            })
-            laydate.render({
-                elem : "#date",
-            })
-            laydate.render({
-                elem : ".addDate",
-                type : "datetime"
-            })
-        })
-    })
-        function num(obj){
-            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
-            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
-            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
-            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
-            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3'); //只能输入四位小数  
-        }  
-    </script>
-    <script src="selfjs/cavingDayReport.js"></script>
     <!--弹出框隐藏部分-->
     <div class="hide layerModal" id="addModal">
         <table id="tableHead">
@@ -113,7 +85,69 @@
         </tbody>
         </table>
         <div class="whitespace"></div>
-        <span class="hide" id="addLine" style="margin-left: 45%;"><i class="layui-icon" style="font-size: 45px;font-weight: bold; color: #1E9FFF;">&#xe608;</i> </span>
-       
+        <!-- <span class="hide" id="addLine" style="margin-left: 45%;"><i class="layui-icon" style="font-size: 45px;font-weight: bold; color: #1E9FFF;">&#xe608;</i> </span> -->
+        <div class="hide" id="addLine" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                <button onClick="addTab()"
+                style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+               </button>
+        </div>
     </div>
+    <script src="selfjs/cavingDayReport.js"></script>
+    <script>
+            $(function() {
+                    cavingDayReport.init();
+                
+            layui.use("laydate", function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#searchDate",
+                    type : "month"
+                })
+                laydate.render({
+                    elem : "#date",
+                })
+            })
+        })
+            function num(obj){
+                obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+                obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+                obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+                obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+                obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3'); //只能输入四位小数  
+            }  
+            function addTab() {
+            var i = $("#detail tbody tr").length + 1;
+            var $tbody = $("#detail").children("tbody");
+                $tbody.append(
+                    "<tr class='newLine'>" +
+                    "<td>"+ (i) +"</td>" +
+                    "<td><input type='text' class='addDate' /></td>" +
+                    "<td><input type='text' /></td>" +
+                    "<td><input type='text' /></td>" +
+                    "</tr>"
+                )
+            $(function() {
+                layui.use("laydate",function() {
+                    var laydate = layui.laydate;
+                    laydate.render({
+                        elem : ".addDate",
+                        type : "datetime"
+                    })
+                })
+            })
+    }
+    function delTab(x) {
+            console.log("#s" + x + "")
+            $("#s" +(x) + "").remove();
+            var count = $("#tab tr").length  
+            var i = 1
+            $(".newLine").each(function(){
+                $(this).children('td').eq(0).text(i++)
+            })
+           // $(this).parent('td').parent('tr').remove()              
+        
+    } 
+        </script>
+        
 </div>

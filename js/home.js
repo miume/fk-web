@@ -622,6 +622,21 @@ var home = {
             add: function () {
                 return servers.backup() + "cavingDayReportHeader/add";
             },
+            getByStartDateAndEndDateByPage: function () {
+                return servers.backup() + "cavingMonthReportHeader/getByStartDateAndEndDateByPage";
+            },
+            getCavingMonthReportById: function () {
+                return servers.backup() + "cavingMonthReportHeader/getById";
+            },
+            reGenerateReport: function () {
+                return servers.backup() + "cavingMonthReportHeader/reGenerateReport";
+            },
+            exportById: function () {
+                return servers.backup() + "cavingMonthReportHeader/exportById";
+            },
+            generateReport: function () {
+                return servers.backup() + "cavingMonthReportHeader/generateReport";
+            },
         }
     }
    

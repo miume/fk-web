@@ -4,10 +4,10 @@ var roleManagement = {
     init: function() {
         /**获取角色信息分页显示 */
         roleManagement.funcs.renderTable();
-        var out = $("#rolManagement-page").width();
+        var out = $("#rolManagement_page").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
-            $('#rolManagement-page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            $('#rolManagement_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
             clearTimeout(time);
         }, 30);
           /**获取所有可分配操作*/
@@ -28,7 +28,7 @@ var roleManagement = {
                 var page = result.data;
                 /**分页信息 */
                 layui.laypage.render({
-                    elem: "rolManagement-page",
+                    elem: "rolManagement_page",
                     count : 10 * page.totalPages,
                     /**页面变换后的逻辑 */
                     jump: function(obj, first) {
@@ -179,7 +179,7 @@ var roleManagement = {
                     var page = result.data;
                     /**分页信息 */
                     layui.laypage.render({
-                        elem: "rolManagement-page",
+                        elem: "rolManagement_page",
                         count : 10 * page.totalPages,
                         /**页面变换后的逻辑 */
                         jump: function(obj, first) {
