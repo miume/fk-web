@@ -250,7 +250,7 @@ input {
     padding:20px;
 }
 .display-component-container a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #1E9FFF;
 }
 .display-component-container a:link a:hover, a:active {
