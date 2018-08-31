@@ -478,7 +478,32 @@ var home = {
             },
         }
         ,waterConsumption : {
-            
+            getByDateBetweenByPage: function () {
+                return servers.backup() + "waterConsumptionInfo/getByDateBetweenByPage";
+            },
+            getById: function () {
+                return servers.backup() + "waterConsumptionInfo/getById";
+            },
+            update: function () {
+                return servers.backup() + "waterConsumptionInfo/update";
+            },
+            add: function () {
+                return servers.backup() + "waterConsumptionInfo/add";
+            },
+        }
+        ,cavingReport : {
+            getByDateByPage: function () {
+                return servers.backup() + "cavingDayReportHeader/getByDateByPage";
+            },
+            getById: function () {
+                return servers.backup() + "cavingDayReportHeader/getById";
+            },
+            update: function () {
+                return servers.backup() + "cavingDayReportHeader/update";
+            },
+            add: function () {
+                return servers.backup() + "cavingDayReportHeader/add";
+            },
         }
     }
    

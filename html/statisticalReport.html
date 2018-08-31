@@ -15,42 +15,26 @@
     <table id="statisticalReportTable">
         <thead>
             <tr>
-                <td style="min-width: 50px;">时间</td>
-                <td>1500吨水池本月表底数</td>
-                <td>300吨水池1本月表底数</td>
-                <td>300吨水池2本月表底数</td>
-                <td>冲凉房用水本月表底数</td>
-                <td>条埂冲水表本月表底数</td>
-                <td>选矿废水表1本月表底数</td>
-                <td>选矿废水表2本月表底数</td>
+                <td style="min-width: 80px;">时间</td>
+                <td>1500吨水池本月表底</td>
+                <td>300吨水池1本月表底</td>
+                <td>300吨水池2本月表底</td>
+                <td>冲凉房用水本月表底</td>
+                <td>条埂冲水表本月表底</td>
+                <td>选矿废水表1本月表底</td>
+                <td>选矿废水表2本月表底</td>
                 <td>选硫废水本月开机时间(h)</td>
                 <td style="min-width: 60px;">录入人</td>
                 <td style="min-width: 80px;">录入时间</td>
                 <td style="min-width: 60px;">修改人</td>
                 <td style="min-width: 80px;">修改时间</td>
-                <td style="min-width: 50px;">编辑</td>
+                <td style="min-width: 40px;">编辑</td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td><a href="#" class="editor"><i class="layui-icon">&#xe642;</i></a></td>
-            </tr>
         </tbody>
     </table>
-    <div id="statisticalReport_page"></div>
+    <div class="text_center" id="statisticalReport_page"></div>
     <script src="selfjs/statisticalReport.js"></script>
     <script type="application/javascript">
         $(function() {
@@ -85,12 +69,13 @@
     <!--隐藏部分-->
     <div class="hide hideModal" id="addModal">
         <p style="margin-left: 98px; color: #1E9FFF"><span style="font-size: 17px;font-weight: bold;">日期：</span><input type="text" id="chooseDate" placeholder="请选择日期" style="width: 172px;" /></p>
-        <p><span>&nbsp;&nbsp;1500吨水池本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>&nbsp;&nbsp;300吨水池1本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>&nbsp;&nbsp;300吨水池2本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>&nbsp;&nbsp;&nbsp;条埂冲水表本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>&nbsp;选矿废水表1本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>&nbsp;选矿废水表2本月表底：</span><input type="text" id="" onkeyup="num(this)" /></p>
-        <p><span>选硫废水本月开机时间：</span><input type="text" id="" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;1500吨水池本月表底：</span><input type="text" id="waterPool1500Meter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;300吨水池1本月表底：</span><input type="text" id="waterPool300Meter1" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;300吨水池2本月表底：</span><input type="text" id="waterPool300Meter2" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;&nbsp;冲凉房用水本月表底：</span><input type="text" id="washRoomMeter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;&nbsp;条埂冲水表本月表底：</span><input type="text" id="tgMeter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;选矿废水表1本月表底：</span><input type="text" id="mineWasteWaterMeter1" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;选矿废水表2本月表底：</span><input type="text" id="mineWasteWaterMeter2" onkeyup="num(this)" /></p>
+        <p><span>选硫废水本月开机时间：</span><input type="text" id="siWasterWaterTime" onkeyup="num(this)" /></p>
     </div>
 </div>
