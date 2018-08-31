@@ -203,7 +203,7 @@ body .layui-ext-yourskin .layui-layer-btn {
     color: #3dc1f8;
 }
 .chosenMenu a {
-    color: #3dc1f8;
+    color: #3dc1f8 !important;
     font-weight: 400;
 }
 .whiteFontMenu2 a {
