@@ -1,11 +1,20 @@
 <div class="display-component-container">
+    <style>
+        #headTable tbody td:first-child {
+            min-width : 75px;
+        }
+        #headTable tbody td:not(:first-child) {
+            min-width : 50px;
+        }
+    </style>
         <div class="block-quote">
             <div class="fl">
                 <p>
-                    <span style="font-size:20px">预防垮矿日工作报表</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    时间：<input type="text" id="date" placeholder="请选择起始时间" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size:20px">预防垮矿月工作报表</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    时间：<input type="text" id="startDate" placeholder="请选择起始时间" />&nbsp;&nbsp;
+                    至&nbsp;&nbsp;<input type="text" id="endDate" placeholder="请选择结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;
-                    <span id="addBtn"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button id="addBtn">生成报表</button>
                 </p>
             </div>
         </div>
@@ -13,17 +22,18 @@
         <table id="cavingMonthReportTable">
             <thead>
                 <tr>
-                    <td>序号</td>
-                    <td>日期</td>
+                    <td>月份</td>
                     <td>吊棚次数</td>
-                    <td>10<T<15/td>
-                    <td>T>15min</td>
+                    <td>10＜T＜15</td>
+                    <td>T＞15min</td>
                     <td>制表人</td>
                     <td>制表时间</td>
-                    <td>详情</td>
-                    <td>编辑</td>
+                    <td>操作</td>
                 </tr>
             </thead>
+            <tbody>
+
+            </tbody>
         </table>   
         <div class="text-center" id="cavingMonthReport_page"></div>
         <script src="selfjs/cavingMonthReport.js"></script>
@@ -34,9 +44,44 @@
                 })
                 var laydate = layui.laydate;
                 laydate.render({
-                    elem : "#date",
+                    elem : "#startDate",
+                    type : "month"
+                })
+                laydate.render({
+                    elem : "#endtDate",
+                    type : "month"
+                })
+                laydate.render({
+                    elem : "#productDate",
                     type : "month"
                 })
             })
         </script>
+        <!--弹出框隐藏部分-->
+        <div class="hide hideModal" id="productReport">
+                <p ><span style="font-size: 17px;font-weight: bold; color: #1E9FFF">日期：</span><input type="text" id="productDate" placeholder="请选择月份" /></p>
+            </div>
+        <div class="hide layerModal" id="modal">
+            <table id="headTable">
+                <caption>吊棚发生时间分布表</caption>
+                <tbody>
+                    
+                </tbody>
+            </table>
+            <table id="detail">
+                <caption>吊棚发生明细</caption>
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>日期</td>
+                        <td>处理时长</td>
+                        <td>时间超长原因</td>
+                        <td>编辑</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
     </div>

@@ -1,9 +1,16 @@
 cavingDayReport = {
     $tbody : $("#cavingDayReportTable").children("tbody"),
     flag : 0,
+    pageSize: 0,
     init : function() {
         cavingDayReport.funcs.bindDefaultSearchEvent();
         cavingDayReport.funcs.bindAddEvent($("#addBtn"));
+        var out = $("#cavingDayReport_page").width();
+        var time = setTimeout(function(){
+            var inside = $(".layui-laypage").width();
+            $('#cavingDayReport_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            clearTimeout(time);
+        }, 30);
     }
     ,funcs : {
         /**默认搜索当月的数据 */
@@ -30,10 +37,11 @@ cavingDayReport = {
                 var res = result.data.content;
                 cavingDayReport.funcs.renderHandler(cavingDayReport.$tbody,res,0);
                 var data = result.data;
+                cavingDayReport.pageSize = result.data.length;
                 /**分页消息 */
                 layui.laypage.render({
                     elem : "cavingDayReport_page",
-                    count : 10 * data.totalpages,
+                    count : 10 * data.totalPages,
                     jump : function(obj,first) {
                         if(!first) {
                             $.get(home.urls.cavingReport.getByDateByPage(),{
@@ -44,6 +52,7 @@ cavingDayReport = {
                                 var res = result.data.content;
                                 var page = obj.curr - 1;
                                 cavingDayReport.funcs.renderHandler(cavingDayReport.$tbody,res,page);
+                                cavingDayReport.pageSize = result.data.length;
                             })
                         }
                     }
@@ -75,10 +84,12 @@ cavingDayReport = {
         /**绑定新增数据 */
         ,bindAddEvent : function(buttons) {
             buttons.off("click").on("click", function() {
+                cavingDayReport.flag = 1;
                 $("#date").val("")
                 $("#num").val("")
                 $("#ten2fifteenNum").val("")
                 $("#greaterThan15").val("")
+                $("input").removeAttr("disabled");
                 var $tbody = $("#detail").children("tbody");
                 $tbody.empty();
                 $("#addModal").removeClass("hide");
@@ -92,90 +103,128 @@ cavingDayReport = {
                     btn : ["保存", "取消"],
                     closeBtn : 0,
                     yes : function(index) {
-                        cavingDayReport.funcs.bindAddData(index);
+                        var urls = home.urls.cavingReport.add();
+                        cavingDayReport.funcs.bindAddData(index,urls);
                     }
                     ,btn2 : function(index) {
                         $("#addModal").addClass("hide");
                         layer.close(index);
                     }
-                    ,success : function(index) {
+                    ,success : function(layero,index) {
                         $(document).on("keydown", function(e) {
                             if(e.keyCode == 27) {
                                 $("#addModal").addClass("hide");
                                 layer.close(index);
                             }
                             if(e.keyCode == 13) {
-                                cavingDayReport.funcs.bindAddData(index);
+                                var urls = home.urls.cavingReport.add();
+                                cavingDayReport.funcs.bindAddData(index,urls);
                             }
+                            
                     })
                 }
               })
-              cavingDayReport.funcs.bindAddLines($("#addLine"));
+              //cavingDayReport.funcs.bindAddLines($("#addLine"));
             })
         }
         /**保存新增数据 */
-        ,bindAddData : function(index) {
+        ,bindAddData : function(index,urls,id) {
+            if(!$("#date").val()) {
+                layer.msg("日期不能为空", {
+                    offset : ['40%', '55%'],
+                    time : 1000
+                }) 
+                return
+            }
             var details = [];
             $(".newLine").each(function(e) {
                 var line = $(this).children("td");
                 details.push({
+                    rank : line.eq(0).text(),
                     processTime : line.eq(1).children("input").val(),
                     processMinute : line.eq(2).children("input").val(),
                     note : line.eq(3).children("input").val()
                 })
             })
-            var data = {
-                date : $("#date").val(),
-                num : $("#num").val(),
-                ten2fifteenNum : $("#ten2fifteenNum").val(),
-                greaterThan15 : $("#greaterThan15").val(),
-                details : details
+            var userStr = $.session.get("user");
+            var userJson = JSON.parse(userStr);
+            var data;
+            if(cavingDayReport.flag === 0) {
+                data = {
+                    id : id,
+                    date : $("#date").val(),
+                    num : $("#num").val(),
+                    ten2fifteenNum : $("#ten2fifteenNum").val(),
+                    greaterThan15 : $("#greaterThan15").val(),
+                    modifyUser : { id : userJson.id },
+                    modifyTime : new Date().getTime(),
+                    flag : 0,
+                    details : details
+                }
+            }
+            else {
+                data = {
+                    date : $("#date").val(),
+                    num : $("#num").val(),
+                    ten2fifteenNum : $("#ten2fifteenNum").val(),
+                    greaterThan15 : $("#greaterThan15").val(),
+                    enterUser : { id : userJson.id },
+                    flag : 0,
+                    details : details
+                }
             }
             console.log(data)
             $.ajax({
-                url : home.urls.dispatchAccount.update(),
+                url : urls,
                 contentType : "application/json" ,
                 dataType : "JSON",
                 type : "post",
                 data : JSON.stringify(data),
                 success : function(result) {
+                    if(result.message == "数据已录入, 不要重复录入") {
+                        layer.msg(result.message, {
+                            offset : ['40%', '55%'],
+                            time : 700
+                        })
+                    }
                     if(result.code === 0) {
                         var time = setTimeout(function() {
-                            //accountRecording.funcs.bindSearchEvent($("#searchButton"));
+                            var date = $("#searchDate").val();
+                            cavingDayReport.funcs.bindSearchEvent(date);
                             clearTimeout(time);
                         },500)
+                        layer.msg(result.message, {
+                            offset : ['40%', '55%'],
+                            time : 700
+                        })
                     }
-                    layer.msg(result.message, {
-                        offset : ['40%', '55%'],
-                        time : 700
-                    })
+                    $("#addModal").addClass("hide");
+                    layer.close(index);
                 }
             })
-            $("#addModal").addClass("hide");
-            layer.close(index);
         }
         /**新增一行数据 */
-        ,bindAddLines : function(buttons) {
-            buttons.off("click").on("click", function() {
-                var i = $(".newLine").length + 1;
-                var $tbody = $("#detail").children("tbody");
-                $tbody.append(
-                    "<tr class='newLine'>" +
-                    "<td>"+ (i) +"</td>" +
-                    "<td><input type='text' class='addDate' /></td>" +
-                    "<td><input type='text' /></td>" +
-                    "<td><input type='text' /></td>" +
-                    "</tr>"
-                )
-                layui.use("laydate", function() {
-                    var laydate = layui.laydate;
-                    laydate.render({
-                        elem : ".addDate",
-                        type : "datetime"
-                    })
-                })
-            })
-        }
+        // ,bindAddLines : function(buttons) {
+        //     buttons.off("click").on("click", function() {
+        //         var i = $("#detail tr").length + 1;
+        //         var $tbody = $("#detail").children("tbody");
+        //         $tbody.append(
+        //             "<tr class='newLine'>" +
+        //             "<td>"+ (i) +"</td>" +
+        //             "<td><input type='text' class='addDate' /></td>" +
+        //             "<td><input type='text' /></td>" +
+        //             "<td><input type='text' /></td>" +
+        //             "</tr>"
+        //         )
+        //         layui.use("laydate", function() {
+        //             var laydate = layui.laydate;
+        //             laydate.render({
+        //                 elem : ".addDate",
+        //                 type : "datetime"
+        //             })
+        //         })
+        //     })
+        // }
         /**绑定详情 */
         ,bindDetailEvent : function(buttons) {
             buttons.off("click").on("click", function() {
@@ -228,6 +277,7 @@ cavingDayReport = {
         /**绑定编辑 */
         ,bindEditorEvent : function(buttons) {
             buttons.off("click").on("click", function() {
+                cavingDayReport.flag = 0;
                 var id = $(this).attr("id").substr(7);
                 $.get(home.urls.cavingReport.getById(),{
                     id : id
@@ -245,14 +295,27 @@ cavingDayReport = {
                         offset : "auto",
                         closeBtn : 0,
                         yes : function(index) {
-                            cavingDayReport.funcs.bindAdd
-                            $("#addModal").addClass("hide");
-                            layer.close(index);
+                            var urls = home.urls.cavingReport.update();
+                            cavingDayReport.funcs.bindAddData(index,urls,id);
                         }
                         ,btn2 : function(index) {
                             $("#addModal").addClass("hide");
                             layer.close(index);
                         }
+                        ,success : function(layero,index) {
+                            $(document).on("keydown", function(e) {
+                                if(e.keyCode == 27) {
+                                    layer.close(index);
+                                    $("#addModal").addClass("hide");
+                                   
+                                }
+                                if(e.keyCode == 13) {
+                                    var urls = home.urls.cavingReport.update();
+                                    cavingDayReport.funcs.bindAddData(index,urls,id);
+                                }
+                        
+                        })
+                    }
                     })
                 })
                 
@@ -271,14 +334,16 @@ cavingDayReport = {
             detail.forEach(function(e) {
                 $tbody.append(
                     "<tr class='newLine'>" + 
-                    "<td><input type='text' class='addDate' value=" +(i++)+ " /></td>" +
-                    "<td><input type='text' value="+ (e.processTime) +" /></td>" +
+                    "<td>" +(i++)+ "</td>" +
+                    "<td><input type='hiden' class='Date' value= '"+  e.processTime  +"'/></td>" +
                     "<td><input type='text' value="+ (e.processMinute) +" /></td>" +
                     "<td><input type='text' value="+ (e.note ? e.note : '') +" /></td>" +
                     "</tr>"
                 )
             })
-            cavingDayReport.funcs.bindAddLines($("#addLine"));
+        }
+        ,bindUpdateEditorData : function(index) {
+
         }
     }
 }
