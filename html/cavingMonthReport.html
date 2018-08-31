@@ -1,0 +1,42 @@
+<div class="display-component-container">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="font-size:20px">预防垮矿日工作报表</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    时间：<input type="text" id="date" placeholder="请选择起始时间" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;
+                    <span id="addBtn"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>
+                </p>
+            </div>
+        </div>
+        <div class="whitespace"></div>
+        <table id="cavingMonthReportTable">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>日期</td>
+                    <td>吊棚次数</td>
+                    <td>10<T<15/td>
+                    <td>T>15min</td>
+                    <td>制表人</td>
+                    <td>制表时间</td>
+                    <td>详情</td>
+                    <td>编辑</td>
+                </tr>
+            </thead>
+        </table>   
+        <div class="text-center" id="cavingMonthReport_page"></div>
+        <script src="selfjs/cavingMonthReport.js"></script>
+        <script>
+            layui.use("laydate", function() {
+                $(function() {
+                    cavingMonthReport.init();
+                })
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date",
+                    type : "month"
+                })
+            })
+        </script>
+    </div>

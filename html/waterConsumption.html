@@ -1,0 +1,162 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">选矿厂用水统计管理</span>&nbsp;&nbsp;&nbsp;
+                日期：<input type="text" id="startDate" placeholder="请选择起始时间" />&nbsp;
+                至&nbsp;&nbsp;<input type="text" id="endDate" placeholder="请选择结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;
+                <button style="margin-left: 60px;" id="save">生成报表</button>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="waterTable">
+        <thead>
+            <tr>
+                <td>月份</td>
+                <td>时间区间</td>
+                <td>统计科室</td>
+                <td>制表人</td>
+                <td>制表时间</td>
+                <td>详情</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><a href="#" class="detail"><i class="layui-icon">&#xe60a;</i></a></td>
+                <td><a href="#" class="editor">重新生成</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="waterConsumption_page"></div>
+    <script src="selfjs/waterConsumption.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            waterConsumption.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#startDate",
+                    type : "month"
+                });
+                laydate.render({
+                    elem : "#endDate",
+                    type : "month"
+                });
+                laydate.render({
+                    elem : "#productDate",
+                    type : "month"
+                })
+            })
+        })
+    </script>
+    <!--弹出隐藏部分-->
+    <div class="hide hideModal" id="productReport">
+        <p ><span style="font-size: 17px;font-weight: bold; color: #1E9FFF">日期：</span><input type="text" id="productDate" placeholder="请选择月份" /></p>
+    </div>
+
+    <div class="hide layerModal" id="layerProductReport">
+        <table id="productReportTable">
+            <thead>
+                <tr>
+                    <td>类别</td>
+                    <td>科目</td>
+                    <td>上月表底</td>
+                    <td>本月表底</td>
+                    <td>本月用水量</td>
+                    <td>年累用水量</td>
+                    <td>类别合计</td>
+                    <td>生产用水量</td>
+                    <td>生活用水量</td>
+                    <td>吨水量（吨）</td>
+                    <td>水利用率（%）</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="4" class="grey">清水</td>
+                    <td class="grey">1500吨水池</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="grey">300吨水池合计</td>
+                    <td class="grey">清水总用量</td>
+                    <td rowspan="9"></td>
+                    <td rowspan="9"></td>
+                    <td rowspan="9"></td>
+                </tr>
+                <tr>
+                    <td class="grey">300吨水池1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="2"></td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td class="grey">300吨水池2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="grey">冲凉房用水</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td rowspan="5" class="grey">废水</td>
+                    <td class="grey">条埂冲水表</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="grey">选矿废水合计</td>
+                    <td class="grey">废水总用量</td>
+                </tr>
+                <tr>
+                    <td class="grey">选矿废水表1[16]</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="2"></td>
+                    <td rowspan="4"></td>
+                </tr>
+                <tr>
+                    <td class="grey">选矿废水表1[19]</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="grey">选硫废水</td>
+                    <td colspan="3" class="grey">80m3/h*开机时间</td>
+                    <td rowspan="2"></td>
+                    <td class="grey">原矿处理量</td>
+                </tr>
+                <tr>
+                    <td class="grey">开机时间（小时）</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

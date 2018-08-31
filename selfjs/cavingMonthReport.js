@@ -1,0 +1,5 @@
+cavingMonthReport = {
+    init : function() {
+        
+    }
+}

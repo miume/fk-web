@@ -10,13 +10,13 @@ html, body, parent {
     top: 0;
     left: 0;
     right: 0;
-    height: 55px;
+    height: 60px;
     background: #333333;
     color: #fff;
 }
 .left {
     position: absolute;
-    top: 55px;
+    top: 60px;
     left: 0;
     width: 120px;
     height: 100%;
@@ -30,7 +30,7 @@ html, body, parent {
     overflow-y: auto;
     left: 120px;
     right: 0;
-    top: 50px;
+    top: 60px;
     height: 100%;
     background: #ffffff;
     min-width: 300px;
@@ -47,7 +47,8 @@ html, body, parent {
     position: relative;
     border-right: 1px #333333 solid;
     left: 30px;
-    height: 50px;
+    top : 6px;
+    height: 60px;
     font-size: 15px;
     display: inline-block;
 }
@@ -66,7 +67,8 @@ html, body, parent {
     left: 10px;
     bottom: 0px;
     line-height: 54px;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: bold;
     color: #fff;
     float: left;
 }
@@ -88,7 +90,6 @@ ul {
 
 .navigations ul {
     list-style: none;
-    font-size: 14px;
     font-weight: 400;
 }
 
@@ -105,7 +106,7 @@ ul {
 
 .navigations ul li a {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 16px;
     float: left;
     padding:5px;
 }
@@ -113,7 +114,6 @@ ul {
 .menus1 div {
     color: #fff;
     text-align: center;
-    font-size: 13px;
     line-height: 40px;
     font-weight: 400;
 }
@@ -122,13 +122,13 @@ ul {
 }
 .menus1 ul .menu1-tab-bar li {
     text-align: center;
-    font-size: 13px;
     background: #515151;
     padding-top: 1px;
     padding-bottom: 1px;
 }
 
 .menus1 ul .menu1-tab-bar li a {
+    font-size: 14px;
     text-decoration: none;
     color: #ffffff;
 }
@@ -268,20 +268,21 @@ input {
 .display-component-container thead td {
     padding: 5px;
     border: 1px darkgrey solid;
-    font-size: 13px;
+    font-size: 15px;
     color: white;
     background: #666666;
     text-align: center;
     font-weight: 400;
+    height: 38px;
 }
 .display-component-container tbody td {
     padding: 5px;
     border: 1px darkgrey solid;
-    font-size: 12px;
+    font-size: 13px;
     color: black;
     text-align: center;
     font-weight: 400;
-    height:30px;
+    height:35px;
 }
 .display-component-container button {
     background-color:#1E9FFF;
@@ -316,16 +317,6 @@ input {
     width: 33px;
 }
 
-.display-component-container tbody td {
-    padding: 5px;
-    border: 1px darkgrey solid;
-    font-size: 12px;
-    color: black;
-    text-align: center;
-    font-weight: 400;
-    height:30px;
-}
-
 .display-component-container .disableHref{
     cursor:default;
     color:grey;
@@ -335,10 +326,11 @@ input {
 .block-quote {
     padding: 20px 10px 40px 10px;
     background: #f2f2f2;
-    font-size: 14px;
+    font-size: 15px;
 }
 .block-quote span{
     color:#1E9FFF;
+    font-size: 15px;
 }
 .whitespace {
     height: 20px;
@@ -379,5 +371,9 @@ input {
 }
 .clear {
     clear: both;
+}
+.layerModal {
+    width : 100%;
+    padding: 20px;
 }
 

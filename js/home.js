@@ -455,6 +455,9 @@ var home = {
             },
             getAll : function(){
                 return servers.backup() + "SectionInfo/getAll";
+            },
+            getAllSchedule : function(){
+                return servers.backup() + "clazz/getAll";
             }
         }
         ,materialStatistics : {
@@ -590,6 +593,34 @@ var home = {
             },
             update : function(){
                 return servers.backup() + "materialConsumptionPlanHeader/update";
+            }
+        }
+        ,waterConsumption : {
+            getByDateBetweenByPage: function () {
+                return servers.backup() + "waterConsumptionInfo/getByDateBetweenByPage";
+            },
+            getById: function () {
+                return servers.backup() + "waterConsumptionInfo/getById";
+            },
+            update: function () {
+                return servers.backup() + "waterConsumptionInfo/update";
+            },
+            add: function () {
+                return servers.backup() + "waterConsumptionInfo/add";
+            },
+        }
+        ,cavingReport : {
+            getByDateByPage: function () {
+                return servers.backup() + "cavingDayReportHeader/getByDateByPage";
+            },
+            getById: function () {
+                return servers.backup() + "cavingDayReportHeader/getById";
+            },
+            update: function () {
+                return servers.backup() + "cavingDayReportHeader/update";
+            },
+            add: function () {
+                return servers.backup() + "cavingDayReportHeader/add";
             },
         }
     }
@@ -708,13 +739,13 @@ var home = {
         ,appendMenu1sToWrapperAndCarryModels : function(menu1List){
             /**首先清空menu1wrapper的内容 */
             home.menu1Wrapper.empty();
-            /**开始填充二级菜单 */
+            /**开始填充一级菜单 */
             menu1List.forEach(function(element){
                 home.menu1Wrapper.append(
                     "<div id='menu1-li-" + (element.id) + "' class='menu1-tab-bar'>" +
                     "<li class='menu1-tab-bar-item'>" +
                     //"<i class='fa fa-caret-right'></i> &nbsp" +
-                    "<div class='fl'><img src='./" + (element.path) + "' alt='' width='20px' height='20px' style='position:relative;top: 8px;left: 17px;'></div>"+
+                    "<div class='fl'><img src='./" + (element.path) + "' alt='' width='20px' height='20px' style='position:relative;top: 8px;left: 13px;'></div>"+
                     "<a href='#'>" + element.name + "</a>" +
                     "</li>" +
                     "</div>" +
@@ -792,7 +823,7 @@ var home = {
                 localStorage.setItem('selectedMenu2',null);
                 
                 var menu1Code = localStorage.getItem('selectedMenu1');
-                console.log(menu1Code);
+                //console.log(menu1Code);
                 var menu1Id = 'menu1-li-' + localStorage.getItem('selectedMenu1');
                 if($('.chosenMenu1').attr('id') != menu1Id) {
                     $('.chosenMenu1').next().addClass('hide')

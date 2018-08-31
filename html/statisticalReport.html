@@ -1,0 +1,81 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">选矿厂用水统计管理</span>&nbsp;&nbsp;&nbsp;
+                日期：<input type="text" id="startDate" placeholder="请选择起始时间" />&nbsp;
+                至&nbsp;&nbsp;<input type="text" id="endDate" placeholder="请选择结束时间" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;
+                <span id="addBtn"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="statisticalReportTable">
+        <thead>
+            <tr>
+                <td style="min-width: 80px;">时间</td>
+                <td>1500吨水池本月表底</td>
+                <td>300吨水池1本月表底</td>
+                <td>300吨水池2本月表底</td>
+                <td>冲凉房用水本月表底</td>
+                <td>条埂冲水表本月表底</td>
+                <td>选矿废水表1本月表底</td>
+                <td>选矿废水表2本月表底</td>
+                <td>选硫废水本月开机时间(h)</td>
+                <td style="min-width: 60px;">录入人</td>
+                <td style="min-width: 80px;">录入时间</td>
+                <td style="min-width: 60px;">修改人</td>
+                <td style="min-width: 80px;">修改时间</td>
+                <td style="min-width: 40px;">编辑</td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="text_center" id="statisticalReport_page"></div>
+    <script src="selfjs/statisticalReport.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            statisticalReport.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#startDate",
+                    type : "month"
+                });
+                laydate.render({
+                    elem : "#endDate",
+                    type : "month"
+                });
+                laydate.render({
+                    elem : "#chooseDate",
+                    type : "month"
+                })
+            })  
+        })
+        /**onkeyup='this.value=this.value.replace(/\D/gi,"")'
+         * 只准输入整数
+        */
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3'); //只能输入四位小数  
+        }  
+    </script>
+    <!--隐藏部分-->
+    <div class="hide hideModal" id="addModal">
+        <p style="margin-left: 98px; color: #1E9FFF"><span style="font-size: 17px;font-weight: bold;">日期：</span><input type="text" id="chooseDate" placeholder="请选择日期" style="width: 172px;" /></p>
+        <p><span>&nbsp;&nbsp;1500吨水池本月表底：</span><input type="text" id="waterPool1500Meter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;300吨水池1本月表底：</span><input type="text" id="waterPool300Meter1" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;300吨水池2本月表底：</span><input type="text" id="waterPool300Meter2" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;&nbsp;冲凉房用水本月表底：</span><input type="text" id="washRoomMeter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;&nbsp;&nbsp;条埂冲水表本月表底：</span><input type="text" id="tgMeter" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;选矿废水表1本月表底：</span><input type="text" id="mineWasteWaterMeter1" onkeyup="num(this)" /></p>
+        <p><span>&nbsp;选矿废水表2本月表底：</span><input type="text" id="mineWasteWaterMeter2" onkeyup="num(this)" /></p>
+        <p><span>选硫废水本月开机时间：</span><input type="text" id="siWasterWaterTime" onkeyup="num(this)" /></p>
+    </div>
+</div>
