@@ -5,11 +5,11 @@ var crushing = {
         // setInterval(function(){
         //    crushing.funcs.renderDayTable();
         //},5000);
-         var out1 = $("#day_page").width();
-         var time1 = setTimeout(function(){
+         var out = $("#day_page").width();
+         var time = setTimeout(function(){
              var inside = $(".layui-laypage").width();
-             $('#day_page').css('padding-left', 100 * ((out1 - inside) / 2 / out1) > 33 ? 100 * ((out1 - inside) / 2 / out1) + '%' : '35.5%');
-             clearTimeout(time1);
+             $('#day_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+             clearTimeout(time);
          }, 30);
          /**月报显示 */
         crushing.funcs.renderMonthTable();
@@ -63,7 +63,7 @@ var crushing = {
                         type: 1,
                         title: '新增日报',
                         content: $("#addDayModal"),
-                        area: ['800px', '330px'],
+                        area: ['800px', '350px'],
                         btn: ['确定', '取消'],
                         offset: "auto",
                         yes: function(index){
@@ -348,7 +348,7 @@ var crushing = {
                         type: 1,
                         title: '编辑日报',
                         content: $("#updateDayModal"),
-                        area: ['800px', '330px'],
+                        area: ['800px', '350px'],
                         btn: ['确定', '取消'],
                         offset: "auto",
                         yes: function(index){
@@ -421,80 +421,50 @@ var crushing = {
                             var remark = $("#dayRemark1").val();
                             /**收集系统计算数据 */
                             var ropeWayRunningTime = $("#ropeWayRunningTime").val();
-                            if(isNaN(ropeWayRunningTime)){
-                                layer.msg("此处应该填数字")
-                            }
                             if(ropeWayRunningTime === ""){
                                 ropeWayRunningTime = 0;
                             }
                             console.log(ropeWayRunningTime)
                             var ropeWayCauseTime = $("#ropeWayCauseTime").val();
-                            if(isNaN(ropeWayCauseTime)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayCauseTime=== ""){
                                 ropeWayCauseTime = 0;
                             }
                             console.log(ropeWayCauseTime)
                             var ropeWayJxgz = $("#ropeWayJxgz").val();
-                            if(isNaN(ropeWayJxgz)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayJxgz=== ""){
                                 ropeWayJxgz = 0;
                             }
                             console.log(ropeWayJxgz)
                             var ropeWayDqgz = $("#ropeWayDqgz").val();
-                            if(isNaN(ropeWayDqgz)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayDqgz=== ""){
                                 ropeWayDqgz = 0;
                             }
                             console.log(ropeWayDqgz)
                             var ropeWayZj = $("#ropeWayZj").val();
-                            if(isNaN(ropeWayZj)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayZj=== ""){
                                 ropeWayZj = 0;
                             }
                             console.log(ropeWayZj)
                             var ropeWayWk = $("#ropeWayWk").val();
-                            if(isNaN(ropeWayWk)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayWk=== ""){
                                 ropeWayWk = 0;
                             }
                             console.log(ropeWayWk)
                             var ropeWayJd = $("#ropeWayJd").val();
-                            if(isNaN(ropeWayJd)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayJd=== ""){
                                 ropeWayJd = 0;
                             }
                             console.log(ropeWayJd)
                             var ropeWayDp = $("#ropeWayDp").val();
-                            if(isNaN(ropeWayDp)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayDp=== ""){
                                 ropeWayDp = 0;
                             }
                             console.log(ropeWayDp)
                             var ropeWayWs = $("#ropeWayWs").val();
-                            if(isNaN(ropeWayWs)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayWs=== ""){
                                 ropeWayWs = 0;
                             }
                             var ropeWayQt = $("#ropeWayQt").val();
-                            if(isNaN(ropeWayQt)){
-                                layer.msg("此处应该填数字")
-                            }
                             if( ropeWayQt=== ""){
                                  ropeWayQt= 0;
                             }
@@ -666,11 +636,15 @@ var crushing = {
                     title: '报表生成',
                     content : "确定要重新生成报表吗 ？",
                     area : ['300px', '150px'],
-                    btns: ['确定','取消'],
+                    btn: ['确定','取消'],
                     offset: "auto",
                     closeBtn : 0,
                     yes: function(index){
+                        $.get(home.urls.monthreport.generateByYearMonth(),{
 
+                        },function(result) {
+                            
+                        })
                     layer.close(index);
                     },
                     btn2 : function(index) {
