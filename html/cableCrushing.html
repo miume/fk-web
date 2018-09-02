@@ -6,6 +6,25 @@
         .grayFont{
             color : gray;
         }   
+        td input{
+            width: 60px;
+        }
+        #addDayModal td{
+            border: 1px solid black;
+        }
+        #addDayModal thead td{
+            background:gainsboro;
+            border: 1px solid black;
+            color: black;
+        }
+        #updateDayModal td{
+            border: 1px solid black;
+        }
+        #updateDayModal thead td{
+            background:gainsboro;
+            border: 1px solid black;
+            color: black;
+        }
     </style>
 
     <div class="block-quote" >
@@ -15,7 +34,7 @@
                 <span style="display: inline-block;width:200px;">索道碎矿系统生产情况表</span>
                 <span>时间：</span><input type="text" id="monthTime" placeholder="请输入年月">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;
-                <span id="expertButton1"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
+                <span id="expertButton1"><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
             </p>
             </div>
         </div>
@@ -26,19 +45,17 @@
                     <span>时间：</span><input type="text" id="startTime" placeholder="请输入开始月份"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请输入结束月份">&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>&nbsp;&nbsp;
-                    <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                    <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>
                 </p>
             </div>
         </div>
-        <div id="monthHead1">
+        <div id="monthHead1" class="hidePage">
                 <div class="fl">
                 <p>
                     <span style="display: inline-block;width:200px;">索道碎矿系统生产情况表</span>
-                    <span>时间：</span><input type="text" id="monthTime1" placeholder="请输入年月">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="saveButton"><a href="#"><i class="layui-icon">&#xe610;</i> 保存</a></span>&nbsp;&nbsp;
-                    <span id="expertButton3"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
-                    <span id="backButton1"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                    <span>时间：</span><input type="text" id="monthTime1" disabled = "disabled" placeholder="年月">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="expertButton3"><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
                 </p>
                 </div>
             </div>
@@ -50,7 +67,7 @@
           <li class="layui-this" id="switchHead1">生产日报</li>
           <li id="switchHead2">生产月报</li>
         </ul>
-        <div class="layui-tab-content">
+        <div class="layui-tab-content" style="height : 65%">
             <div class="layui-tab-item layui-show">
                 <table id="dayReportTable">
                     <thead>
@@ -99,26 +116,15 @@
                                 <td>统计科室</td>
                                 <td>制表人</td>
                                 <td>制表时间</td>
-                                <td>修改人</td>
-                                <td>修改时间</td>
                                 <td>操作</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <td>1月</td>
-                            <td>2018-1-1至2018-1-25</td>
-                            <td>调度室</td>
-                            <td>张三</td>
-                            <td>2018-1-27 11:23:22</td>
-                            <td>修改人</td>
-                            <td>修改时间</td>
-                            <td><a href="#"></a></td>
                         </tbody>
                     </table>
-                    <div id="month_page1"></div>
                 </div>
-                <div id="datailTable">
-                        <table id="monthReportTable"> <!-- class="hidePage"-->
+                <div id="detailTable" class="hidePage">
+                        <table id="monthDetailTable"> <!-- class="hidePage"-->
                             <thead>
                                 <tr>
                                     <td rowspan="2">日期</td>
@@ -132,7 +138,6 @@
                                     <td rowspan="2">掉斗箱</td>
                                     <td rowspan="2">矿仓满</td>
                                     <td rowspan="2">备注</td>
-                                    <td rowspan="2">编辑</td>
                                 </tr>
                                 <tr>
                                     <td>运转时间</td>
@@ -170,9 +175,21 @@
     <script>
         layui.use('laydate',function(){
             var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var m = a.getMonth();
+            m = m + 1;
+            if(m<10){
+                m = "0" + m;
+            }
+            var str = y + "-" + m
             laydate.render({
                 elem:'#monthTime',
                 type:'month',
+                value: str,
+                done : function(value){
+                    crushing.funcs.bindProduceReport(value);
+                }
             })
         })
     </script>
@@ -195,6 +212,33 @@
         })
     </script>
     <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#dayTime',
+                type:'date',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var m = a.getMonth();
+            m = m + 1;
+            if(m<10){
+                m = "0" + m;
+            }
+            var str = y + "-" + m
+            laydate.render({
+                elem:'#produceMonthTime',
+                type:'month',
+                value: str
+            })
+        })
+    </script>
+    <script>
         layui.use('element', function(){
           var $ = layui.jquery
           ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
@@ -204,15 +248,164 @@
         $("#switchHead1").off('click').on('click',function(){
             $("#dayHead").removeClass("hidePage");
             $("#monthHead").addClass("hidePage");
+            $("#monthHead1").addClass("hidePage");
+            $("#monthDetail").addClass("hidePage");
         })
         $("#switchHead2").off('click').on('click',function(){
             $("#monthHead").removeClass("hidePage");
             $("#dayHead").addClass("hidePage");
+            $("#monthHead1").addClass("hidePage");
+            $("#detailTable").addClass("hidePage");
+            $("#monthTable").removeClass("hidePage");
+        })
+    /*    $(".detail").off('click').on('click',function(){
+            $("#monthTable").addClass("hidePage");
+            $("#monthHead").addClass("hidePage");
+            $("#detailTable").removeClass("hidePage");
+            $("#monthHead1").removeClass("hidePage");
+        })*/
+        $("#backButton").off('click').on('click',function(){
+            $("#detailTable").addClass("hidePage");
+            $("#monthHead1").addClass("hidePage");
+            $("#monthTable").removeClass("hidePage");
+            $("#monthHead").removeClass("hidePage");
+            
         })
         </script>
         
     <!--隐藏部分（弹出框显示部分）-->
-    <div id = "modal" class="hide models"></div>
+    <div id = "updateDayModal"  class="hide hideModal"> <!--  -->
+        <table> 
+            <thead style="background:darkgrey ">
+                <tr>
+                    <td rowspan="2">日期</td>
+                    <td colspan="2">碎矿系统</td>
+                    <td rowspan="2">周检</td>
+                    <td rowspan="2">铲矿</td>
+                    <td rowspan="2">吊棚</td>
+                    <td rowspan="2">避雷</td>
+                    <td rowspan="2">屙矿</td>
+                    <td rowspan="2">掉斗箱</td>
+                    <td rowspan="2">矿仓满</td>
+                    <td rowspan="2">备注</td>
+                </tr>
+                <tr>
+                    <td>运转时间</td>
+                    <td>影响开机时间</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="dayTime1" style="width:70px;" placeholder="请选择日期" disabled="disabled"></td> 
+                    <td><input type="text" id="dayRunTime1"></td> 
+                    <td><input type="text" id="dayStopTime1"></td> 
+                    <td><input type="text" id="dayWeekCheck1"></td> 
+                    <td><input type="text" id="dayChanKuang1"></td> 
+                    <td><input type="text" id="dayDiaoPeng1"></td> 
+                    <td><input type="text" id="dayBiLei1"></td> 
+                    <td><input type="text" id="dayEkuang1"></td> 
+                    <td><input type="text" id="dayDiaoDouXiang1"></td> 
+                    <td><input type="text" id="dayKuangCangMan1"></td>
+                    <td><input type="text" id="dayRemark1"></td> 
+                </tr>   
+            </tbody>
+        </table>
+        <table id="updateTable">
+            <thead style="background: gainsboro;">
+                <tr>
+                    <td colspan="10">索道系统</td>
+                </tr>
+                <tr>
+                    <td>运转时间</td>
+                    <td>停机时间</td>
+                    <td>机械故障</td>
+                    <td>电器故障</td>
+                    <td>周检</td>
+                    <td>无矿</td>
+                    <td>加斗</td>
+                    <td>吊棚</td>
+                    <td>卫生</td>
+                    <td>其他</td>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="ropeWayRunningTime"></td> <td id="ropeWayCauseTime"></td> <td id="ropeWayJxgz"></td> 
+                    <td id="ropeWayDqgz"></td> <td id="ropeWayZj"></td> <td id="ropeWayWk"></td> 
+                    <td id="ropeWayJd"></td> <td id="ropeWayDp"></td> <td id="ropeWayWs"></td> <td id="ropeWayQt"></td>
+                </tr>   
+                </tbody>
+        </table>
+    </div>
+    <div id = "addDayModal"  class="hide hideModal"> <!--  -->
+        <table> 
+            <thead style="background:darkgrey ">
+                <tr>
+                    <td rowspan="2">日期</td>
+                    <td colspan="2">碎矿系统</td>
+                    <td rowspan="2">周检</td>
+                    <td rowspan="2">铲矿</td>
+                    <td rowspan="2">吊棚</td>
+                    <td rowspan="2">避雷</td>
+                    <td rowspan="2">屙矿</td>
+                    <td rowspan="2">掉斗箱</td>
+                    <td rowspan="2">矿仓满</td>
+                    <td rowspan="2">备注</td>
+                </tr>
+                <tr>
+                    <td>运转时间</td>
+                    <td>影响开机时间</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="dayTime" style="width:70px;" placeholder="请选择日期"></td> 
+                    <td><input type="text" id="dayRunTime"></td> 
+                    <td><input type="text" id="dayStopTime"></td> 
+                    <td><input type="text" id="dayWeekCheck"></td> 
+                    <td><input type="text" id="dayChanKuang"></td> 
+                    <td><input type="text" id="dayDiaoPeng"></td> 
+                    <td><input type="text" id="dayBiLei"></td> 
+                    <td><input type="text" id="dayEkuang"></td> 
+                    <td><input type="text" id="dayDiaoDouXiang"></td> 
+                    <td><input type="text" id="dayKuangCangMan"></td>
+                    <td><input type="text" id="dayRemark"></td> 
+                </tr>   
+            </tbody>
+        </table>
+        <table id="addTable">
+            <thead style="background: gainsboro;">
+                <tr>
+                    <td colspan="10">索道系统</td>
+                </tr>
+                <tr>
+                    <td>运转时间</td>
+                    <td>停机时间</td>
+                    <td>机械故障</td>
+                    <td>电器故障</td>
+                    <td>周检</td>
+                    <td>无矿</td>
+                    <td>加斗</td>
+                    <td>吊棚</td>
+                    <td>卫生</td>
+                    <td>其他</td>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> 
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>   
+                </tbody>
+        </table>
+    </div>
+
+
+    <div id="produceMonthReportModal" class="hide hideModal">
+        <p>
+            <span>时间：</span><input type="text" id="produceMonthTime" placeholder="请选择月份">
+        </p>
+    </div>
 
 
 </div>

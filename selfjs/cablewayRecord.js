@@ -4,7 +4,7 @@ var cablewayRecord = {
         cablewayRecord.funcs.renderTable();
         setInterval(function(){
             cablewayRecord.funcs.renderTable();
-        },30000);
+        },10000);
         var out1 = $("#rope_page1").width();
         var time1 = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -36,7 +36,7 @@ var cablewayRecord = {
                     /**页面变换后的逻辑 */
                     jump: function(obj, first) {
                         if(!first) {
-                            $.get(home.urls.ropeWayRunningRecord.getNotCompleteByPage(),{
+                            $.get(home.urls.ropeWayRunningRecord.getAllByPage(),{
                                 page : obj.curr - 1 ,
                                 size : obj.limit
                             }, function (result) {
@@ -57,7 +57,7 @@ var cablewayRecord = {
             $tbody.empty();
             var i = page * 10 + 1 ;
             records.forEach(function(e){
-                if(e.ropeWayState === 0){
+                if(e.ropeWayState === 1){
                     var stopLength = e.stateLength
                 }else{
                     var runningLength = e.stateLength
@@ -68,7 +68,7 @@ var cablewayRecord = {
                         "<td>" + (i++) + "</td>" +
                         "<td>" + (e.runningTime) + "</td>" +
                         "<td>" + (e.ssbz ? e.ssbz.name : ' ') + "</td>" + 
-                        "<td>" + (e.ropeWayState) + "</td>" +
+                        "<td>" + (e.ropeWayState ? '停机' : '运行') + "</td>" +
                         "<td>" + (runningLength ? runningLength : ' ') + "</td>" +
                         "<td>" + (stopLength ? stopLength : ' ') + "</td>" + 
                         "<td>" + (e.cause ? e.cause.dicName : ' ') + "</td>" +
@@ -257,7 +257,7 @@ var cablewayRecord = {
                     /**页面变换后的逻辑 */
                     jump: function(obj, first) {
                         if(!first) {
-                            $.get(home.urls.ropeWayRunningRecord.getNotCompleteByPage(),{
+                            $.get(home.urls.ropeWayRunningRecord.getAllByPage(),{
                                 page : obj.curr - 1 ,
                                 size : obj.limit
                             }, function (result) {
@@ -333,7 +333,7 @@ var cablewayRecord = {
                             /**页面变换后的逻辑 */
                             jump: function(obj, first) {
                                 if(!first) {
-                                    $.get(home.urls.ropeWayRunningRecord.getNotCompleteByPage(),{
+                                    $.post(home.urls.ropeWayRunningRecord.getByDate(),{
                                         page : obj.curr - 1 ,
                                         size : obj.limit
                                     }, function (result) {
