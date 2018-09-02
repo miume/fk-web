@@ -581,7 +581,6 @@ var home = {
                 return servers.backup() + "ropeWayInfo/deleteByIds";
             }
         }
-<<<<<<< HEAD
         ,planDataManagement : {
             add : function(){
                 return servers.backup() + "materialConsumptionPlanHeader/add";
@@ -639,7 +638,6 @@ var home = {
                 return servers.backup() + "cavingMonthReportHeader/generateReport";
             },
         }
-=======
         ,dayreport : {
             add : function() {
                 return servers.backup() + "ropeWayCrushingDayReport/add";
@@ -683,7 +681,6 @@ var home = {
         }
 
 
->>>>>>> zl11
     }
    
     /** start */
