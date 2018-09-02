@@ -474,7 +474,6 @@ var home = {
                 return servers.backup() + "materialConsumptionReportHeader/reGenerateReport";
             },
         }
-<<<<<<< HEAD
         ,clazz : {
             add : function(){
                 return servers.backup() + "clazz/add";
@@ -553,7 +552,6 @@ var home = {
                 return servers.backup() + "truckLoadingHeader/update"
             },
         }
-=======
         ,ropeWayRunningRecord : {
             add : function() {
                 return servers.backup() + "ropeWayInfo/add";
@@ -580,9 +578,49 @@ var home = {
                 return servers.backup() + "ropeWayInfo/deleteByIds";
             }
         }
+        ,dayreport : {
+            add : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/add";
+            },
+            getAllByPage : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/getAllByPage";
+            },
+            getByDate : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/getByDate";
+            },
+            getById : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/getById";
+            },
+            download : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/getByDateToExcel";
+            },
+            update : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/update";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "ropeWayCrushingDayReport/deleteByIds";
+            }
+        }
+        ,monthreport : {
+            getAll : function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/getByYear";
+            },
+            getByDate :function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/getByDate";
+            },
+            getDetailById : function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/getById";
+            },
+            generateByYearMonth : function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/generateByYearMonth";
+            },
+            download : function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/getByYearMonthToExcel";
+            },
+
+        }
 
 
->>>>>>> zl10
     }
    
     /** start */
