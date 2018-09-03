@@ -25,6 +25,9 @@
             border: 1px solid black;
             color: black;
         }
+        #dayReportTable {
+            font-size : 13px;
+        }
     </style>
 
     <div class="block-quote" >
@@ -67,7 +70,7 @@
           <li class="layui-this" id="switchHead1">生产日报</li>
           <li id="switchHead2">生产月报</li>
         </ul>
-        <div class="layui-tab-content" style="height : 65%">
+        <div id="tabTab" class="layui-tab-content" > <!--style="height : 65%"-->
             <div class="layui-tab-item layui-show">
                 <table id="dayReportTable">
                     <thead>
@@ -273,6 +276,7 @@
         </script>
         
     <!--隐藏部分（弹出框显示部分）-->
+    <div class="whitespace"></div>
     <div id = "updateDayModal"  class="hide hideModal"> <!--  -->
         <table> 
             <thead style="background:darkgrey ">

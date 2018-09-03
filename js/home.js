@@ -677,6 +677,9 @@ var home = {
             download : function() {
                 return servers.backup() + "ropeWayCrushingMonthReport/getByYearMonthToExcel";
             },
+            able : function() {
+                return servers.backup() + "ropeWayCrushingMonthReport/regenerateAble";
+            }
 
         }
 

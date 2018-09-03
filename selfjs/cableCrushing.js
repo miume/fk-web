@@ -2,9 +2,6 @@ var crushing = {
     init : function () {
          /**日报分页显示 */
          crushing.funcs.renderDayTable();
-        // setInterval(function(){
-        //    crushing.funcs.renderDayTable();
-        //},5000);
          var out = $("#day_page").width();
          var time = setTimeout(function(){
              var inside = $(".layui-laypage").width();
@@ -13,13 +10,16 @@ var crushing = {
          }, 30);
          /**月报显示 */
         crushing.funcs.renderMonthTable();
+    //    setInterval(function(){
+    //        crushing.funcs.renderMonthTable();
+    //    },10000);
     }
     /**当前总记录数，用户控制全选逻辑 */
     ,pageSize: 0
     ,funcs : {
         renderDayTable : function(){
             var month = $("#monthTime").val();
-            console.log(month);
+            //console.log(month);
             $.post(home.urls.dayreport.getByDate(),{date : month},function(result){
                 var reports = result.data;
                 const $tbody = $("#dayReportTable").children("tbody");
@@ -72,10 +72,12 @@ var crushing = {
                             var date = $("#dayTime").val();
                             if(date === ""){
                                 layer.msg("日期不能为空 ！")
+                                return 
                             }
                             var crushingRunningTime = $("#dayRunTime").val();
                             if(isNaN(crushingRunningTime)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(crushingRunningTime === ""){
                                 crushingRunningTime = 0;
@@ -83,6 +85,7 @@ var crushing = {
                             var crushingCauseTime = $("#dayStopTime").val();
                             if(isNaN(crushingCauseTime)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(crushingCauseTime === ""){
                                 crushingCauseTime = 0;
@@ -90,6 +93,7 @@ var crushing = {
                             var zj = $("#dayWeekCheck").val();
                             if(isNaN(zj)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(zj === ""){
                                 zj = 0;
@@ -97,6 +101,7 @@ var crushing = {
                             var ck = $("#dayChanKuang").val();
                             if(isNaN(ck)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(ck === ""){
                                 ck = 0;
@@ -104,6 +109,7 @@ var crushing = {
                             var dp = $("#dayDiaoPeng").val();
                             if(isNaN(dp)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(dp === ""){
                                 dp = 0;
@@ -111,6 +117,7 @@ var crushing = {
                             var bl = $("#dayBiLei").val();
                             if(isNaN(bl)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(bl === ""){
                                 bl = 0;
@@ -118,6 +125,7 @@ var crushing = {
                             var ek = $("#dayEkuang").val();
                             if(isNaN(ek)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(ek === ""){
                                 ek = 0;
@@ -125,6 +133,7 @@ var crushing = {
                             var ddx = $("#dayDiaoDouXiang").val();
                             if(isNaN(ddx)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(ddx === ""){
                                 ddx = 0;
@@ -132,6 +141,7 @@ var crushing = {
                             var kcm = $("#dayKuangCangMan").val();
                             if(isNaN(kcm)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
                             if(kcm === ""){
                                 kcm = 0;
@@ -306,9 +316,20 @@ var crushing = {
         ,bindEditDayReport : function(buttons) {
             buttons.off('click').on('click',function(){
                 var id = $(this).attr('id').substr(5)
-                console.log(id)
+                // console.log(id)
                 $.get(home.urls.dayreport.getById(),{id : id},function(result){
                     var report = result.data
+                    var ropeWayRunningTime = (report.ropeWayRunningTime ? report.ropeWayRunningTime : 0);                          
+                    var ropeWayCauseTime = (report.ropeWayCauseTime ? report.ropeWayCauseTime : 0);                           
+                    var ropeWayJxgz = (report.ropeWayJxgz ? report.ropeWayJxgz : 0);                           
+                    var ropeWayDqgz = (report.ropeWayDqgz ? report.ropeWayDqgz : 0);                           
+                    var ropeWayZj = (report.ropeWayZj ? report.ropeWayZj : 0);                           
+                    var ropeWayWk = (report.ropeWayWk ? report.ropeWayWk : 0);                           
+                    var ropeWayJd = (report.ropeWayJd ? report.ropeWayJd : 0);                           
+                    var ropeWayDp = (report.ropeWayDp ? report.ropeWayDp : 0);                         
+                    var ropeWayWs = (report.ropeWayWs ? report.ropeWayWs : 0);                          
+                    var ropeWayQt = (report.ropeWayQt ? report.ropeWayQt : 0);
+
                     $("#dayTime1").val(report.produceDate);
                     $("#dayRunTime1").val(report.crushingRunningTime ? report.crushingRunningTime : ' ');
                     $("#dayStopTime1").val(report.crushingCauseTime ? report.crushingCauseTime : ' ');
@@ -342,8 +363,8 @@ var crushing = {
                     $("#ropeWayDp").append(report.ropeWayDp ? report.ropeWayDp : ' ');
                     $("#ropeWayWs").append(report.ropeWayWs ? report.ropeWayWs : ' ');
                     $("#ropeWayQt").append(report.ropeWayQt ? report.ropeWayQt : ' ');
-                })
-                $("#updateDayModal").removeClass("hide");
+
+                    $("#updateDayModal").removeClass("hide");
                     layer.open({
                         type: 1,
                         title: '编辑日报',
@@ -358,117 +379,76 @@ var crushing = {
                             var crushingRunningTime = $("#dayRunTime1").val();
                             if(isNaN(crushingRunningTime)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(crushingRunningTime === ""){
+                            if(crushingRunningTime === " "){
                                 crushingRunningTime = 0;
                             }
                             var crushingCauseTime = $("#dayStopTime1").val();
                             if(isNaN(crushingCauseTime)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(crushingCauseTime === ""){
+                            if(crushingCauseTime === " "){
                                 crushingCauseTime = 0;
                             }
                             var zj = $("#dayWeekCheck1").val();
                             if(isNaN(zj)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(zj === ""){
+                            if(zj === " "){
                                 zj = 0;
                             }
                             var ck = $("#dayChanKuang1").val();
                             if(isNaN(ck)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(ck === ""){
+                            if(ck === " "){
                                 ck = 0;
                             }
                             var dp = $("#dayDiaoPeng1").val();
                             if(isNaN(dp)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(dp === ""){
+                            if(dp === " "){
                                 dp = 0;
                             }
                             var bl = $("#dayBiLei1").val();
                             if(isNaN(bl)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(bl === ""){
+                            if(bl === " "){
                                 bl = 0;
                             }
                             var ek = $("#dayEkuang1").val();
                             if(isNaN(ek)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(ek === ""){
+                            if(ek === " "){
                                 ek = 0;
                             }
                             var ddx = $("#dayDiaoDouXiang1").val();
                             if(isNaN(ddx)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(ddx === ""){
+                            if(ddx === " "){
                                 ddx = 0;
                             }
                             var kcm = $("#dayKuangCangMan1").val();
                             if(isNaN(kcm)){
                                 layer.msg("此处应该填数字")
+                                return 
                             }
-                            if(kcm === ""){
+                            if(kcm === " "){
                                 kcm = 0;
                             }
                             var remark = $("#dayRemark1").val();
-                            /**收集系统计算数据 */
-                            var ropeWayRunningTime = $("#ropeWayRunningTime").val();
-                            if(ropeWayRunningTime === ""){
-                                ropeWayRunningTime = 0;
-                            }
-                            console.log(ropeWayRunningTime)
-                            var ropeWayCauseTime = $("#ropeWayCauseTime").val();
-                            if( ropeWayCauseTime=== ""){
-                                ropeWayCauseTime = 0;
-                            }
-                            console.log(ropeWayCauseTime)
-                            var ropeWayJxgz = $("#ropeWayJxgz").val();
-                            if( ropeWayJxgz=== ""){
-                                ropeWayJxgz = 0;
-                            }
-                            console.log(ropeWayJxgz)
-                            var ropeWayDqgz = $("#ropeWayDqgz").val();
-                            if( ropeWayDqgz=== ""){
-                                ropeWayDqgz = 0;
-                            }
-                            console.log(ropeWayDqgz)
-                            var ropeWayZj = $("#ropeWayZj").val();
-                            if( ropeWayZj=== ""){
-                                ropeWayZj = 0;
-                            }
-                            console.log(ropeWayZj)
-                            var ropeWayWk = $("#ropeWayWk").val();
-                            if( ropeWayWk=== ""){
-                                ropeWayWk = 0;
-                            }
-                            console.log(ropeWayWk)
-                            var ropeWayJd = $("#ropeWayJd").val();
-                            if( ropeWayJd=== ""){
-                                ropeWayJd = 0;
-                            }
-                            console.log(ropeWayJd)
-                            var ropeWayDp = $("#ropeWayDp").val();
-                            if( ropeWayDp=== ""){
-                                ropeWayDp = 0;
-                            }
-                            console.log(ropeWayDp)
-                            var ropeWayWs = $("#ropeWayWs").val();
-                            if( ropeWayWs=== ""){
-                                ropeWayWs = 0;
-                            }
-                            var ropeWayQt = $("#ropeWayQt").val();
-                            if( ropeWayQt=== ""){
-                                 ropeWayQt= 0;
-                            }
-                               
                             $.post(home.urls.dayreport.update() ,{ 
                                 id : id,
                                 "adder.id" : adder,
@@ -514,6 +494,9 @@ var crushing = {
                             layer.close(index);
                         }  
                     })
+                })
+                
+
             })
         }
         
@@ -589,7 +572,7 @@ var crushing = {
                     })
             })
         }
-        /**渲染日报表 */
+        /**渲染月报表 */
         ,renderHandler2 :function($tbody,reports){
             $tbody.empty();
             reports.forEach(function(e){
@@ -598,18 +581,38 @@ var crushing = {
                 var y = date.substr(0,4)
                 var m = date.substr(4)
                 var d = y + "-" + m;
-                $tbody.append(
-                    "<tr>" +
-                    "<td>" + (d) + "</td>" +
-                    "<td>" + (e.temporalInterval) + "</td>" +
-                    "<td>" + (e.counter ? e.counter : ' ') + "</td>" +
-                    "<td>" + (e.maker ? e.maker : ' ') + "</td>" +
-                    "<td>" + (e.produceDate) + "</td>" +
-                    "<td>" + 
-                    "<a href='#' class='detail' id='detail-" + (e.id) +"'>查看报表</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
-                    "<a href='#' class='reExpert' id='expert-" + (e.id) + "'>重新生成</a>" + "</td>" +
-                    "</tr>"
-                )
+                $.get(home.urls.monthreport.able(),{id : e.id},function(result){
+                    var able = result.code;
+                    console.log(able)
+                    if(able === 0){
+                        $tbody.append(
+                            "<tr>" +
+                            "<td>" + (d) + "</td>" +
+                            "<td>" + (e.temporalInterval) + "</td>" +
+                            "<td>" + (e.counter ? e.counter : ' ') + "</td>" +
+                            "<td>" + (e.maker ? e.maker : ' ') + "</td>" +
+                            "<td>" + (e.produceDate) + "</td>" +
+                            "<td>" + 
+                            "<a href='#' class='detail' id='detail-" + (e.id) +"'>查看报表</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
+                            "<a href='#' class='reExpert' id='expert-" + (e.id) + "'>重新生成</a>" + "</td>" +
+                            "</tr>"
+                        )
+                    }else {
+                        $tbody.append(
+                            "<tr>" +
+                            "<td>" + (d) + "</td>" +
+                            "<td>" + (e.temporalInterval) + "</td>" +
+                            "<td>" + (e.counter ? e.counter : ' ') + "</td>" +
+                            "<td>" + (e.maker ? e.maker : ' ') + "</td>" +
+                            "<td>" + (e.produceDate) + "</td>" +
+                            "<td>" + 
+                            "<a href='#' class='detail' id='detail-" + (e.id) +"'>查看报表</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
+                            "<a style='color: gray' id='expert-" + (e.id) + "'>重新生成</a>" + "</td>" +
+                            "</tr>"
+                        )
+                    }
+                })
+                        
             }) 
             /**绑定月报表及详情表切换事件 */
             crushing.funcs.bindPageSwitch($(".detail"));
@@ -631,41 +634,64 @@ var crushing = {
         /**重新生成 */
         ,bindReproduce : function(buttons) {
             buttons.off('click').on('click',function(){
-                layer.open({
-                    type: 1,
-                    title: '报表生成',
-                    content : "确定要重新生成报表吗 ？",
-                    area : ['300px', '150px'],
-                    btn: ['确定','取消'],
-                    offset: "auto",
-                    closeBtn : 0,
-                    yes: function(index){
-                        $.get(home.urls.monthreport.generateByYearMonth(),{
-
-                        },function(result) {
-                            
-                        })
-                    layer.close(index);
-                    },
-                    btn2 : function(index) {
+                var id = $(this).attr('id').substr(7);
+                $.get(home.urls.monthreport.getDetailById(),{id : id},function(result){
+                    var date = result.data.yearMonth;
+                    date = date + ""
+                    var y = date.substr(0,4)
+                    var m = date.substr(4)
+                    var d = y + "-" + m;
+                    layer.open({
+                        type: 1,
+                        title: '报表生成',
+                        content : "&nbsp;&nbsp;&nbsp;确定要重新生成报表吗 ？",
+                        area : ['300px', '120px'],
+                        btn: ['确定','取消'],
+                        offset: "auto",
+                        closeBtn : 0,
+                        yes: function(index){
+                            $.get(home.urls.monthreport.generateByYearMonth(),{
+                                date : d
+                            },function(result) {
+                                layer.msg(result.message, {
+                                    offset : ['40%', '55%'],
+                                    time : 700
+                                })
+                                if(result.code === 0) {
+                                    var time = setTimeout(function() {
+                                        crushing.init();
+                                        clearTimeout(time);
+                                    },500)
+                                }
+                            })
                         layer.close(index);
-                    }  
+                        },
+                        btn2 : function(index) {
+                            layer.close(index);
+                        }  
+                    })
                 })
+                
             })
         }
         /**月报表详情 */
         ,renderDetailTable : function(id) {
             $.get(home.urls.monthreport.getDetailById(),{id : id},function(result){
                 var detail = result.data.details;
-                var date = result.data.yearMonth;
-                date = date + ""
-                var y = date.substr(0,4)
-                var m = date.substr(4)
-                var d = y + "-" + m;
-                $("#monthTime1").val(d);
-                const $tbody = $("#monthDetailTable").children("tbody");
-                crushing.funcs.renderHandler3($tbody,detail);
-
+                var data = result.data;
+                if(detail.toString() === ""){
+                    layer.msg("很抱歉，该月没有报表数据 ！")
+                    return
+                } else{
+                    var date = result.data.yearMonth;
+                    date = date + ""
+                    var y = date.substr(0,4)
+                    var m = date.substr(4)
+                    var d = y + "-" + m;
+                    $("#monthTime1").val(d);
+                    const $tbody = $("#monthDetailTable").children("tbody");
+                    crushing.funcs.renderHandler3($tbody,detail,data);
+                }
             })
             /**绑定导出事件 */
             crushing.funcs.bindExpertReportEvent($("#expertButton3"));
@@ -682,45 +708,45 @@ var crushing = {
             })
         }
         /**渲染月报详情表 */
-        ,renderHandler3 : function($tbody, detail) {
+        ,renderHandler3 : function($tbody, detail,data) {
             $tbody.empty();
             detail.forEach(function(e){
                 $tbody.append(
                     "<tr>" + 
-                    "<td>" + (e.produceDate) + "</td>" +
-                    "<td>" + (e.crushingRunningTime) + "</td>" +
-                    "<td>" + (e.crushingCauseTime) + "</td>" +
-                    "<td>" + (e.ropeWayRunningTime) + "</td>" +
-                    "<td>" + (e.ropeWayCauseTime) + "</td>" +
-                    "<td>" + (e.ropeWayJxgz) + "</td>" +
-                    "<td>" + (e.ropeWayDqgz) + "</td>" +
-                    "<td>" + (e.ropeWayZj) + "</td>" +
-                    "<td>" + (e.ropeWayWk) + "</td>" +
-                    "<td>" + (e.ropeWayJd) + "</td>" +
-                    "<td>" + (e.ropeWayDp) + "</td>" +
-                    "<td>" + (e.ropeWayWs) + "</td>" +
-                    "<td>" + (e.ropeWayQt) + "</td>" +
-                    "<td>" + (e.zj) + "</td>" +
-                    "<td>" + (e.ck) + "</td>" +
-                    "<td>" + (e.dp) + "</td>" +
-                    "<td>" + (e.bl) + "</td>" +
-                    "<td>" + (e.ek) + "</td>" +
-                    "<td>" + (e.ddx) + "</td>" +
-                    "<td>" + (e.kcm) + "</td>" +
-                    "<td>" + (e.remarks) + "</td>" +
+                    "<td>" + (e.produceDate ? e.produceDate : ' ') + "</td>" +
+                    "<td>" + (e.crushingRunningTime ? e.crushingRunningTime  : ' ') + "</td>" +
+                    "<td>" + (e.crushingCauseTime ? e.crushingCauseTime : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayRunningTime ? e.ropeWayRunningTime : ' ' ) + "</td>" +
+                    "<td>" + (e.ropeWayCauseTime ? e.ropeWayCauseTime : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayJxgz ? e.ropeWayJxgz : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayDqgz ? e.ropeWayDqgz : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayZj ? e.ropeWayZj : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayWk ? e.ropeWayWk : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayJd ? e.ropeWayJd : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayDp ? e.ropeWayDp : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayWs ? e.ropeWayWs : ' ') + "</td>" +
+                    "<td>" + (e.ropeWayQt ? e.ropeWayQt : ' ') + "</td>" +
+                    "<td>" + (e.zj ? e.zj : ' ') + "</td>" +
+                    "<td>" + (e.ck ? e.ck : ' ') + "</td>" +
+                    "<td>" + (e.dp ? e.dp : ' ') + "</td>" +
+                    "<td>" + (e.bl ? e.bl : ' ') + "</td>" +
+                    "<td>" + (e.ek ? e.ek : ' ') + "</td>" +
+                    "<td>" + (e.ddx ? e.ddx : ' ') + "</td>" +
+                    "<td>" + (e.kcm ? e.kcm : ' ') + "</td>" +
+                    "<td>" + (e.remarks ? e.remarks : ' ') + "</td>" +
                     "</tr>"
                 )
             })
             $tbody.append(
                 "<tr>" +
                 "<td colspan='2'>" + "月度索道系统运矿能力" + "</td>" +
-                "<td colspan='2'>" + (detail.transport) + "</td>" +
+                "<td colspan='2'>" + (data.transport) + " (t/h)" + "</td>" +
                 "<td colspan='2'>" + "月度碎矿系统破矿能力" + "</td>" +
-                "<td colspan='3'>" + (detail.crush) + "</td>" +
+                "<td colspan='3'>" + (data.crush) + " (t/h)" + "</td>" +
                 "<td colspan='3'>" + "月度索道系统可开动率" + "</td>" +
-                "<td colspan='3'>" + (detail.runnable) + "</td>" +
+                "<td colspan='3'>" + (data.runnable)*100 + "%" +"</td>" +
                 "<td colspan='3'>" + "月度索道运转率" + "</td>" +
-                "<td colspan='3'>" + (detail.runningRate) + "</td>" +
+                "<td colspan='3'>" + (data.runningRate)*100 + "%" +"</td>" +
                 "</tr>"
             )
             /**绑定编辑详情事件 */
