@@ -10,9 +10,9 @@ var crushing = {
          }, 30);
          /**月报显示 */
         crushing.funcs.renderMonthTable();
-    //    setInterval(function(){
-    //        crushing.funcs.renderMonthTable();
-    //    },10000);
+        setInterval(function(){
+            crushing.funcs.renderMonthTable();
+        },10000);
     }
     /**当前总记录数，用户控制全选逻辑 */
     ,pageSize: 0
@@ -611,14 +611,12 @@ var crushing = {
                             "</tr>"
                         )
                     }
-                })
-                        
-            }) 
-            /**绑定月报表及详情表切换事件 */
-            crushing.funcs.bindPageSwitch($(".detail"));
-           /**绑定重新生成事件 */
-            crushing.funcs.bindReproduce($(".reExpert"));
-
+                /**绑定月报表及详情表切换事件 */
+                crushing.funcs.bindPageSwitch($(".detail"));
+                /**绑定重新生成事件 */
+                crushing.funcs.bindReproduce($(".reExpert"));
+                })         
+            })    
         }
         /**切换到详情表 */
       ,bindPageSwitch : function(buttons){
