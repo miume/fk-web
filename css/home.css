@@ -200,23 +200,26 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 .whiteFontMenu a:hover {
-    color: #3dc1f8;
+    color: #3dc1f8 ;
 }
 .chosenMenu a {
     color: #3dc1f8 !important;
     font-weight: 400;
+}
+.whiteFontMenu2 {
+    margin-left:20px;
 }
 .whiteFontMenu2 a {
     color: #ffffff;
 }
 
 .whiteFontMenu2 a:hover {
-    color: #3dc1f8;
+    color: #3dc1f8  !important;
 }
 
 .chosenMenu2 a {
-    margin-left:20px;
-    color: #3dc1f8;
+    margin-left:13px;
+    color: #3dc1f8 !important;
     font-weight: 400;
 }
 

@@ -96,18 +96,35 @@ cavingMonthReport = {
                         offset : "auto",
                         closeBtn : 0,
                         yes : function(index) {
-                            var href = home.urls.cavingReport.exportById()+"?id=" + id;
-                            location.href = href;
+                            cavingMonthReport.funcs.bindexportById(index,id); 
                             $("#modal").addClass("hide");
-                            layer.close(index);
+                            layer.close(index);                          
                         }
                         ,btn2 : function(index) {
                             $("#modal").addClass("hide");
                             layer.close(index);
                         }
+                        ,success : function(layero,index) {
+                            $(document).on("keydown", function(e) {
+                                if(e.keyCode == 27) {
+                                    $("#modal").addClass("hide");
+                                    layer.close(index);
+                                }
+                                if(e.keyCode == 13) {
+                                    cavingMonthReport.funcs.bindexportById(index,id); 
+                                    $("#modal").addClass("hide");
+                                    layer.close(index);       
+                                }
+                            })
+                        }
                     })
                 })
             })
+        }
+        ,bindexportById : function(index,id) {
+            var href = home.urls.cavingReport.exportById()+"?id=" + id;
+            location.href = href;
+            
         }
         /**渲染详情数据 */
         ,bindRenderDetailData : function(data) {
