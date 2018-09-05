@@ -1,5 +1,5 @@
-var grapple = {
-    init :function(){
+var grapple ={
+    init : function(){
         grapple.funcs.renderTable();
         var out = $("#grapplepage").width();
         var time = setTimeout(function(){
@@ -11,12 +11,12 @@ var grapple = {
     ,pageSize : 0
     ,funcs : {
         renderTable:function(){
-            /**渲染表头，获取当天数据 */
+            /**渲染当天数据 */
             var startDate = $('#startTime').val()
             var endDate = $('#endTime').val()
             $.get(home.urls.truckLoading.getByStartDateAndEndDateAndClazzByPage(),{
                 startDate : startDate,
-                endDate : endDate,
+                endDate : endDate
             },function(result){
                 var grapples = result.data.content;
                 const $tbody = $('#grappleTable').children('tbody');
@@ -55,25 +55,11 @@ var grapple = {
             /**绑定查询事件 */
             grapple.funcs.bindSearchEvents($("#searchButton"));
         }
-        /**绑定刷新事件 */
-        ,bindRefreshEvents : function(buttons) {
-            buttons.off('click').on('click',function() {
-                var index = layer.load(2, { offset : ['40%','50%']});
-                var time = setTimeout(function(){
-                    layer.msg('刷新成功', {
-                        offset : ['40%','50%'],
-                        time : 700
-                    })
-                    grapple.init();
-                    layer.close(index);
-                    clearTimeout(time);
-                }, 200)
-            })
-        }
         /**绑定数据录入事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on('click',function(){
                 $("#selected").val("");
+                grapple.funcs.renderInit();
                 $("#confirm").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -90,7 +76,7 @@ var grapple = {
                         },function(result){
                             if(!result.data){
                                 $("#confirm").addClass("hide");
-                                layer.close(index);
+                                layer.close(index);                              
                                 $("#modal").removeClass("hide");
                                 layer.open({
                                     type: 1,
@@ -101,41 +87,79 @@ var grapple = {
                                     offset: ['10%', '10%'],
                                     closeBtn: 0,
                                     yes : function(index){
-                                        //绑定添加一行事件
-                                        grapple.funcs.addRow($("addRow"))
-                                        //实现json格式传数据
-
-                                        $("#modal").addClass("hide");
-                                        layer.close(index);
+                                        var clazzId = $("#sel").val();
+                                        var userStr = $.session.get('user');
+                                        var userJson = JSON.parse(userStr);
+                                        var dispatcherId = userJson.id;
+                                        var reporterId = $("#reporter").val();
                                     }
                                     ,btn2 : function(index) {
                                         $("#modal").css("display","none");
                                         layer,close(index);
                                     }
                                 })
-                            }else{
-                                alert("该班次已存在");
                             }
                         })
-                    },
-                    btn2 : function(index) {
+                    }
+                    ,btn2 : function(index) {
                         $("#confirm").css("display","none");
                         layer,close(index);
                     }
                 })
             })
         }
-        /**绑定批量删除事件 */
-        ,bindDeleteEvents : function(buttons){
+        /**渲染数据录入的初始化页面 */
+        ,renderInit : function(){
+            $("#reporter").empty()
+            $("#reporter").removeAttr("disabled")
+            $.get(home.urls.user.getAll(),{},function(result){
+                var userData = result.data;
+                userData.forEach(function(e){
+                    $("#reporter").append("<option value='"+e.id+"'>"+e.name+"</option>");
+                })
+            })
+            $("#time").removeAttr("disabled")
+            $("#reportChartTbody").empty();
+            /**绑定添加一行事件 */
+            grapple.funcs.bindAddRow($("#addRow"));
+        }
+        /**添加一行事件 */
+        ,bindAddRow : function(buttons){
             buttons.off('click').on('click',function(){
-                
+                $("#addMaterial").empty();
+                $.get(home.urls.MaterialItem.getAll(),{},function(result){
+                    var materialItem = result.data;
+                    materialItem.forEach(function(e){
+                        $("#addMaterial").append("<option value='"+e.id+"'>"+e.name+"</option>");
+                    }) 
+                })
+                $("#addModal").removeClass("hide");
+                layer.open({
+                    type : 1,
+                    title : "新增",
+                    content : $("#addModal"),
+                    area : ['380px', '200px'],
+                    btn : ['确定' , '取消'],
+                    offset : ['40%' , '45%'],
+                    closeBtn: 0,
+                    yes : function(index){
+                        var item = $("#addMaterial").text();
+                        var itemId = $("#addMaterial").val();
+                        const $reportChartTbody = $("#reportChartTbody");
+                        grapple.funcs.renderAdd($reportChartTbody,item,itemId);
+                        $("#addModal").addClass("hide");
+                        layer.close(index);
+                    },
+                    btn2 : function(index) {
+                        $("#addModal").addClass("hide");
+                        layer,close(index);
+                    }
+                })
             })
         }
-        /**绑定查询事件 */
-        ,bindSearchEvents : function(buttons){
-            buttons.off('click').on('click',function(){
-                
-            })
+        /**渲染添加一行后数据录入的页面 */
+        ,renderAdd : function($tbody,item,itemId){
+
         }
         /**渲染数据 */
         ,renderHandler : function($tbody,grapples,page){
@@ -194,124 +218,94 @@ var grapple = {
             }
             return datas;
         }
-        
-        /**绑定查看明细事件 */
+        /**查看明细事件 */
         ,bindViewEvents : function(buttons){
-            buttons.off("click").on("click",function(){
+            buttons.off('click').on('click',function(){
                 var id = $(".view").attr("id").substr(5);
+                $("#reporter").empty();
                 $.get(home.urls.MaterialItem.getAll(),{},function(result){
                     var keys = [];
                     var materialItem = result.data;
                     materialItem.forEach(function(e){
                         keys.push(e.id)
                     })
-                    // console.log(materialItem);
                     $.get(home.urls.truckLoading.getById(),{id : id},function(result){
                         var details = result.data.details
                         var datas = grapple.funcs.getMapData(details);
                         var name = result.data.reporter.name
-                        // var headDatas = ["rank","sendTime","num","orebin","contrapositionTime","makeUpTime","finishTime","weighTime","note"]
-                        const $tbody = $("#reportChartTbody");
-                        $tbody.empty();
-                        $("#reporter").val(name).attr("disabled","disabled")
+                        $("#reporter").append("<option value='"+result.data.reporter.id+"'>"+name+"</option>").attr("disabled","disabled")
                         $("#time").attr("disabled","disable")
-                        // $("#modal").removeClass("hide")
-                        keys.forEach((key)=>{
-                            var data = datas[key];
-                            // console.log("==========");
-                            // console.log(data);
-                            var flag = 0;
-                            // 2.循环写数据
-                            data.forEach((d)=>{
-                                if(flag == 0){
-                                    flag = flag + 1;
-                                    // 1.写类型
-                                    $tbody.append(
-                                        "<tr>" +
-                                        "<td rowspan='"+data.length+"'>" + data[0].item+"</td>" +
-                                        "<td>"+ data[0].rank +"</td>" +
-                                        "<td>"+ data[0].sendTime +"</td>" +
-                                        "<td>"+ data[0].num +"</td>" +
-                                        "<td>"+ data[0].orebin +"</td>" +
-                                        "<td>"+ data[0].contrapositionTime +"</td>" +
-                                        "<td>"+ data[0].makeUpTime +"</td>" +
-                                        "<td>"+ data[0].finishTime +"</td>" +
-                                        "<td>"+ data[0].weighTime +"</td>" +
-                                        "<td><a href='#' class='delete' ><i class='layui-icon'>&#xe640;</i></a></td>" +
-                                        "<td><a href='#' class='edit' ><i class='layui-icon'>&#xe642;</i></a></td>" +                                      
-                                        "</tr>"      
-                                    );
-                                } else {
-                                    $tbody.append(
-                                        "<tr>" +
-                                        "<td>"+ data[flag].rank +"</td>" +
-                                        "<td>"+ data[flag].sendTime +"</td>" +
-                                        "<td>"+ data[flag].num +"</td>" +
-                                        "<td>"+ data[flag].orebin +"</td>" +
-                                        "<td>"+ data[flag].contrapositionTime +"</td>" +
-                                        "<td>"+ data[flag].makeUpTime +"</td>" +
-                                        "<td>"+ data[flag].finishTime +"</td>" +
-                                        "<td>"+ data[flag].weighTime +"</td>" +
-                                        "<td><a href='#' class='delete'><i class='layui-icon'>&#xe640;</i></a></td>" +
-                                        "<td><a href='#' class='edit'><i class='layui-icon'>&#xe642;</i></a></td>" +                                      
-                                        "</tr>"  
-                                    );
-                                    flag++;
-                                }
-                            })
-                        })                 
-                    })
-                    $("#modal").removeClass("hide")
-                    layer.open({
-                        type: 1,
-                        title: "明细",
-                        content: $("#modal"),
-                        area: ['80%', '70%'],
-                        btn: ['确定', '取消'],
-                        offset: ['10%', '10%'],
-                        closeBtn: 0,
-                        yes : function(index){
-                            $("#modal").css("display","none");
-                            layer.close(index);
-                        }
-                        ,btn2: function (index) {
-                            $("#modal").css("display","none");
-                            layer.close(index);
-                        }
+                        const $tbody = $("#reportChartTbody");
+                        grapple.funcs.renderDeatil($tbody,datas,keys);
+                        $("#modal").removeClass("hide")
+                        layer.open({
+                            type: 1,
+                            title: "明细",
+                            content: $("#modal"),
+                            area: ['80%', '70%'],
+                            btn: ['导出', '取消'],
+                            offset: ['10%', '10%'],
+                            closeBtn: 0,
+                            yes : function(index){
+                                var href = home.urls.truckLoading.exportById()+"?id=" + id;
+                                location.href = href;
+                            }
+                            ,btn2: function (index) {
+                                $("#modal").css("display","none");
+                                layer.close(index);
+                            }
+                        })
                     })
                 })
             })
         }
-        /**添加一行按钮操作 */
-        ,addRow : function(buttons){
-            buttons.off("click").on("click",function(){
-                $("#addModal").removeClass("hide");
-                $.get(home.urls.MaterialItem.getAll(),{},function(result){
-                    var data = result.data;
-                    data.forEach(function(e){
-                        $("#addMaterial").append("<option value='"+(e.id)+"'>"+(e.name)+"</option>");
-                    })
+        /**渲染详情数据 */
+        ,renderDeatil : function($tbody,datas,keys){
+            $tbody.empty();
+            keys.forEach((key)=>{
+                var data = datas[key];
+                // console.log("==========");
+                // console.log(data);
+                var flag = 0;
+                // 2.循环写数据
+                data.forEach((d)=>{
+                    if(flag == 0){
+                        flag = flag + 1;
+                        // 1.写类型
+                        $tbody.append(
+                            "<tr>" +
+                            "<td rowspan='"+data.length+"'>" + data[0].item+"</td>" +
+                            "<td>"+ data[0].rank +"</td>" +
+                            "<td>"+ data[0].sendTime +"</td>" +
+                            "<td>"+ data[0].num +"</td>" +
+                            "<td>"+ data[0].orebin +"</td>" +
+                            "<td>"+ data[0].contrapositionTime +"</td>" +
+                            "<td>"+ data[0].makeUpTime +"</td>" +
+                            "<td>"+ data[0].finishTime +"</td>" +
+                            "<td>"+ data[0].weighTime +"</td>" +
+                            "<td><a href='#' class='delete' ><i class='layui-icon'>&#xe640;</i></a></td>" +
+                            "<td>"+ data[0].note +"</td>" +                                      
+                            "</tr>"      
+                        );
+                    } else {
+                        $tbody.append(
+                            "<tr>" +
+                            "<td>"+ data[flag].rank +"</td>" +
+                            "<td>"+ data[flag].sendTime +"</td>" +
+                            "<td>"+ data[flag].num +"</td>" +
+                            "<td>"+ data[flag].orebin +"</td>" +
+                            "<td>"+ data[flag].contrapositionTime +"</td>" +
+                            "<td>"+ data[flag].makeUpTime +"</td>" +
+                            "<td>"+ data[flag].finishTime +"</td>" +
+                            "<td>"+ data[flag].weighTime +"</td>" +
+                            "<td><a href='#' class='delete'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                            "<td>"+ data[flag].note +"</td>" +                                      
+                            "</tr>"  
+                        );
+                        flag++;
+                    }
                 })
-                var valueId = $("#addMaterial").val();
-
             })
-        }
-        /**绑定修改明细事件 */
-        ,bindModifyEvents : function(buttons){
-            buttons.off("click").on("click",function(){
-                var id=$('.modify').attr("id").substr(7);
-                $.get(home.urls.MaterialItem.getAll(),{},function(result){
-                    var keys = [];
-                    var materialItem = result.data;
-                    materialItem.forEach(function(e){
-                        keys.push(e.id)
-                    })
-                })
-            })
-        }
-        ,/**渲染新增页面 */
-        renderAdd : function($tbody,grapples,keys){
-            
         }
     }
 }
