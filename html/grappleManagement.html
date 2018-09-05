@@ -59,7 +59,7 @@
         <div class="block-quote">
             <div class="fl">
                 <p>
-                    <p class="fl" style="margin-left:20px;"><span>抓斗汇报人：<input type="text" id="dispatcher"></span></p>
+                    <p class="fl" style="margin-left:20px;"><span>抓斗汇报人：<select id="reporter"></select></span></p>
                     <p class="fl" style="margin-left:20px;"><span>时间：<input type="text" id="time"></span></p>
                 </p>
             </div>
@@ -93,9 +93,7 @@
         </table>
         <!--添加一行弹出页面-->
         <div id="addModal" class="hide hideModal">
-            <p><span>原料:</span><select id="addMaterial"><option value="1" selected="selected">早班</option>
-                                        <option value="2">中班</option>
-                                        <option value="3">晚班</option></select></p>
+            <p><span>原料:</span><select id="addMaterial"></select></p>
         </div>
     </div>
     <script type="application/javascript">
