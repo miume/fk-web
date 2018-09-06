@@ -1,0 +1,38 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">工艺指标曲线分析</span>
+                参数名称：<select></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                结束日期：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="analuButton"><a href="#"><i class="layui-icon">&#xe615;</i>开始分析</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="position: relative; margin-top: 20px;">
+        <div id="materialItem" style="width:13%; float:left;">
+            <ul style="text-align: center;border: 1px darkgrey solid;">
+
+            </ul>
+        </div>
+        <div id="curveChart" style="width:65%;float: left">
+
+        </div>
+        <div id="parameterAnalysis" style="width: 20%;float: right">
+            <table>
+                <tbody id="analysisTbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="selfjs/processCurveAnalysis.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            curveAnalysis.init();
+        })
+    </script>
+</div>

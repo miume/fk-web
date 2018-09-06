@@ -623,6 +623,11 @@ var home = {
                 return servers.backup() + "cavingDayReportHeader/add";
             },
         }
+        ,group : {
+            getAll: function () {
+                return servers.backup() + "group/getAll";
+            },
+        }
     }
    
     /** start */
