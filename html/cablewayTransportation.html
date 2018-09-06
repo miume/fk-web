@@ -1,0 +1,152 @@
+<div class="display-component-container">
+    <style>
+         .block-quote table tr td {
+             border : none;
+             padding : 3px;
+         }
+         #paraMeterDiv {
+            border: 1px solid #ccc !important;
+            height: 280px;
+         }
+         .block-quote table {
+             width : 350px;
+             height : 200px;
+             padding: 5px;
+             border: none !important;
+             margin: 0px;
+         }
+         .block-quote table span {
+             padding-left: 5px; 
+             color:black;
+         }
+         .block-quote table input {
+             border: 1px solid #ccc;
+             padding-left: 5px;
+         }
+         .block-quote button {
+             border-radius: 0.5em;
+             font-size: 14px;
+             margin-left: 25px;
+         }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span>参数列表：</span>
+                <input type="text" id="paraMeter" placeholder="请选择参数" readonly>
+                <div id="paraMeterDiv" class="hide">
+                    <table id="paraMeterTable">
+                        <tbody>
+            
+                        </tbody>
+                    </table>
+                    <div class="whitespace"></div>
+                    <button>全选</button> <button>全不选</button> <button>确定</button> <button>取消</button>
+                
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <span><a href="#"><i class="fa fa-line-chart" aria-hidden="true"></i> 图表显示</a></span>&nbsp;&nbsp;&nbsp;
+                <span><a href="#"><i class="fa fa-table" aria-hidden="true"></i> 数据集中监视 </a></span>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <div>
+    
+
+    </div>
+    <script>
+       
+    (function(){
+        var str = '';
+        var arr = [];//定义一个数组用来接收多选框的值
+        var data = {
+            0 : {name:'参数1',id:0},
+            1 : {name:'参数1',id:1},
+            2 : {name:'参数1',id:2},
+            3 : {name:'参数1',id:3},
+            4 : {name:'参数1',id:4},
+            5 : {name:'参数1',id:5},
+            6 : {name:'参数1',id:6},
+            7 : {name:'参数1',id:7},
+            8 : {name:'参数1',id:8},
+            9 : {name:'参数1',id:9},
+            10 : {name:'参数1',id:10},
+            11 : {name:'参数1',id:11},
+            12 : {name:'参数1',id:12},
+            13 : {name:'参数1',id:13},
+            14 : {name:'参数14',id:14},
+            15 : {name:'参数15',id:15},
+            16 : {name:'参数1',id:16},
+            17 : {name:'参数1',id:17},
+            18 : {name:'参数1',id:18},
+            19 : {name:'参数1',id:19},
+            20 : {name:'参数1',id:20},
+            21 : {name:'参数21',id:21},
+            22 : {name:'参数1',id:22},
+            23 : {name:'参数1',id:23},
+        };
+        var $tbody = $("#paraMeterTable").children("tbody");
+        $tbody.empty();
+        var lengths = 24;
+        for( var i = 0; i < parseInt(lengths / 4); i++ ) {
+            $tbody.append("<tr><td><input type='checkbox' id="+(data[3*i].id)+" data-name="+(data[3*i].name)+" /><span>"+(data[3*i].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+1].id)+" data-name="+(data[3*i+1].name)+" /><span>"+(data[3*i+1].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+2].id)+" data-name="+(data[3*i+2].name)+"  /><span>"+(data[3*i+2].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+3].id)+" data-name="+(data[3*i+3].name)+" /><span>"+(data[3*i+3].name)+"</span></td></tr>")
+            }  
+        var temp = parseInt(lengths / 4) * 4 ;
+        if(lengths % 4 === 1){
+            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" data-name="+(data[temp+1].name)+" /><span>"+(data[temp+1].name)+"</span></td><td><input type='checkbox' id="+(data[temp+2].id)+" data-name="+(data[temp+2].name)+" /><span>"+(data[temp+2].name)+"</span></td><td></td></tr>")
+        }        
+        if(lengths % 4 === 2){
+            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" data-name="+(data[temp+1].name)+" /><span>"+(data[temp+1].name)+"</span></td><td></td><td></td></tr>")
+        }  
+        if(lengths % 4 === 3){
+            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td></td><td></td><td></td></tr>")
+        }         
+
+    })();
+
+    $("#paraMeter").click(function(){
+        $(this).attr('placeholder','');
+        var name = '';
+        $('#paraMeterTable input').each(function () {//循环遍历checkbox
+            var  check= $(this).is(':checked');//判断是否选中
+            if(check){
+                name += $(this).attr('data-name')+',';
+                $(this).attr('name',"paraMeterTable");
+                arr.push($(this).attr("id"));
+            }else {
+                $(this).attr('name',"");
+            }
+        });
+        $("#paraMeter").val(name.slice(0,-1));//去除最后的逗号
+    });
+
+    $("#paraMeterTable").mouseover(function() {
+        if (!$("#paraMeterDiv").hasClass('hover')){//类hover在下面用来验证是否需要隐藏下拉，没有其他用途。
+            $("#paraMeterDiv").addClass('hover');
+        }
+    }).mouseout(function(){
+        $("#paraMeterDiv").removeClass('hover');
+    });
+
+    $(document).on('click',function() {
+        if (!$("#paraMeter").is(":focus") && !$("#paraMeterDiv").hasClass('hover')) {//如果没有选中输入框且下拉不在hover状态。
+            var name = '';
+            $('#paraMeterTable input').each(function () {//遍历checkbox
+                var check = $(this).is(':checked');//判断是否选中
+                if (check) {
+                    name += $(this).attr('data-name') + ',';
+                    $(this).attr('name', "paraMeterTable");
+                } else {
+                    $(this).attr('name', "");
+                }
+            });
+            $("#paraMeter").val(name.slice(0, -1));//去除最后的逗号
+            $("#paraMeterDiv").addClass('hide');
+        } else {
+            $("#paraMeterDiv").removeClass('hide');
+        }
+    });
+    </script>
+</div>

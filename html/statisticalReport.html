@@ -1,4 +1,14 @@
 <div class="display-component-container">
+    <style>
+        #addTabletr tbody td {
+            border : none !important;
+        }
+        #addTable td input {
+            width: 100%;
+            text-align: center;
+            border: none;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p>
@@ -14,7 +24,7 @@
     <div class="whitespace"></div>
     <table id="statisticalReportTable">
         <thead>
-            <tr>
+            <!-- <tr>
                 <td style="min-width: 80px;">时间</td>
                 <td>1500吨水池本月表底</td>
                 <td>300吨水池1本月表底</td>
@@ -29,7 +39,7 @@
                 <td style="min-width: 60px;">修改人</td>
                 <td style="min-width: 80px;">修改时间</td>
                 <td style="min-width: 40px;">编辑</td>
-            </tr>
+            </tr> -->
         </thead>
         <tbody>
         </tbody>
@@ -53,6 +63,10 @@
                     elem : "#chooseDate",
                     type : "month"
                 })
+                laydate.render({
+                    elem : "#inputDate",
+                    type : "month"
+                })
             })  
         })
         /**onkeyup='this.value=this.value.replace(/\D/gi,"")'
@@ -67,8 +81,16 @@
         }  
     </script>
     <!--隐藏部分-->
-    <div class="hide hideModal" id="addModal">
-        <p style="margin-left: 98px; color: #1E9FFF"><span style="font-size: 17px;font-weight: bold;">日期：</span><input type="text" id="chooseDate" placeholder="请选择日期" style="width: 172px;" /></p>
+    <div class="hide layerModal" id="addModal">
+        <div style="padding-bottom: 20px; ">
+            <span style="font-size: 17px;font-weight: bold; color: #1E9FFF;">日期：</span><input id="inputDate" type="text"  placeholder="请选择时间" />
+        </div>
+        <table id="addTable" >
+            <tbody>
+
+            </tbody>
+        </table>
+        <!-- <p style="margin-left: 98px; color: #1E9FFF"><span style="font-size: 17px;font-weight: bold;">日期：</span><input type="text" id="chooseDate" placeholder="请选择日期" style="width: 172px;" /></p>
         <p><span>&nbsp;&nbsp;1500吨水池本月表底：</span><input type="text" id="waterPool1500Meter" onkeyup="num(this)" /></p>
         <p><span>&nbsp;&nbsp;300吨水池1本月表底：</span><input type="text" id="waterPool300Meter1" onkeyup="num(this)" /></p>
         <p><span>&nbsp;&nbsp;300吨水池2本月表底：</span><input type="text" id="waterPool300Meter2" onkeyup="num(this)" /></p>
@@ -76,6 +98,6 @@
         <p><span>&nbsp;&nbsp;&nbsp;条埂冲水表本月表底：</span><input type="text" id="tgMeter" onkeyup="num(this)" /></p>
         <p><span>&nbsp;选矿废水表1本月表底：</span><input type="text" id="mineWasteWaterMeter1" onkeyup="num(this)" /></p>
         <p><span>&nbsp;选矿废水表2本月表底：</span><input type="text" id="mineWasteWaterMeter2" onkeyup="num(this)" /></p>
-        <p><span>选硫废水本月开机时间：</span><input type="text" id="siWasterWaterTime" onkeyup="num(this)" /></p>
+        <p><span>选硫废水本月开机时间：</span><input type="text" id="siWasterWaterTime" onkeyup="num(this)" /></p> -->
     </div>
 </div>

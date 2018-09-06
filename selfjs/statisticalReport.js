@@ -1,25 +1,89 @@
 statisticalReport = {
     $tbody : $("#statisticalReportTable").children("tbody"),
+    $thead : $("#statisticalReportTable").children("thead"),
+    keyHead : [],           //存取表头的键值
+    waterTypeInfo : [],     //存取表头动态的字段
+    waterSubjectInfos : [], 
+    waterConsumptionInfoDetailList : [],  //用来存取新增和更新时需要传的动态字段
     temp : 0,
     init : function() {
-        statisticalReport.funcs.bindDefaultSearchEvent();
-        statisticalReport.funcs.bindAddEvent($("#addBtn"));
-        statisticalReport.funcs.bindEditorEvent($(".editor"));
+        statisticalReport.funcs.renderTable();
     },
     funcs : {
-        bindDefaultSearchEvent : function() {
+        renderTable : function() {
+            $.get(home.urls.waterConsumption.getAllTypes(),{},function(result) {
+                var waterHead = result.data;
+                //获取表头的键值对
+                statisticalReport.funcs.renderHead(waterHead);
+            })
+            statisticalReport.funcs.bindDefaultSearchEvent();
+        }
+        /**动态渲染表头 */
+        ,renderHead : function(data) {
+            statisticalReport.$thead.empty();
+            statisticalReport.keyHead = [];
+            statisticalReport.$thead.append("<tr>");
+            statisticalReport.$thead.append("<td style='min-width: 75px;'>时间</td>");
+            statisticalReport.keyHead.push("date");
+            data.forEach(function(e) {
+                var waterSubjectInfos = e.waterSubjectInfos;
+                waterSubjectInfos.forEach(function(ele) {
+                    if(ele.name == "选硫废水表") {
+                        statisticalReport.$thead.append("<td>"+ (ele.name) +" 本月开机时间</td>");
+                        statisticalReport.waterTypeInfo.push({
+                            name : ele.name + "本月开机时间",
+                            id : ele.id
+                        });
+                    }
+                    else{
+                        statisticalReport.$thead.append("<td>"+ (ele.name) +" 本月表底</td>");
+                        statisticalReport.waterTypeInfo.push({
+                            name : ele.name + "本月表底",
+                            id : ele.id
+                        });
+                    }
+                    statisticalReport.keyHead.push(ele.id);
+                    //存取表头动态字段（方便用于动态渲染编辑和新增弹出框）
+                   
+                })
+            })
+            statisticalReport.$thead.append("<td style='min-width: 60px;'>录入人</td><td style='min-width: 80px;'>录入时间</td><td style='min-width: 60px;'>修改人</td><td style='min-width: 80px;'>修改时间</td><td style='min-width: 47px;'>编辑</td></tr>");
+            statisticalReport.keyHead.push("enterUser");
+            statisticalReport.keyHead.push("enterTime");
+            statisticalReport.keyHead.push("modifiedUser");
+            statisticalReport.keyHead.push("modifiedTime");
+            console.log(statisticalReport.keyHead)
+            //return statisticalReport.keyHead;
+        }
+        /**默认搜索当年的数据 */
+        ,bindDefaultSearchEvent : function() {
             var date = new Date();
             var nowYear = date.getFullYear();
             var startDate = nowYear + '-01';
             var endDate = nowYear + '-12';
             $("#startDate").val(startDate);
             $("#endDate").val(endDate);
+            statisticalReport.funcs.bindSearchEvent(startDate,endDate);
+            statisticalReport.funcs.bindAutoSearchEvent($("#search"));
+            statisticalReport.funcs.bindAddEvent($("#addBtn"));
+        }
+        /**选择起始时间和结束时间进行搜索 */
+        ,bindAutoSearchEvent : function(buttons) {
+            buttons.off("click").on("click",function() {
+                var startDate = $("#startDate").val(startDate);
+                var endDate = $("#endDate").val(endDate);
+                statisticalReport.funcs.bindSearchEvent(startDate,endDate);
+            })
+        }
+        /**根据起始日期和结束日期搜索事件 */
+        ,bindSearchEvent : function(startDate,endDate) {
             $.get(home.urls.waterConsumption.getByDateBetweenByPage(),{
                 startDate : startDate,
                 endDate : endDate
             }, function(result) {
                 var consumption = result.data.content;
-                statisticalReport.funcs.renderHandler(statisticalReport.$tbody,consumption);
+                var datas = statisticalReport.funcs.getMapData(consumption);
+                statisticalReport.funcs.renderHandler(datas);
                 var data = result.data;
                 /**分页消息 */
                 layui.laypage.render({
@@ -30,66 +94,78 @@ statisticalReport = {
                         if(!first) {
                             $.get(home.urls.waterConsumption.getByDateBetweenByPage(),{
                                 startDate : startDate,
-                                endDate : endDate,
-                                page : obj.curr - 1,
-                                size : obj.limit
+                                endDate : endDate
                             }, function(result) {
                                 var consumption = result.data.content;
-                                statisticalReport.funcs.renderHandler(statisticalReport.$tbody,consumption);
+                                var datas = statisticalReport.funcs.getMapData(consumption);
+                                statisticalReport.funcs.renderHandler(datas);
                             })
                         }
                     }        
                  })
-            })
-            statisticalReport.funcs.bindSearchEvent($("#search"));
-            statisticalReport.funcs.bindAddEvent($("#addBtn"));
+            })   
         }
-        ,renderHandler : function($tbody,data) {
-            $tbody.empty();
+        /**将数据渲染成键值对的形式 */
+        ,getMapData : function(data) {
+            var datas = [];
             data.forEach(function(e) {
+                var map = {};
+                map["id"] = e.id || "" ;
+                map["date"] = e.date || "";
+                map["enterTime"] = e.enterTime || "";
+                map["enterUser"] = e.enterUser && e.enterUser.name || "";
+                map["modifiedTime"] = e.modifiedTime || "";
+                map["modifiedUser"] = e.modifiedUser && e.modifiedUser.name || "";
+                var waterConsumptionInfoDetailList = e.waterConsumptionInfoDetailList;
+                waterConsumptionInfoDetailList.forEach(function(ele) {
+                    map[ele.waterSubjectInfo.id] = ele.waterValue;
+                })
+                datas.push(map);
+            })
+            console.log(datas)
+            return datas;
+        }
+        ,renderHandler : function(data) {
+            var $tbody = statisticalReport.$tbody;
+            $tbody.empty();
+            //console.log(statisticalReport.keyHead)
+            data.forEach(function(e) {
+                //console.log(e)
+                $tbody.append("<tr>");
+                statisticalReport.keyHead.forEach(function(ele) {
+                    $tbody.append("<td>" + (e[ele] || '') + "</td>");
+                })
                 $tbody.append(
-                    "<tr>" +
-                    "<td>"+ (e.date) +"</td>" +
-                    "<td>"+ (e.waterPool1500Meter ? e.waterPool1500Meter : '') +"</td>" +
-                    "<td>"+ (e.waterPool300Meter1 ? e.waterPool300Meter1 : '') +"</td>" +
-                    "<td>"+ (e.waterPool300Meter2 ? e.waterPool300Meter2 : '') +"</td>" +
-                    "<td>"+ (e.washRoomMeter ? e.washRoomMeter : '') +"</td>" +
-
-                    "<td>"+ (e.tgMeter ? e.tgMeter : '') +"</td>" +
-                    "<td>"+ (e.mineWasteWaterMeter1 ? e.mineWasteWaterMeter1 : '') +"</td>" +
-                    "<td>"+ (e.mineWasteWaterMeter2 ? e.mineWasteWaterMeter2 : '') +"</td>" +
-                    "<td>"+ (e.siWasterWaterTime ? e.siWasterWaterTime : '') +"</td>" +
-
-                    "<td>"+ (e.enterUser ? e.enterUser.name : '') +"</td>" +
-                    "<td>"+ (e.enterTime ? e.enterTime : '') +"</td>" +
-                    "<td>"+ (e.modifiedUser ? e.modifiedUser.name : '') +"</td>" +
-                    "<td>"+ (e.modifiedTime ? e.modifiedTime : '') +"</td>" +
-                    "<td><a href='#' class='editor' id='editor-"+ (e.id) +"'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<tr>"
-                )
+                    "<td><a href='#' class = 'editor' id='editor-"+e["id"]+"'><i class='layui-icon'>&#xe642;</i></a></td>");
+                $tbody.append("</tr>");
             })
             statisticalReport.funcs.bindEditorEvent($(".editor"));
         }
         /**绑定编辑事件 */
         ,bindEditorEvent : function(buttons) {
             buttons.off("click").on("click", function() {
+                statisticalReport.funcs.bindLayerTable();
                 var id = $(this).attr("id").substr(7);
                 $.get(home.urls.waterConsumption.getById(), {
                     id : id
                 }, function(result) {
-                    var res = result.data;
-                    statisticalReport.funcs.bindEditorData(res);
+                    var res = result.data.waterConsumptionInfoDetailList;
+                    res.forEach(function(e) {
+                        $("#edit-"+e.waterSubjectInfo.id).attr("value",e.waterValue);
+                    })
+                    $("#inputDate").val(result.data.date);
+                    $("#inputDate").attr("disabled","disable");
                 $("#addModal").removeClass("hide");
                 layer.open({
                     type : 1,
                     title : "编辑用水统计管理参数",
                     content : $("#addModal"),
-                    area : ["500px", "430px"],
+                    area : ["500px", "470px"],
                     offset : ["20%", "35%"],
                     btn : ["确定", "取消"],
                     closeBtn : 0,
                     yes : function(index) {
-                        statisticalReport.funcs.bindEditorUpdateData(res,index);
+                        statisticalReport.funcs.bindEditorUpdateData(id,index);
                     }
                     ,btn2 : function(index) {
                         $("#addModal").addClass("hide");
@@ -102,133 +178,90 @@ statisticalReport = {
                                 $("#addModal").addClass("hide");
                                 layer.close(index);
                             }
-                            if(e.keyCode == 13) {
-                                statisticalReport.funcs.bindEditorUpdateData(res,index);
-                            }
+                            // if(e.keyCode == 13) {
+                            //     statisticalReport.funcs.bindEditorUpdateData(id,index);
+                            // }
                         })
                     }
                 })
              })
           })
         }
-        ,bindEditorData : function(data) {
-            $("#chooseDate").val(data.date);
-            $("#chooseDate").attr("disabled","disabled")
-            $("#waterPool1500Meter").val(data.waterPool1500Meter ? data.waterPool1500Meter : '');
-            $("#waterPool300Meter1").val(data.waterPool300Meter1 ? data.waterPool300Meter1 : '');
-            $("#waterPool300Meter2").val(data.waterPool300Meter2 ? data.waterPool300Meter2 : '');
-            $("#washRoomMeter").val(data.washRoomMeter ? data.washRoomMeter : '');
-            $("#tgMeter").val(data.tgMeter ? data.tgMeter : '');
-            $("#mineWasteWaterMeter1").val(data.mineWasteWaterMeter1 ? data.mineWasteWaterMeter1 : '');
-            $("#mineWasteWaterMeter2").val(data.mineWasteWaterMeter2 ? data.mineWasteWaterMeter2 : '');
-            $("#siWasterWaterTime").val(data.siWasterWaterTime ? data.siWasterWaterTime : '');
+        /**动态渲染弹出框的表格样式 */
+        ,bindLayerTable : function() {
+            /**先渲染表格样式 */
+            const $tbody = $("#addTable").children("tbody");
+            $tbody.empty();
+            statisticalReport.waterConsumptionInfoDetailList = [];
+            statisticalReport.waterTypeInfo.forEach(function(e) {
+                $tbody.append("<tr><td style='text-align:right;background-color:#f2f2f2;'>"+ (e.name) +"：</td><td><input type='text' id='edit-"+ (e.id) +"' /></td></tr>");
+                statisticalReport.waterConsumptionInfoDetailList.push({
+                    waterSubjectInfo : { id : e.id },
+                    waterValue : 0
+                })
+            })
         }
-        ,bindEditorUpdateData : function(data,index) {
-            var date = $("#chooseDate").val();
-            var waterPool1500Meter = $("#waterPool1500Meter").val();
-            var waterPool300Meter1 = $("#waterPool300Meter1").val();
-            var waterPool300Meter2 = $("#waterPool300Meter2").val();
-            var washRoomMeter = $("#washRoomMeter").val();
-            var tgMeter = $("#tgMeter").val();
-            var mineWasteWaterMeter1 = $("#mineWasteWaterMeter1").val();
-            var mineWasteWaterMeter2 = $("#mineWasteWaterMeter2").val();
-            var siWasterWaterTime = $("#siWasterWaterTime").val();
+        ,bindEditorUpdateData : function(id,index) {
             /**通过session获取当前用户 */
             var userStr = $.session.get('user');
             var userJson = JSON.parse(userStr);
             var modifiedUser = userJson.id;
-            if(!date || !waterPool1500Meter || !waterPool300Meter1 || !waterPool300Meter2 || !washRoomMeter || !tgMeter || !mineWasteWaterMeter1 || !mineWasteWaterMeter2 || !siWasterWaterTime) {
+            var flag = 0;
+            statisticalReport.waterConsumptionInfoDetailList.forEach(function(e) {
+                e.waterValue = $("#edit-"+e.waterSubjectInfo.id).val();
+                if(e.waterValue === ""){
+                    flag = 1;
+                    
+                }
+            })
+            if(flag === 1) {
                 layer.msg("还有数据未填！",{
                     offset : ["40%", "55%"],
                     time : 700
                 })
                 return 
             }
-            $.post(home.urls.waterConsumption.update(), {
-                id : data.id,
-                date : date,
-                waterPool1500Meter : waterPool1500Meter,
-                waterPool300Meter1 : waterPool300Meter1,
-                waterPool300Meter2 : waterPool300Meter2,
-                washRoomMeter : washRoomMeter,
-                tgMeter : tgMeter,
-                mineWasteWaterMeter1 : mineWasteWaterMeter1,
-                mineWasteWaterMeter2 : mineWasteWaterMeter2,
-                siWasterWaterTime : siWasterWaterTime,
-                'enterUser.id' : data.enterUser.id,
-                'modifiedUser.id' : modifiedUser,
-                modifiedTime : new Date().Format("yyyy-MM-dd")
-            }, function(result) {
-                layer.msg(result.message, {
-                    offset : ["40%", "55%"],
-                    time : 700
-                })
-                if(result.code === 0) {
-                    var time = setTimeout(function() {
-                        if(statisticalReport.temp === 0) {
-                            statisticalReport.funcs.bindDefaultSearchEvent();
-                        }
-                        else {
-                            statisticalReport.funcs.bindSearchEvent($("#search"));
-                        }
-                        clearTimeout(time);
-                    },500)
+            var data = {
+                id : id,
+                modifiedUser : { id : modifiedUser },
+                waterConsumptionInfoDetailList : statisticalReport.waterConsumptionInfoDetailList
+            }
+            //console.log(data)
+            $.ajax({
+                url : home.urls.waterConsumption.update(),
+                contentType : "application/json",
+                data : JSON.stringify(data),
+                dataType : "json",
+                type : "post",
+                success : function(result) {
+                    if(result.code === 0) {
+                        var time = setTimeout(function() {
+                            var startDate = $("#startDate").val();
+                            var endDate = $("#endDate").val();
+                            statisticalReport.funcs.bindSearchEvent(startDate,endDate);
+                            clearTimeout(time);
+                        },500);
+                    }
+                    layer.msg(result.message, {
+                        offset: ['40%', '55%'],
+                        time: 700
+                    })
+                    $("#addModal").css("display","none");
+                    layer.close(index);
                 }
-                $("#addModal").addClass("hide");
-                layer.close(index);
-            })
-
-        }
-        ,bindSearchEvent : function(buttons) {
-            buttons.off("click").on("click",function() {
-                statisticalReport.temp = 1;
-                var startDate = $("#startDate").val(startDate);
-                var endDate = $("#endDate").val(endDate);
-                $.get(home.urls.statisticalReport.getByDate(),{
-                    startDate : startDate,
-                    endDate : endDate
-                }, function(result) {
-                    var consumption = result.data.content;
-                    statisticalReport.funcs.renderHandler(statisticalReport.$tbody,consumption);
-                    var data = result.data;
-                    /**分页消息 */
-                    layui.laypage.render({
-                        elem : "statisticalReport_page",
-                        count : 10 * data.totalPages,
-                        /**页面变换后的逻辑 */
-                        jump : function(obj,first) {
-                            if(!first) {
-                                $.get(home.urls.statisticalReport.getByDate(),{
-                                    startDate : startDate,
-                                    endDate : endDate
-                                }, function(result) {
-                                    var consumption = result.data.content;
-                                    statisticalReport.funcs.renderHandler(statisticalReport.$tbody,consumption);
-                                })
-                            }
-                        }        
-                     })
-                })
             })
         }
         ,bindAddEvent : function(buttons) {
             buttons.off("click").on("click",function() {
                 $("#addModal").removeClass("hide");
-                $("#chooseDate").val('');
-                $("#chooseDate").removeAttr("disabled");//去除input元素的disabled属性
-                $("#waterPool1500Meter").val('');
-                $("#waterPool300Meter1").val('');
-                $("#waterPool300Meter2").val('');
-                $("#washRoomMeter").val('');
-                $("#tgMeter").val('');
-                $("#mineWasteWaterMeter1").val('');
-                $("#mineWasteWaterMeter2").val('');
-                $("#siWasterWaterTime").val('');
+                statisticalReport.funcs.bindLayerTable();
+                $("#inputDate").val("")
+                $("#inputDate").removeAttr("disabled");
                 layer.open({
                     type : 1,
                     title : "用水统计管理参数录入",
                     content : $("#addModal"),
-                    area : ["500px", "430px"],
+                    area : ["500px", "470px"],
                     offset : ["20%", "35%"],
                     btn : ["保存", "取消"],
                     closeBtn : 0,
@@ -248,72 +281,69 @@ statisticalReport = {
                                 //让按钮失去焦点
                                 $(':focus').blur();
                             }
-                            if(e.keyCode == 13) {
-                                statisticalReport.funcs.bindAddData();
-                            }
+                            // if(e.keyCode == 13) {
+                            //     statisticalReport.funcs.bindAddData(index);
+                            // }
                         })
                     }
                 })
             })
         }
         ,bindAddData :function(index) {
-            var date = $("#chooseDate").val();
-            var waterPool1500Meter = $("#waterPool1500Meter").val();
-            var waterPool300Meter1 = $("#waterPool300Meter1").val();
-            var waterPool300Meter2 = $("#waterPool300Meter2").val();
-            var washRoomMeter = $("#washRoomMeter").val();
-            var tgMeter = $("#tgMeter").val();
-            var mineWasteWaterMeter1 = $("#mineWasteWaterMeter1").val();
-            var mineWasteWaterMeter2 = $("#mineWasteWaterMeter2").val();
-            var siWasterWaterTime = $("#siWasterWaterTime").val();
+            var date = $("#inputDate").val();
+            if(date === "") {
+                layer.msg("日期不能为空！",{
+                    offset : ["40%", "55%"],
+                    time : 700
+                })
+                return 
+            }
             /**通过session获取当前用户 */
             var userStr = $.session.get('user');
             var userJson = JSON.parse(userStr);
             var enterUser = userJson.id;
-            var siWasterWaterTime = $("#siWasterWaterTime").val();
-            if(!date || !waterPool1500Meter || !waterPool300Meter1 || !waterPool300Meter2 || !washRoomMeter || !tgMeter || !mineWasteWaterMeter1 || !mineWasteWaterMeter2 || !siWasterWaterTime) {
+            var flag = 0;
+            statisticalReport.waterConsumptionInfoDetailList.forEach(function(e) {
+                e.waterValue = $("#edit-"+e.waterSubjectInfo.id).val();
+                if(e.waterValue === ""){
+                    flag = 1;
+                }
+            })
+            if(flag === 1) {
                 layer.msg("还有数据未填！",{
                     offset : ["40%", "55%"],
                     time : 700
                 })
                 return 
             }
-            $.post(home.urls.waterConsumption.add(), {
+            var data = {
                 date : date,
-                waterPool1500Meter : waterPool1500Meter,
-                waterPool300Meter1 : waterPool300Meter1,
-                waterPool300Meter2 : waterPool300Meter2,
-                washRoomMeter : washRoomMeter,
-                tgMeter : tgMeter,
-                mineWasteWaterMeter1 : mineWasteWaterMeter1,
-                mineWasteWaterMeter2 : mineWasteWaterMeter2,
-                siWasterWaterTime : siWasterWaterTime,
-                'enterUser.id' : enterUser,
-                enterTime : new Date().Format("yyyy-MM-dd")
-            }, function(result) {
-                if(result.message == "录入失败, 已存在") {
-                    layer.msg("该月份数据已录入，不要重复录入")
-                    return
-                }
-                if(result.code === 0) {
+                enterUser : { id : enterUser },
+                waterConsumptionInfoDetailList : statisticalReport.waterConsumptionInfoDetailList
+            }
+            $.ajax({
+                url : home.urls.waterConsumption.add(),
+                contentType : "application/json",
+                data : JSON.stringify(data),
+                dataType : "json",
+                type : "post",
+                success : function(result) {
+                    if(result.code === 0) {
+                        var time = setTimeout(function() {
+                            var startDate = $("#startDate").val();
+                            var endDate = $("#endDate").val();
+                            statisticalReport.funcs.bindSearchEvent(startDate,endDate);
+                            clearTimeout(time);
+                        },500);
+                    }
                     layer.msg(result.message, {
-                        offset : ["40%", "55%"],
-                        time : 700
+                        offset: ['40%', '55%'],
+                        time: 700
                     })
-                    var time = setTimeout(function() {
-                        if(statisticalReport.temp === 0) {
-                            statisticalReport.funcs.bindDefaultSearchEvent();
-                        }
-                        else {
-                            statisticalReport.funcs.bindSearchEvent($("#search"));
-                        }
-                        clearTimeout(time);
-                    },500)
+                    $("#addModal").css("display","none");
+                    layer.close(index);
                 }
-                $("#addModal").addClass("hide");
-                layer.close(index);
             })
-            
         }
     }
 }

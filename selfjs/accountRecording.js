@@ -104,7 +104,7 @@ accountRecording = {
                     "<tr>" +
                     "<td>"+ (i++) +"</td>" +
                     "<td>"+ (e.standingBook ? e.standingBook : '') +"</td>" +
-                    "<td>"+ (e.dataDictionary ? e.dataDictionary.dicName : '') +"</td>" +
+                    "<td>"+ (e.clazz ? e.clazz.name : '') +"</td>" +
                     "<td>"+ (e.user ? e.user.name : '') +"</td>" +
                     "<td>"+ (e.time ? e.time : '') +"</td>" +
                     "<td>"+ (e.ssbz ? e.ssbz : '') +"</td>" +
@@ -183,14 +183,14 @@ accountRecording = {
                                     e.itemValue = $("#"+item).val();
                                 })
                                 /**获取当前登录用户的信息 */
-                                var dataDictionary = accountRecording.editor.dataDictionary.id;
+                                var clazz = accountRecording.editor.clazz.id;
                                 var date = new Date(accountRecording.editor.date).getTime();
                                 var standingBook = accountRecording.editor.standingBook;
                                 var data = {
                                     id : Id,
                                     standingBook : standingBook,
                                     date : date,
-                                    dataDictionary : { id : dataDictionary },
+                                    clazz : { id : clazz },
                                     standingBookDetailList : accountRecording.addData
                                 }     
                                 $.ajax({
