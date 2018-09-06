@@ -307,7 +307,7 @@ var materialConsumptionItem = {
         ,renderDropBox : function() {
             $("#mtn").empty();
 
-            $("#mtn").append('<option value=\"-1\"></option>');
+            $("#mtn").append('<option></option>');
             $.get(home.urls.materialTypeInfo.getAll(),{},function(result) {
                 var materialTypes = result.data;
                 materialTypes.forEach(function(e) {

@@ -698,8 +698,21 @@ var home = {
 
         }
         ,group : {
-            getAll: function () {
+            getAll : function () {
                 return servers.backup() + "group/getAll";
+            },
+        }
+        ,parameter : {
+            getById : function() {
+                return servers.backup() + "parameter/getById";
+            },
+            getByGroup : function() {
+                return servers.backup() + "parameter/getByGroup";
+            }
+        }
+        ,parameterData : {
+            getByTableNameAndDate : function () {
+                return servers.backup() + "parameterData/getByTableNameAndDate";
             },
         }
     }
