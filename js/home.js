@@ -697,8 +697,11 @@ var home = {
             }
 
         }
-
-
+        ,group : {
+            getAll: function () {
+                return servers.backup() + "group/getAll";
+            },
+        }
     }
    
     /** start */
