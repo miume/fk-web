@@ -596,6 +596,18 @@ var home = {
             }
         }
         ,waterConsumption : {
+            findByDateBetweenByPage: function () {
+                return servers.backup() + "waterConsumptionReportHeadController/findByDateBetweenByPage";
+            },
+            findById: function () {
+                return servers.backup() + "waterConsumptionReportHeadController/findById";
+            },
+            generateWaterMonth: function () {
+                return servers.backup() + "waterConsumptionReportHeadController/generateWaterMonth";
+            },
+            reGenerateWaterMonth: function () {
+                return servers.backup() + "waterConsumptionReportHeadController/reGenerateWaterMonth";
+            },
             getByDateBetweenByPage: function () {
                 return servers.backup() + "waterConsumptionInfo/getByDateBetweenByPage";
             },
@@ -607,6 +619,9 @@ var home = {
             },
             add: function () {
                 return servers.backup() + "waterConsumptionInfo/add";
+            },
+            getAllTypes: function () {
+                return servers.backup() + "waterTypeInfo/getAllTypes";
             },
         }
         ,cavingReport : {

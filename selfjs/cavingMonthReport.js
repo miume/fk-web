@@ -252,6 +252,13 @@ cavingMonthReport = {
                         var date = $("#productDate").val();
                         var userStr = $.session.get('user');
                         var userJson = JSON.parse(userStr);
+                        if(date === ""){
+                            layer.msg("日期不能为空",{
+                                offset : ["40%","55%"],
+                                time : 700
+                            })
+                            return 
+                        }
                         $.get(home.urls.cavingReport.generateReport(),{
                             date : date,
                             userId : userJson.id
