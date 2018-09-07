@@ -103,7 +103,7 @@ var MaterialItem = {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
-                        })
+                        });
                         layer.close(index);
                 }
                 ,btn2 : function(index){

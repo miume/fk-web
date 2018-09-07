@@ -2,6 +2,10 @@ var curveAnalysis = {
     init: function() {
         curveAnalysis.funcs.renderLeftOption();
     }
+    ,tableName : ""
+    ,averageValues : 0
+    ,maxValues : 0
+    ,minValues : 0
     ,funcs: {
         /**渲染左边菜单*/
         renderLeftOption : function() {
@@ -17,48 +21,122 @@ var curveAnalysis = {
                     )
                 });
                 var setGroups = $('.setGroup');
-                curveAnalysis.funcs.renderData(setGroups); // 选中事件
+                curveAnalysis.funcs.renderDropData(setGroups); // 选中事件
                 /**绑定开始分析事件 */
                 curveAnalysis.funcs.bindAnalysisEvents($("#analyButton"));
             })
         }
         /**绑定开始分析事件 */
-        // ,bindAnalysisEvents : function(buttons) {
-        //     buttons.off('click').on('click',function() {
-        //         var parameterId = $("#parameterGroup").val();
-        //         var startDate = $("#beginDate").val();
-        //         var endDate = $("#endDate").val();
-        //         $.get(home.urls.parameterData.getByTableNameAndDate(),{
-        //
-        //         },function(result) {
-        //
-        //         })
-        //     })
-        // }
+        ,bindAnalysisEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
+                var parameterId = $("#parameterGroup").val();
+                var startDate = $("#beginDate").val();
+                var endDate = $("#endDate").val();
+                console.log(curveAnalysis.tableName);
+                $.get(home.urls.parameterData.getByTableNameAndDate(),{
+                    // tableName : curveAnalysis.tableName,
+                    // startDate : startDate,
+                    // endDate : endDate,
+                    // parameterId : parameterId
+                    tableName : "parameter_data1",
+                    startDate : "2018-09-04",
+                    endDate : "2018-09-08",
+                    parameterId : 8
+                },function(result) {
+                    var parameterDatas = result.data;
+                    console.log(parameterDatas);
+                    //  获取横坐标
+                    var times = parameterDatas&&parameterDatas.times||'';
+                    //  获取纵左边
+                    var values = parameterDatas&&parameterDatas.values||'';
+                    //  渲染右边分析参数部分
+                    // curveAnalysis.funcs.renderRightOption(parameterId);
+                    curveAnalysis.funcs.renderRightOption(8);
+                    curveAnalysis.funcs.renderCurveChart(times,values);
+                })
+            })
+        }
+        /** 绘制曲线图 */
+        ,renderCurveChart : function(times,values) {
+            var valueLength = values.length;
+            console.log(valueLength);
+            var averageValue = [];
+            var maxValue = [];
+            var minValue = [];
+            for(var i=0;i<valueLength;i++){
+                // averageValue.push(curveAnalysis.averageValues);
+                // maxValue.push(curveAnalysis.maxValues);
+                // minValue.push(curveAnalysis.minValues);
+                averageValue.push(2.2);
+                maxValue.push(2.4);
+                minValue.push(1.9);
+            };
+            var myChart = echarts.init(document.getElementById('parameterChart'));
+            var option = {
+                title : {
+                    text : '参数值分析'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['参数值','平均值','上限','下限']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis : {
+                    type : 'category',
+                    boundaryGap: false,
+                    data : times
+                },
+                yAxis : {
+                    type: 'value'
+                },
+                series : [{
+                    name: '参数值',
+                    data : values,
+                    type : 'line'
+                },{
+                    name: '平均值',
+                    data : averageValue,
+                    type : 'line'
+                },{
+                    name: '上限',
+                    data : maxValue,
+                    type : 'line'
+                },{
+                    name: '下限',
+                    data : minValue,
+                    type : 'line'
+                }]
+            };
+            myChart.setOption(option);
+        }
         /** 渲染下拉框 */
-        ,renderData : function(setGroups) {
+        ,renderDropData : function(setGroups) {
             setGroups.off('click').on('click',function() {
                 var id = $(this).attr('id').substr(6);
-                console.log(id);
-                curveAnalysis.funcs.getGroupParameter(id);
-            })
-
-        }
-        /** 获取该组别下的参数  渲染下拉框 */
-        ,getGroupParameter : function(id) {
-            $.get(home.urls.parameter.getByGroup(),{
-                groupId:id
-            },function(result) {
-                var parameters = result.data;
-                console.log("------")
-                console.log(parameters);
-                $("#parameterGroup").empty();
-                $("#parameterGroup").append('<option></option>');
-                parameters.forEach(function(e) {
-                    $("#parameterGroup").append('<option value='+e.id+'>'+e.name+'</option>')
-                })
-
-            })
+                $.get(home.urls.parameter.getByGroup(),{
+                    groupId:id
+                },function(result) {
+                    var parameters = result.data;
+                    curveAnalysis.tableName = parameters[0]&&parameters[0].group.tableName||'';
+                    $("#parameterGroup").empty();
+                    $("#parameterGroup").append('<option></option>');
+                    parameters.forEach(function(e) {
+                        $("#parameterGroup").append('<option value='+e.id+'>'+e.name+'</option>')
+                    });
+                });
+            });
         }
         /**渲染右边菜单*/
         ,renderRightOption : function(id) {
@@ -67,23 +145,26 @@ var curveAnalysis = {
             },function(result) {
                 var parameters = result.data;
                 console.log(parameters);
+                curveAnalysis.averageValues = parameters&&parameters.eps||0;
+                curveAnalysis.maxValues = parameters&&parameters.upValue||0;
+                curveAnalysis.minValues = parameters&&parameters.downValue||0;
                 const $tbody = $("#processAnalysisTbody");
                 $tbody.empty();
                 $tbody.append(
                     "<tr>" +
                     "<td style='width:60%'>平均值</td>"+
-                    "<td>"+ (parameters&&parameters.eps||'')+"</td>"+
+                    "<td>"+ (parameters&&parameters.eps||0)+"</td>"+
                     "</tr>"+
                     "<td style='width:60%'>合格率</td>"+
                     "<td>"+ ('')+"</td>"+
                     "</tr>"+
                     "<tr>" +
                     "<td style='width:60%'>最大值</td>"+
-                    "<td>"+ (parameters&&parameters.upValue||'')+"</td>"+
+                    "<td>"+ (parameters&&parameters.upValue||0)+"</td>"+
                     "</tr>"+
                     "<tr>" +
                     "<td style='width:60%'>最小值</td>"+
-                    "<td>"+ (parameters&&parameters.downValue||'')+"</td>"+
+                    "<td>"+ (parameters&&parameters.downValue||0)+"</td>"+
                     "</tr>"+
                     "<td style='width:60%'>最长超上限时间</td>"+
                     "<td>"+ ('')+"</td>"+
