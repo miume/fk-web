@@ -1,19 +1,35 @@
 <div class="display-component-container">
     <style>
-         .block-quote table tr td {
+        #imagesPart table {
+            position: absolute;
+            width: auto;
+        }
+        #imagesPart table tr td{
+            border:1px green solid;
+            background: #4aa69a;
+            width: 35px;
+        }
+        .block-quote table tr td {
              border : none;
              padding : 3px;
+             text-align: center;
          }
-         #paraMeterDiv {
+        #panelDiv {
             border: 1px solid #ccc !important;
-            height: 280px;
+            height: auto;
+            padding: 10px;
+            z-index: 100;
+            position:relative;
+            background: rgb(240, 237, 237);
          }
          .block-quote table {
-             width : 350px;
-             height : 200px;
-             padding: 5px;
+             width : 400px;
+             height : auto;
+             padding: 10px;
              border: none !important;
              margin: 0px;
+             position:relative;
+             z-index: 1000;
          }
          .block-quote table span {
              padding-left: 5px; 
@@ -26,127 +42,51 @@
          .block-quote button {
              border-radius: 0.5em;
              font-size: 14px;
-             margin-left: 25px;
+             margin-left: 10%;
+             margin-bottom: 15px;
          }
     </style>
     <div class="block-quote">
         <div class="fl">
             <p>
-                <span>参数列表：</span>
-                <input type="text" id="paraMeter" placeholder="请选择参数" readonly>
-                <div id="paraMeterDiv" class="hide">
-                    <table id="paraMeterTable">
+                <span class="hide" id="pTable">索道运输关键参数集中监视</span>
+                <span id="pImages">参数列表：
+                <input type="text" style="color: black;" id="paraMeter" placeholder="请选择参数" readonly></span>
+                <div id="panelDiv" class="hide">
+                    <table id="panelTable">
                         <tbody>
             
                         </tbody>
                     </table>
                     <div class="whitespace"></div>
-                    <button>全选</button> <button>全不选</button> <button>确定</button> <button>取消</button>
-                
+                    <button id="selectAll">全选</button> <button id="unselectAll">全不选</button><button id="save">确定</button> <button id="cancel">取消</button>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
         </div>
         <div class="fr">
-            <span><a href="#"><i class="fa fa-line-chart" aria-hidden="true"></i> 图表显示</a></span>&nbsp;&nbsp;&nbsp;
-                <span><a href="#"><i class="fa fa-table" aria-hidden="true"></i> 数据集中监视 </a></span>&nbsp;&nbsp;&nbsp;
-        </div>
+            <span id="imagesShow" class="hide"><a href="#"><i class="fa fa-line-chart" aria-hidden="true"></i> 图表显示</a></span>&nbsp;&nbsp;&nbsp;
+            <span id="tableShow"><a href="#"><i class="fa fa-table" aria-hidden="true"></i> 集中监视 </a></span>&nbsp;&nbsp;&nbsp; 
     </div>
-    <div>
-    
-
     </div>
+    <div class="whitespace"></div>
+    <!--用来存取参数表-->
+    <div class="hide" id="parameterDiv">
+        <table id="parameterTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div id="imagesPart" style="position:absolute;">
+    <div id="images">
+        <img src="./images/monitor/3.png" />
+    </div> 
+   </div>
+    <script src="selfjs/cablewayTransportation.js"></script>
     <script>
-       
-    (function(){
-        var str = '';
-        var arr = [];//定义一个数组用来接收多选框的值
-        var data = {
-            0 : {name:'参数1',id:0},
-            1 : {name:'参数1',id:1},
-            2 : {name:'参数1',id:2},
-            3 : {name:'参数1',id:3},
-            4 : {name:'参数1',id:4},
-            5 : {name:'参数1',id:5},
-            6 : {name:'参数1',id:6},
-            7 : {name:'参数1',id:7},
-            8 : {name:'参数1',id:8},
-            9 : {name:'参数1',id:9},
-            10 : {name:'参数1',id:10},
-            11 : {name:'参数1',id:11},
-            12 : {name:'参数1',id:12},
-            13 : {name:'参数1',id:13},
-            14 : {name:'参数14',id:14},
-            15 : {name:'参数15',id:15},
-            16 : {name:'参数1',id:16},
-            17 : {name:'参数1',id:17},
-            18 : {name:'参数1',id:18},
-            19 : {name:'参数1',id:19},
-            20 : {name:'参数1',id:20},
-            21 : {name:'参数21',id:21},
-            22 : {name:'参数1',id:22},
-            23 : {name:'参数1',id:23},
-        };
-        var $tbody = $("#paraMeterTable").children("tbody");
-        $tbody.empty();
-        var lengths = 24;
-        for( var i = 0; i < parseInt(lengths / 4); i++ ) {
-            $tbody.append("<tr><td><input type='checkbox' id="+(data[3*i].id)+" data-name="+(data[3*i].name)+" /><span>"+(data[3*i].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+1].id)+" data-name="+(data[3*i+1].name)+" /><span>"+(data[3*i+1].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+2].id)+" data-name="+(data[3*i+2].name)+"  /><span>"+(data[3*i+2].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+3].id)+" data-name="+(data[3*i+3].name)+" /><span>"+(data[3*i+3].name)+"</span></td></tr>")
-            }  
-        var temp = parseInt(lengths / 4) * 4 ;
-        if(lengths % 4 === 1){
-            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" data-name="+(data[temp+1].name)+" /><span>"+(data[temp+1].name)+"</span></td><td><input type='checkbox' id="+(data[temp+2].id)+" data-name="+(data[temp+2].name)+" /><span>"+(data[temp+2].name)+"</span></td><td></td></tr>")
-        }        
-        if(lengths % 4 === 2){
-            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" data-name="+(data[temp+1].name)+" /><span>"+(data[temp+1].name)+"</span></td><td></td><td></td></tr>")
-        }  
-        if(lengths % 4 === 3){
-            $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" data-name="+(data[temp].name)+" /><span>"+(data[temp].name)+"</span></td><td></td><td></td><td></td></tr>")
-        }         
-
-    })();
-
-    $("#paraMeter").click(function(){
-        $(this).attr('placeholder','');
-        var name = '';
-        $('#paraMeterTable input').each(function () {//循环遍历checkbox
-            var  check= $(this).is(':checked');//判断是否选中
-            if(check){
-                name += $(this).attr('data-name')+',';
-                $(this).attr('name',"paraMeterTable");
-                arr.push($(this).attr("id"));
-            }else {
-                $(this).attr('name',"");
-            }
-        });
-        $("#paraMeter").val(name.slice(0,-1));//去除最后的逗号
-    });
-
-    $("#paraMeterTable").mouseover(function() {
-        if (!$("#paraMeterDiv").hasClass('hover')){//类hover在下面用来验证是否需要隐藏下拉，没有其他用途。
-            $("#paraMeterDiv").addClass('hover');
-        }
-    }).mouseout(function(){
-        $("#paraMeterDiv").removeClass('hover');
-    });
-
-    $(document).on('click',function() {
-        if (!$("#paraMeter").is(":focus") && !$("#paraMeterDiv").hasClass('hover')) {//如果没有选中输入框且下拉不在hover状态。
-            var name = '';
-            $('#paraMeterTable input').each(function () {//遍历checkbox
-                var check = $(this).is(':checked');//判断是否选中
-                if (check) {
-                    name += $(this).attr('data-name') + ',';
-                    $(this).attr('name', "paraMeterTable");
-                } else {
-                    $(this).attr('name', "");
-                }
-            });
-            $("#paraMeter").val(name.slice(0, -1));//去除最后的逗号
-            $("#paraMeterDiv").addClass('hide');
-        } else {
-            $("#paraMeterDiv").removeClass('hide');
-        }
-    });
+        $(function() {
+            groupId = 9;
+            cablewayTransportation.init();
+        })
     </script>
 </div>

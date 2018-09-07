@@ -18,6 +18,8 @@ accountRecording = {
     ,funcs : {
         bindInitSearchEvent : function() {
             var date = new Date().Format("yyyy-MM-dd");
+            $("#startDate").val(date);
+            $("#endDate").val(date);
             $.get(home.urls.dispatchAccount.getByDateAndScheduleByPage(),{
                 startDate : date,
                 endDate : date,
@@ -121,14 +123,14 @@ accountRecording = {
             buttons.off('click').on('click',function() {
                 accountRecording.flag = 0;
                 accountRecording.Id = $(this).attr("id").substr(7); 
-                console.log(accountRecording.Id)
+                //console.log(accountRecording.Id)
                 accountRecording.detail = [];
                 $.get(home.urls.dispatchAccount.getDetailByStandingBookId(),{
                     id : accountRecording.Id
                 },function(result) {
                      accountRecording.detail = result.data;
                
-                console.log(accountRecording.detail)
+                //console.log(accountRecording.detail)
                 $.get(home.urls.dispatchAccount.getAll(),{
                 },function(result) {
                     var items = result.data;
@@ -156,15 +158,15 @@ accountRecording = {
             buttons.off('click').on('click',function() {
                 accountRecording.flag = 1;
                 var Id = $(this).attr("id").substr(7); 
-                console.log($(this).attr("id"))
-                console.log(Id)
+                // console.log($(this).attr("id"))
+                // console.log(Id)
                 accountRecording.editor = [];
                 $.get(home.urls.dispatchAccount.getDetailByStandingBookId(),{
                     id : Id
                 },function(result) {
                      accountRecording.editor = result.data;
-                     console.log(result.data)
-                     console.log(accountRecording.editor)
+                    //  console.log(result.data)
+                    //  console.log(accountRecording.editor)
                      $.get(home.urls.dispatchAccount.getAll(),{},function(result) {
                         var items = result.data;
                         $("#detailModal").removeClass("hide");
