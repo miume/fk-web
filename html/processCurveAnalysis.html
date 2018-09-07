@@ -1,0 +1,70 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">工艺指标曲线分析</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                参数名称：<select id="parameterGroup" type="text" style="width: 100px"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                结束日期：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="analyButton"><a href="#"><i class="layui-icon">&#xe615;</i>开始分析</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="position: relative; margin-top: 20px;">
+        <div style="width:15% ;float:left;">
+            <table>
+                <thead>
+                    <tr>
+                        <td>工艺组别</td>
+                    </tr>
+                </thead>
+                <tbody id="processItemTbody">
+
+                </tbody>
+            </table>
+        </div>
+        <div style="width:60% ;float:left;border:1px darkgrey solid">
+        asd
+        </div>
+        <div style="width:25% ;float:left;border:1px darkgrey solid">
+            <table>
+                <thead>
+                    <tr>
+                        <td colspan="2">分析参数</td>
+                    </tr>
+                </thead>
+                <tbody id="processAnalysisTbody">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <script src="selfjs/processCurveAnalysis.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            curveAnalysis.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                btns: ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate',
+                btns: ['now']
+            })
+        })
+    </script>
+</div>
