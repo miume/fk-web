@@ -123,8 +123,8 @@ ul {
 .menus1 ul .menu1-tab-bar li {
     text-align: center;
     background: #515151;
-    padding-top: 1px;
-    padding-bottom: 1px;
+    padding-top: 0.5px;
+    padding-bottom: 0.5px;
 }
 
 .menus1 ul .menu1-tab-bar li a {
@@ -216,7 +216,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 
 .chosenMenu2 a {
     margin-left:20px;
-    color: #3dc1f8;
+    color: #3dc1f8 !important;
     font-weight: 400;
 }
 
@@ -336,11 +336,12 @@ input {
     height: 20px;
 }
 .img-container {
-    background-color: #40444c;
+    background-color: #8f8f890a;
 }
 .img-container table td{
     padding: 0;
     font-size: 6px;
+
 }
 .grey {
     background: #f2f2f2;

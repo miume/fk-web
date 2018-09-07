@@ -692,10 +692,14 @@ var home = {
             download : function() {
                 return servers.backup() + "ropeWayCrushingMonthReport/getByYearMonthToExcel";
             },
-            able : function() {
+            regenerateAble : function() {
                 return servers.backup() + "ropeWayCrushingMonthReport/regenerateAble";
             }
-
+        }
+        ,parameter : {
+            getByGroup : function() {
+                return servers.backup() + "parameter/getByGroup";
+            },
         }
 
 

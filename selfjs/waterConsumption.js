@@ -126,20 +126,20 @@ waterConsumption = {
                     // $tbody.append("<td rowspan="+ (waterSubjectInfos.length) +">"+ (e.name) +"</td>")
                     waterSubjectInfos.forEach(function(ele) {   
                         if(flag == 0 && flag1 == 0) {
-                            $tbody.append("<tr><td rowspan="+ (waterSubjectInfos.length) +">"+ (e.name) +"</td><td>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td><td id='mineralDealSum' rowspan="+ (rows) + "></td><td id='liveWater' rowspan="+(rows)+"></td><td id='tonWater' rowspan="+(rows)+"></td><td id='waterUsedRate' rowspan="+(rows)+"></td></tr>");
+                            $tbody.append("<tr><td rowspan="+ (waterSubjectInfos.length) +" class='grey'>"+ (e.name) +"</td><td class='grey'>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td><td id='mineralDealSum' rowspan="+ (rows) + "></td><td id='liveWater' rowspan="+(rows)+"></td><td id='tonWater' rowspan="+(rows)+"></td><td id='waterUsedRate' rowspan="+(rows)+"></td></tr>");
                             flag1 = 1;
                         }
                         else {
                             if(flag == 1){
-                                $tbody.append("<tr><td rowspan="+ (waterSubjectInfos.length) +">"+ (e.name) +"</td><td>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
+                                $tbody.append("<tr><td rowspan="+ (waterSubjectInfos.length) +" class='grey'>"+ (e.name) +"</td><td class='grey'>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
                                 flag = 0;
                             }
                             else {
                                 if(ele.name === "选硫废水表") {
-                                    $tbody.append("<tr><td>"+ (ele.name) +"</td><td>开机时间</td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
+                                    $tbody.append("<tr><td class='grey'>"+ (ele.name) +"</td><td class='grey'>开机时间</td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
                                 }
                                 else{
-                                    $tbody.append("<tr><td>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
+                                    $tbody.append("<tr><td class='grey'>"+ (ele.name) +"</td><td id='lastMonthMeter"+ (ele.id) +"'></td><td id='thisMonthMeter"+ (ele.id) +"'></td><td id='thisMonthUsed"+ (ele.id) +"'></td><td id='thisYearUsed"+ (ele.id) +"'></td></tr>");
                                 }
                             }
                         }
@@ -147,7 +147,7 @@ waterConsumption = {
                     })
                     flag = 1;
                 })
-                $tbody.append("<tr><td>300吨水池合计</td><td id='total-1'></td><td>生产用水量</td><td id='total-2'></td><td>选矿废水合计</td><td id='total-3'></td><td>清水总量</td><td id='total-4'></td><td>废水总量</td><td id='total-5'></td></tr>");
+                $tbody.append("<tr><td class='grey'>300吨水池合计</td><td id='total-1'></td><td class='grey'>生产用水量</td><td id='total-2'></td><td>选矿废水合计</td><td id='total-3'></td><td class='grey'>清水总量</td><td id='total-4'></td><td class='grey'>废水总量</td><td id='total-5'></td></tr>");
             })
         }
         /**绑定详情数据 */

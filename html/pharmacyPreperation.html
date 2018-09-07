@@ -1,0 +1,92 @@
+<div class="display-component-container">
+        <style>
+            #imagesPart table {
+                position: absolute;
+                width: auto;
+            }
+            #imagesPart table tr td{
+                border:1px green solid;
+                background: #4aa69a;
+                width: 35px;
+            }
+            .block-quote table tr td {
+                 border : none;
+                 padding : 3px;
+                 text-align: center;
+             }
+            #panelDiv {
+                border: 1px solid #ccc !important;
+                height: auto;
+                padding: 10px;
+                z-index: 100;
+                position:relative;
+                background: rgb(240, 237, 237);
+             }
+             .block-quote table {
+                 width : 400px;
+                 height : auto;
+                 padding: 10px;
+                 border: none !important;
+                 margin: 0px;
+                 position:relative;
+                 z-index: 1000;
+             }
+             .block-quote table span {
+                 padding-left: 5px; 
+                 color:black;
+             }
+             .block-quote table input {
+                 border: 1px solid #ccc;
+                 padding-left: 5px;
+             }
+             .block-quote button {
+                 border-radius: 0.5em;
+                 font-size: 14px;
+                 margin-left: 10%;
+                 margin-bottom: 15px;
+             }
+        </style>
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span class="hide" id="pTable">药剂制备关键参数集中监视</span>
+                    <span id="pImages">参数列表：
+                    <input type="text" style="color: black;" id="paraMeter" placeholder="请选择参数" readonly></span>
+                    <div id="panelDiv" class="hide">
+                        <table id="panelTable">
+                            <tbody>
+                
+                            </tbody>
+                        </table>
+                        <div class="whitespace"></div>
+                        <button id="selectAll">全选</button> <button id="unselectAll">全不选</button><button id="save">确定</button> <button id="cancel">取消</button>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </p>
+            </div>
+            <div class="fr">
+                <span id="imagesShow" class="hide"><a href="#"><i class="fa fa-line-chart" aria-hidden="true"></i> 图表显示</a></span>&nbsp;&nbsp;&nbsp;
+                <span id="tableShow"><a href="#"><i class="fa fa-table" aria-hidden="true"></i> 集中监视 </a></span>&nbsp;&nbsp;&nbsp; 
+        </div>
+        </div>
+        <div class="whitespace"></div>
+        <!--用来存取参数表-->
+        <div class="hide" id="parameterDiv">
+            <table id="parameterTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="imagesPart" style="position:absolute;">
+        <div id="images">
+            <img src="./images/monitor/3.png" />
+        </div> 
+       </div>
+        <script src="selfjs/cablewayTransportation.js"></script>
+        <script>
+            $(function() {
+                groupId = 7;   //药剂制备
+                cablewayTransportation.init();
+            })
+        </script>
+    </div>

@@ -1,0 +1,45 @@
+#imagesPart table {
+    position: absolute;
+    width: auto;
+}
+#imagesPart table tr td{
+    border:1px green solid;
+    background: #4aa69a;
+    width: 35px;
+}
+.block-quote table tr td {
+     border : none;
+     padding : 3px;
+     text-align: center;
+ }
+#panelDiv {
+    border: 1px solid #ccc !important;
+    height: auto;
+    padding: 10px;
+    z-index: 100;
+    position:relative;
+    background: rgb(240, 237, 237);
+ }
+ .block-quote table {
+     width : 400px;
+     height : auto;
+     padding: 10px;
+     border: none !important;
+     margin: 0px;
+     position:relative;
+     z-index: 1000;
+ }
+ .block-quote table span {
+     padding-left: 5px; 
+     color:black;
+ }
+ .block-quote table input {
+     border: 1px solid #ccc;
+     padding-left: 5px;
+ }
+ .block-quote button {
+     border-radius: 0.5em;
+     font-size: 14px;
+     margin-left: 10%;
+     margin-bottom: 15px;
+ }
