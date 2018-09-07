@@ -1,0 +1,100 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div>
+            <p>
+                <span style="font-size:20px">物料消耗统计管理（给药系统）</span>
+                报表类型：<select id="tableType"><option value="1">日报表</option><option value="2">月报表</option><option value="3">年报表</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                物料列表：<input type="checkbox" value="1" checked="checked">硫酸铜&nbsp;&nbsp;
+                <input type="checkbox" value="2">丁黄药&nbsp;&nbsp;
+                <input type="checkbox" value="3">乙黄药&nbsp;&nbsp;
+                <input type="checkbox" value="4">乙硫氮&nbsp;&nbsp;
+                <input type="checkbox" value="5">二克油&nbsp;&nbsp;
+                <input type="checkbox" value="6">DS剂&nbsp;&nbsp;
+                <input type="checkbox" value="7">石灰&nbsp;&nbsp;
+                <input type="checkbox" value="8">硫酸&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fl">
+        <div id="dayTime" class="hide">请选择日期：<input type="text" id="dayT"></div>
+        <div id="monthTime" class="hide">请选择时间：<input type="text" id="monthStart">&nbsp;&nbsp;
+            <select id="classStart"><option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option></select>至
+            <input type="text" id="monthEnd">&nbsp;&nbsp;
+            <select id="classEnd"><option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option></select>
+        </div>
+        <div id="yearTime" class="hide">请选择年份：<input type="text" id="yearT"></div>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查找</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="downloadButton"><a href="#"><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="graphButton"><a href="#"><i class="layui-icon">&#xe60d;</i>图表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="overflow-x: scroll;width:100%;height:70%"  >
+    <table>
+        <thead>
+            <tr>
+                <td rowspan="2" >班次</td>
+                <td rowspan="2">班组</td>
+                <td id="dynNum" colspan="">实际用量（t）</td>
+                <td id="dynConsume" colspan="">实际单耗（kg/t）</td>
+                <td colspan="2">操作</td>
+            </tr>
+            <tr id="dynamicAdd">
+
+            </tr>
+            <tbody id="productTbody">
+
+            </tbody>
+        </thead>
+    </table>
+    </div>
+    <div id="productPage"></div>
+
+    <script src="selfjs/product.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            product.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#dayT',
+                type : 'date'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#monthStart',
+                type : 'month'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#monthEnd',
+                type : 'month'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#yearT',
+                type : 'year'
+            })
+        })
+    </script>
+</div>
