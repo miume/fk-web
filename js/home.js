@@ -696,7 +696,6 @@ var home = {
                 return servers.backup() + "ropeWayCrushingMonthReport/regenerateAble";
             }
         }
-<<<<<<< HEAD
         ,parameter : {
             getByGroup : function() {
                 return servers.backup() + "parameter/getByGroup";
@@ -720,6 +719,40 @@ var home = {
                 return servers.backup() + "parameterData/getByTableNameAndDate";
             },
         }
+        ,indexManage : {
+            add : function() {
+                return servers.backup() + "paramConfigInfo/add";
+            },
+            getAll : function() {
+                return servers.backup() + "paramConfigInfo/getAllByPage"
+            },
+            getByGroupAndParamByPage : function() {
+                return servers.backup() + "paramConfigInfo/getByGroupAndParamByPage";
+            },
+            getById : function() {
+                return servers.backup() + "paramConfigInfo/getById";
+            },
+            deleteByIds : function() {
+                return servers.backup() + "paramConfigInfo/deleteByIds";
+            },
+            download : function() {
+                return servers.backup() + "paramConfigInfo/exportToExcelByGroupAndParam";
+            },
+            updateIndexById : function() {
+                return servers.backup() + "paramConfigInfo/update";
+            },
+            getAllGroups : function() {
+                return servers.backup() + "group/getAll";
+            },
+            getAllParams : function() {
+                return servers.backup() + "parameter/getAll";
+            } 
+
+           
+
+        }
+
+
     }
    
     /** start */
