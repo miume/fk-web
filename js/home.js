@@ -696,6 +696,7 @@ var home = {
                 return servers.backup() + "ropeWayCrushingMonthReport/regenerateAble";
             }
         }
+<<<<<<< HEAD
         ,parameter : {
             getByGroup : function() {
                 return servers.backup() + "parameter/getByGroup";
