@@ -1,0 +1,96 @@
+<div class="display-component-container" >
+    <style>
+        #process_group ul li {
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        #process_group ul {
+            text-align: center;
+            border: 1px darkgrey solid;
+        }
+        .selected_group {
+            background: rgb(112,118,139);
+        }
+    </style>
+    <div class="block-quote" >
+        <div class="fl">
+            <p>
+                <span style="display: inline-block;width:200px;">参数指标管理</span>
+                <span>参数名称：</span><input type="text" id="parameterName" placeholder="请输入参数名称">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;
+                <span id="expertButton"><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i> 批量删除</a></span>&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="position:relative; margin-top: 20px;">
+        <div id="process_group" style="width:13%;height:70%; float:left;overflow-y: auto">
+            <ul style="text-align: center;border:1px darkgrey solid;">
+
+            </ul>
+        </div>
+        <div id="process_parameter" style="width:85%; float:right;">
+            <table id="indexTable">
+                <thead>
+                    <tr>
+                        <td class="checkBox_td">
+                            <input id="index_checkAll" type="checkbox">
+                        </td>
+                        <td>序号</td>
+                        <td>工艺参数名称</td>
+                        <td>所属工艺组别</td>
+                        <td>期望值</td>
+                        <td>上限值</td>
+                        <td>下限值</td>
+                        <td>更新人</td>
+                        <td>更新时间</td>
+                        <td>编辑</td>
+                        <td>删除</td>
+                    </tr>
+                </thead>
+                 <tbody>
+
+                </tbody>
+            </table>
+            <div id="index_page"></div>
+        </div>
+    </div>
+    
+    <script src="selfjs/indexManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            index.init();
+        });
+    </script>
+        
+    <!--隐藏部分（弹出框显示部分）-->
+    <div class="whitespace"></div>
+    <div id="addIndexModal" class="hide hideModal" ><!--class="hide hideModal"-->
+        <p>
+            <span style="display: inline-block;width: 90px;text-align: right">工艺组别：</span><select style="width: 150px;" id="addProcessGroup"></select>
+        </p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">参数名称：</span><input type="text" style="width: 150px;" id="addProcessParameter"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">期望值：</span><input type="text"  style="width: 150px;" id="addExpectedValue"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">上限值：</span><input type="text" style="width: 150px;" id="addMaxValue"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">下限值：</span><input type="text"  style="width: 150px;" id="addMinValue"></p>
+    </div>
+    <div id="updateIndexModal" class="hide hideModal"><!--class="hide hideModal"-->
+        <p>
+            <span style="display: inline-block;width: 90px;text-align: right">工艺组别：</span><select style="width: 150px;" id="updateProcessGroup"></select>
+        </p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">参数名称：</span><input type="text" style="width: 150px;" id="updateProcessParameter"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">期望值：</span><input type="text"  style="width: 150px;" id="updateExpectedValue"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">上限值：</span><input type="text" style="width: 150px;" id="updateMaxValue"></p>
+        <p><span style="display: inline-block;width: 90px;text-align: right">下限值：</span><input type="text"  style="width: 150px;" id="updateMinValue"></p>
+    </div>
+
+
+
+</div>
