@@ -150,7 +150,7 @@ var index = {
                 $("#addIndexModal").removeClass("hide");
                 layer.open({
                     type: 1,
-                    title: '添加用户',
+                    title: '添加生产指标',
                     content: $("#addIndexModal"),
                     area: ['300px','290px'],
                     btn: ['确定', '取消'],
@@ -292,6 +292,7 @@ var index = {
         /**刷新 */
         ,bindRefreshEvent : function(buttons,groupId) {
             buttons.off('click').on('click',function(){
+                $('.setgroup').removeClass('selected_group').css('color', '')
                 index.funcs.renderTable();
             })
         }
@@ -404,7 +405,7 @@ var index = {
                     content: "<h5 style='text-align:center;'>确定要删除删除该记录吗？</h5>",
                     area: ['200px','140px'],
                     btn: ['确定', '取消'],
-                    offset: ['40%', '55%'],
+                    offset: "auto",
                     yes: function (index) {
                         $.post(home.urls.indexManage.deleteByIds() ,{_method:"delete",ids : id},function (result) {
                                 if (result.code === 0) {
