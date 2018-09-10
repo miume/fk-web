@@ -3,23 +3,23 @@
         <div>
             <p>
                 <span style="font-size:20px">物料消耗统计管理（给药系统）</span>
-                报表类型：<select id="tableType"><option value="1">日报表</option><option value="2">月报表</option><option value="3">年报表</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                物料列表：<input type="checkbox" value="1" checked="checked">硫酸铜&nbsp;&nbsp;
-                <input type="checkbox" value="2">丁黄药&nbsp;&nbsp;
-                <input type="checkbox" value="3">乙黄药&nbsp;&nbsp;
-                <input type="checkbox" value="4">乙硫氮&nbsp;&nbsp;
-                <input type="checkbox" value="5">二克油&nbsp;&nbsp;
-                <input type="checkbox" value="6">DS剂&nbsp;&nbsp;
-                <input type="checkbox" value="7">石灰&nbsp;&nbsp;
-                <input type="checkbox" value="8">硫酸&nbsp;&nbsp;
+                报表类型：<select id="tableType"><option value="1">日报表</option><option value="2" selected="selected">区间统计报</option><option value="3">年报表</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                物料列表：<input type="checkbox" name="硫酸铜" value="1" class="productItem">硫酸铜&nbsp;&nbsp;
+                <input type="checkbox" name="丁黄药" value="2" class="productItem">丁黄药&nbsp;&nbsp;
+                <input type="checkbox" name="乙黄药" value="3" class="productItem">乙黄药&nbsp;&nbsp;
+                <input type="checkbox" name="乙氮硫" value="4" class="productItem">乙硫氮&nbsp;&nbsp;
+                <input type="checkbox" name="二号油" value="5" class="productItem">二号油&nbsp;&nbsp;
+                <input type="checkbox" name="DS剂" value="6" class="productItem">DS剂&nbsp;&nbsp;
+                <input type="checkbox" name="硫酸" value="7" class="productItem">硫酸&nbsp;&nbsp;
+                <input type="checkbox" name="石灰" value="8" class="productItem">石灰&nbsp;&nbsp;
             </p>
         </div>
         <div class="fl">
         <div id="dayTime" class="hide">请选择日期：<input type="text" id="dayT"></div>
         <div id="monthTime" class="hide">请选择时间：<input type="text" id="monthStart">&nbsp;&nbsp;
-            <select id="classStart"><option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option></select>至
+            <select id="classStart"></select>至
             <input type="text" id="monthEnd">&nbsp;&nbsp;
-            <select id="classEnd"><option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option></select>
+            <select id="classEnd"></select>
         </div>
         <div id="yearTime" class="hide">请选择年份：<input type="text" id="yearT"></div>
         </div>
@@ -42,7 +42,6 @@
                 <td rowspan="2">班组</td>
                 <td id="dynNum" colspan="">实际用量（t）</td>
                 <td id="dynConsume" colspan="">实际单耗（kg/t）</td>
-                <td colspan="2">操作</td>
             </tr>
             <tr id="dynamicAdd">
 
@@ -55,7 +54,7 @@
     </div>
     <div id="productPage"></div>
 
-    <script src="selfjs/product.js"></script>
+    <script src="selfjs/productionMaterial.js"></script>
     <script type="application/javascript">
         $(function() {
             product.init();
@@ -75,7 +74,7 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: '#monthStart',
-                type : 'month'
+                type : 'date'
             })
         })
     </script>
@@ -84,7 +83,7 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: '#monthEnd',
-                type : 'month'
+                type : 'date'
             })
         })
     </script>
