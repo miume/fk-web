@@ -751,7 +751,25 @@ var home = {
            
 
         }
-
+        ,production : {
+            findByUserId : function(){
+                return servers.backup() + "materialListFlagInfo/findByUserId"
+            },
+            update : function(){
+                return servers.backup() + "materialListFlagInfo/update"
+            }
+        }
+        ,ddConsumeTeamReport : {
+            add : function(){
+                return servers.backup() + "ddSmaterialConsumeTeamReport/add"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "ddSmaterialConsumeTeamReport/getByDateByPage"
+            },
+            getByPage : function(){
+                return servers.backup() + "ddSmaterialConsumeTeamReport/getByPage"
+            },
+        }
 
     }
    
