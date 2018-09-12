@@ -8,6 +8,7 @@ var product = {
             clearTimeout(time);
         },30);
     }
+    ,key : []
     ,pageSize : 0
     ,funcs : {
         renderTable : function(){
@@ -40,7 +41,38 @@ var product = {
             /**选择报表事件 */
             product.funcs.bindSelectEvents($("#tableType"));
             /**绑定查找事件 */
-            product.funcs.bindFindEvents($("#searchButton"))
+            product.funcs.bindFindEvents($("#searchButton"));
+            /**绑定生成图表事件 */
+            product.funcs.bindGenerate($("#graphButton"))
+        }
+        /**生成图表事件 */
+        ,bindGenerate : function(buttons){
+            buttons.off("click").on('click',function(){
+                var values = [];
+                var datas = [];
+                var teamName = [];
+                var items = $("input:checkbox[class=productItem]:checked");
+                var startTime = $("#monthStart").val();
+                var endTime = $("#monthEnd").val();
+                var startClass = $("#classStart").val();
+                var endClass = $("#classEnd").val();
+                $.get(home.urls.ddConsumeTeamReport.getByPage(),{
+                    startDate : startTime,
+                    endDate : endTime,
+                    clazzId1 : startClass,
+                    clazzId2 : endClass
+                },function(result){
+                    var teamData = result.data.content;
+                    var mapdata = product.funcs.getMapItem(teamData);
+                    items.each(function(){
+                        datas.push($(this).attr("name"));
+                    });
+                    items.each(function(){
+                        values.push(mapdata[$(this).val()])
+                    })
+
+                })
+            })
         }
         /**选择报表事件 */
         ,bindSelectEvents : function(select){
@@ -65,12 +97,14 @@ var product = {
         ,/**绑定查找事件 */
         bindFindEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                var datalength = $(".productItem").length;
+                var datalength = $("input:checkbox[class=productItem]:checked").length;
                 $("#dynNum").attr("colspan" , datalength);
                 $("#dynConsume").attr("colspan" , datalength);
                 const $tr = $("#dynamicAdd")
-                var items = $(".productItem");
-                product.funcs.renderHead($tr,items)
+                var items = $("input:checkbox[class=productItem]:checked");
+                var keyDyn = product.funcs.renderHead($tr,items);
+                key = product.funcs.getHeadKey(keyDyn);
+                /**获取参数 */
                 var startTime = $("#monthStart").val();
                 var endTime = $("#monthEnd").val();
                 var startClass = $("#classStart").val();
@@ -84,7 +118,8 @@ var product = {
                 },function(result){
                     const $tbody = $("#productTbody")
                     var teamData = result.data.content;
-                    product.funcs.renderDeatils($tbody,teamData);
+                    var mapDate = product.funcs.getMapData(teamData);
+                    product.funcs.renderDeatils($tbody,mapDate,key);
                     // console.log(teamData);
                 })
             })
@@ -92,20 +127,88 @@ var product = {
         ,/**渲染表头 */
         renderHead : function($tr,items){
             $tr.empty();
+            var keyDyn = [];
             items.each(function(){
                 $tr.append(
                     "<td id=\""+  $(this).value +"\">"+ $(this).attr("name") +"</td>"
                 );
+                keyDyn.push($(this).val())
             })
             items.each(function(){
                 $tr.append(
                     "<td id=\""+  "unit"+$(this).value +"\">"+ $(this).attr("name") +"</td>"
                 );
+                keyDyn.push("unit"+$(this).val());
             })
+            return keyDyn;
+        }
+        // 获取表头的健值对
+        ,getHeadKey : function(keyDyn) {
+            var key = [];
+            key.push("class");
+            key.push("team");
+            keyDyn.forEach(function(e) {
+                key.push(e);
+            });
+            return key;
         }
         /**渲染查找页面 */
-        ,renderDeatils : function($tbody,teamData){
+        ,renderDeatils : function($tbody,mapDatas,keys){
+            $tbody.empty();
+            mapDatas.forEach(function(mapData){
+                $tbody.append(
+                    "<tr>"
+                );
+                keys.forEach(function(key){
+                    $tbody.append(
+                        "<td>"+ (mapData[key]||"") +"</td>"
+                    );
+                })
+                $tbody.append(
+                    "</tr>"
+                );
+            })
 
+        }
+        // map方法使用
+        /**将数据渲染成健值对形式 */
+        ,getMapData : function(results){
+            var datas = [];
+            for(var i in results){
+                var result = results[i];
+                var map = {};
+                map['class'] = result.clazzId;
+                map['team'] = result.team.dicName;
+                map[1] = result.lstUsed;
+                map[2] = result.dhyUsed;
+                map[3] = result.yhyUsed;
+                map[4] = result.yldUsed;
+                map[5] = result.ehyUsed;
+                map[6] = result.dsjUsed;
+                map[7] = result.lsUsed;
+                map[8] = result.shUsed;
+                datas.push(map)
+            }
+            return datas;
+        }
+        /**渲染类型数据 */
+        ,getMapItem : function(results){
+            var datas = [];
+            for(var i in results){
+                var result = results[i];
+                var map = {};
+                map['team'] = result.team.dicName;
+                map[1] = result.lstUsed;
+                map[2] = result.dhyUsed;
+                map[3] = result.yhyUsed;
+                map[4] = result.yldUsed;
+                map[5] = result.ehyUsed;
+                map[6] = result.dsjUsed;
+                map[7] = result.lsUsed;
+                map[8] = result.shUsed;
+                datas.push(map)
+            }
+            return datas;
         }
     }
 }
