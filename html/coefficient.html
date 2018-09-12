@@ -1,0 +1,67 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                日期：<input id="date" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="coefficientTable">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>系数日期</td>
+                <td>指标系数</td>
+                <td>编辑</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="coefficientPage"></div>
+    <script src="selfjs/coefficient.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            coefficient.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#date'
+
+            });
+        })
+    </script>
+    <!--新增弹出页面-->
+    <div id="addPage" class="hide hideModal">
+        <p>
+            <div>
+                原矿总产量系数：<input id="yieldCoefficient" type="text"/>
+            </div>
+            <br/>
+            <div>
+            指标系数日期：<input id="coeDate" type="text" placeholder="请选择时间">
+            </div>
+        </p>
+    </div>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#coedate'
+            });
+        })
+    </script>
+</div>

@@ -770,6 +770,57 @@ var home = {
                 return servers.backup() + "ddSmaterialConsumeTeamReport/getByPage"
             },
         }
+        ,coefficient : {
+            add : function(){
+                return servers.backup() + "coEfficient/add"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "coEfficient/getAllByPage"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "coEfficient/getByDateByPage"
+            },
+            update : function(){
+                return servers.backup() + "coEfficient/update"
+            },
+            getById : function(){
+                return servers.backup() + "coEfficient/getById"
+            },
+        }
+        ,sample : {
+            add : function(){
+                return servers.backup() + "sampleManageInfo/add"
+            },
+            delete : function(){
+                return servers.backup() + "sampleManageInfo/delete"
+            },
+            deleteByBatch : function(){
+                return servers.backup() + "sampleManageInfo/deleteByBatch"
+            },
+            exportByGet : function(){
+                return servers.backup() + "sampleManageInfo/exportByGet"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "sampleManageInfo/getAllByPage"
+            },
+            getAllBySendIdAndNameLike : function(){
+                return servers.backup() + "sampleManageInfo/getAllBySendIdAndNameLike"
+            },
+            getOneById : function(){
+                return servers.backup() + "sampleManageInfo/getOneById"
+            },
+            update : function(){
+                return servers.backup() + "sampleManageInfo/update"
+            },
+        }
+        ,check : {
+            getAll : function(){
+                return servers.backup() + "sendToCheck/getAll"
+            },
+            getById : function(){
+                return servers.backup() + "sendToCheck/getById"
+            },
+        }
 
     }
    

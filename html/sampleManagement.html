@@ -1,0 +1,51 @@
+<div class="display-component-container" >
+    <div class="block-quote">
+            <div class="fl">
+                    <p>
+                        样品类型：<select id="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        样品名称：<input type="text" id="sampleName">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;
+                    </p>
+            </div>
+            <div>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
+                <span id="downloadButton"><a href="#"><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+            </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="sampleTable">
+        <thead>
+            <tr>
+                <td class="checkBox_td"><input type="checkbox" id = "sample-checkBoxAll" /></td>
+                <td>序号</td>
+                <td>样品编码</td>
+                <td>样品名称</td>
+                <td>样品类型</td>
+                <td>描述说明</td>
+                <td>创建时间</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+            <tbody>
+
+            </tbody>
+        </thead>
+    </table>
+    <div id="sample_page"></div>
+    <script src="selfjs/sampleManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            sampleManagement.init();
+        })
+    </script>
+    <!--隐藏部分（弹出框显示部分）-->
+    <div id="updateModal" class="hide">
+            <p align="center">样品类型：<select id="hideSampleType"></select></p>
+            <p align="center">样品名称：<input type="text" id="hideSampleName"></p>
+            <p align="center">样品编码：<input type="text" id="sampleNum"></p>
+            <p align="center">样品说明：<input type="text" id="sampleDes"></p>
+    </div>
+</div>
