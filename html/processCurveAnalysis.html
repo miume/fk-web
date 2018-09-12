@@ -4,8 +4,8 @@
             <p>
                 <span style="font-size:20px">工艺指标曲线分析</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 参数名称：<select id="parameterGroup" type="text" style="width: 100px"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                开始日期：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                结束日期：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
+                开始时间：<input id="beginDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                结束时间：<input id="endDate" type="text" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="analyButton"><a href="#"><i class="layui-icon">&#xe615;</i>开始分析</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
         </div>
@@ -25,10 +25,10 @@
                 </tbody>
             </table>
         </div>
-        <div  id="parameterChart" style="width:60% ;height:60%;float:left;margin-left: 2%;margin-right: 2%" >
+        <div  id="parameterChart" style="width:60% ;height:60%;float:left;margin-left: 2%;margin-right: 2%" class="hide">
 
         </div>
-        <div style="width:20% ;height: 60%;float:left;">
+        <div id="analysisDiv" style="width:20% ;height: 60%;float:left;" class="hide">
             <table>
                 <thead>
                     <tr>
@@ -53,7 +53,7 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: '#beginDate',
-                btns: ['now']
+                type : 'datetime'
             })
         })
     </script>
@@ -63,7 +63,7 @@
             //执行一个laydate实例
             laydate.render({
                 elem: '#endDate',
-                btns: ['now']
+                type : 'datetime'
             })
         })
     </script>
