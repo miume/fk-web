@@ -1,0 +1,124 @@
+<div class="display-component-container" >
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                送检系统：<select id="sampleType" class="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                委托类型：<select id="delegationType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                操作日期：<input id="startDate" type="text">&nbsp;&nbsp;至&nbsp;&nbsp;<input id="endDate" type="text">&nbsp;&nbsp;&nbsp;&nbsp;
+                化验：<select id="assay"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="delegationTable">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>送检委托单号</td>
+                <td>委托类型</td>
+                <td>操作日期</td>
+                <td>班次</td>
+                <td>送检系统</td>
+                <td>委托人</td>
+                <td>委托时间</td>
+                <td>是否已化验</td>
+                <td>化验方式</td>
+                <td>化验人</td>
+                <td>化验时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="delegation_page"></div>
+    <script src="selfjs/delegation.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            delegationManagement.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#startDate'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate'
+            })
+        })
+    </script>
+    <!--弹出框隐藏部分-->
+    <div class="hide layerModal" id="addModal">
+        送检委托单管理
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    送检系统：<select id="sampleType" class="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>委托类型：<input type="radio" id="regular">常规委托&nbsp;&nbsp;&nbsp;<input type="radio" id="temporary">临时委托</span>
+                </p>
+
+                <p>
+                    选择送检样品：<br/>
+                    <span id="sample">
+                    </span>
+                </p>
+
+                <p>
+                    选择送检项目：<br/>
+                    <span>
+                        <input name='project' type='checkbox'>铅
+                        <input name='project' type='checkbox'>锌
+                        <input name='project' type='checkbox'>铁
+                        <input name='project' type='checkbox'>硫
+                    </span>
+                </p>
+
+                <p>
+                    化验方式：<br/>
+                    <span id="method">
+                    </span>
+                </p>
+
+                <p>
+                    备注：<br/>
+                    <input type="text" id="remarks">
+                </p>
+
+                <p>
+                    <tr>
+                        <td>原矿处理量</td>
+                        <td><input type="text" id="capacity"></td>
+                    </tr>
+                </p>
+
+                <p>
+                    <tr>
+                        <td>操作人</td>
+                        <td><select id="operator"></select></td>
+                        <td>班组</td>
+                        <td><select id="team"></select></td>>
+                    </tr>
+                    <tr>
+                        <td>操作日期</td>
+                        <td><input type="text" id="operationDate"></td>
+                        <td>班次</td>
+                        <td><select id="class"></select></td>
+                    </tr>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -821,7 +821,27 @@ var home = {
                 return servers.backup() + "sendToCheck/getById"
             },
         }
-
+        ,delegation : {
+            add : function(){
+                return servers.backup() + "delegationOrderHeader/add"
+            },
+            getAll : function(){
+                return servers.backup() + "delegationOrderHeader/getAll"
+            },
+            getById : function(){
+                return servers.backup() + "delegationOrderHeader/getById"
+            },
+        }
+        ,delegationInfo : {
+            findAll : function(){
+                return servers.backup() + "delegationInfo/findAll"
+            }
+        }
+        ,testMethodInfo : {
+            findAll : function(){
+                return servers.backup() + "testMethodInfo/findAll"
+            }
+        }
     }
    
     /** start */
