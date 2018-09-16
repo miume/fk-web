@@ -1,0 +1,79 @@
+<div class="display-component-container">
+    <style>
+        .selectStyle{
+            border: 1px solid #555;
+            height: 20px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">班组分班达标考核指标</span>
+                时间：<input id="beginDate" type="text" placeholder="请选择时间" >
+                <select id="beginTeam" style="width:100px;" class="selectStyle"></select>
+                至&nbsp;<input id="endDate" type="text" placeholder="请选择时间" >
+                <select id="endTeam" style="width:100px;" class="selectStyle"></select>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table>
+        <thead>
+            <tr>
+                <td rowspan="2">班组</td>
+                <td colspan="2">原矿</td>
+                <td rowspan="2">铅品位</td>
+                <td rowspan="2">锌品位</td>
+                <td colspan="3">铅综合回收率</td>
+                <td colspan="3">锌综合回收率</td>
+                <td rowspan="2">铅锌综合回收率</td>
+            </tr>
+            <tr>
+                <td>铅</td>
+                <td>锌</td>
+                <td>单一铅</td>
+                <td>混合铅</td>
+                <td>总铅</td>
+                <td>单一锌</td>
+                <td>混合锌</td>
+                <td>总锌</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div id="groupManagementPage"></div>
+    <script src="selfjs/groupManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            groupManagement.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                btns : ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate',
+                btns : ['now']
+            })
+        })
+    </script>
+</div>

@@ -1,0 +1,114 @@
+<div class="display-component-container">
+    <style>
+        .selectStyle{
+            border: 1px solid #555;
+            height: 20px;
+        }
+        #beginDate {
+            width: 110px;
+        }
+        #endDate {
+            width: 110px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                时间：<input id="beginDate" type="text" placeholder="请选择时间" >
+                <select id="beginTeam" style="width:100px;" class="selectStyle"></select>
+                至&nbsp;<input id="endDate" type="text" placeholder="请选择时间" >
+                <select id="endTeam" style="width:100px;" class="selectStyle"></select>
+                操作员：<select id="optName"style="width:100px;" class="selectStyle"></select>
+                班次：<select id="shift" style="width:100px;" class="selectStyle"></select>
+                班组：<select id="team" style="width:100px;" class="selectStyle"></select>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="overflow-x: scroll;width:100%;height:78%" >
+        <table id="processDetailTable" style="width: 120%;">
+            <thead>
+                <tr>
+                    <td rowspan="3">序号</td>
+                    <td rowspan="3">生产日期</td>
+                    <td rowspan="3">班次</td>
+                    <td rowspan="3">班组</td>
+                    <td rowspan="3">操作员</td>
+                    <td colspan="3">原矿</td>
+                    <td colspan="5">高铅精矿</td>
+                    <td colspan="5">高锌精矿</td>
+                    <td colspan="5">尾矿</td>
+                </tr>
+                <tr>
+                    <td>处理量</td>
+                    <td colspan="2">品位%</td>
+                    <td>产率</td>
+                    <td colspan="2">品位%</td>
+                    <td colspan="2">回收率%</td>
+                    <td>产率</td>
+                    <td colspan="2">品位%</td>
+                    <td colspan="2">回收率%</td>
+                    <td>产率</td>
+                    <td colspan="2">品位%</td>
+                    <td colspan="2">回收率%</td>
+                </tr>
+                <tr>
+                    <td>（吨）</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>%</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>%</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>%</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                    <td>Pb</td>
+                    <td>Zn</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <div id="processDetailPage"></div>
+    </div>
+    <script src="selfjs/processDetails.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            processDetails.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                btns : ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate',
+                btns : ['now']
+            })
+        })
+    </script>
+</div>

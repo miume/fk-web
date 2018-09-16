@@ -1,0 +1,44 @@
+<div class="display-component-container">
+    <style>
+        .selectStyle{
+            border: 1px solid #555;
+            height: 20px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">指标异常报表</span>
+                时间：<input id="beginDate" type="text" placeholder="请选择时间" >
+                <select id="beginTeam" style="width:100px;" class="selectStyle"></select>
+                至&nbsp;<input id="endDate" type="text" placeholder="请选择时间" >
+                <select id="endTeam" style="width:100px;" class="selectStyle"></select>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="downloadButton"><a id="downloadA" href="#" ><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="abnormalButton"><a href="#"><i class="layui-icon">&#xe615;</i>异常指标设置</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="abnormalIndexTable">
+        <thead>
+            <tr>
+                <td>考核指标</td>
+                <td>序号</td>
+                <td>日期</td>
+                <td>班次</td>
+                <td>班组</td>
+                <td>操作员</td>
+                <td>指标值</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>

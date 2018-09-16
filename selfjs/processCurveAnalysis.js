@@ -35,14 +35,14 @@ var curveAnalysis = {
                     var preHour = hour>10 ? hour : '0'+hour ;
                     var min = day.getMinutes()>10 ? day.getMinutes() : '0'+day.getMinutes() ;
                     var second = day.getSeconds()>10 ? day.getSeconds() : '0'+day.getSeconds() ;
-                    var nextDate = day.Format("yyyy-MM-dd")+' ' + preHour + ':' + min + ":" + second;
-                    $("#beginDate").val(nowDate);
-                    $("#endDate").val(nextDate);
+                    var preDate = day.Format("yyyy-MM-dd")+' ' + preHour + ':' + min + ":" + second;
+                    $("#beginDate").val(preDate);
+                    $("#endDate").val(nowDate);
                     $("#parameterGroup").append('<option>'+ firstParameterName +'</option>');
                     $.get(home.urls.parameterData.getByTableNameAndDate(),{
                         tableName : firstTableName,
-                        startDate : nowDate,
-                        endDate : nextDate,
+                        startDate : preDate,
+                        endDate : nowDate,
                         parameterId : firstParameterId
                     },function(result) {
                         var parameterDatas = result.data;
