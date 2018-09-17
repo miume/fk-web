@@ -1,11 +1,12 @@
 var delegationManagement = {
     pageSize : 0
     ,init : function(){
-        /**获取数据信息分页显示，初始化各下拉框 */
+        /**获取数据信息分页显示，初始化各下拉框，单选框，复选框 */
         delegationManagement.funcs.renderTable();
         delegationManagement.funcs.renderDropBox();
-        delegationManagement.funcs.renderDropBox1();
         delegationManagement.funcs.renderDropBox2();
+        delegationManagement.funcs.renderSingleBox();
+        delegationManagement.funcs.renderCheckBox();
         var out = $("#delegation_page").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -44,12 +45,37 @@ var delegationManagement = {
                     }
                 })
             })
+            /**绑定新增事件 */
+            delegationManagement.funcs.bindAddEvents($("#addButton"));
+        }
+        /**绑定新增事件 */
+        ,bindAddEvents : function(buttons){
+            buttons.off('click').on("click",function(){
+                $("#addModal").removeClass("hide");
+                layer.open({
+                    type : 1,
+                    title : "送检委托单管理",
+                    content : $("#addModal"),
+                    area : ['80%', '70%'],
+                    btn : ['生成委托单' , '返回'],
+                    offset : ['10%' , '10%'],
+                    closeBtn: 0,
+                    yes : function(index){
+                        
+                    }
+                    ,btn2: function (index) {
+                        $("#addModal").css("display","none");
+                        layer.close(index);
+                    }
+                })
+            })
         }
         ,renderHandler : function($tbody,delegations,page){
             //清空表格
             $tbody.empty();
             var i = 1 + page * 10;
             delegations.forEach(function(e){
+                // console.log(e.testUser)
                 $tbody.append(
                     "<tr>" + 
                     "<td>"+(i++)+"</td>" +
@@ -62,40 +88,31 @@ var delegationManagement = {
                     "<td>"+(e.signDate)+"</td>" +
                     "<td>"+(e.signFlag===0?"未化验":"已化验")+"</td>" +
                     "<td>"+(e.testMethodInfo ? testMethodInfo : "")+"</td>" +
-                    "<td>"+(e.testUser.name ? e.testUser.name : "")+"</td>" +
+                    "<td>"+(e.testUser&&e.testUser.name || "")+"</td>" +
                     "<td>"+(e.testDate)+"</td>" +
                     "<td>"+(e.signFlag===0?"<a href='#' class ='deatil' id='deatil-"+(e.id)+"'>委托单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' class ='delete' id='delete-"+(e.id)+"'>删除</a>":"<a href='#' class ='view' id='view-"+(e.id)+"'>化验结果</a>")+"</td>" +
                     "</tr>"
                 )
             })
-            /**绑定新增事件 */
-            delegationManagement.funcs.bindAddEvents($("#addButton"));
+            
         }
-        /**绑定新增事件 */
-        ,bindAddEvents : function(buttons){
-            buttons.off('click').off("click",function(){
-                
-            })
-        }
+        
         /**渲染页面下拉框 */
         ,renderDropBox : function() {
-            $(".sampleType").empty();
-            $(".sampleType").append('<option></option>');
+            $("#sampleType").empty();
+            $("#sampleType").append('<option></option>');
             $.get(home.urls.check.getAll(),{},function(result) {
                 var checks = result.data;
                 checks.forEach(function(e) {
-                    $(".sampleType").append('<option value='+e.id+'>'+e.name+'</option>')
+                    $("#sampleType").append('<option value='+e.id+'>'+e.name+'</option>')
                 })
             })
-        },
-        /**渲染页面下拉框 */
-        renderDropBox1 : function() {
-            $("#assay").empty();
-            $("#assay").append('<option></option>');
-            $.get(home.urls.testMethodInfo.findAll(),{},function(result) {
+            $("#sampleTypeHide").empty();
+            $("#sampleTypeHide").append('<option></option>');
+            $.get(home.urls.check.getAll(),{},function(result) {
                 var checks = result.data;
                 checks.forEach(function(e) {
-                    $("#assay").append('<option value='+e.id+'>'+e.name+'</option>')
+                    $("#sampleTypeHide").append('<option value='+e.id+'>'+e.name+'</option>')
                 })
             })
         },
@@ -107,6 +124,55 @@ var delegationManagement = {
                 var checks = result.data;
                 checks.forEach(function(e) {
                     $("#delegationType").append('<option value='+e.id+'>'+e.name+'</option>')
+                })
+            })
+            $("#clazz").empty();
+            $("#clazz").append('<option></option>');
+            $.get(home.urls.clazz.getAll(),{},function(result) {
+                var checks = result.data;
+                checks.forEach(function(e) {
+                    $("#clazz").append('<option value='+e.id+'>'+e.name+'</option>')
+                })
+            })
+            $("#operator").empty();
+            $("#operator").append('<option></option>');
+            $.get(home.urls.user.getByTeam(),{teamId : 1},function(result) {
+                var checks = result.data;
+                checks.forEach(function(e) {
+                    $("#operator").append('<option value='+e.id+'>'+e.name+'</option>')
+                })
+            })
+            $("#team").empty();
+            $("#team").append('<option></option>');
+            $.get(home.urls.team.getById(),{id : 1},function(result) {
+                var checks = result.data;
+                $("#team").append('<option value='+checks.id+'>'+checks.name+'</option>')
+            })
+        }
+        /**渲染单选框 */
+        ,renderSingleBox : function(){
+            $("#commission").empty();
+            $.get(home.urls.delegationInfo.findAll(),{},function(result){
+                var checks = result.data;
+                checks.forEach(function(e){
+                    $("#commission").append("<input type='radio'  name='commi' id='com-"+(e.id)+"'>"+e.name)
+                })
+            })
+            $("#method").empty();
+            $.get(home.urls.testMethodInfo.findAll(),{},function(result){
+                var checks = result.data;
+                checks.forEach(function(e){
+                    $("#method").append("<input type='radio' name='met'  id='test-"+(e.id)+"'>"+e.name)
+                })
+            })
+        }
+        /**渲染复选框 */
+        ,renderCheckBox : function(){    
+            $("#sample").empty();
+            $.get(home.urls.sample.getAllByPage(),{},function(result){
+                var checks = result.data.content;
+                checks.forEach(function(e){
+                    $("#sample").append("<input type='checkbox' id='check-"+(e.id)+"'>"+e.name)
                 })
             })
         }

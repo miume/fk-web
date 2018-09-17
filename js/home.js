@@ -149,6 +149,9 @@ var home = {
             },
             updateEnableById : function() {
                 return servers.backup() + "user/updateEnableById" ;
+            },
+            getByTeam : function(){
+                return servers.backup() + "user/getByTeam"
             }
         }
         ,navigations : {
@@ -841,6 +844,32 @@ var home = {
             findAll : function(){
                 return servers.backup() + "testMethodInfo/findAll"
             }
+        }
+        ,team : {
+            add : function(){
+                return servers.backup() + "team/add"
+            },
+            deleteById : function(){
+                return servers.backup() + "team/deleteById"
+            },
+            deleteByIds : function(){
+                return servers.backup() + "team/deleteByIds"
+            },
+            getAll : function(){
+                return servers.backup() + "team/getAll"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "team/getAllByPage"
+            },
+            getById : function(){
+                return servers.backup() + "team/getById"
+            },
+            getByNameLikeByPage : function(){
+                return servers.backup() + "team/getByNameLikeByPage"
+            },
+            update : function(){
+                return servers.backup() + "team/update"
+            },
         }
     }
    
