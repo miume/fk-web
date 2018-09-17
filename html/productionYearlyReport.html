@@ -1,0 +1,76 @@
+<div class="display-component-container">
+    <style>
+        #yearlyReportTable thead td {
+            padding: 3px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <span style="font-size:20px;">选矿生产年报表</span>&nbsp;&nbsp;&nbsp;
+            日期范围：<input type="text" id="startYear" placeholder="请选择日期" />&nbsp;&nbsp;
+            至&nbsp;&nbsp;<input type="text" id="endYear" placeholder="请选择结束日期" />&nbsp;&nbsp;
+            班组：<select id="clazz" style="height:23px;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="yearlyReportTable">
+        <thead>
+             <tr>
+                <td rowspan="3">日期</td>
+                <td rowspan="3">班组</td>
+                <td colspan="8">原矿</td>
+                <td colspan="3">精矿金属(吨)</td>
+                <td colspan="2">精矿品味%</td>
+                <td colspan="3">精矿金属回收率%</td>
+                <td rowspan="3">总铅回收率%</td>
+                <td rowspan="3">总锌回收率%</td>
+                <td rowspan="3">铅+锌回收率%</td>
+            </tr>
+             <tr>
+                <td rowspan="2">处理量(吨)</td>
+                <td colspan="4">品味%</td>
+                <td colspan="3">金属量(吨)</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">铅+锌</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">高硫</td>
+            </tr>
+            <tr>
+                <td>铅</td>
+                <td>锌</td>
+                <td>铅+锌</td>
+                <td>硫</td>
+                <td>铅</td>
+                <td>锌</td>
+                <td>硫</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="text_center" id="productionYearlyReport_page"></div>
+    <script src="selfjs/productionYearlyReport.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            productionYearlyReport.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#startYear",
+                    type : "year"
+                });
+                laydate.render({
+                    elem : "#endYear",
+                    type : "year"
+                });
+            })
+        })
+    </script>
+</div>

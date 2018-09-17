@@ -1,0 +1,69 @@
+<div class="display-component-container">
+    <style>
+        #dailyReportTable thead td {
+            padding: 3px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <span style="font-size:20px;">选矿生产现场日报表</span>&nbsp;&nbsp;&nbsp;
+            日期：<input type="text" id="date" placeholder="请选择日期" />&nbsp;&nbsp;&nbsp;
+            <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="exportTable"><a href="#" id="downloadA"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="dailyReportTable">
+        <thead>
+            <tr>
+                <td rowspan="3">日期</td>
+                <td rowspan="3">班次</td>
+                <td rowspan="3">班组</td>
+                <td colspan="3">原矿</td>
+                <td colspan="4">精矿</td>
+                <td rowspan="3">总铅回收率%</td>
+                <td rowspan="3">总锌回收率%</td>
+                <td rowspan="3">铅锌综合回收率%</td>
+                <td rowspan="2" colspan="2">高铁硫精矿</td>
+            </tr>
+            <tr>
+                <td rowspan="2">原矿处理量</td>
+                <td colspan="2">品味%</td>
+                <td colspan="2">品味%</td>
+                <td colspan="2">回收率%</td>
+            </tr>
+            <tr>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>单铅</td>
+                <td>单锌</td>
+                <td>单铅</td>
+                <td>单锌</td>
+                <td>品味%</td>
+                <td>回收率%</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="onsiteDailyReport_page"></div>
+    <script>
+        $(function() {
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date"
+                })
+            })
+        })
+    </script>
+    <script src="selfjs/onsiteDailyReport.js"></script>
+    <script>
+        $(function() {
+            onsiteDailyReport.init();
+        }) 
+    </script>
+</div> 

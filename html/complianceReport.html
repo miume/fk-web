@@ -1,0 +1,139 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <span style="font-size: 20px">达标明细报表</span>&nbsp;&nbsp;&nbsp;
+            日期：<input type="text" id="startDate" placeholder="请选择起始日期" />&nbsp;&nbsp;
+            <select id="startClazz" style="height:23px;"></select>&nbsp;&nbsp;
+            至&nbsp;<input type="text" id="endDate" placeholder="请选择结束日期" />&nbsp;&nbsp;
+            <select id="endClazz" style="height:23px;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="fr">
+            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="criteria"><a href="#"><i class="layui-icon">&#xe63c;</i> 考核标准设置</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <table>
+
+    </table>
+
+    <!--隐藏部分-->
+    <!--考核标准设置-->
+    <div class="hide layerModal" id="criteriaModal">
+        <button id="setTaste">原矿品位设置</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id="addGrade">添加档次</button> 
+        <div class="whitespace"></div>
+        <table id="criteriaTable">
+            <thead>
+                <tr>
+                    <td>原矿品位%（Pb+Zn）</td>
+                    <td>档次</td>
+                    <td>铅精品味%</td>
+                    <td>锌精品味%</td>
+                    <td>单锌回收率%</td>
+                    <td>（Pb+Zn）综合回收率%</td>
+                    <td>Pb综合回收率%</td>
+                    <td>Zn综合回收率%</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--原矿品味设置-->
+    <div class="hide layerModal" id="setTasteModal">
+        <table id="setTasteTable">
+            <thead>
+                <tr>
+                    <td>原矿品味</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" value=">=12" /></td>
+                    <td><a href="#" class="delete"><i class="layui-icon">&#x1006;</i></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="whitespace"></div>
+        <div id="addLine" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+            <button onClick="addLine()"
+                style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+            </button>
+        </div>
+    </div>
+
+    <!--添加档次-->
+    <div class="hide layerModal" id="addGradeModal">
+        <table id="addGradeTable">
+            <tbody>
+                <tr>
+                    <td class="grey">原矿品味</td>
+                    <td colspan="2"><select></select></td>
+                </tr>
+                <tr>
+                    <td class="grey">档次名称</td>
+                    <td colspan="2"><input type="text" placeholder="请输入档次名称" /></td>
+                </tr>
+                <tr>
+                    <td class="grey">铅精品味</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+                 <tr>
+                    <td class="grey">锌精品味</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+                 <tr>
+                    <td class="grey">单锌回收率</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+                <tr>
+                    <td class="grey">（Pb+Zn）综合回收率</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+                <tr>
+                    <td class="grey">Pb综合回收率</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+                <tr>
+                    <td class="grey">Zn综合回收率</td>
+                    <td><select id="symbol"></select></td>
+                    <td><input type="text" placeholder="请输入" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="selfjs/complianceReport.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            complianceReport.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#startDate",
+                });
+                laydate.render({
+                    elem : "#endDate",
+                });
+            })
+        })
+        function addLine() {
+            var $tbody = $("#setTasteTable").children("tbody");
+            $tbody.append(
+                "<tr>" +
+                "<td><input type='text' placeholder = '请填写原矿品味类型' value='' /></td>" +
+                "<td><a href='#' class='delete'><i class='layui-icon'>&#x1006;</i></a></td>" +
+                "</tr>"
+            )
+            complianceReport.funcs.bindDeleteLinesEvent($(".delete"));
+        }
+    </script>
+</div>
