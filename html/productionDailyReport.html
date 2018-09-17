@@ -1,0 +1,77 @@
+<div class="display-component-container">
+    <style>
+        #dailyReportTable thead td {
+            padding: 3px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <span style="font-size:20px;">选矿生产日报表</span>&nbsp;&nbsp;&nbsp;
+            日期：<input type="text" id="date" placeholder="请选择日期" />&nbsp;&nbsp;&nbsp;
+            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="dailyReportTable">
+        <thead>
+            <tr>
+                <td rowspan="3">班次</td>
+                <td rowspan="3">班组</td>
+                <td colspan="7">原矿</td>
+                <td colspan="3">精矿金属(吨)</td>
+                <td>高铁硫精矿</td>
+                <td colspan="3">精矿品味%</td>
+                <td colspan="3">精矿金属回收率%</td>
+                <td rowspan="3">总铅回收率%</td>
+                <td rowspan="3">总锌回收率%</td>
+                <td rowspan="3">铅+锌回收率%</td>
+            </tr>
+            <tr>
+                <td rowspan="2">重量(吨)</td>
+                <td colspan="3">品味%</td>
+                <td colspan="3">金属量(吨)</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">铅+锌</td>
+                <td rowspan="2">折含35%硫精重量(吨)</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">高硫</td>
+                <td rowspan="2">单铅</td>
+                <td rowspan="2">单锌</td>
+                <td rowspan="2">高硫</td>
+            </tr>
+            <tr>
+                <td>铅</td>
+                <td>铅+锌</td>
+                <td>锌</td>
+                <td>铅</td>
+                <td>锌</td>
+                <td>硫</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="productDailyReport_page"></div>
+    <script>
+        $(function() {
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date"
+                })
+            })
+        })
+    </script>
+    <script src="selfjs/productDailyReport.js"></script>
+    <script>
+        $(function() {
+            productDailyReport.init();
+        }) 
+    </script>
+</div>
