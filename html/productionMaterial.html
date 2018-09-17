@@ -28,7 +28,7 @@
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查找</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="downloadButton"><a href="#"><i class="layui-icon">&#xe601;</i>导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="graphButton"><a href="#"><i class="layui-icon">&#xe60d;</i>图表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                
             </p>
         </div>
     </div>
@@ -41,7 +41,6 @@
                 <td rowspan="2" >班次</td>
                 <td rowspan="2">班组</td>
                 <td id="dynNum" colspan="">实际用量（t）</td>
-                <td id="dynConsume" colspan="">实际单耗（kg/t）</td>
             </tr>
             <tr id="dynamicAdd">
 
@@ -52,6 +51,45 @@
         </thead>
     </table>
     </div>
+
+    <div style="overflow-x: scroll;width:100%;height:70%" id="DayTable" class="hide">
+        <table>
+            <thead>
+                <tr>
+                    <td id="dayNum" colspan="">实际用量（t）</td>
+                    <td id="dayConsume" colspan="">实际单耗（kg/t）</td>
+                </tr>
+                <tr id="dayAdd">
+    
+                </tr>
+                <tbody id="dayTbody">
+    
+                </tbody>
+            </thead>
+        </table>
+    </div>
+
+    <div style="overflow-x: scroll;width:100%;height:70%" id="yearTable" class="hide">
+        <table>
+            <thead>
+                <tr>
+                    <td id="yearNum" colspan="">实际用量（t）</td>
+                    <td id="yearConsume" colspan="">实际单耗（kg/t）</td>
+                </tr>
+                <tr id="yearAdd">
+    
+                </tr>
+                <tbody id="yearTbody">
+    
+                </tbody>
+            </thead>
+        </table>
+    </div>
+
+    <div  id="parameterChart" style="width:60% ;height:60%;float:left;margin-left: 2%;margin-right: 2%" class="hide">
+
+    </div>
+
     <div id="productPage"></div>
 
     <div id="graphModal" class="hide">
