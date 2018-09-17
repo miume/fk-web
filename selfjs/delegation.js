@@ -61,7 +61,26 @@ var delegationManagement = {
                     offset : ['10%' , '10%'],
                     closeBtn: 0,
                     yes : function(index){
-                        
+                        var vals = []
+                        $('.item:checkbox:checked').each(function(index,item){
+                            vals.push($(this).val());
+                        })
+                        var length = vals.length;
+                        $("#dynResult").attr('colspan',length);
+                        const $tr = $("#dynAdd");
+                        delegationManagement.funcs.renderHead($tr,vals);
+
+                        var samples = []
+                        $('.sample:checkbox:checked').each(function(index,sample){
+                            samples.push($(this).val());
+                        })
+                        var sampleCode = []
+                        $('.sample:checkbox:checked').each(function(index,sample){
+                            sampleCode.push($(this).attr("name"));
+                        })
+                        const $conventionalTbody = $("#conventionalTbody")
+                        delegationManagement.funcs.renderNormal($conventionalTbody,vals,samples,sampleCode)
+                        // console.log(vals,samples,sampleCode)
                     }
                     ,btn2: function (index) {
                         $("#addModal").css("display","none");
@@ -69,6 +88,19 @@ var delegationManagement = {
                     }
                 })
             })
+        }
+        ,/**渲染委托表表头 */
+        renderHead : function($tr,vals){
+            $tr.empty();
+            vals.each(function(e){
+                $tr.append("<td>"+ e +"</td>");
+            })
+        }
+        /**渲染常规委托表 */
+        ,renderNormal :function($conventionalTbody,vals,samples,sampleCode){
+            $conventionalTbody.empty();
+            var i = 1;
+            
         }
         ,renderHandler : function($tbody,delegations,page){
             //清空表格
@@ -172,7 +204,7 @@ var delegationManagement = {
             $.get(home.urls.sample.getAllByPage(),{},function(result){
                 var checks = result.data.content;
                 checks.forEach(function(e){
-                    $("#sample").append("<input type='checkbox' id='check-"+(e.id)+"'>"+e.name)
+                    $("#sample").append("<input class='sample' name='"+e.sampleCode+"' value='"+e.name+"' type='checkbox' id='check-"+(e.id)+"'>"+e.name)
                 })
             })
         }

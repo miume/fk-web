@@ -773,6 +773,16 @@ var home = {
                 return servers.backup() + "ddSmaterialConsumeTeamReport/getByPage"
             },
         }
+        ,ddConsumeDayReport : {
+            getByDate : function(){
+                return servers.backup() + "ddSmaterialConsumeDayReport/getByDate"
+            }
+        }
+        ,ddConsumeYearReport : {
+            getByDate : function(){
+                return servers.backup() + "ddSmaterialConsumeYearReport/getByDate"
+            }
+        }
         ,coefficient : {
             add : function(){
                 return servers.backup() + "coEfficient/add"
