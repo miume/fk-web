@@ -81,11 +81,154 @@ var product = {
             buttons.off("click").on('click',function(){
                 var findValue = $("#tableType").val();
                 if(findValue==1){
+                    $('#parameterChart').removeClass('hide');
+                    $("#DayTable").addClass("hide");
+                    $("#yearTable").addClass("hide");
+                    $("#itemTable").addClass("hide");
+                    var datas = []
                     var items = $("input:checkbox[class=productItem]:checked");
+                    items.each(function(){
+                        datas.push({
+                            name:$(this).attr("name"),
+                            data: [$("#day"+$(this).val()).text(),$("#dayunit"+$(this).val()).text()]
+                        })
+                    })
+                    var name = []
+                    datas.forEach(function(e){
+                        name.push(e.name)
+                    })
+                    var myChart = echarts.init(document.getElementById('parameterChart'));
+                    var ser=[];
+                    items.each(function(){
+                        ser.push({
+                            name : $(this).attr("name"),
+                            data:[$("#day"+$(this).val()).text(),$("#dayunit"+$(this).val()).text()],
+                            type:'bar'
+                        })
+                    })
+                    console.log(ser);
+                    var option = {
+                        title : {
+                            text : '日报表'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ["实际用量（t）","实际单耗（kg/t）"]
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        legend:{
+                            data: name
+                        },
+                        series:ser
+                    };
+                    myChart.setOption(option,notMerge=true);
+                    // 根据窗口大小变动图标  无需刷新
+                    window.onresize = function() {
+                        myChart.resize();
+                    }
                 }else if(findValue==2){
-                    
-                }else if(findValue==3){
+                    $('#parameterChart').removeClass('hide');
+                    $("#DayTable").addClass("hide");
+                    $("#yearTable").addClass("hide");
+                    $("#itemTable").addClass("hide");
+                    var datas = []
+                    var items = $("input:checkbox[class=productItem]:checked")
+                    items.each(function(){
+                        var data = [];
+                        var cla = $("."+$(this).val())
+                        cla.each(function(){
+                            data.push($(this).text())
+                        })
+                        
+                        datas.push({
+                            name:$(this).attr("name"),
+                            data:data,
+                            type:'bar'
+                        })
+                    })
+                    console.log(datas)
 
+                    var xAxis = []
+                    $(".team").each(function(){
+                        xAxis.push($(this).text())
+                    })
+
+                    var name = []
+                    datas.forEach(function(e){
+                        name.push(e.name)
+                    })
+                    var myChart = echarts.init(document.getElementById('parameterChart'));
+                    var option = {
+                        title : {
+                            text : '区间报表'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: xAxis
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        legend:{
+                            data: name
+                        },
+                        series:datas
+                    };
+                    myChart.setOption(option,notMerge=true);
+                    // 根据窗口大小变动图标  无需刷新
+                    window.onresize = function() {
+                        myChart.resize();
+                    }
+                }else if(findValue==3){
+                    $('#parameterChart').removeClass('hide');
+                    $("#DayTable").addClass("hide");
+                    $("#yearTable").addClass("hide");
+                    $("#itemTable").addClass("hide");
+                    var datas = []
+                    var items = $("input:checkbox[class=productItem]:checked");
+                    items.each(function(){
+                        datas.push({
+                            name:$(this).attr("name"),
+                            data: [$("#year"+$(this).val()).text(),$("#yearunit"+$(this).val()).text()]
+                        })
+                    })
+                    var name = []
+                    datas.forEach(function(e){
+                        name.push(e.name)
+                    })
+                    var myChart = echarts.init(document.getElementById('parameterChart'));
+                    var ser=[];
+                    items.each(function(){
+                        ser.push({
+                            name : $(this).attr("name"),
+                            data:[$("#year"+$(this).val()).text(),$("#yearunit"+$(this).val()).text()],
+                            type:'bar'
+                        })
+                    })
+                    console.log(ser);
+                    var option = {
+                        title : {
+                            text : '年报表'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ["实际用量（t）","实际单耗（kg/t）"]
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        legend:{
+                            data: name
+                        },
+                        series:ser
+                    };
+                    myChart.setOption(option,notMerge=true);
+                    // 根据窗口大小变动图标  无需刷新
+                    window.onresize = function() {
+                        myChart.resize();
+                    }
                 }
             })
         }
@@ -126,6 +269,7 @@ var product = {
             buttons.off('click').on('click',function(){
                 var findValue = $("#tableType").val();
                 if(findValue==2){
+                    $('#parameterChart').addClass('hide');
                     $("#DayTable").addClass("hide")
                     $("#yearTable").addClass("hide")
                     $("#itemTable").removeClass("hide")
@@ -155,6 +299,7 @@ var product = {
                         // console.log(teamData);
                     })
                 }else if(findValue==1){
+                    $('#parameterChart').addClass('hide');
                     $("#itemTable").addClass("hide")
                     $("#yearTable").addClass("hide")
                     $("#DayTable").removeClass("hide")
@@ -177,11 +322,12 @@ var product = {
                         const $tbody = $("#dayTbody")
                         var dayData = result.data;
                         var mapDate = product.funcs.getMapDataOther(dayData);
-                        console.log(mapDate)
-                        product.funcs.renderDeatils($tbody,mapDate,key);
+                        // console.log(mapDate)
+                        product.funcs.renderDeatilsDay($tbody,mapDate,key);
                         // console.log(teamData);
                     })
                 }else if(findValue==3){
+                    $('#parameterChart').addClass('hide');
                     $("#itemTable").addClass("hide")
                     $("#DayTable").addClass("hide")
                     $("#yearTable").removeClass("hide")
@@ -204,8 +350,8 @@ var product = {
                         const $tbody = $("#yearTbody")
                         var dayData = result.data;
                         var mapDate = product.funcs.getMapDataOther(dayData);
-                        console.log(mapDate)
-                        product.funcs.renderDeatils($tbody,mapDate,key);
+                        // console.log(mapDate)
+                        product.funcs.renderDeatilsYear($tbody,mapDate,key);
                         // console.log(teamData);
                     })
                 } 
@@ -269,15 +415,64 @@ var product = {
                 );
                 keys.forEach(function(key){
                     $tbody.append(
-                        "<td>"+ (mapData[key]||"") +"</td>"
+                        "<td class="+key+">"+ (mapData[key]||"") +"</td>"
                     );
                 })
                 $tbody.append(
                     "</tr>"
                 );
             })
-
+            var cla = $(".1")
+            cla.each(function(){
+                console.log($(this).text())
+            })
         }
+
+        /**渲染查找页面 */
+        ,renderDeatilsDay : function($tbody,mapDatas,keys){
+            $tbody.empty();
+            mapDatas.forEach(function(mapData){
+                $tbody.append(
+                    "<tr>"
+                );
+                keys.forEach(function(key){
+                    $tbody.append(
+                        "<td id=day"+key+">"+ (mapData[key]||"") +"</td>"
+                    );
+                })
+                $tbody.append(
+                    "</tr>"
+                );
+            })
+            var cla = $(".day1")
+            cla.each(function(){
+                console.log($(this).text())
+            })
+        }
+
+        /**渲染查找页面 */
+        ,renderDeatilsYear : function($tbody,mapDatas,keys){
+            $tbody.empty();
+            mapDatas.forEach(function(mapData){
+                $tbody.append(
+                    "<tr>"
+                );
+                keys.forEach(function(key){
+                    $tbody.append(
+                        "<td id=year"+key+">"+ (mapData[key]||"") +"</td>"
+                    );
+                })
+                $tbody.append(
+                    "</tr>"
+                );
+            })
+            var cla = $(".yearunit1")
+            cla.each(function(){
+                console.log($(this).text())
+            })
+        }
+
+
         // map方法使用
         /**将数据渲染成健值对形式 */
         ,getMapData : function(results){
