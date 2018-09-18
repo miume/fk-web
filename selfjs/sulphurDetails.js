@@ -1,6 +1,6 @@
 var sulphurDetails = {
     init : function() {
-        // processDetails.funcs.renderTable();
+        sulphurDetails.funcs.renderTable();
         var out = $("#sulphurDetailPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -9,6 +9,8 @@ var sulphurDetails = {
         },30);
     }
     ,funcs : {
-
+        renderTable : function() {
+            /**渲染表头,获取所有数据 */
+        }
     }
 };

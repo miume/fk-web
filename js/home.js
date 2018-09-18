@@ -881,6 +881,14 @@ var home = {
                 return servers.backup() + "team/update"
             },
         }
+        ,processDetails : {
+            search : function(){
+                return servers.backup() + "technicClazzReport/search"
+            },
+            export : function(){
+                return servers.backup() + "technicClazzReport/export"
+            },
+        }
     }
    
     /** start */
