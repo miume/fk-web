@@ -3,21 +3,24 @@ var upValues = 0;
 var downValues = 0;
 var curveAnalysis = {
     init: function() {
-        curveAnalysis.funcs.renderLeftOption();
+        curveAnalysis.funcs.renderTable();
     }
     ,tableName : ""
     ,funcs: {
         /**渲染初始页面*/
         renderTable : function() {
+            $('#parameterChart').removeClass('hide');
+            $('#analysisDiv').removeClass('hide');
+            /**获取左边菜单项*/
             $.get(home.urls.group.getAll(),{},function(result) {
-                var groups = result.data[0];
-                console.log(groups);
-                var id = groups.id;
-                $('#parameterChart').removeClass('hide');
-                $('#analysisDiv').removeClass('hide');
+                var groups = result.data;
+                var id = groups[0].id;
+                curveAnalysis.tableName = groups[0].tableName;
+                const $piTbody =  $("#processItemTbody");
+                curveAnalysis.funcs.renderLeftOption($piTbody,groups);
                 $('#group-'+id).addClass('selected_Item').css('color','#ffffff');
                 $('#group-'+id).addClass('selected_BgItem').css('background','rgb(112,118,139)');
-                // const $tbody = $("#processItemTbody");
+                /**获取第一个下拉框*/
                 $.get(home.urls.parameter.getByGroup(),{
                     groupId:id
                 },function(result) {
@@ -38,7 +41,7 @@ var curveAnalysis = {
                     var preDate = day.Format("yyyy-MM-dd")+' ' + preHour + ':' + min + ":" + second;
                     $("#beginDate").val(preDate);
                     $("#endDate").val(nowDate);
-                    $("#parameterGroup").append('<option>'+ firstParameterName +'</option>');
+                    $("#parameterGroup").append('<option value='+firstParameterId+'>'+ firstParameterName +'</option>');
                     $.get(home.urls.parameterData.getByTableNameAndDate(),{
                         tableName : firstTableName,
                         startDate : preDate,
@@ -53,30 +56,24 @@ var curveAnalysis = {
                         //  渲染右边分析参数部分
                         curveAnalysis.funcs.renderRightOption(firstParameterId,times,values);
                     })
-                })
-
-            })
+                    /**绑定选中事件 */
+                    var setGroups = $(".setGroup");
+                    curveAnalysis.funcs.renderDropData(setGroups);
+                });
+            });
+            /**绑定开始分析事件 */
+            curveAnalysis.funcs.bindAnalysisEvents($("#analyButton"));
         }
         /**渲染左边菜单*/
-        ,renderLeftOption : function() {
-            $.get(home.urls.group.getAll(),{},function(result) {
-                var groups = result.data;
-                const $tbody = $("#processItemTbody");
-                $tbody.empty();
-                groups.forEach(function(e) {
-                    $tbody.append(
-                        "<tr>"+
-                        "<td id='group-"+e.id+"' class='setGroup'>"+e.name+"</td>"+
-                        "</tr>"
-                    )
-                });
-                var setGroups = $('.setGroup');
-                curveAnalysis.funcs.renderDropData(setGroups); // 选中事件
-                /**绑定开始分析事件 */
-                curveAnalysis.funcs.bindAnalysisEvents($("#analyButton"));
-                /**渲染初始页面 */
-                curveAnalysis.funcs.renderTable();
-            })
+        ,renderLeftOption : function($piTbody,groups) {
+            $piTbody.empty();
+            groups.forEach(function(e) {
+                $piTbody.append(
+                    "<tr>"+
+                    "<td id='group-"+e.id+"' class='setGroup'>"+e.name+"</td>"+
+                    "</tr>"
+                )
+            });
         }
         /**绑定开始分析事件 */
         ,bindAnalysisEvents : function(buttons) {
@@ -91,10 +88,6 @@ var curveAnalysis = {
                     startDate : startDate,
                     endDate : endDate,
                     parameterId : parameterId
-                    // tableName : "parameter_data1",
-                    // startDate : "2018-09-04",
-                    // endDate : "2018-09-08",
-                    // parameterId : 8
                 },function(result) {
                     var parameterDatas = result.data;
                     //  渲染右边分析参数部分
