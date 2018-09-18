@@ -32,9 +32,9 @@ var curveAnalysis = {
                     var nowDate = new Date().Format("yyyy-MM-dd hh:mm:ss");
                     var day = new Date();
                     var hour = day.getHours() - 2;
-                    var preHour = hour>10 ? hour : '0'+hour ;
-                    var min = day.getMinutes()>10 ? day.getMinutes() : '0'+day.getMinutes() ;
-                    var second = day.getSeconds()>10 ? day.getSeconds() : '0'+day.getSeconds() ;
+                    var preHour = hour>9 ? hour : '0'+hour ;
+                    var min = day.getMinutes()>9 ? day.getMinutes() : '0'+day.getMinutes() ;
+                    var second = day.getSeconds()>9 ? day.getSeconds() : '0'+day.getSeconds() ;
                     var preDate = day.Format("yyyy-MM-dd")+' ' + preHour + ':' + min + ":" + second;
                     $("#beginDate").val(preDate);
                     $("#endDate").val(nowDate);

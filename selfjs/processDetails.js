@@ -1,6 +1,6 @@
 var processDetails = {
     init : function() {
-        // processDetails.funcs.renderTable();
+        processDetails.funcs.renderTable();
         var out = $("#processDetailPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -9,6 +9,9 @@ var processDetails = {
         },30);
     }
     ,funcs : {
+        renderTable : function() {
+            /**渲染表头,获取所有数据 */
 
+        }
     }
 };
