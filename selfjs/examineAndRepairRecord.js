@@ -1,5 +1,8 @@
 var record = {
-    init: function() {
+     aaa : function() {
+         return 0;
+     }
+    ,init: function() {
         /**获取部门信息分页显示 */
         record.funcs.renderTable();
         record.funcs.renderSelector();
@@ -38,6 +41,8 @@ var record = {
                 startDay="0"+startDay;
             }
             var startTime = startYear+'-'+startMonth+'-'+startDay;
+            $("#startTime").val(startTime);
+            $("#endTime").val(endTime);
             $.get(home.urls.checkRecord.getByEquipmentAndDate(),{
                 startDate : startTime,
                 endDate : endTime
@@ -275,7 +280,7 @@ var record = {
             buttons.off('click').on('click',function() {
  
                     var id = $(this).attr('id').substr(5)
-                    console.log(id);
+                    //console.log(id);
                     // 查询当前记录下的所有信息
                     $.get(home.urls.checkRecord.getById(),{id : id},function(result){
                         var record = result.data
@@ -333,9 +338,10 @@ var record = {
                                     "remarks" : backNote
                                 },function(result) {
                                     if (result.code === 0) {
+                                        record.aaa();
                                         var time = setTimeout(function () {
-                                        record.init()
-                                        clearTimeout(time)
+                                            record.init();
+                                            clearTimeout(time)
                                         }, 500)
                                     }
                                     layer.msg(result.message, {

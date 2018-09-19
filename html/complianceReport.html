@@ -1,4 +1,11 @@
 <div class="display-component-container">
+    <style>
+        #complianceTable thead td {
+            padding: 3px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <span style="font-size: 20px">达标明细报表</span>&nbsp;&nbsp;&nbsp;
@@ -13,8 +20,64 @@
             <span id="criteria"><a href="#"><i class="layui-icon">&#xe63c;</i> 考核标准设置</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
-    <table>
+    <div class="whitespace"></div>
+    <table id="complianceTable">
+        <thead>
+            <tr>
+                <td rowspan="3">原矿品位%(Pb+Zn)</td>
+                <td rowspan="3">档次</td>
+                <td rowspan="3">序号</td>
+                <td rowspan="3">日期</td>
+                <td rowspan="3">班次</td>
+                <td rowspan="3">操作员</td>
+                <td colspan="4">原矿</td>
+                <td colspan="5">高铅精矿</td>
+                <td colspan="5">高锌精矿</td>
+                <td colspan="5">尾矿</td>
+                <td colspan="2">综合回收</td>
+                <td>铅锌综合回收</td>
+            </tr>
+            <tr>
+                <td>重量</td>
+                <td colspan="3">品位%</td>
+                <td>产率</td>
+                <td colspan="2">品位%</td>
+                <td colspan="2">回收率%</td>
+                <td>产率</td>
+                <td colspan="2">品位%</td>
+                <td colspan="2">回收率%</td>
+                <td>产率</td>
+                <td colspan="2">品位%</td>
+                <td colspan="5">回收率%</td>
+            </tr>
+            <tr>
+                <td>(吨)</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>Pb+Zn</td>
+                <td>%</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>%</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>%</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td>Pb</td>
+                <td>Zn</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
 
+        </tbody>
     </table>
 
     <!--隐藏部分-->

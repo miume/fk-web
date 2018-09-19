@@ -1,6 +1,11 @@
 <div class="display-component-container">
     <style>
-        #dailyReportTable thead td {
+        #oreTable thead td {
+            padding: 3px;
+            font-size: 14px;
+            height: 30px;
+        }
+        #sulfurTable thead td {
             padding: 3px;
             font-size: 14px;
             height: 30px;
@@ -15,41 +20,71 @@
         </div>
     </div>
     <div class="whitespace"></div>
-    <table id="dailyReportTable">
-        <thead>
-            <tr>
-                <td rowspan="3">日期</td>
-                <td rowspan="3">班次</td>
-                <td rowspan="3">班组</td>
-                <td colspan="3">原矿</td>
-                <td colspan="4">精矿</td>
-                <td rowspan="3">总铅回收率%</td>
-                <td rowspan="3">总锌回收率%</td>
-                <td rowspan="3">铅锌综合回收率%</td>
-                <td rowspan="2" colspan="2">高铁硫精矿</td>
-            </tr>
-            <tr>
-                <td rowspan="2">原矿处理量</td>
-                <td colspan="2">品味%</td>
-                <td colspan="2">品味%</td>
-                <td colspan="2">回收率%</td>
-            </tr>
-            <tr>
-                <td>Pb</td>
-                <td>Zn</td>
-                <td>单铅</td>
-                <td>单锌</td>
-                <td>单铅</td>
-                <td>单锌</td>
-                <td>品味%</td>
-                <td>回收率%</td>
-            </tr>
-        </thead>
-        <tbody>
+    <!--选项卡-->
+    <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+            <li class="layui-this" id="oreHead">选矿</li>
+            <li id="sulfurHead">选硫</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table id="oreTable">
+                <thead>
+                    <tr>
+                        <td rowspan="3">日期</td>
+                        <td rowspan="3">班次</td>
+                        <td rowspan="3">班组</td>
+                        <td colspan="3">原矿</td>
+                        <td colspan="4">精矿</td>
+                        <td rowspan="3">总铅回收率%</td>
+                        <td rowspan="3">总锌回收率%</td>
+                        <td rowspan="3">铅锌综合回收率%</td>
+                   </tr>
+                   <tr>
+                       <td rowspan="2">原矿处理量</td>
+                       <td colspan="2">品味%</td>
+                       <td colspan="2">品味%</td>
+                       <td colspan="2">回收率%</td>
+                  </tr>
+                  <tr>
+                      <td>Pb</td>
+                      <td>Zn</td>
+                      <td>单铅</td>
+                      <td>单锌</td>
+                      <td>单铅</td>
+                      <td>单锌</td>
+                 </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="text_center" id="ore_page"></div>
+            </div>
+            <div class="layui-tab-item">
+                <table id="sulfurTable">
+                    <thead>
+                        <tr>
+                            <td rowspan="2">日期</td>
+                            <td rowspan="2">班次</td>
+                            <td rowspan="2">班组</td>
+                            <td colspan="2">高铁硫精矿</td>
+                        </tr>
+                        <tr>
+                            <td>品味%</td>
+                            <td>回收率%</td>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-        </tbody>
-    </table>
-    <div class="text_center" id="onsiteDailyReport_page"></div>
+                    </tbody>
+                </table>
+                <div class="text_center" id="sulfur_page"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    
     <script>
         $(function() {
             layui.use("laydate",function() {

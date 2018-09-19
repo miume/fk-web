@@ -9,7 +9,7 @@ accountRecording = {
         $.get(home.urls.dispatchAccount.getAllSchedule(),{}, function(result) {
             var cycle = result.data;
             $("#scheduleId").empty();
-            $("#scheduleId").html("<option value='-1'>请选择班次</option>");
+            $("#scheduleId").html("<option value='-1'>所有班次</option>");
             cycle.forEach(function(e) {
                 $("#scheduleId").append("<option value="+ (e.id) + ">"+ (e.name) +"</option>");
             })

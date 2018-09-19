@@ -1,0 +1,46 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;&nbsp;
+                <span id="deleteButton"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+       </div>
+       <div class="fr">
+            <p>
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;&nbsp;&nbsp;
+                <input type="text" id="teamName" placeholder="请输入班组名称" />&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+       </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="teamTable">
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="checkboxAll" /></td>
+                <td>序号</td>
+                <td>班组</td>
+                <td>部门</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="teamPage"></div>
+    
+    <!--隐藏部分-->
+    <div class="hide hideModal" id="layerModal">
+        <p>班组：<input type="text" id="team" placeholder="请输入班组" /></p>
+        <p>部门：<select id="department" style="width:172px;"></select></p>
+    </div>
+    <script src="selfjs/team.js"></script>
+    <script>
+        $(function() {
+            team.init();
+        })
+    </script>
+</div>

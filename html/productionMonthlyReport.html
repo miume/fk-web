@@ -10,10 +10,10 @@
         <div class="fl">
             <span style="font-size:20px;">选矿生产月报表</span>&nbsp;&nbsp;&nbsp;
             日期：<input type="text" id="startDate" placeholder="请选择起始日期" />&nbsp;&nbsp;
-            <select id="startClazz" style="height:23px;"></select>&nbsp;&nbsp;
+            <!-- <select id="startClazz" style="height:23px;"></select>&nbsp;&nbsp;
             至&nbsp;&nbsp;<input type="text" id="endDate" placeholder="请选择结束日期" />&nbsp;&nbsp;
-            <select id="endClazz" style="height:23px;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="endClazz" style="height:23px;"></select>&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
@@ -65,7 +65,8 @@
             layui.use("laydate",function() {
                 var laydate = layui.laydate;
                 laydate.render({
-                    elem : "#startDate"
+                    elem : "#startDate",
+                    type : "month"
                 })
                 laydate.render({
                     elem : "#endDate"
