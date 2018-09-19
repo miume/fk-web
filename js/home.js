@@ -887,6 +887,41 @@ var home = {
             },
             export : function(){
                 return servers.backup() + "technicClazzReport/export"
+            }
+        }
+        ,siteTeamReport : {
+            searchOre : function(){
+                return servers.backup() + "siteTeamReport/searchOre"
+            },
+            searchSulfur : function(){
+                return servers.backup() + "siteTeamReport/searchSulfur"
+            },
+            export : function(){
+                return servers.backup() + "siteTeamReport/export"
+            },
+        }
+        ,productionDayReport : {
+            searchOre : function(){
+                return servers.backup() + "productionDayReport/searchOre"
+            },
+            export : function(){
+                return servers.backup() + "productionDayReport/export"
+            },
+        }
+        ,productionMonthReport : {
+            searchOre : function(){
+                return servers.backup() + "productionMonthReport/searchOre"
+            },
+            export : function(){
+                return servers.backup() + "productionMonthReport/export"
+            },
+        }
+        ,productionYearReport : {
+            searchOre : function(){
+                return servers.backup() + "productionYearReport/searchOre"
+            },
+            export : function(){
+                return servers.backup() + "productionYearReport/export"
             },
         }
     }

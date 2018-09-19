@@ -18,7 +18,7 @@ html, body, parent {
     position: absolute;
     top: 60px;
     left: 0;
-    width: 120px;
+    width: 125px;
     height: 100%;
     font-weight: 400;
     background: #2b2e36;
@@ -28,7 +28,7 @@ html, body, parent {
     position: absolute;
     overflow-x: auto;
     overflow-y: auto;
-    left: 120px;
+    left: 125px;
     right: 0;
     top: 60px;
     height: 100%;
@@ -55,7 +55,7 @@ html, body, parent {
 
 .menus1 {
     position: absolute;
-    width: 120px;
+    width: 125px;
     bottom: 0;
     right: 0;
     top: 0px;
@@ -114,7 +114,7 @@ ul {
 .menus1 div {
     color: #fff;
     text-align: center;
-    line-height: 40px;
+    line-height:37px;
     font-weight: 400;
 }
 .menus1 .menu3-tab-bar{
@@ -215,7 +215,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 .chosenMenu2 a {
-    margin-left:20px;
+    margin-left:10px;
     color: #3dc1f8 !important;
     font-weight: 400;
 }
