@@ -228,7 +228,7 @@ var materialConsumptionItem = {
                    "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
                    "</tr>"
                 )
-            })
+            });
             var checkedBoxLength = $(".materialItem-checkBox:checked").length;
             home.funcs.bindselectAll($("#materialItem-checkBoxAll"), $(".materialItem-checkbox"), checkedBoxLength, $("#materialConsumptionItemTable"));
             /**绑定编辑操作名称事件 */

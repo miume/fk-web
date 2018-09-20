@@ -240,7 +240,7 @@ var materialManagement = {
             buttons.off('click').on('click',function() {
                 var beginDates = $('#beginDate').val();
                 var endDates = $('#endDate').val();
-                if(beginDates === "" && endDates === ""){
+                if(beginDates === "" || endDates === ""){
                     layer.msg('日期选择不能为空！');
                     return
                 }
