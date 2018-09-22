@@ -72,15 +72,15 @@ var processDetails = {
                 var endDate = $("#endDate").val();
                 var endClazzId = $("#endTeam").val();
                 var operatorId = $("#optName").val();
-                if(operatorId === ""){
+                if(operatorId === undefined ||operatorId === ""||operatorId === null){
                     operatorId = -1;
                 }
                 var teamId = $("#team").val();
-                if(teamId === ""){
+                if(teamId === undefined ||teamId === ""||teamId === null){
                     teamId = -1;
                 }
                 var clazzId = $("#clazzId").val();
-                if(clazzId === ""){
+                if(clazzId === undefined ||clazzId === ""||clazzId === null){
                     clazzId = -1;
                 }
                 if(startDate === "" || endDate === "" || startClazzId === "" || endClazzId === ""){
@@ -145,15 +145,15 @@ var processDetails = {
                 var endDate = $("#endDate").val();
                 var endClazzId = $("#endTeam").val();
                 var operatorId = $("#optName").val();
-                if(operatorId === null){
+                if(operatorId === undefined ||operatorId === ""||operatorId === null){
                     operatorId = -1;
                 }
                 var teamId = $("#team").val();
-                if(teamId === ""){
+                if(teamId === undefined ||teamId === ""||teamId === null){
                     teamId = -1;
                 }
                 var clazzId = $("#clazzId").val();
-                if(clazzId === ""){
+                if(clazzId === undefined ||clazzId === ""||clazzId === null){
                     clazzId = -1;
                 }
                 if(startDate === "" || endDate === "" || startClazzId === "" || endClazzId === ""){

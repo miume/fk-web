@@ -948,6 +948,32 @@ var home = {
                 return servers.backup() + "workingCompetitionReport/export"
             }
         }
+        ,operatorCompetitionReport : {
+            search : function(){
+                return servers.backup() + "operatorCompetitionReport/search"
+            },
+            export : function(){
+                return servers.backup() + "operatorCompetitionReport/export"
+            }
+        }
+        ,exceptIndexReport : {
+            search : function(){
+                return servers.backup() + "exceptIndexReport/search"
+            },
+            export : function(){
+                return servers.backup() + "exceptIndexReport/export"
+            }
+        }
+        ,sampleIndexType : {
+            getAll : function(){
+                return servers.backup() + "sampleIndexType/getAll"
+            }
+        }
+        ,sampleIndexSetup : {
+            getAll : function(){
+                return servers.backup() + "sampleIndexSetup/getAll"
+            }
+        }
     }
    
     /** start */

@@ -72,15 +72,15 @@ var sulphurDetails = {
                 var endDate = $("#endDate").val();
                 var endClazzId = $("#endTeam").val();
                 var operatorId = $("#optName").val();
-                if(operatorId === ""){
+                if(operatorId === undefined ||operatorId === ""||operatorId === null){
                     operatorId = -1;
                 }
                 var teamId = $("#team").val();
-                if(teamId === ""){
+                if(teamId === undefined ||teamId === ""||teamId === null){
                     teamId = -1;
                 }
                 var clazzId = $("#clazzId").val();
-                if(clazzId === undefined){
+                if(clazzId === undefined ||clazzId === ""||clazzId === null){
                     clazzId = -1;
                 }
                 if(startDate === "" || endDate === "" || startClazzId === "" || endClazzId === ""){
@@ -145,15 +145,15 @@ var sulphurDetails = {
                 var endDate = $("#endDate").val();
                 var endClazzId = $("#endTeam").val();
                 var operatorId = $("#optName").val();
-                if(operatorId === null){
+                if(operatorId === undefined ||operatorId === ""||operatorId === null){
                     operatorId = -1;
                 }
                 var teamId = $("#team").val();
-                if(teamId === ""){
+                if(teamId === undefined ||teamId === ""||teamId === null){
                     teamId = -1;
                 }
                 var clazzId = $("#clazzId").val();
-                if(clazzId === undefined){
+                if(clazzId === undefined ||clazzId === ""||clazzId === null){
                     clazzId = -1;
                 }
                 if(startDate === "" || endDate === "" || startClazzId === "" || endClazzId === ""){
@@ -205,6 +205,7 @@ var sulphurDetails = {
             $("#endTeam").empty();
             $("#team").empty();
             $("#shift").empty();
+            $("#clazzId").empty();
             // $("#optName").empty();
             //  获取开始班次
             $("#beginTeam").append('<option></option>');
@@ -223,7 +224,7 @@ var sulphurDetails = {
                 })
             });
             //  获取人员班组
-            $("#team").append('<option ></option>');
+            $("#team").append('<option></option>');
             $.get(home.urls.team.getAll(),{},function(result) {
                 var teamTypes = result.data;
                 teamTypes.forEach(function(e) {

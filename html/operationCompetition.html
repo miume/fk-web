@@ -30,13 +30,13 @@
     <!--留白-->
     <div class="whitespace"></div>
     <div style="overflow-x: scroll;width:100%;height:78%" >
-        <table id="operationCompetitionTable" style="width: 120%;">
+        <table id="operationCompetitionTable" style="width: 100%;">
             <thead>
             <tr>
-                <td rowspan="4" style="width: 3%">班组</td>
-                <td rowspan="4" style="width: 3%">姓名</td>
-                <td rowspan="4">班数（个）>=12</td>
-                <td rowspan="2">原矿处理量</td>
+                <td rowspan="4" style="width: 5%">班组</td>
+                <td rowspan="4" style="width: 4%">姓名</td>
+                <td rowspan="4" style="width: 8%">班数（个）>=12</td>
+                <td rowspan="2" style="width: 7%">原矿处理量</td>
                 <td colspan="3">铅精矿</td>
                 <td colspan="3">锌精矿</td>
                 <td colspan="2">考核指标</td>
@@ -45,12 +45,12 @@
             <tr>
                 <td>金属量</td>
                 <td>品位</td>
-                <td style="width: 4%">回收率</td>
+                <td style="width: 5%">回收率</td>
                 <td>金属量</td>
                 <td>品位</td>
-                <td style="width: 4%">回收率</td>
-                <td rowspan="3">质量效率（%）</td>
-                <td rowspan="3">综合效率（%）</td>
+                <td style="width: 5%">回收率</td>
+                <td rowspan="3" >质量效率（%）</td>
+                <td rowspan="3" >综合效率（%）</td>
 
             </tr>
             <tr>
@@ -73,16 +73,16 @@
                 <td>锌</td>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="operationCompetitionTbody">
 
             </tbody>
         </table>
-        <div id="operationCompetitionPage"></div>
+        <!--<div id="operationCompetitionPage"></div>-->
     </div>
     <script src="selfjs/operationCompetition.js"></script>
     <script type="application/javascript">
         $(function() {
-            laborCompetition.init();
+            operationCompetition.init();
         })
     </script>
     <script type="application/javascript">

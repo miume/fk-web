@@ -37,8 +37,48 @@
                 <td>指标值</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="abnormalIndexTbody">
 
         </tbody>
     </table>
+    <script src="selfjs/abnormalIndex.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            abnormalIndex.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#beginDate',
+                btns : ['now']
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#endDate',
+                btns : ['now']
+            })
+        })
+    </script>
+    <!--异常指标设置 弹出界面-->
+    <div id="setAbnormalIndex" class="hide">
+        <table id="setAbnormalIndexTable">
+            <thead>
+                <td>标准名字</td>
+                <td>符号</td>
+                <td>值</td>
+                <td>单位</td>
+                <td>操作</td>
+            </thead>
+            <tbody id="setAbnormalIndexTbody">
+
+            </tbody>
+        </table>
+    </div>
 </div>
