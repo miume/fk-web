@@ -924,6 +924,30 @@ var home = {
                 return servers.backup() + "productionYearReport/export"
             },
         }
+        ,pyriteClazzReport : {
+            search : function(){
+                return servers.backup() + "pyriteClazzReport/search"
+            },
+            export : function(){
+                return servers.backup() + "pyriteClazzReport/export"
+            }
+        }
+        ,teamIndexReport : {
+            search : function(){
+                return servers.backup() + "teamIndexReport/search"
+            },
+            export : function(){
+                return servers.backup() + "teamIndexReport/export"
+            }
+        }
+        ,workingCompetitionReport : {
+            search : function(){
+                return servers.backup() + "workingCompetitionReport/search"
+            },
+            export : function(){
+                return servers.backup() + "workingCompetitionReport/export"
+            }
+        }
     }
    
     /** start */

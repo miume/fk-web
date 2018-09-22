@@ -17,6 +17,11 @@ var processDetails = {
             var currentDate = new Date().Format('yyyy-MM-dd');
             /**获取前一个月日期 */
             var preMonthDate = processDetails.funcs.getPreMonth();
+            /**界面显示初值 */
+            $("#beginDate").val(preMonthDate);
+            // $("#beginTeam").append('<option value='+3+'>晚班</option>');
+            $("#endDate").val(currentDate);
+            // $("#endTeam").val("中班");
             /**获取所有数据 */
             $.get(home.urls.processDetails.search(),{
                 startDate : preMonthDate,

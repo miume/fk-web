@@ -18,9 +18,9 @@
                 <select id="beginTeam" style="width:100px;" class="selectStyle"></select>
                 至&nbsp;<input id="endDate" type="text" placeholder="请选择时间" >
                 <select id="endTeam" style="width:100px;" class="selectStyle"></select>
-                操作员：<select id="optName"style="width:100px;" class="selectStyle"></select>
+                班组：<select id="team" style="width:100px;" class="selectStyle" onchange="sulphurDetails.funcs.renderOptName()"></select>
                 班次：<select id="shift" style="width:100px;" class="selectStyle"></select>
-                班组：<select id="team" style="width:100px;" class="selectStyle"></select>
+                操作员：<select id="optName"style="width:100px;" class="selectStyle"></select>
             </p>
         </div>
         <div class="fr">
@@ -63,7 +63,7 @@
                 <td>品位（%）</td>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="sulphurDetailTbody">
 
             </tbody>
         </table>
