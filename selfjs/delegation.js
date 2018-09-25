@@ -61,26 +61,21 @@ var delegationManagement = {
                     offset : ['10%' , '10%'],
                     closeBtn: 0,
                     yes : function(index){
-                        var vals = []
-                        $('.item:checkbox:checked').each(function(index,item){
-                            vals.push($(this).val());
-                        })
-                        var length = vals.length;
-                        $("#dynResult").attr('colspan',length);
-                        const $tr = $("#dynAdd");
-                        delegationManagement.funcs.renderHead($tr,vals);
-
-                        var samples = []
-                        $('.sample:checkbox:checked').each(function(index,sample){
-                            samples.push($(this).val());
-                        })
-                        var sampleCode = []
-                        $('.sample:checkbox:checked').each(function(index,sample){
-                            sampleCode.push($(this).attr("name"));
-                        })
-                        const $conventionalTbody = $("#conventionalTbody")
-                        delegationManagement.funcs.renderNormal($conventionalTbody,vals,samples,sampleCode)
-                        // console.log(vals,samples,sampleCode)
+                        // 实现json格式传数据
+                        var userStr = $.session.get('user');
+                        var userJson = JSON.parse(userStr);
+                        var data = {
+                            clazz : {id : $("#clazz").val()},
+                            delegationInfo : {id : $("input[name='commi']:checked").attr('id').substr(4)},
+                            delegationOrderDetailFlags : [],
+                            description : $("#remarks").val(),
+                            mineDeal : $("#capacity").val(),
+                            operationDate : $("#operationDate").val(),
+                            operationUser : {id : $("#operator option:selected").val()},
+                            sendToCheckInfo : {id : $("#sampleTypeHide option:selected").val()},
+                            signUser : {id : userJson.id},
+                            testMethodInfo : {id : $("input[name='met']:checked").attr('id').substr(5)}
+                        }
                     }
                     ,btn2: function (index) {
                         $("#addModal").css("display","none");
@@ -140,7 +135,6 @@ var delegationManagement = {
                 })
             })
             $("#sampleTypeHide").empty();
-            $("#sampleTypeHide").append('<option></option>');
             $.get(home.urls.check.getAll(),{},function(result) {
                 var checks = result.data;
                 checks.forEach(function(e) {
