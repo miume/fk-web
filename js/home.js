@@ -974,6 +974,26 @@ var home = {
                 return servers.backup() + "sampleIndexSetup/getAll"
             }
         }
+        ,complianceReport : {
+            search : function(){
+                return servers.backup() + "reachStandardDetailReport/search"
+            },
+            export : function(){
+                return servers.backup() + "reachStandardDetailReport/export"
+            },
+        }
+        /**考核标准 */
+        ,assessmentCriteria : {
+            getAllByPage : function(){
+                return servers.backup() + "rawOreGrade/getAllByPage"
+            },
+            getAll : function(){
+                return servers.backup() + "rawOreGrade/getAll"
+            },
+            export : function(){
+                return servers.backup() + "reachStandardDetailReport/export"
+            },
+        }
     }
    
     /** start */
@@ -1238,7 +1258,7 @@ var home = {
                         page = ele.page;
                     }
                 })
-                var path = "html/" + page + ".html";
+                var path = "html/" + page + ".html"
                 $right.load(path);
             })
         }
