@@ -747,10 +747,8 @@ var home = {
             getAllParams : function() {
                 return servers.backup() + "parameter/getAll";
             } 
-
-           
-
         }
+        
 
 
     }
