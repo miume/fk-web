@@ -1,0 +1,104 @@
+<div class="display-component-container">
+    <style>
+        #bottomDiv {
+            width: 100%;
+        }
+        .quarter {
+            width: 20%;
+            float: left;
+            position: relative;
+            margin-right: 10px;
+        }
+        .turn {
+            width: 4%;
+            float: left;
+            position: relative;
+            margin: 15% 10px 30px;
+        }
+        botton{
+            width: 40px !important;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <div class="layui-input-block">
+                <input type="radio" name="tech" id="section" value="工段" title="工段" checked=""> 工段 &nbsp;&nbsp;
+                <input type="radio" name="tech" id="process" value="工序" title="工序"> 工序
+            </div>
+        </div>
+        <div class="fr">
+                <a href="#" style="margin-right: 100px;" id="save"><i class="layui-icon">&#xe605;</i>保存</a>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <div id="bottomDiv">
+        <div class="quarter">
+            <p class="text_center">工段列表</p>
+            <table id="section">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                        <td>类型</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="quarter">
+            <p class="text_center">计入项</p>
+            <table id="countItem">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                        <td>系数</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="turn">
+            <button class="layui-btn layui-btn-mini"><<</button><br><br>
+            <button class="layui-btn layui-btn-mini">>></button>
+        </div>
+        <div class="quarter">
+            <p class="text_center">设备/线路</p>
+            <table id="equipmentLine">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                        <td>类型</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="turn">
+                <button class="layui-btn layui-btn-mini"><<</button><br><br>
+                <button class="layui-btn layui-btn-mini">>></button>
+            </div>
+        <div class="quarter">
+            <p class="text_center">扣除项</p>
+            <table id="deduction">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                        <td>系数</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

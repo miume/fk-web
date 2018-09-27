@@ -990,9 +990,112 @@ var home = {
             getAll : function(){
                 return servers.backup() + "rawOreGrade/getAll"
             },
-            export : function(){
-                return servers.backup() + "reachStandardDetailReport/export"
+            deleteById : function(){
+                return servers.backup() + "rawOreGrade/deleteById"
             },
+            update : function(){
+                return servers.backup() + "rawOreGrade/update"
+            },
+            add : function(){
+                return servers.backup() + "rawOreGrade/add"
+            },
+            addRawOreGradeLevel : function(){
+                return servers.backup() + "rawOreGradeLevel/add"
+            },
+        }
+        /**工序名称管理 */
+        ,processName : {
+            getAll : function(){
+                return servers.backup() + "energyWorkProcedure/getAll"
+            },
+            deleteById : function(){
+                return servers.backup() + "energyWorkProcedure/deleteById"
+            },
+            update : function(){
+                return servers.backup() + "energyWorkProcedure/update"
+            },
+            getById : function(){
+                return servers.backup() + "energyWorkProcedure/getById"
+            },
+            add : function(){
+                return servers.backup() + "energyWorkProcedure/add"
+            },
+            exportByGet : function(){
+                return servers.backup() + "energyWorkProcedure/exportByGet"
+            },
+            getByCodeLikeAndNameLike : function(){
+                return servers.backup() + "energyWorkProcedure/getByCodeLikeAndNameLike"
+            },
+        }
+         /**工段名称管理 */
+         ,sectionName : {
+            getAll : function(){
+                return servers.backup() + "energySectionInfo/getAll"
+            },
+            getById : function(){
+                return servers.backup() + "energySectionInfo/getById"
+            },
+            deleteById : function(){
+                return servers.backup() + "energySectionInfo/deleteById"
+            },
+            update : function(){
+                return servers.backup() + "energySectionInfo/update"
+            },
+            add : function(){
+                return servers.backup() + "energySectionInfo/add"
+            },
+            exportByGet : function(){
+                return servers.backup() + "energySectionInfo/exportByGet"
+            },
+            getByCodeLikeAndNameLike : function(){
+                return servers.backup() + "energySectionInfo/getByCodeLikeAndNameLike"
+            },
+            getByWorkShopId : function(){
+                return servers.backup() + "energySectionInfo/getByWorkShopId"
+            },
+        }
+        /**获取所有车间 */
+        ,workShopInfo : {
+            getAll : function(){
+                return servers.backup() + "workShopInfo/getAll"
+            },
+        }
+        /**设备线路管理 */
+        ,equipmentLine : {
+            getAll : function(){
+                return servers.backup() + "energyDeviceRoute/getAll"
+            },
+            getById : function(){
+                return servers.backup() + "energyDeviceRoute/getById"
+            },
+            deleteById : function(){
+                return servers.backup() + "energyDeviceRoute/deleteById"
+            },
+            update : function(){
+                return servers.backup() + "energyDeviceRoute/update"
+            },
+            add : function(){
+                return servers.backup() + "energyDeviceRoute/add"
+            },
+            exportByGet : function(){
+                return servers.backup() + "energyDeviceRoute/exportByGet"
+            },
+            getByCodeLikeAndNameLike : function(){
+                return servers.backup() + "energyDeviceRoute/getByCodeLikeAndNameLike"
+            },
+        }
+         /**用电计划管理 */
+         ,electricityP : {
+            getByDateByPage : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/getByDateByPage"
+            },
+            update : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/update"
+            },
+            exportByGet : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/exportByGet"
+            },
+
         }
     }
    

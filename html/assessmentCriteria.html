@@ -56,8 +56,8 @@
                 </tbody>
             </table>
             <div class="whitespace"></div>
-            <div id="addLine" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
-                <button
+            <div style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                <button id="addLine" 
                     style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
                     +
                 </button>
@@ -66,10 +66,10 @@
         <!--原矿品味设置里面的编辑事件-->
         <div class="hide layerModal" id="updateTasteModal">
             <table id="updateTasteTable">
-                <tr>
+                <!-- <tr>
                     <td class="grey">原矿品味</td>
                     <td id="rawName"></td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td class="grey">运算符</td>
                     <td><select id='operate'><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option><option value='4'>~</option></select></td>
@@ -89,42 +89,42 @@
             <table id="addGradeTable">
                 <tbody>
                     <tr>
-                        <td class="grey">原矿品味</td>
+                        <td class="grey">原矿品味%</td>
                         <td colspan="2"><select id="rawTaste"></select></td>
                     </tr>
                     <tr>
-                        <td class="grey">档次名称</td>
-                        <td colspan="2"><input type="text" placeholder="请输入档次名称" /></td>
+                        <td class="grey">档次名称%</td>
+                        <td colspan="2"><input type="text" placeholder="请输入档次名称" id="levelName" /></td>
                     </tr>
                     <tr>
-                        <td class="grey">铅精品味</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">铅精品味%</td>
+                        <td><select id="pbGradeOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbGradeValue" placeholder="请输入数字" /></td>
                     </tr>
                      <tr>
-                        <td class="grey">锌精品味</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">锌精品味%</td>
+                        <td><select id="znGradeOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znGradeValue" placeholder="请输入数字" /></td>
                     </tr>
                      <tr>
-                        <td class="grey">单锌回收率</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">单锌回收率%</td>
+                        <td><select id="znRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znRecoveryValue" placeholder="请输入数字" /></td>
                     </tr>
                     <tr>
-                        <td class="grey">（Pb+Zn）综合回收率</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">（Pb+Zn）综合回收率%</td>
+                        <td><select id="pbZnAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbZnAllRecoveryValue" placeholder="请输入数字" /></td>
                     </tr>
                     <tr>
-                        <td class="grey">Pb综合回收率</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">Pb综合回收率%</td>
+                        <td><select id="pbAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbAllRecoveryValue" placeholder="请输入数字" /></td>
                     </tr>
                     <tr>
-                        <td class="grey">Zn综合回收率</td>
-                        <!-- <td><select id="symbol"></select></td> -->
-                        <td><input type="text" placeholder="请输入数字" /></td>
+                        <td class="grey">Zn综合回收率%</td>
+                        <td><select id="znAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znAllRecoveryValue" placeholder="请输入数字" /></td>
                     </tr>
                 </tbody>
             </table>
