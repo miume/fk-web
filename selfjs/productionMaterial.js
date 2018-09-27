@@ -38,7 +38,7 @@ var product = {
                 // console.log(datas.yldFlag)
                 flag.push(datas.lstFlag,datas.dhyFlag,datas.yhyFlag,datas.yldFlag,datas.ehyFlag,datas.dsjFlag,datas.lsFlag,datas.shFlag)
                 // console.log(flag)
-                for(i=0;i<flag.length;i++){
+                for(var i=0;i<flag.length;i++){
                     if(flag[i]==1){
                         ids[i].checked = true;
                     }

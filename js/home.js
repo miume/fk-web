@@ -844,6 +844,15 @@ var home = {
             getById : function(){
                 return servers.backup() + "delegationOrderHeader/getById"
             },
+            getByManyFactorsByPage : function(){
+                return servers.backup() + "delegationOrderHeader/getByManyFactorsByPage"
+            },
+            deleteById : function(){
+                return servers.backup() + "delegationOrderHeader/deleteById"
+            },
+            getById : function(){
+                return servers.backup() + "delegationOrderHeader/getById"
+            },
         }
         ,delegationInfo : {
             findAll : function(){
