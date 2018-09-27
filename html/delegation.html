@@ -6,6 +6,9 @@
             border : none;
             text-align: center;
         }
+        #addModal div{
+            height: 12%;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -13,9 +16,10 @@
                 送检系统：<select id="sampleType" class="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 委托类型：<select id="delegationType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 操作日期：<input id="startDate" type="text">&nbsp;&nbsp;至&nbsp;&nbsp;<input id="endDate" type="text">&nbsp;&nbsp;&nbsp;&nbsp;
-                化验：<select id="assay"><option></option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                化验：<select id="assay"><option value="-1"></option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
             </p>
         </div>
     </div>
@@ -74,48 +78,47 @@
     </script>
     <!--弹出框隐藏部分-->
     <div class="hide" id="addModal">
-            <div>
-                <p>
+                <div>
                     送检系统：<select id="sampleTypeHide" class="sampleTypeHide"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    委托类型：<span><span id="commission">
-                    </span></span>
-                </p>
+                    委托类型：<span id="commission">
+                    </span>
+                </div>
 
-                <p>
+                <div>
                     选择送检样品：<br/>
-                    <span><span id="sample">
-                    </span></span>
-                </p>
+                    <span id="sample">
+                    </span>
+                </div>
 
-                <p>
+                <div>
                     选择送检项目：<br/>
                     <span>
-                        <input value='铅' type='checkbox' class="item">铅
-                        <input value='锌' type='checkbox' class="item">锌
-                        <input value='铁' type='checkbox' class="item">铁
-                        <input value='硫' type='checkbox' class="item">硫
+                        <input value='铅' type='checkbox' class="item" name="item" id="pbFlag">铅
+                        <input value='锌' type='checkbox' class="item" name="item" id="znFlag">锌
+                        <input value='铁' type='checkbox' class="item" name="item" id="feFlag">铁
+                        <input value='硫' type='checkbox' class="item" name="item" id="sflag">硫
                     </span>
-                </p>
+                </div>
 
-                <p>
+                <div>
                     化验方式：<br/>
-                    <span><span id="method">
-                    </span></span>
-                </p>
+                    <span id="method">
+                    </span>
+                </div>
 
-                <p>
+                <div>
                     备注：<br/>
                     <input type="text" id="remarks">
-                </p>
+                </div>
 
-                <p>
+                <div>
                     <tr>
                         <td>原矿处理量：</td><br/>
                         <td><input type="text" id="capacity"></td>
                     </tr>
-                </p>
+                </div>
 
-                <p>
+                <div>
                     <table>
                     <tr>
                         <td>操作人</td>
@@ -130,8 +133,7 @@
                         <td><select id="clazz"></select></td>
                     </tr>
                     </table>
-                </p>
-            </div>
+                </div>
     </div>
     <!--隐藏常规,临时委托表-->
     <div class="hide" id="conventionalModal">
