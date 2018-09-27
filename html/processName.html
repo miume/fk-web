@@ -1,0 +1,75 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">工序名称管理</span>&nbsp;&nbsp;&nbsp;
+                工序编号：<input type="text" id="processId" placeholder="请输入工序编号" />&nbsp;&nbsp;&nbsp;
+                工序名称：<input type="text" id="processName" placeholder="请输入工序名称" />&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="processNameTable">
+        <thead>
+            <tr>
+                <td><input type="checkbox" id="checkboxAll" /></td>
+                <td>序号</td>
+                <td>工序编号</td>
+                <td>工序名称</td>
+                <td>工艺类型</td>
+                <td>所属工段</td>
+                <td>所属车间</td>
+                <td>用电计算方式</td>
+                <td>创建时间</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="processName_page"></div>
+    <script src="selfjs/processName.js"></script>
+    <script>
+        $(function() {
+            processName.init();
+        })
+    </script>
+    <!--隐藏部分-->
+    <div class="hide layerModal" id="processLayerModal">
+        <table>
+            <tr>
+                <td class="grey">工序编号</td>
+                <td><input type="text" id="workCode" placeholder="请输入工序编码"/></td>
+            </tr>
+             <tr>
+                <td class="grey">工序名称</td>
+                <td><input type="text" id="name" placeholder="请输入工序名称"/></td>
+            </tr>
+            <tr>
+                <td class="grey">工艺类型</td>
+                <td><select id="energyWorkType"><option value="1">工序工艺</option><option value="2">非工序工艺</option></select></td>
+            </tr>
+            <tr>
+                <td class="grey">所属车间</td>
+                <td><select id="workShopInfo"></select></td>
+            </tr>
+            <tr>
+                <td class="grey">所属工段</td>
+                <td><select id="energySectionInfo"></select></td>
+            </tr>
+             <tr>
+                <td class="grey">用电计算方式</td>
+                <td><select id="electricUsedType"><option value="1" selected>直接</option><option value="2">间接</option></select></td>
+            </tr>
+        </table>
+    </div>
+</div>

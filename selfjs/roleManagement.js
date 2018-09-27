@@ -213,8 +213,8 @@ var roleManagement = {
                     "<td>"+(e.name ? e.name : ' ')+"</td>" +
                     "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.description ? e.description : ' ')+"</td>" +
-                    "<td>"+(e.createTime ? new Date(e.createTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
-                    "<td>"+(e.updateTime ? new Date(e.updateTime).Format('yyyy-MM-dd hh:mm:ss') : ' ')+"</td>" +
+                    "<td>"+(e.createTime ? e.createTime : ' ')+"</td>" +
+                    "<td>"+(e.updateTime ? e.createTime : ' ')+"</td>" +
                     "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class = 'assignRoleToUsers' id = 'editPeople-"+(e.id)+"'><i class='fa fa-user-circle' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class = 'editRolesPermission' id='editRoles-"+(e.id)+"'><i class='fa fa-key fa-rotate-90' aria-hidden='true'></i></a></td>" +
