@@ -1,6 +1,13 @@
 var timeManagement = {
     init : function(){
         timeManagement.funcs.renderOption();
+        timeManagement.funcs.renderDropBox();
+        var out = $("#temporal_page").width();
+        var time = setTimeout(function(){
+            var inside = $(".layui-laypage").width();
+            $('#temporal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
+            clearTimeout(time);
+        }, 30);
     }
     ,pageSize : 0
     ,funcs : {
@@ -55,6 +62,7 @@ var timeManagement = {
             })
         }
         ,renderHandler : function($tbody,times){
+            
             $tbody.empty();
             var i = 1;
             for(var t=1;t<=12;t++){
@@ -72,10 +80,11 @@ var timeManagement = {
                             "<td>"+(times[x].updateTime ? times[x].updateTime : '')+"</td>" +
                             "<td>"+(times[x].updateUser&&times[x].updateUser.name ? times[x].updateUser.name : '')+"</td>" +
                             "<td>"+(times[x].description ? times[x].description : '')+"</td>" +
-                            "<td><a href='#' class='edit' id='edit-"+(times[x].id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                            "<td><a href='#' class='edit' id='edit-"+(times[x].id)+"' name="+(times[x].statisticalMonth)+"><i class='layui-icon'>&#xe642;</i></a></td>" +
                             "</tr>"
                         )
                         flag = true;
+                        i++
                         break;
                     }
                 }
@@ -91,7 +100,7 @@ var timeManagement = {
                         "<td>"+"</td>" +
                         "<td>"+"</td>" +
                         "<td>"+"</td>" +
-                        "<td><a href='#' class='edit' id='edit-"+(-1)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                        "<td><a href='#' class='edit' id='edit-"+(-1)+"' name="+(i-1)+"><i class='layui-icon'>&#xe642;</i></a></td>" +
                         "</tr>"
                     )
                 }
@@ -99,10 +108,12 @@ var timeManagement = {
             //绑定编辑事件
             timeManagement.funcs.bindEditEvents($(".edit"));
         }
+        /**编辑，新增事件 */
         ,bindEditEvents : function(buttons){
             buttons.off('click').on('click',function(){
+                $("#time").empty();
                 var id = $(this).attr('id').substr(5);
-                var month = $("#month").text();
+                var month = $(this).attr('name');
                 var year = $("#timeTemporal").val();
                 var t = year + "." + month;
                 $("#time").val(t);
@@ -147,7 +158,7 @@ var timeManagement = {
                                 })
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
-                                        timeManagement.funcs.renderHandler();
+                                        timeManagement.funcs.renderTable();
                                         clearTimeout(time);
                                     },500)
                                 }
@@ -206,7 +217,7 @@ var timeManagement = {
                                 })
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
-                                        timeManagement.funcs.renderHandler();
+                                        timeManagement.funcs.renderTable();
                                         clearTimeout(time);
                                     },500)
                                 }
