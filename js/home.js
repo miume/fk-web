@@ -1050,8 +1050,8 @@ var home = {
             getByCodeLikeAndNameLike : function(){
                 return servers.backup() + "energySectionInfo/getByCodeLikeAndNameLike"
             },
-            getByWorkShopId : function(){
-                return servers.backup() + "energySectionInfo/getByWorkShopId"
+            getWorkShopById : function(){
+                return servers.backup() + "energySectionInfo/getWorkShopById"
             },
         }
         /**获取所有车间 */
@@ -1085,12 +1085,18 @@ var home = {
             },
         }
          /**用电计划管理 */
-         ,electricityP : {
-            getByDateByPage : function(){
-                return servers.backup() + "electricUsedMonthPlanHeader/getByDateByPage"
+         ,electricityPlan : {
+            getByDate : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/getByDate"
+            },
+            getById : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/getById"
             },
             update : function(){
                 return servers.backup() + "electricUsedMonthPlanHeader/update"
+            },
+            add : function(){
+                return servers.backup() + "electricUsedMonthPlanHeader/add"
             },
             exportByGet : function(){
                 return servers.backup() + "electricUsedMonthPlanHeader/exportByGet"

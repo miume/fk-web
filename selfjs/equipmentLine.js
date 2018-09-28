@@ -56,7 +56,7 @@ var equipmentLine = {
                 }
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='processCheckbox'  /></td>" +
+                    // "<td><input type='checkbox' class='processCheckbox'  /></td>" +
                     "<td>"+ (i++) +"</td>" + 
                     "<td>"+ (e.code?e.code:'') +"</td>" + 
                     "<td>"+ (e.name?e.name:'') +"</td>" + 
@@ -64,9 +64,9 @@ var equipmentLine = {
                     "<td>"+ (e.autoFlag?'是':'不是') +"</td>" + 
                     "<td>"+ (e.energySectionInfo?e.energySectionInfo.name:'') +"</td>" + 
                     "<td>"+ (e.energyWorkProcedure?e.energyWorkProcedure.name:'') +"</td>" +
-                    "<td>"+ ( (e.energyWorkProcedure && e.energyWorkProcedure.energyWorkType ) ?e.energyWorkProcedure.energyWorkType.name:'') +"</td>" +
-                    "<td>"+ (e.citeInfo?e.citeInfo.name:'') +"</td>" + 
-                    "<td>"+ (e.electricPredict1H?e.electricPredict1H:'') +"</td>" + 
+                    "<td>"+ (e.energyWorkType?e.energyWorkType.name:'') +"</td>" +
+                    "<td>"+ (e.citeInfo?e.citeInfo:'') +"</td>" + 
+                    "<td>"+ (e.electricPredict1H?e.electricPredict1H:'0') +"</td>" + 
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
                     "<td><a href='#' class = 'delete' id='delete-"+(e.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +  
@@ -85,10 +85,19 @@ var equipmentLine = {
                     id : id
                 },function(result) {
                     var res = result.data;
-                    var workShop = res.workShopInfo?res.workShopInfo.id:"";
-                    var electricUsedType = res.electricUsedType?res.electricUsedType.id:"";
+                    var energyDpPoint = res.energyDpPoint?res.energyDpPoint.id:"-1";
+                    var energySectionInfo = res.energySectionInfo?res.energySectionInfo.id:"-1";
+                    var energyWorkProcedure = res.energyWorkProcedure?res.energyWorkProcedure.id:"-1";
+                    var energyWorkType = res.energyWorkType?res.energyWorkType.id:"-1";
+                    var autoFlag = res.autoFlag;
+                    $("#autoFlag option[value="+ (autoFlag) +"]").attr("selected","selected");
+                    $("#energyDpPoint option[value="+ (energyDpPoint) +"]").attr("selected","selected");
+                    $("#energySectionInfo option[value="+(energySectionInfo) +"]").attr("selected","selected");
+                    $("#energyWorkProcedure option[value="+ (energyWorkProcedure) +"]").attr("selected","selected"); 
+                    $("#energyWorkType option[value="+ (energyWorkType) +"]").attr("selected","selected");
                     $("#code").val(res.code);
                     $("#name").val(res.name);
+                    $("#citeInfo").val(res.citeInfo);
                     $("#electricPredict1H").val(res.electricPredict1H);
                 
                 $("#equipmentLayerModal").removeClass("hide");
@@ -105,7 +114,6 @@ var equipmentLine = {
                         var name = $("#name").val();
                         var energyDpPoint = $("#energyDpPoint").val();
                         var energySectionInfo = $("#energySectionInfo").val();
-                        var workShopInfo = $("#workShopInfo").val();
                         var energyWorkProcedure = $("#energyWorkProcedure").val();
                         var energyWorkType = $("#energyWorkType").val();
                         var electricPredict1H = $("#electricPredict1H").val();
@@ -117,11 +125,10 @@ var equipmentLine = {
                             name : name,
                             'energyDpPoint.id' : energyDpPoint,
                             'energySectionInfo.id' : energySectionInfo,
-                            'workShopInfo.id' : workShopInfo,
                             'energyWorkProcedure.id' : energyWorkProcedure,
                             'energyWorkType.id' : energyWorkType,
-                            'citeInfo.id' : citeInfo,
-                            electricPredict1H : electricPredict1H,
+                             citeInfo : citeInfo,
+                             electricPredict1H : electricPredict1H?parseInt(electricPredict1H):0,
                              date : date
                         },function(result) {
                             layer.msg(result.message,{
@@ -196,14 +203,14 @@ var equipmentLine = {
                         var code = $("#code").val();
                         var name = $("#name").val();
                         var energyDpPoint = $("#energyDpPoint").val();
+                        var autoFlag = $("#autoFlag").val();
                         var energySectionInfo = $("#energySectionInfo").val();
-                        var workShopInfo = $("#workShopInfo").val();
                         var energyWorkProcedure = $("#energyWorkProcedure").val();
                         var energyWorkType = $("#energyWorkType").val();
-                        var electricPredict1H = $("#electricPredict1H").val();
+                        var electricPredict1H = $("#electricPredict1H").val() ;
                         var citeInfo = $("#citeInfo").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
-
+                        console.log($("#electricPredict1H").val())
                         if(code === "" && name === ""){
                             layer.msg("设备/线路编号和设备/线路名称不能为空！",{
                                 offset : ["44%","50%"],
@@ -215,14 +222,14 @@ var equipmentLine = {
                         $.post(home.urls.equipmentLine.add(),{
                             code : code,
                             name : name,
+                            autoFlag : autoFlag,
                             'energyDpPoint.id' : energyDpPoint,
                             'energySectionInfo.id' : energySectionInfo,
-                            'workShopInfo.id' : workShopInfo,
                             'energyWorkProcedure.id' : energyWorkProcedure,
                             'energyWorkType.id' : energyWorkType,
-                            'citeInfo.id' : citeInfo,
-                             electricPredict1H : electricPredict1H,
-                             date : date
+                            citeInfo : citeInfo,
+                            electricPredict1H : electricPredict1H?parseInt(electricPredict1H):0,
+                            date : date
                         },function(result) {
                             layer.msg(result.message,{
                                 offset : ["44%","50%"],
@@ -250,36 +257,42 @@ var equipmentLine = {
             $("#code").val("");
             $("#name").val("");
             $("#energyDpPoint").empty();
-            $("#energySectionInfo option[value='1']").attr("selected","selected");
-            $("#workShopInfo").empty();
+            $("#energySectionInfo").empty();
             $("#energyWorkProcedure").empty();
-            $("#energyWorkType").val("");
-            $("#citeInfo").empty();
+            $("#citeInfo").val("");
             $("#electricPredict1H").val("");
+            $("#autoFlag option[value='1']").attr("selected","selected");
+            /**电表DP点 */
+            $.get(servers.backup()+"energyDpPoint/getAll",{},function(result) {
+                var res = result.data;
+                res.forEach(function(e) {
+                    $("#energyDpPoint").append("<option value="+ (e.id) +">"+ (e.dpPoint) +"</option>")
+                })
+            })
             /**获取所有工段 */
             $.get(home.urls.sectionName.getAll(),{},function(result) {
                 var res = result.data;
-                $("#workShopInfo").html("<option value=>请选择工段</option>")
+                $("#energySectionInfo").html("<option value='-1'>请选择工段</option>")
                 res.forEach(function(e) {
-                    $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
+                    $("#energySectionInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
                 })
             })
             /**获取所有工序 */
             $.get(home.urls.processName.getAll(),{},function(result) {
                 var res = result.data;
-                $("#energyWorkProcedure").html("<option value=>请选择工序</option>")
+                $("#energyWorkProcedure").html("<option value='-1'>请选择工序</option>")
                 res.forEach(function(e) {
                     $("#energyWorkProcedure").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
                 })
             })
             /**获取所有站点 */
-            $.get(servers.backup() + "citeInfo/getAll",{},function(result) {
-                var res = result.data;
-                $("#citeInfo").html("<option value=>请选择站点</option>")
-                res.forEach(function(e) {
-                    $("#citeInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
-                })
-            })
+            // $.get(servers.backup() + "citeInfo/getAll",{},function(result) {
+            //     var res = result.data;
+            //     $("#citeInfo").html("<option value=>请选择站点</option>")
+            //     res.forEach(function(e) {
+            //         $("#citeInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
+            //     })
+            // })
         }
         /**导出事件 */
         ,bindExportEvent : function(buttons) {
