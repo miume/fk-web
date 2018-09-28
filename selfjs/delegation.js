@@ -314,8 +314,8 @@ var delegationManagement = {
                         offset: ['10%', '10%'],
                         closeBtn: 0,
                         yes: function(index) {
-                            $("#conventionalModal").css("display","none");
-                            layer.close(index);
+                            var href = home.urls.delegation.exportById()+"?id=" + id;
+                            location.href = href;
                         }
                         ,btn2: function (index) {
                             $("#conventionalModal").css("display","none");

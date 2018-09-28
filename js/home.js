@@ -853,6 +853,9 @@ var home = {
             getById : function(){
                 return servers.backup() + "delegationOrderHeader/getById"
             },
+            exportById : function(){
+                return servers.backup() + "delegationOrderHeader/exportById"
+            }
         }
         ,delegationInfo : {
             findAll : function(){
