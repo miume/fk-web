@@ -49,13 +49,13 @@ var processName = {
             data.forEach(function(e) {
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='processCheckbox'  /></td>" +
+                    // "<td><input type='checkbox' class='processCheckbox'  /></td>" +
                     "<td>"+ (i++) +"</td>" + 
                     "<td>"+ (e.workCode?e.workCode:'') +"</td>" + 
                     "<td>"+ (e.name?e.name:'') +"</td>" + 
                     "<td>"+ (e.energyWorkType?e.energyWorkType.name:'') +"</td>" + 
                     "<td>"+ (e.energySectionInfo?e.energySectionInfo.name:'') +"</td>" + 
-                    "<td>"+ (e.workShopInfo?e.workShopInfo.name:'') +"</td>" + 
+                    "<td>"+ (e.workShopInfo?e.workShopInfo:'') +"</td>" + 
                     "<td>"+ (e.electricUsedType?e.electricUsedType.name:'') +"</td>" +
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
@@ -75,13 +75,16 @@ var processName = {
                     id : id
                 },function(result) {
                     var res = result.data;
-                    var workShop = res.workShopInfo?res.workShopInfo.id:"";
-                    var electricUsedType = res.electricUsedType?res.electricUsedType.id:"";
+                    var energySectionInfo = res.energySectionInfo?res.energySectionInfo.id:"-1";
+                    var electricUsedType = res.electricUsedType?res.electricUsedType.id:"-1";
+                    var energyWorkType = res.energyWorkType ? res.energyWorkType.id : "-1";
+                    console.log(energySectionInfo)
                     $("#workCode").val(res.workCode);
                     $("#name").val(res.name);
-                    // $("#workShop option[value="+ (workShop) +"]").attr("selected","selected");
-                    // $("#electricUsedType option[value="+ (electricUsedType) +"]").attr("selected","selected");
-                
+                    $("#energyWorkType option[value="+ (energyWorkType) +"]").attr("selected","selected");
+                    $("#energySectionInfo option[value="+ (energySectionInfo) +"]").attr("selected","selected");
+                    $("#electricUsedType option[value="+ (electricUsedType) +"]").attr("selected","selected");
+                    $("#workShopInfo").val(res.workShopInfo)
                 $("#processLayerModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -99,10 +102,11 @@ var processName = {
                         var workShopInfo = $("#workShopInfo").val();
                         var electricUsedType = $("#electricUsedType").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
-                        $.post(home.urls.processName.add(),{
+                        $.post(home.urls.processName.update(),{
+                             id : id,
                              workCode : workCode,
                              name : name,
-                             'workShopInfo.id' : workShopInfo,
+                             workShopInfo : workShopInfo,
                              'electricUsedType.id' : electricUsedType,
                              'energyWorkType.id' : energyWorkType,
                              'energySectionInfo.id' : energySectionInfo,
@@ -166,6 +170,9 @@ var processName = {
         ,bindAddEvent : function(buttons) {
             buttons.off("click").on("click",function() {
                 processName.funcs.bindInitEvent();//初始化
+                $("#energyWorkType option[value='-1']").attr("selected","selected");
+                $("#energySectionInfo option[value='-1']").attr("selected","selected");
+                $("#electricUsedType option[value='-1']").attr("selected","selected");
                 $("#processLayerModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -179,9 +186,10 @@ var processName = {
                         var workCode = $("#workCode").val();
                         var name = $("#name").val();
                         var workShopInfo = $("#workShopInfo").val();
-                        var energyWorkType = $("#energyWorkType").val();
-                        var workShopInfo = $("#workShopInfo").val();
+                        var energyWorkType = $("#energyWorkType").val();  //工艺类型
                         var energySectionInfo = $("#energySectionInfo").val();
+                        var electricUsedType = $("#electricUsedType").val();
+                        var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
                         if(workCode === "" && name === ""){
                             layer.msg("工序编码和工序名称不能为空！",{
                                 offset : ["44%","50%"],
@@ -189,15 +197,14 @@ var processName = {
                             })
                             return
                         }
-                        var electricUsedType = $("#electricUsedType").val();
-                        var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
+            
                         $.post(home.urls.processName.add(),{
                             workCode : workCode,
                             name : name,
-                            'workShopInfo.id' : workShopInfo,
+                            workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             'energyWorkType.id' : energyWorkType,
-                            'energySectionInfo.id' : energySectionInfo,
+                            'energySectionInfo.id' : energySectionInfo?energySectionInfo:"-1",
                             date : date
                         },function(result) {
                             layer.msg(result.message,{
@@ -225,25 +232,23 @@ var processName = {
         ,bindInitEvent :function() {
             $("#workCode").val("");
             $("#name").val("");
-            $("#workShopInfo").empty();
-            $("#energySectionInfo").empty();
-            /**获取所有车间 */
-            $.get(home.urls.workShopInfo.getAll(),{},function(result) {
+            $("#workShopInfo").val("");
+            /**获取所有工段 */
+            $.get(home.urls.sectionName.getAll(),{},function(result) {
                 var res = result.data;
-                $("#workShopInfo").html("<option value>请选择车间</option>")
+                $("#energySectionInfo").empty();
+                $("#energySectionInfo").html("<option value='-1' selected>请选择工段</option>")
                 res.forEach(function(e) {
-                    $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
+                    $("#energySectionInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
                 })
             })
-            /**根据车间查询所属工段 */
-            $("#workShopInfo").change(function(){
-                var val = $("#workShopInfo").val();
-                $("#energySectionInfo").empty();
-                $.get(home.urls.sectionName.getByWorkShopId(),{ workShop_id : val },function(result) {
+            /**根据工段查询所属车间  车间是不可编辑的*/
+            $("#energySectionInfo").change(function(){
+                var id = $("#energySectionInfo").val();
+                $("#workShopInfo").empty();
+                $.get(home.urls.sectionName.getWorkShopById(),{ id : id },function(result) {
                     var res = result.data;
-                    res.forEach(function(e) {
-                        $("#energySectionInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
-                    })
+                    $("#workShopInfo").val(res);
                 })
             })
             

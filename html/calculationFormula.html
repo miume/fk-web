@@ -5,9 +5,10 @@
         }
         .quarter {
             width: 20%;
+            height: 70%;
             float: left;
             position: relative;
-            margin-right: 10px;
+            margin-right: 20px;
         }
         .turn {
             width: 4%;
@@ -18,6 +19,13 @@
         botton{
             width: 40px !important;
         }
+        table tr td{
+            width:50%;
+        }
+        .overflowTable {
+            height: 400px;
+            overflow-y: auto;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -27,26 +35,47 @@
             </div>
         </div>
         <div class="fr">
-                <a href="#" style="margin-right: 100px;" id="save"><i class="layui-icon">&#xe605;</i>保存</a>
+            <a href="#" style="margin-right: 100px;" id="save"><i class="layui-icon">&#xe605;</i>保存</a>
         </div>
     </div>
     <div class="whitespace"></div>
     <div id="bottomDiv">
-        <div class="quarter">
+        <div class="quarter" id="sectionDiv">
             <p class="text_center">工段列表</p>
-            <table id="section">
+            <table class="tableHead">
                 <thead>
                     <tr>
                         <td>编号</td>
                         <td>名称</td>
-                        <td>类型</td>
                     </tr>
                 </thead>
+            </table>
+            <div class="overflowTable">
+            <table class="tableBody" id="sectionTable">
                 <tbody>
 
                 </tbody>
             </table>
         </div>
+        </div>
+        <div class="quarter hide" id="processDiv">
+            <p class="text_center">工序列表</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable" id="table2">
+                <table id="processTable">
+                    <tbody>
+    
+                    </tbody>
+                </table>
+        </div>
+       </div>
         <div class="quarter">
             <p class="text_center">计入项</p>
             <table id="countItem">
@@ -101,4 +130,10 @@
             </table>
         </div>
     </div>
+    <script src="selfjs/caculationFormula.js"></script>
+    <script>
+        $(function() {
+            caculationFormula.init();
+        })
+    </script>
 </div>

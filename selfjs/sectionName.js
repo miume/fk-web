@@ -49,11 +49,11 @@ var sectionName = {
             data.forEach(function(e) {
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='sectionCheckbox'  /></td>" +
+                    // "<td><input type='checkbox' class='sectionCheckbox'  /></td>" +
                     "<td>"+ (i++) +"</td>" + 
                     "<td>"+ (e.sectionCode?e.sectionCode:'') +"</td>" + 
                     "<td>"+ (e.name?e.name:'') +"</td>" + 
-                    "<td>"+ (e.workShopInfo?e.workShopInfo.name:'') +"</td>" + 
+                    "<td>"+ (e.workShopInfo?e.workShopInfo:'') +"</td>" + 
                     "<td>"+ (e.electricUsedType?e.electricUsedType.name:'') +"</td>" +
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
@@ -68,22 +68,22 @@ var sectionName = {
         ,bindEditorEvent : function(buttons) {
             buttons.off("click").on("click",function() {
                 var id = $(this).attr("id").substr(7);
-                $.get(home.urls.workShopInfo.getAll(),{},function(result) {
-                    var res = result.data;
-                    $("#workShopInfo").html("<option value=''>请选择所属车间</option>")
-                    res.forEach(function(e) {
-                        $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
-                    })
-                })
+                // $.get(home.urls.workShopInfo.getAll(),{},function(result) {
+                //     var res = result.data;
+                //     $("#workShopInfo").html("<option value='-1'>请选择所属车间</option>")
+                //     res.forEach(function(e) {
+                //         $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
+                //     })
+                // })
                 $.get(home.urls.sectionName.getById(),{
                     id : id
                 },function(result) {
                     var res = result.data;
-                    var workShopInfo = res.workShopInfo.id;
-                    var electricUsedType = res.electricUsedType.id;
+                    var workShopInfo = res.workShopInfo;
+                    var electricUsedType = res.electricUsedType?res.electricUsedType.id:"-1";
                     $("#sectionCode").val(res.sectionCode);
                     $("#name").val(res.name);
-                    $("#workShopInfo option[value="+ (workShopInfo) +"]").attr("selected","selected");
+                    $("#workShopInfo").val(res.workShopInfo);
                     $("#electricUsedType option[value="+ (electricUsedType) +"]").attr("selected","selected");
                 
                 $("#sectionLayerModal").removeClass("hide");
@@ -112,7 +112,7 @@ var sectionName = {
                             id : id,
                             sectionCode : sectionCode,
                             name : name,
-                            'workShopInfo.id' : workShopInfo,
+                            workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             date : date
                         },function(result) {
@@ -176,14 +176,15 @@ var sectionName = {
                 //初始化
                 $("#sectionCode").val("");
                 $("#name").val("");
-                $("#workShopInfo").empty();
-                $.get(home.urls.workShopInfo.getAll(),{},function(result) {
-                    var res = result.data;
-                    $("#workShopInfo").html("<option value=''>请选择所属车间</option>")
-                    res.forEach(function(e) {
-                        $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
-                    })
-                })
+                $("#workShopInfo").val("");
+                $("#electricUsedType option[value='-1']").attr("selected","selected");
+                // $.get(home.urls.workShopInfo.getAll(),{},function(result) {
+                //     var res = result.data;
+                //     $("#workShopInfo").html("<option value=''>请选择所属车间</option>")
+                //     res.forEach(function(e) {
+                //         $("#workShopInfo").append("<option value="+ (e.id) +">"+ (e.name) +"</option>")
+                //     })
+                // })
                 $("#sectionLayerModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -197,6 +198,8 @@ var sectionName = {
                         var sectionCode = $("#sectionCode").val();
                         var name = $("#name").val();
                         var workShopInfo = $("#workShopInfo").val();
+                        var electricUsedType = $("#electricUsedType").val();
+                        var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
                         if(sectionCode === "" && name === ""){
                             layer.msg("工段编码和工段名称不能为空！",{
                                 offset : ["44%","50%"],
@@ -204,12 +207,11 @@ var sectionName = {
                             })
                             return
                         }
-                        var electricUsedType = $("#electricUsedType").val();
-                        var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
+                        
                         $.post(home.urls.sectionName.add(),{
                             sectionCode : sectionCode,
                             name : name,
-                            'workShopInfo.id' : workShopInfo,
+                            workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             date : date
                         },function(result) {

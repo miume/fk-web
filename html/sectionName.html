@@ -19,7 +19,7 @@
     <table id="sectionNameTable">
         <thead>
             <tr>
-                <td><input type="checkbox" id="checkboxAll" /></td>
+                <!-- <td><input type="checkbox" id="checkboxAll" /></td> -->
                 <td>序号</td>
                 <td>工段编号</td>
                 <td>工段名称</td>
@@ -54,11 +54,11 @@
             </tr>
              <tr>
                 <td class="grey">所属车间</td>
-                <td><select id="workShopInfo"></select></td>
+                <td><input type="text" id="workShopInfo" placeholder="请输入所属车间"/></td>
             </tr>
              <tr>
                 <td class="grey">用电计算方式</td>
-                <td><select id="electricUsedType"><option value="1" selected>直接</option><option value="2">间接</option></select></td>
+                <td><select id="electricUsedType"><option value="-1" selected>请选择用电计算方式</option><option value="1">直接</option><option value="2">间接</option></select></td>
             </tr>
         </table>
     </div>
