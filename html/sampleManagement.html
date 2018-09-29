@@ -3,7 +3,7 @@
             <div class="fl">
                     <p>
                         送检系统：<select id="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                        样品名称：<input type="text" id="sampleName">&nbsp;&nbsp;&nbsp;&nbsp;
+                        样品名称：<input type="text" id="sampleName" placeholder="请输入名称">&nbsp;&nbsp;&nbsp;&nbsp;
                         <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;
                     </p>
             </div>
@@ -42,10 +42,10 @@
         })
     </script>
     <!--隐藏部分（弹出框显示部分）-->
-    <div id="updateModal" class="hide">
+    <div id="updateModal" class="hide" style="padding-top: 10px">
             <p align="center">送检系统：<select id="hideSampleType"></select></p>
-            <p align="center">样品名称：<input type="text" id="hideSampleName"></p>
-            <p align="center">样品编码：<input type="text" id="sampleNum"></p>
-            <p align="center">样品说明：<input type="text" id="sampleDes"></p>
+            <p align="center">样品名称：<input type="text" id="hideSampleName" placeholder="请输入名称"></p>
+            <p align="center">样品编码：<input type="text" id="sampleNum" placeholder="请输入编码"></p>
+            <p align="center">样品说明：<input type="text" id="sampleDes" placeholder="请输入说明"></p>
     </div>
 </div>

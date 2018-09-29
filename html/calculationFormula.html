@@ -1,0 +1,180 @@
+<div class="display-component-container">
+    <style>
+        #bottomDiv {
+            width: 100%;
+        }
+        .quarter {
+            width: 21%;
+            height: 70%;
+            float: left;
+            position: relative;
+            margin:auto 10px;
+        }
+        .turn {
+            width: 4%;
+            float: left;
+            position: relative;
+            margin: 15% 0px 30px;
+            padding-right:20px;
+        }
+        botton{
+            width: 40px !important;
+        }
+        /* table thead td{
+            width:33%;
+        } */
+        .tableBody tbody td:first-child{
+            width:54%;
+        }
+        .changeWidth {
+            width: 60%;
+        }
+        .overflowTable {
+            height: 400px;
+            overflow-y: scroll;
+        }
+        .tableBody tbody tr:hover,.tableBody1 tbody tr:hover{
+            background: #e4e0e0 ;
+         }
+         /* .tableBody tbody tr:first-child {
+            background: #f2f2f2 !important;
+         } */
+         .selected-section {
+            background: #e4e0e0;
+        }
+        .selected-process,.selected-count,.selected-line,.selected-deduction{
+            background: #e4e0e0;
+        }
+        
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <div class="layui-input-block">
+                <input type="radio" name="tech" id="section" value="工段" title="工段" checked=""> 工段 &nbsp;&nbsp;
+                <input type="radio" name="tech" id="process" value="工序" title="工序"> 工序
+            </div>
+        </div>
+        <div class="fr">
+            <a href="#" style="margin-right: 100px;" id="save"><i class="layui-icon">&#xe605;</i>保存</a>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <div id="bottomDiv">
+        <div class="quarter" id="sectionDiv">
+            <p class="text_center">工段列表</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable"id="table1">
+            <table class="tableBody" id="sectionTable">
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="quarter hide" id="processDiv">
+            <p class="text_center">工序列表</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable" id="table11">
+                <table class="tableBody" id="processTable">
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
+       </div>
+        <div class="quarter">
+            <p class="text_center">计入项</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>名称</td>
+                        <td>系数</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable" id="table2">
+                <table class="tableBody1" id="countItem">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
+        </div>
+        <div class="turn">
+            <button class="layui-btn layui-btn-mini" id="lineToCount"><<</button><br><br>
+            <button class="layui-btn layui-btn-mini" id="countToLine">>></button>
+        </div>
+        <div class="quarter">
+            <p class="text_center">设备/线路</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>编号</td>
+                        <td>名称</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable" id="table3">
+                <table class="tableBody1" id="equipmentLine">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
+        </div>
+        <div class="turn">
+                <button class="layui-btn layui-btn-mini" id="deductionToLine"><<</button><br><br>
+                <button class="layui-btn layui-btn-mini"  id="lineToDeduction">>></button>
+        </div>
+        <div class="quarter">
+            <p class="text_center">扣除项</p>
+            <table class="tableHead">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>名称</td>
+                        <td>系数</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="overflowTable" id="table4">
+                <table class="tableBody1" id="deduction">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
+        </div>
+    </div>
+    <script src="selfjs/caculationFormula.js"></script>
+    <script>
+        $(function() {
+            caculationFormula.init();
+        })
+    </script>
+</div>

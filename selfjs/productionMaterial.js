@@ -38,7 +38,7 @@ var product = {
                 // console.log(datas.yldFlag)
                 flag.push(datas.lstFlag,datas.dhyFlag,datas.yhyFlag,datas.yldFlag,datas.ehyFlag,datas.dsjFlag,datas.lsFlag,datas.shFlag)
                 // console.log(flag)
-                for(i=0;i<flag.length;i++){
+                for(var i=0;i<flag.length;i++){
                     if(flag[i]==1){
                         ids[i].checked = true;
                     }
@@ -480,7 +480,7 @@ var product = {
             for(var i in results){
                 var result = results[i];
                 var map = {};
-                map['class'] = result.clazzId;
+                map['class'] = result.clazzId==1?"早班":result.clazzId==2?"中班":result.clazzId==3?"晚班":"其他班次";
                 map['team'] = result.team.dicName;
                 map[1] = result.lstUsed;
                 map[2] = result.dhyUsed;

@@ -1,6 +1,7 @@
 var grapple ={
     init : function(){
         grapple.funcs.renderTable();
+        grapple.funcs.renderInit();
         var out = $("#grapplepage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
@@ -11,6 +12,14 @@ var grapple ={
     ,pageSize : 0
     ,funcs : {
         renderTable:function(){
+            /**渲染表头与默认项，获取默认数据 */
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var classData = result.data;
+                $("#clazz").append("<option></option>");
+                classData.forEach(function(e){
+                    $("#clazz").append("<option value='"+e.id+"'>"+e.name+"</option>");
+                })
+            })
             /**渲染当天数据 */
             var startDate = $('#startTime').val()
             var endDate = $('#endTime').val()
@@ -48,18 +57,16 @@ var grapple ={
             })
             /**绑定数据录入事件 */
             grapple.funcs.bindAddEvents($("#addButton"));
-            /**绑定批量删除事件 */
-            grapple.funcs.bindDeleteEvents($("#deleteButton"));
-            /**绑定刷新事件 */
-            grapple.funcs.bindRefreshEvents($("#refreshButton"));
-            /**绑定查询事件 */
-            grapple.funcs.bindSearchEvents($("#searchButton"));
+            // /**绑定批量删除事件 */
+            // grapple.funcs.bindDeleteEvents($("#deleteButton"));
+            // /**绑定刷新事件 */
+            // grapple.funcs.bindRefreshEvents($("#refreshButton"));
+            // /**绑定查询事件 */
+            // grapple.funcs.bindSearchEvents($("#searchButton"));
         }
         /**绑定数据录入事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on('click',function(){
-                $("#selected").val("");
-                grapple.funcs.renderInit();
                 $("#confirm").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -112,6 +119,7 @@ var grapple ={
         ,renderInit : function(){
             $("#reporter").empty()
             $("#reporter").removeAttr("disabled")
+            $("#addLine").removeClass("hide");
             $.get(home.urls.user.getAll(),{},function(result){
                 var userData = result.data;
                 userData.forEach(function(e){
@@ -186,8 +194,8 @@ var grapple ={
             home.funcs.bindselectAll($("#grapple_checkAll"), $(".grapple_checkbox"), checkedBoxLength, $("#grappleTable"));
             /**绑定查看明细事件 */
             grapple.funcs.bindViewEvents($('.view'));
-            /**绑定修改明细事件 */
-            grapple.funcs.bindModifyEvents($('.modify'));
+            // /**绑定修改明细事件 */
+            // grapple.funcs.bindModifyEvents($('.modify'));
         }
         /**map渲染 */
         ,getMapData : function(results){

@@ -1,0 +1,153 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">考核标准设置</span>
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <a href="#" id="setTaste"><i class="layui-icon" style="font-size: 20px;">&#xe631;</i> 原矿品位设置</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" id="addGrade"><i class="layui-icon" style="font-size: 20px;">&#xe654;</i>添加档次</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="criteriaTable">
+        <thead>
+            <tr>
+                <td>原矿品位%（Pb+Zn）</td>
+                <td>档次</td>
+                <td>铅精品味%</td>
+                <td>锌精品味%</td>
+                <td>单锌回收率%</td>
+                <td>（Pb+Zn）综合回收率%</td>
+                <td>Pb综合回收率%</td>
+                <td>Zn综合回收率%</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <!--隐藏部分-->
+    <!--原矿品味设置-->
+    <div class="hide layerModal" id="setTasteModal">
+            <table id="setTasteTable">
+                <thead>
+                    <tr>
+                        <td style="width: 20%;">原矿品味</td>
+                        <td style="width: 20%;">运算符</td>
+                        <td style="width: 20%;">最小值</td>
+                        <td style="width: 20%;">最大值</td>
+                        <td style="width: 10%;">编辑</td>
+                        <td style="width: 10%;">删除</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" value=">=12" /></td>
+                        <td>></td>
+                        <td></td>
+                        <td>56</td>
+                        <td></td>
+                        <td><a href="#" class="delete"><i class="layui-icon">&#x1006;</i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="whitespace"></div>
+            <div style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                <button id="addLine" 
+                    style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                    +
+                </button>
+            </div>
+        </div>
+        <!--原矿品味设置里面的编辑事件-->
+        <div class="hide layerModal" id="updateTasteModal">
+            <table id="updateTasteTable">
+                <!-- <tr>
+                    <td class="grey">原矿品味</td>
+                    <td id="rawName"></td>
+                </tr> -->
+                <tr>
+                    <td class="grey">运算符</td>
+                    <td><select id='operate'><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option><option value='4'>~</option></select></td>
+                </tr>
+                <tr>
+                    <td class="grey">最小值</td>
+                    <td><input type="text" id="minValue" /></td>
+                </tr>
+                <tr>
+                    <td class="grey">最大值</td>
+                    <td><input type="text" id="maxValue" disabled /></td>
+                </tr>
+            </table>
+        </div>
+        <!--添加档次-->
+        <div class="hide layerModal" id="addGradeModal">
+            <table id="addGradeTable">
+                <tbody>
+                    <tr>
+                        <td class="grey">原矿品味%</td>
+                        <td colspan="2"><select id="rawTaste"></select></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">档次名称%</td>
+                        <td colspan="2"><input type="text" placeholder="请输入档次名称" id="levelName" /></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">铅精品味%</td>
+                        <td><select id="pbGradeOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbGradeValue" placeholder="请输入数字" /></td>
+                    </tr>
+                     <tr>
+                        <td class="grey">锌精品味%</td>
+                        <td><select id="znGradeOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znGradeValue" placeholder="请输入数字" /></td>
+                    </tr>
+                     <tr>
+                        <td class="grey">单锌回收率%</td>
+                        <td><select id="znRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znRecoveryValue" placeholder="请输入数字" /></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">（Pb+Zn）综合回收率%</td>
+                        <td><select id="pbZnAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbZnAllRecoveryValue" placeholder="请输入数字" /></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">Pb综合回收率%</td>
+                        <td><select id="pbAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="pbAllRecoveryValue" placeholder="请输入数字" /></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">Zn综合回收率%</td>
+                        <td><select id="znAllRecoveryOperate"><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+                        <td><input type="text" id="znAllRecoveryValue" placeholder="请输入数字" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <script src="selfjs/assessmentCriteria.js"></script>
+    <script>
+       $(function() {
+            assessmentCriteria.init(); 
+       })
+       function addLine() {
+            var $tbody = $("#setTasteTable").children("tbody");
+            $tbody.append(
+                "<tr>" +
+                "<td></td>" +
+                "<td><select id='operator'><option value='0'>\>\</option><option value=1'>\>=\</option><option value='2'>\<\</option><option value=3'>\<=\</option><option value=4'>~</option></select></td>" +
+                "<td><input type='text' placeholder='请输入最小值' /></td>" +
+                "<td><input type='text' placeholder='请输入最大值' /></td>" +
+                "<td><a href='#' class='editor'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                "<td><a href='#' class='delete'><i class='layui-icon'>&#x1006;</i></a></td>" +
+                "</tr>"
+            )
+            assessmentCriteria.funcs.bindEditorLinesEvent($(".editor"));
+            assessmentCriteria.funcs.bindDeleteLinesEvent($(".delete"));
+        }
+    </script>
+</div>

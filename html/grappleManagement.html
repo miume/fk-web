@@ -4,9 +4,7 @@
             <p>
                 <p class="fl" style="margin-left:20px;"><span>开始时间：<input type="text" id="startTime"></span></p>
                 <p class="fl" style="margin-left:20px;"><span>结束时间：<input type="text" id="endTime"></span></p>
-                <p class="fl" style="margin-left:20px;"><span>班　　次：<select id="clazz">
-                    <option value="1">早班</option><option value="2">中班</option><option value="3">晚班</option><option value="-1" selected="selected">所有</option>
-                </select></span></p>&nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="fl" style="margin-left:20px;"><span>班　　次：<select id="clazz"></select></span></p>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
@@ -41,17 +39,10 @@
     </table>
     <div id="grapplepage"></div>
 
-    <script src="selfjs/grappleManagement.js"></script>
-    <script type="application/javascript">
-        $(function() {
-            grapple.init();
-        });
-    </script>
+    
     <!--确认弹出页面-->
     <div id="confirm" class="hide hideModal">
-        <p><span>班次:</span><select id="sel"><option value="1" selected="selected">早班</option>
-                                    <option value="2">中班</option>
-                                    <option value="3">晚班</option></select></p>
+        <p><span>班次:</span><select id="sel"></select></p>
     </div>
     <!--新增,修改,详情弹出页面-->
     <div id = "modal" class="hide">
@@ -84,16 +75,19 @@
             <tbody id="reportChartTbody">
 
             </tbody>
-            <div>
-                <p>
-                    <span id="addRow"><a href="#"><i class="layui-icon">&#xe608;</i>添加一行</a></span>
-                </p>
-            </div>
         </table>
-        <!--添加一行弹出页面-->
-        <div id="addModal" class="hide hideModal">
-            <p><span>原料:</span><select id="addMaterial"></select></p>
+        <div class="whitespace"></div>
+        <!-- <span class="hide" id="addLine" style="margin-left: 45%;"><i class="layui-icon" style="font-size: 45px;font-weight: bold; color: #1E9FFF;">&#xe608;</i> </span> -->
+        <div class="hide" id="addLine" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                <button id="addRow"
+                style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+               </button>
         </div>
+    </div>
+    <!--添加一行弹出页面-->
+    <div id="addModal" class="hide hideModal">
+        <p><span>原料:</span><select id="addMaterial"></select></p>
     </div>
     <script type="application/javascript">
         layui.use('laydate',function(){
@@ -124,5 +118,11 @@
                 ,done:function(value,date){}
             });
         })
+    </script>
+    <script src="selfjs/grappleManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            grapple.init();
+        });
     </script>
 </div>

@@ -33,7 +33,6 @@ html, body, parent {
     top: 60px;
     height: 100%;
     background: #ffffff;
-    min-width: 300px;
 }
 /*
 .navigations {
@@ -284,7 +283,15 @@ input {
     font-weight: 400;
     height:35px;
 }
-.display-component-container button {
+/* *偶数行变色
+.display-component-container tbody tr:nth-child(2n) {
+    background: rgba(248, 238, 238, 0.548) !important;
+}
+/**实现表格中鼠标放上去 tr变色
+.display-component-container tbody tr:hover {
+    background: rgba(236, 225, 225, 0.548) !important;
+} */
+.display-component-container button { 
     background-color:#1E9FFF;
     color: #ffffff;
 }
@@ -331,6 +338,9 @@ input {
 .block-quote span{
     color:#1E9FFF;
     font-size: 15px;
+} 
+.block-quote select {
+    height: 23px !important;
 }
 .whitespace {
     height: 20px;

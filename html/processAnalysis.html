@@ -1,0 +1,103 @@
+<div class="display-component-container">
+    <style>
+        .leftDiv {
+            position: absolute;
+            width: 45%;
+            float: left;
+        }   
+        .rightDiv {
+            position: absolute;
+            width: 45%;
+            left: 50%;
+            float: left;
+        }    
+        table tr td{
+            width: 25%;
+        }
+        .chartDiv {
+            position: relative;
+            top:10px;
+        }
+        #bar {
+            position: absolute;
+            width : 110%;
+            height: 350px;
+            left: -30px;
+        }
+        #bar1 {
+            position: absolute;
+            width : 110%;
+            height: 350px;
+            left: -30px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">设备用电同比环比能耗分析</span>
+                时间：<input type="text" id="date"  />&nbsp;&nbsp;&nbsp;
+                工序：<select id="section" ></select>&nbsp;&nbsp;&nbsp;
+                <a href="#" id="searchButton"><i class="layui-icon">&#xe615;</i>搜索</a>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <!--左div-->
+    <div class="leftDiv">
+        <div class="topDiv">
+            <h4>用电同比分析</h4>
+            <table id="useAnalysis">
+                <tr>
+                    <td class="grey">本月用电(kwh)</td>
+                    <td></td>
+                    <td class="grey">去年同期(kwh)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="grey">同比</td>
+                    <td colspan="3"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="chartDiv">
+            <h4>用电量同比分析</h4>
+            <div id="bar"></div>
+        </div>
+    </div>
+    <!--右div-->
+    <div class="rightDiv">
+        <div class="topDiv1">
+            <h4>用电同比分析</h4>
+            <table id="ringAnalysis">
+                <tr>
+                    <td class="grey">本月用电(kwh)</td>
+                    <td></td>
+                    <td class="grey">去年同期(kwh)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="grey">环比</td>
+                    <td colspan="3"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="chartDiv">
+            <h4>用电量环比分析</h4>
+            <div id="bar1"></div>
+        </div>
+    </div>
+    <div class="rightDiv"></div>
+    <script src="selfjs/sectionAnalysis.js"></script>
+    <script>
+        $(function() {
+            sectionAnalysis.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date",
+                    type : "month"
+                })
+            })
+        })
+    </script>
+</div>

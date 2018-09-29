@@ -6,6 +6,28 @@
             border : none;
             text-align: center;
         }
+        #addModal td select{
+            width : 100%;
+            height : 100%;
+            border : none;
+            text-align: center;
+        }
+        #addModal{
+            padding: 0.5cm;
+        }
+        #addModal div{
+            margin-bottom: 10px;
+        }
+        .radio{
+            display: inline;
+        }
+        #addModal span{
+            font-size: 17px;
+        }
+        .border{
+            border: 1px solid grey;
+            padding: 5px;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -13,9 +35,10 @@
                 送检系统：<select id="sampleType" class="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 委托类型：<select id="delegationType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 操作日期：<input id="startDate" type="text">&nbsp;&nbsp;至&nbsp;&nbsp;<input id="endDate" type="text">&nbsp;&nbsp;&nbsp;&nbsp;
-                化验：<select id="assay"><option></option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                化验：<select id="assay"><option value="-1"></option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
             </p>
         </div>
     </div>
@@ -74,68 +97,70 @@
     </script>
     <!--弹出框隐藏部分-->
     <div class="hide" id="addModal">
-            <div>
-                <p>
-                    送检系统：<select id="sampleTypeHide" class="sampleTypeHide"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    委托类型：<span><span id="commission">
-                    </span></span>
-                </p>
+        <div style="display:inline-table;">
+            <span style="font-size:17px;color:#1E9FFF;">送检系统：</span><select id="sampleTypeHide" class="sampleTypeHide"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size:17px;font-weight: bold;">委托类型：</span><span id="commission" style="display: inline;"></span>
+        </div>
+<!-- <span id="commission"></span> -->
+        <div>
+            <span>选择送检样品：</span> <br/>
+            <div style="width:4px;"></div>
+            <span class="border" id="sample">
+            </span>
+        </div>
+        <div>
+            <span>选择送检项目：</span><br/>
+            <div style="width:4px;"></div>
+            <span class="border">
+                <input value='铅' type='checkbox' class="item" name="item" id="pbFlag"><span style='padding-right:30px;'>铅</span>
+                <input value='锌' type='checkbox' class="item" name="item" id="znFlag"><span style='padding-right:30px;'>锌</span>
+                <input value='铁' type='checkbox' class="item" name="item" id="feFlag"><span style='padding-right:30px;'>铁</span>
+                <input value='硫' type='checkbox' class="item" name="item" id="sflag"><span style='padding-right:30px;'>硫</span>
+            </span>
+        </div>
+        <div>
+            <span>化验方式：</span><br/>
+            <div style="width:4px;"></div>
+            <span class="border" id="method">
+            </span>
+        </div>
 
-                <p>
-                    选择送检样品：<br/>
-                    <span><span id="sample">
-                    </span></span>
-                </p>
-
-                <p>
-                    选择送检项目：<br/>
-                    <span>
-                        <input value='铅' type='checkbox' class="item">铅
-                        <input value='锌' type='checkbox' class="item">锌
-                        <input value='铁' type='checkbox' class="item">铁
-                        <input value='硫' type='checkbox' class="item">硫
-                    </span>
-                </p>
-
-                <p>
-                    化验方式：<br/>
-                    <span><span id="method">
-                    </span></span>
-                </p>
-
-                <p>
-                    备注：<br/>
-                    <input type="text" id="remarks">
-                </p>
-
-                <p>
-                    <tr>
-                        <td>原矿处理量</td>
-                        <td><input type="text" id="capacity"></td>
-                    </tr>
-                </p>
-
-                <p>
-                    <table>
-                    <tr>
-                        <td>操作人</td>
-                        <td><select id="operator"></select></td>
-                        <td>班组</td>
-                        <td><select id="team"></select></td>>
-                    </tr>
-                    <tr>
-                        <td>操作日期</td>
-                        <td><input type="text" id="operationDate"></td>
-                        <td>班次</td>
-                        <td><select id="clazz"></select></td>
-                    </tr>
-                    </table>
-                </p>
-            </div>
+        <!-- <div>
+            <span>备注：</span><br/>
+            <div style="width:4px;"></div>
+            <input type="text" id="remarks">
+        </div> -->
+        <div>
+        <table>
+            
+        </table>
+       </div>
+        <div>
+            <table>
+                <tr>
+                    <td class="grey">原矿处理量：</td><br/>
+                    <td><input type="text" id="capacity"></td>
+                    <td>备注</td>
+                    <td><input type="text" id="remarks"></td>
+                </tr>
+                <tr>
+                    <td class="grey">班组</td>
+                    <td><select id="team"></select></td>
+                    <td class="grey">操作人</td>
+                    <td><select id="operator"></select></td>
+                </tr>
+                <tr>
+                    <td class="grey">操作日期</td>
+                    <td><input type="text" id="operationDate"></td>
+                    <td class="grey">班次</td>
+                    <td><select id="clazz"></select></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <!--隐藏常规,临时委托表-->
-    <div class="hide" id="conventionalModal">
-            <table id="conventionalTable" style="padding: 20px">
+    <div class="hide layModal" id="conventionalModal" style="padding: 20px">
+            <table id="conventionalTable">
                     <thead id="conventionalThead">
                         <tr>
                             <td rowspan="2">序号</td>

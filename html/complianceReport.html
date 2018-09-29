@@ -13,11 +13,11 @@
             <select id="startClazz" style="height:23px;"></select>&nbsp;&nbsp;
             至&nbsp;<input type="text" id="endDate" placeholder="请选择结束日期" />&nbsp;&nbsp;
             <select id="endClazz" style="height:23px;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <div class="fr">
-            <span id="serachButton"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="criteria"><a href="#"><i class="layui-icon">&#xe63c;</i> 考核标准设置</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="export"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <span id="criteria"><a href="#"><i class="layui-icon">&#xe63c;</i> 考核标准设置</a></span>&nbsp;&nbsp;&nbsp;&nbsp; -->
         </div>
     </div>
     <div class="whitespace"></div>
@@ -29,13 +29,13 @@
                 <td rowspan="3">序号</td>
                 <td rowspan="3">日期</td>
                 <td rowspan="3">班次</td>
+                <td rowspan="3">班组</td>
                 <td rowspan="3">操作员</td>
                 <td colspan="4">原矿</td>
                 <td colspan="5">高铅精矿</td>
                 <td colspan="5">高锌精矿</td>
                 <td colspan="5">尾矿</td>
-                <td colspan="2">综合回收</td>
-                <td>铅锌综合回收</td>
+                <td colspan="3" rowspan="2">综合回收率</td>
             </tr>
             <tr>
                 <td>重量</td>
@@ -48,7 +48,7 @@
                 <td colspan="2">回收率%</td>
                 <td>产率</td>
                 <td colspan="2">品位%</td>
-                <td colspan="5">回收率%</td>
+                <td colspan="2">回收率%</td>
             </tr>
             <tr>
                 <td>(吨)</td>
@@ -72,7 +72,7 @@
                 <td>Zn</td>
                 <td>Pb</td>
                 <td>Zn</td>
-                <td></td>
+                <td>Pb+Zn</td>
             </tr>
         </thead>
         <tbody>

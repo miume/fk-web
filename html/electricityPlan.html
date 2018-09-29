@@ -1,0 +1,116 @@
+<div class="display-component-container">
+    <style>
+        #electricityLayerModal tr td {
+            width : 25%;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">设备/线路月用电管理</span>&nbsp;&nbsp;&nbsp;
+                时间：<input type="text" id="date" placeholder="请输入时间" />&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="electricityPlanTable">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>设备/线路编号</td>
+                <td>设备/线路名称</td>
+                <td>电表DP点</td>
+                <td>1月</td>
+                <td>2月</td>
+                <td>3月</td>
+                <td>4月</td>
+                <td>5月</td>
+                <td>6月</td>
+                <td>7月</td>
+                <td>8月</td>
+                <td>9月</td>
+                <td>10月</td>
+                <td>11月</td>
+                <td>12月</td>
+                <td>编辑</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="electricityPlan_page"></div>
+    <script src="selfjs/electricityPlan.js"></script>
+    <script>
+        $(function() {
+            electricityPlan.init();
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date",
+                    type : "year",
+                })
+            })
+        })
+    </script> 
+    <!--隐藏部分-->
+    <div class="hide layerModal" id="electricityLayerModal">
+        <table>
+            <tr>
+                <td class="grey" colspan="2">设备/线路编号</td>
+                <td colspan="2"><input type="text" id="code" disabled/></td>
+            </tr>
+             <tr>
+                <td class="grey" colspan="2">设备/线路名称</td>
+                <td colspan="2"><input type="text" id="name" disabled/></td>
+            </tr>
+            <tr>
+                <td class="grey" colspan="2">电表DP点</td>
+                <td colspan="2"><select id="energyDpPoint"></select></td>
+            </tr>
+            <tr>
+                <td class="grey">1月</td>
+                <td><input type="text" id="one" /></td>
+                <td class="grey">2月</td>
+                <td><input type="text" id="two" /></td>
+            </tr>
+            <tr>
+                <td class="grey">3月</td>
+                <td><input type="text" id="three" /></td>
+                <td class="grey">4月</td>
+                <td><input type="text" id="four" /></td>
+            </tr>
+            <tr>
+                <td class="grey">5月</td>
+                <td><input type="text" id="five" /></td>
+                <td class="grey">6月</td>
+                <td><input type="text" id="six" /></td>
+            </tr>
+            <tr>
+                <td class="grey">7月</td>
+                <td><input type="text" id="seven" /></td>
+                <td class="grey">8月</td>
+                <td><input type="text" id="eight" /></td>
+            </tr>
+            <tr>
+                <td class="grey">9月</td>
+                <td><input type="text" id="nine" /></td>
+                <td class="grey">10月</td>
+                <td><input type="text" id="ten" /></td>
+            </tr>
+            <tr>
+                <td class="grey">11月</td>
+                <td><input type="text" id="eleven" /></td>
+                <td class="grey">12月</td>
+                <td><input type="text" id="twelve" /></td>
+            </tr>
+        </table>
+    </div>
+</div>

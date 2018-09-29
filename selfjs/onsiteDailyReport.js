@@ -38,28 +38,26 @@ onsiteDailyReport = {
                 var res = result.data;
                 onsiteDailyReport.funcs.renderOreHandler(res);
                 onsiteDailyReport.pageSize = result.data.length;
-                console.log(onsiteDailyReport.pageSize)
                 var page = result.data;
-                /**分页消息 */
-                layui.laypage.render({
-                    elem : "ore_page",
-                    count : 10 * page.totalPages,
-                    curr : 1, 
-                    /**页面变换的逻辑 */
-                    jump : function(obj,first) {
-                        if(!first) {
-                            $.get(home.urls.siteTeamReport.searchOre(),{
-                                date : date,
-                                page : obj.curr - 1 ,
-                                size : obj.limit
-                             },function(result) {
-                                var res = result.data;
-                                onsiteDailyReport.funcs.renderOreHandler(res);
-                                onsiteDailyReport.pageSize = result.data.length;
-                            })
-                        }
-                    }
-                })
+                // /**分页消息 */
+                // layui.laypage.render({
+                //     elem : "ore_page",
+                //     count : 10 * page.totalPages,
+                //     /**页面变换的逻辑 */
+                //     jump : function(obj,first) {
+                //         if(!first) {
+                //             $.get(home.urls.siteTeamReport.searchOre(),{
+                //                 date : date,
+                //                 page : obj.curr - 1 ,
+                //                 size : obj.limit
+                //              },function(result) {
+                //                 var res = result.data;
+                //                 onsiteDailyReport.funcs.renderOreHandler(res);
+                //                 onsiteDailyReport.pageSize = result.data.length;
+                //             })
+                //         }
+                //     }
+                // })
             })
         }
         /**选硫根据时间进行搜索 */
@@ -70,24 +68,24 @@ onsiteDailyReport = {
                 var res = result.data;
                 onsiteDailyReport.funcs.renderSulfurHandler(res);
                 var data = result.data;
-                /**分页消息 */
-                layui.laypage.render({
-                    elem : "sulfur_page",
-                    count : 10 * data.totalPages,
-                    /**页面变换的逻辑 */
-                    jump : function(obj,first) {
-                        if(!first) {
-                            $.get(home.urls.siteTeamReport.searchSulfur(),{
-                                date : date,
-                                page : obj.curr - 1 ,
-                                size : obj.limit
-                             },function(result) {
-                                var res = result.data;
-                                onsiteDailyReport.funcs.renderSulfurHandler(res);
-                            })
-                        }
-                    }
-                })
+                // /**分页消息 */
+                // layui.laypage.render({
+                //     elem : "sulfur_page",
+                //     count : 10 * data.totalPages,
+                //     /**页面变换的逻辑 */
+                //     jump : function(obj,first) {
+                //         if(!first) {
+                //             $.get(home.urls.siteTeamReport.searchSulfur(),{
+                //                 date : date,
+                //                 page : obj.curr - 1 ,
+                //                 size : obj.limit
+                //              },function(result) {
+                //                 var res = result.data;
+                //                 onsiteDailyReport.funcs.renderSulfurHandler(res);
+                //             })
+                //         }
+                //     }
+                // })
             })
         }
         /**渲染表格数据 */

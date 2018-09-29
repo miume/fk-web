@@ -1,0 +1,90 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">设备线路管理</span>&nbsp;&nbsp;&nbsp;
+                编号：<input type="text" id="processId" placeholder="请输入编号" />&nbsp;&nbsp;&nbsp;
+                名称：<input type="text" id="equipmentLine" placeholder="请输入名称" />&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+        <div class="fr">
+            <p>
+                <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="exportTable"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="equipmentLineTable">
+        <thead>
+            <tr>
+                <!-- <td><input type="checkbox" id="checkboxAll" /></td> -->
+                <td>序号</td>
+                <td>设备/线路编号</td>
+                <td>设备/线路名称</td>
+                <td>电表DP点</td>
+                <td>是否自动采集</td>
+                <td>所属工段</td>
+                <td>所属工序</td>
+                <td>工艺类型</td>
+                <td>所属站点</td>
+                <td>每小时用电预测值</td>
+                <td>创建时间</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="text_center" id="equipmentLine_page"></div>
+    <script src="selfjs/equipmentLine.js"></script>
+    <script>
+        $(function() {
+            equipmentLine.init();
+        })
+    </script>
+    <!--隐藏部分-->
+    <div class="hide layerModal" id="equipmentLayerModal">
+        <table>
+            <tr>
+                <td class="grey">设备/线路编号</td>
+                <td><input type="text" id="code" placeholder="请输入设备/线路编号"/></td>
+            </tr>
+             <tr>
+                <td class="grey">设备/线路名称</td>
+                <td><input type="text" id="name" placeholder="请输入设备/线路名称"/></td>
+            </tr>
+            <tr>
+                <td class="grey">电表DP点</td>
+                <td><select id="energyDpPoint"><option value="1">工序工艺</option><option value="2">非工序工艺</option></select></td>
+            </tr>
+            <tr>
+                <td class="grey">是否自动采集</td>
+                <td><select id="autoFlag"><option value="1">是</option><option value="0">不是</option></select></td>
+            </tr>
+            <tr>
+                <td class="grey">所属工段</td>
+                <td><select id="energySectionInfo"></select></td>
+            </tr>
+            <tr>
+                <td class="grey">所属工序</td>
+                <td><select id="energyWorkProcedure"></select></td>
+            </tr>
+            <tr>
+                <td class="grey">工艺类型</td>
+                <td><select id="energyWorkType"><option value="-1">请选择工艺类型</option><option value="1">工序工艺</option><option value="2">非工序工艺</option></td>
+            </tr>
+            <tr>
+                <td class="grey">所属站点</td>
+                <td><input type="text" id="citeInfo" placeholder="请输入所属站点"/></td>
+            </tr>
+            <tr>
+                <td class="grey">每小时用电预测值</td>
+                <td><input type="text" id="electricPredict1H" placeholder="请输入数字" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
