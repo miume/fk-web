@@ -1,33 +1,136 @@
 <div class="display-component-container">
-    <div class="block-quote">
-        <div class="fl">
-            <p>
-                <span style="display: inline-block;width:150px;">分析报告书管理</span>
-                <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
-                <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>班次：</span><select style="width : 70px" id="class"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>系统：</span><select style="width : 100px" id="system"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>操作人：</span><select  style="width : 80px" id="operator"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
-            </p>
+    <style type="text/css" rel="stylesheet">
+        .hidePage{
+            display : none;
+        }
+    </style>
+    <div id="block1">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:150px;">送检委托单化验管理</span>
+                    <span>送检系统：</span><select style="width : 100px" id="system">
+                        <option value="1">铅锌系统</option>
+                        <option value="2">选硫系统</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>委托类型：</span><select  style="width : 100px" id="type">
+                        <option value="1">常规委托</option>
+                        <option value="2">临时委托</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>委托单号：</span><input  style="width : 100px" id="number">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="expertButton1"><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span> 
+                </p>
+            </div>
         </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>送检委托单号</td>
+                    <td>委托类型</td>
+                    <td>化验方式</td>
+                    <td>操作日期</td>
+                    <td>班次</td>
+                    <td>送检系统</td>
+                    <td>委托人</td>
+                    <td>委托时间</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+        <div id="report_page"></div>
     </div>
-    <!--留白-->
-    <div class="whitespace"></div>
-    <table id="statisticalReportTable">
-        <thead>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="text_center" id="statisticalReport_page"></div>
-    <script src="selfjs/statisticalReport.js"></script>
-    
+
+    <div id="block2" class="hidePage">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:250px;">铅锌品位质检委托单</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="expertButton2"><a href="#" id="download-id2"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="detailTable">
+            <thead>
+                <tr>
+                    <td rowspan="2">序号</td>
+                    <td rowspan="2">样品名称</td>
+                    <td rowspan="2">样品编号</td>
+                    <td colspan="4">分析结果（%）</td>
+                </tr>
+                <tr>
+                    <td>铅</td>
+                    <td>锌</td>
+                    <td>硫</td> 
+                    <td>铁</td>     
+                </tr>
+            </thead>
+            <tbody>
+                            
+            </tbody>
+        </table>
+    </div>
+    <div id="block3" class="hidePage">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:250px;">铅锌品位质检委托单</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="submitButton"><a href="#"><i class="layui-icon">&#xe62f;</i> 提交</a></span>&nbsp;&nbsp;
+                    <span id="backButton1"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="editTable">
+            <thead>
+                <tr>
+                    <td rowspan="2">序号</td>
+                    <td rowspan="2">样品名称</td>
+                    <td rowspan="2">样品编号</td>
+                    <td colspan="4">分析结果（%）</td>
+                </tr>
+                <tr>
+                    <td>铅</td>
+                    <td>锌</td>
+                    <td>硫</td> 
+                    <td>铁</td>     
+                </tr>
+            </thead>
+            <tbody>
+                            
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script src="selfjs/assayManagement.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            assayManage.init();
+        });
+    </script>
+    <script>
+        $("#backButton").off('click').on('click',function(){
+            $("#block2").addClass("hidePage");
+            $("#block1").removeClass("hidePage");
+        });
+        $("#backButton1").off('click').on('click',function(){
+            $("#block3").addClass("hidePage");
+            $("#block1").removeClass("hidePage");
+        })
+        
+
+    </script>
 
 </div>

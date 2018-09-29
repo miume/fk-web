@@ -2,34 +2,94 @@
         <div class="block-quote">
             <div >
                 <p>
-                    <span>所属系统：</span><select style="width : 100px" id="system"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>分析项目：</span><select  style="width : 80px" id="sample"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>样品列表：</span>
-                    <input type="checkbox" value="1"> 原矿&nbsp;&nbsp;
-                    <input type="checkbox" value="2"> 铅精&nbsp;&nbsp;
-                    <input type="checkbox" value="3"> 铅快粗尾&nbsp;&nbsp;
-                    <input type="checkbox" value="4"> 低铅粗泡&nbsp;&nbsp; 
-                    <input type="checkbox" value="1"> 铅尾&nbsp;&nbsp;
-                    <input type="checkbox" value="2"> 锌精&nbsp;&nbsp;
-                    <input type="checkbox" value="3"> 锌快粗尾&nbsp;&nbsp;  
+                    <span>所属系统：</span><select style="width : 100px" id="system">
+                        <option value="1">铅锌系统</option>
+                        <option value="2">选硫系统</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>分析项目：</span><select  style="width : 80px" id="project"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>样品列表：</span><span id ="sample"></span>
+                    
                 </p>
             </div>
             <div class="fl">
                 <p>
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择开始时间">&nbsp;&nbsp;
-                    <select style="width: 75px" id="classType1"></select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <select style="width: 75px" id="classType1">
+                        <option value="1">早班</option>
+                        <option value="2">中班</option>
+                        <option value="3">晚班</option>
+                    </select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择结束时间">&nbsp;&nbsp;
-                    <select style="width: 75px" id="classType2"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select style="width: 75px" id="classType2">
+                        <option value="1">早班</option>
+                        <option value="2">中班</option>
+                        <option value="3">晚班</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="analysisButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe62c;</i>开始分析</a></span>&nbsp;&nbsp;&nbsp;
                 </p>
             </div>
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        
-    
+        <div  id="sampleChart" style="width: 100%; height: 450px;"> </div>
     
         <script src="selfjs/reportAnalysis.js"></script>
-        
-    
+        <script>
+            $(function() {
+                reportAnalysis.init();
+            });
+        </script>
+        <script type="application/javascript">
+            layui.use('laydate',function(){
+                var laydate = layui.laydate;
+                var a = new Date();
+                var y = a.getFullYear();
+                var m = a.getMonth();
+                var d = a.getDate();
+                m = m + 1;
+                if(m<10){
+                    m = "0" + m;
+                }
+                if(d<10){
+                    d = "0" + d;
+                }
+                var str = y + "-" + m + "-" + d;
+            //    console.log(str);
+                laydate.render({
+                    elem:'#endTime',
+                    type:'date',
+                    value: str,
+                    done : function(value){
+                    //    crushing.funcs.bindProduceReport(value);
+                    }
+                })
+            })
+        </script>
+        <script type="application/javascript">
+            layui.use('laydate',function(){
+                var laydate = layui.laydate;
+                var a = new Date();
+                var date = new Date(a.getTime() - 7 * 24 * 3600 * 1000);
+                var y = date.getFullYear();
+                var m = date.getMonth();
+                var d = date.getDate();
+                m = m + 1;
+                if(m<10){
+                    m = "0" + m;
+                }
+                if(d<10){
+                    d = "0" + d;
+                }
+                var str = y + "-" + m + "-" + d;
+            //    console.log(str)
+                laydate.render({
+                    elem:'#startTime',
+                    type:'date',
+                    value: str,
+                    done : function(value){
+                    //    crushing.funcs.bindProduceReport(value);
+                    }
+                })
+            })
+        </script>
     </div>
