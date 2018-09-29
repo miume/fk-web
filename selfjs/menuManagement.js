@@ -45,7 +45,7 @@ var menuManagement = {
                  /**默认选中导航菜单中的基础信息 */
                  menuManagement.funcs.renderMenu1(1);
                  /**为导航菜单添加点击事件 */
-                 menuManagement.funcs.bindClickForNavigations($("#navigations .item .mainClick"));        
+                 menuManagement.funcs.bindClickForNavigations($("#sectionTable tbody tr"));        
         })
       }
       /**为导航菜单绑定点击事件 */

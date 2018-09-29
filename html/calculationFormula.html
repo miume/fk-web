@@ -4,28 +4,48 @@
             width: 100%;
         }
         .quarter {
-            width: 20%;
+            width: 21%;
             height: 70%;
             float: left;
             position: relative;
-            margin-right: 20px;
+            margin:auto 10px;
         }
         .turn {
             width: 4%;
             float: left;
             position: relative;
-            margin: 15% 10px 30px;
+            margin: 15% 0px 30px;
+            padding-right:20px;
         }
         botton{
             width: 40px !important;
         }
-        table tr td{
-            width:50%;
+        /* table thead td{
+            width:33%;
+        } */
+        .tableBody tbody td:first-child{
+            width:54%;
+        }
+        .changeWidth {
+            width: 60%;
         }
         .overflowTable {
             height: 400px;
-            overflow-y: auto;
+            overflow-y: scroll;
         }
+        .tableBody tbody tr:hover,.tableBody1 tbody tr:hover{
+            background: #e4e0e0 ;
+         }
+         /* .tableBody tbody tr:first-child {
+            background: #f2f2f2 !important;
+         } */
+         .selected-section {
+            background: #e4e0e0;
+        }
+        .selected-process,.selected-count,.selected-line,.selected-deduction{
+            background: #e4e0e0;
+        }
+        
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -50,7 +70,7 @@
                     </tr>
                 </thead>
             </table>
-            <div class="overflowTable">
+            <div class="overflowTable"id="table1">
             <table class="tableBody" id="sectionTable">
                 <tbody>
 
@@ -68,17 +88,17 @@
                     </tr>
                 </thead>
             </table>
-            <div class="overflowTable" id="table2">
-                <table id="processTable">
+            <div class="overflowTable" id="table11">
+                <table class="tableBody" id="processTable">
                     <tbody>
     
                     </tbody>
                 </table>
-        </div>
+           </div>
        </div>
         <div class="quarter">
             <p class="text_center">计入项</p>
-            <table id="countItem">
+            <table class="tableHead">
                 <thead>
                     <tr>
                         <td>编号</td>
@@ -86,48 +106,69 @@
                         <td>系数</td>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
             </table>
+            <div class="overflowTable" id="table2">
+                <table class="tableBody1" id="countItem">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
         </div>
         <div class="turn">
-            <button class="layui-btn layui-btn-mini"><<</button><br><br>
-            <button class="layui-btn layui-btn-mini">>></button>
+            <button class="layui-btn layui-btn-mini" id="lineToCount"><<</button><br><br>
+            <button class="layui-btn layui-btn-mini" id="countToLine">>></button>
         </div>
         <div class="quarter">
             <p class="text_center">设备/线路</p>
-            <table id="equipmentLine">
+            <table class="tableHead">
                 <thead>
                     <tr>
+                        <td>序号</td>
                         <td>编号</td>
                         <td>名称</td>
-                        <td>类型</td>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
             </table>
+            <div class="overflowTable" id="table3">
+                <table class="tableBody1" id="equipmentLine">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
         </div>
         <div class="turn">
-                <button class="layui-btn layui-btn-mini"><<</button><br><br>
-                <button class="layui-btn layui-btn-mini">>></button>
-            </div>
+                <button class="layui-btn layui-btn-mini" id="deductionToLine"><<</button><br><br>
+                <button class="layui-btn layui-btn-mini"  id="lineToDeduction">>></button>
+        </div>
         <div class="quarter">
             <p class="text_center">扣除项</p>
-            <table id="deduction">
+            <table class="tableHead">
                 <thead>
                     <tr>
-                        <td>编号</td>
+                        <td>序号</td>
                         <td>名称</td>
                         <td>系数</td>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
             </table>
+            <div class="overflowTable" id="table4">
+                <table class="tableBody1" id="deduction">
+                    <colgroup style="width:35.4%;"></colgroup>
+                    <colgroup style="width:36%;"></colgroup>
+                    <colgroup ></colgroup>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+           </div>
         </div>
     </div>
     <script src="selfjs/caculationFormula.js"></script>
