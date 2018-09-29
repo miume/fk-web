@@ -150,6 +150,19 @@ var delegationManagement = {
                 }
             })
         }
+        ,/**选择班组操作 */
+        selectTeam : function(select){
+            select.change(function(){
+                var value = $(this).children("option:selected").val();
+                $.get(home.urls.user.getByTeam(),{teamId : value},function(result) {
+                    var checks = result.data;
+                    $("#operator").empty();
+                    checks.forEach(function(e) {
+                        $("#operator").append('<option value='+e.id+'>'+e.name+'</option>')
+                    })
+                })
+            })
+        }
         /**绑定新增事件 */
         ,bindAddEvents : function(buttons){
             buttons.off('click').on("click",function(){
@@ -157,9 +170,18 @@ var delegationManagement = {
                 $("#remarks").val("");
                 $("#capacity").val("");
                 $("#operationDate").val("")
+                $("#team").val("-1")
+                $("#operator").empty();
+                $("#operator").append('<option value="-1"></option>');
+                $("#operator").val("-1")
+                $("#clazz").val("-1")
+                $("input:radio[name='met']").prop("checked",false);
+                $("input:radio[name='commi']").prop("checked",false);
                 $("input:radio[name='met']").prop("disabled",false);
                 $("input:checkbox[name='item']").prop("checked", false);
+                $("input:checkbox[name='sample']").prop("checked", false);
                 delegationManagement.funcs.bindClickEvents()
+                delegationManagement.funcs.selectTeam($("#team"))
                 $("#addModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -255,7 +277,7 @@ var delegationManagement = {
                     "<td>"+(e.signFlag===0?"未化验":"已化验")+"</td>" +
                     "<td>"+(e.testMethodInfo&&e.testMethodInfo.name||"")+"</td>" +
                     "<td>"+(e.testUser&&e.testUser.name || "")+"</td>" +
-                    "<td>"+(e.testDate)+"</td>" +
+                    "<td>"+(e.testDate || "")+"</td>" +
                     "<td>"+(e.signFlag===0?"<a href='#' class ='detail' id='deatil-"+(e.id)+"'>委托单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' class ='delete' id='delete-"+(e.id)+"'>删除</a>":"<a href='#' class ='view' id='view-"+(e.id)+"'>化验结果</a>")+"</td>" +
                     "</tr>"
                 )
@@ -281,10 +303,6 @@ var delegationManagement = {
                     orderFlag.forEach(function(flag){
                         itemMap[id] = flag.id
                     })
-                    // itemMap["铅"] = detailData.delegationOrderDetails[0].pbFlag
-                    // itemMap["锌"] = detailData.delegationOrderDetails[0].znFlag
-                    // itemMap["硫"] = detailData.delegationOrderDetails[0].sflag
-                    // itemMap["铁"] = detailData.delegationOrderDetails[0].feFlag
                     maps["pb"] = detailData.delegationOrderDetailFlags[0].pbFlag
                     maps["zn"] = detailData.delegationOrderDetailFlags[0].znFlag
                     maps["sf"] = detailData.delegationOrderDetailFlags[0].sflag
@@ -501,59 +519,6 @@ var delegationManagement = {
                 "</tr>"
             )
         }
-        //     var flags = [];
-
-        //     var length = flags.length;
-        //     $("#dynAdd").attr("colspan",length)
-        //     const $tr = $("#dynAdd")
-        //     var keyDyn = delegationManagement.funcs.renderHead($tr,flags)
-        //     keys = delegationManagement.funcs.getHeadKey(keyDyn);
-        //     var detailFlag = detailData.delegationOrderDetailFlags;
-        //     var mapDatas = delegationManagement.funcs.getMapData(detailFlag);
-        //     $tbody.empty();
-        //     var i = 0;
-        //     mapDatas.forEach(function(mapData) {
-        //         $tbody.append(
-        //             "<tr>" + 
-        //             "<td>" + (i++) + "</td>"
-        //         );
-        //         keys.forEach(function(key){
-        //             $tbody.append(
-        //                 "<td>"+ (mapData[key]||"") +"</td>"
-        //             );
-        //         });
-        //         $tbody.append(
-        //             "</tr>"
-        //         );
-        //     });
-        // }
-        /**将数据渲染成键值对形式 */
-        // ,getMapData : function(results){
-        //     var datas = []
-
-        //     for(var i in results){
-        //         var result = results[i];
-        //         var map = {};
-        //         map["name"] = result.name;
-        //         map["sampleCode"] = result.sampleCode;
-        //         map["1"] = result.pbFlag
-        //         map["2"] = result.znFlag
-        //         map["3"] = result.feFlag
-        //         map["4"] = result.sflag
-        //         datas.push(map);
-        //     }
-        //     return datas
-        // }
-        /**获取表头键值对 */
-        // ,getHeadKey : function(keyDyn){
-        //     var key = [];
-        //     key.push("name")
-        //     key.push("sampleCode")
-        //     keyDyn.forEach(function(e){
-        //         key.push(e);
-        //     })
-        //     return key;
-        // }
         /**获取表头的键值对 */
         ,getHeadKey : function(keyDyn){
             var key = [];
@@ -648,7 +613,7 @@ var delegationManagement = {
                 })
             })
             $("#clazz").empty();
-            $("#clazz").append('<option></option>');
+            $("#clazz").append('<option value="-1"></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var checks = result.data;
                 checks.forEach(function(e) {
@@ -656,15 +621,10 @@ var delegationManagement = {
                 })
             })
             $("#operator").empty();
-            $("#operator").append('<option></option>');
-            $.get(home.urls.user.getByTeam(),{teamId : 1},function(result) {
-                var checks = result.data;
-                checks.forEach(function(e) {
-                    $("#operator").append('<option value='+e.id+'>'+e.name+'</option>')
-                })
-            })
+            $("#operator").append('<option value="-1"></option>');
+            
             $("#team").empty();
-            $("#team").append('<option></option>');
+            $("#team").append('<option value="-1"></option>');
             $.get(home.urls.team.getById(),{id : 1},function(result) {
                 var checks = result.data;
                 $("#team").append('<option value='+checks.id+'>'+checks.name+'</option>')

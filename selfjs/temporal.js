@@ -1,7 +1,6 @@
 var timeManagement = {
     init : function(){
         timeManagement.funcs.renderOption();
-        timeManagement.funcs.renderDropBox();
         var out = $("#temporal_page").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();
