@@ -852,7 +852,35 @@ var home = {
             },
             exportById : function(){
                 return servers.backup() + "delegationOrderHeader/exportById"
+            },
+            getByFour : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateAndClazzAndSendToCheckInfoAndOperator"
+            },
+            download : function(){
+                return servers.backup() + "delegationOrderHeader/exportHeadBySearchResult"
+            },
+            download1 : function(){
+                return servers.backup() + "delegationOrderHeader/exportById"
+            },
+            download2 : function(){
+                return servers.backup() + "delegationOrderHeader/exportHeadByOrder"
+            },
+            getSampleAnalysis : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndSampleId"
+            },
+            getReportAnalysis1 : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndProject1"
+            },
+            getReportAnalysis2 : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndProject2"
+            },
+            getAssayManage : function(){
+                return servers.backup() + "delegationOrderHeader/getBySendCheckIdAndDelegationIdAndOrderCodeLikeByPage"
+            },
+            update : function(){
+                return servers.backup() + "delegationOrderHeader/update"
             }
+
         }
         ,delegationInfo : {
             findAll : function(){

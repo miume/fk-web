@@ -8,14 +8,23 @@
         <div class="block-quote">
             <div class="fl">
                 <p>
-                    <span style="display: inline-block;width:150px;">分析报告书管理</span>
+                    <span style="display: inline-block;width:130px;">分析报告书管理</span>
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>班次：</span><select style="width : 70px" id="class"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>系统：</span><select style="width : 100px" id="system"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>班次：</span><select style="width : 90px" id="class">
+                        <option value="-1">所有班次</option>
+                        <option value="1">早班</option>
+                        <option value="2">中班</option>
+                        <option value="3">晚班</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>系统：</span><select style="width : 100px" id="system">
+                        <option value="-1">所有系统</option>
+                        <option value="1">铅锌系统</option>
+                        <option value="2">选硫系统</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>操作人：</span><select  style="width : 80px" id="operator"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
+                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
                 </p>
             </div>
         </div>
@@ -39,18 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                    <td>2018-9-13</td>
-                    <td>系统1</td>
-                    <td>班次1</td>
-                    <td>张三</td>
-                    <td>组1</td>
-                    <td>1321</td>
-                    <td>0.3</td>
-                    <td>李四</td>
-                    <td>2018-8-12</td>
-                    <td>王五</td>
-                    <td>2018-8-31</td>
-                    <td><a href="#" class="detail">明细</a></td>
+            
             </tbody>
         </table>
         <div id="report_page"></div>
@@ -61,7 +59,7 @@
             <div class="fl">
                 <p>
                     <span style="display: inline-block;width:250px;">铅锌品位分析报告</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="expertButton2"><a href="#"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="expertButton2"><a href="#" id="download-id2"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
                     <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
                 </p>
             </div>
@@ -74,12 +72,13 @@
                     <td rowspan="2">序号</td>
                     <td rowspan="2">样品名称</td>
                     <td rowspan="2">样品编号</td>
-                    <td colspan="3">分析结果（%）</td>
+                    <td colspan="4">分析结果（%）</td>
                 </tr>
                 <tr>
                     <td>铅</td>
                     <td>锌</td>
-                    <td>硫</td>    
+                    <td>硫</td> 
+                    <td>铁</td>     
                 </tr>
             </thead>
             <tbody>
@@ -109,9 +108,9 @@
                 d = "0" + d;
             }
             var str = y + "-" + m + "-" + d;
-            console.log(str);
+        //    console.log(str);
             laydate.render({
-                elem:'#startTime',
+                elem:'#endTime',
                 type:'date',
                 value: str,
                 done : function(value){
@@ -136,9 +135,9 @@
                 d = "0" + d;
             }
             var str = y + "-" + m + "-" + d;
-            console.log(str)
+        //    console.log(str)
             laydate.render({
-                elem:'#endTime',
+                elem:'#startTime',
                 type:'date',
                 value: str,
                 done : function(value){
@@ -148,10 +147,6 @@
         })
     </script>
     <script>
-        $(".detail").off('click').on('click',function(){
-            $("#block1").addClass("hidePage");
-            $("#block2").removeClass("hidePage");
-        })
         $("#backButton").off('click').on('click',function(){
             $("#block2").addClass("hidePage");
             $("#block1").removeClass("hidePage");
