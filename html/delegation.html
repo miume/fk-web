@@ -6,8 +6,34 @@
             border : none;
             text-align: center;
         }
+        #addModal td select{
+            width : 100%;
+            height : 100%;
+            border : none;
+            text-align: center;
+        }
         #addModal{
             padding: 0.5cm;
+        }
+        #addModal div{
+            margin-bottom: 10px;
+        }
+        /* #addModal table{
+            width: 90%;
+        } */
+        /* #commission input{
+            position: relative;
+            margin-right: 10px;
+        } */
+        .radio{
+            display: inline;
+        }
+        #addModal span{
+            font-size: 17px;
+        }
+        .border{
+            border: 1px solid grey;
+            padding: 5px;
         }
     </style>
     <div class="block-quote">
@@ -78,66 +104,70 @@
     </script>
     <!--弹出框隐藏部分-->
     <div class="hide" id="addModal">
-                <div>
-                    送检系统：<select id="sampleTypeHide" class="sampleTypeHide"></select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    委托类型：<span><span id="commission">
-                    </span></span>
-                </div>
+        <div style="display:inline-table;">
+            <span style="font-size:17px;color:#1E9FFF;">送检系统：</span><select id="sampleTypeHide" class="sampleTypeHide"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size:17px;font-weight: bold;">委托类型：</span><span id="commission" style="display: inline;"></span>
+        </div>
+<!-- <span id="commission"></span> -->
+        <div>
+            <span>选择送检样品：</span> <br/>
+            <div style="width:4px;"></div>
+            <span class="border" id="sample">
+            </span>
+        </div>
+        <div>
+            <span>选择送检项目：</span><br/>
+            <div style="width:4px;"></div>
+            <span class="border">
+                <input value='铅' type='checkbox' class="item" name="item" id="pbFlag"><span style='padding-right:30px;'>铅</span>
+                <input value='锌' type='checkbox' class="item" name="item" id="znFlag"><span style='padding-right:30px;'>锌</span>
+                <input value='铁' type='checkbox' class="item" name="item" id="feFlag"><span style='padding-right:30px;'>铁</span>
+                <input value='硫' type='checkbox' class="item" name="item" id="sflag"><span style='padding-right:30px;'>硫</span>
+            </span>
+        </div>
+        <div>
+            <span>化验方式：</span><br/>
+            <div style="width:4px;"></div>
+            <span class="border" id="method">
+            </span>
+        </div>
 
-                <div>
-                    选择送检样品：<br/>
-                    <span id="sample">
-                    </span>
-                </div>
-
-                <div>
-                    选择送检项目：<br/>
-                    <span>
-                        <input value='铅' type='checkbox' class="item" name="item" id="pbFlag">铅
-                        <input value='锌' type='checkbox' class="item" name="item" id="znFlag">锌
-                        <input value='铁' type='checkbox' class="item" name="item" id="feFlag">铁
-                        <input value='硫' type='checkbox' class="item" name="item" id="sflag">硫
-                    </span>
-                </div>
-
-                <div>
-                    化验方式：<br/>
-                    <span id="method">
-                    </span>
-                </div>
-
-                <div>
-                    备注：<br/>
-                    <input type="text" id="remarks">
-                </div>
-
-                <div>
-                    <tr>
-                        <td>原矿处理量：</td><br/>
-                        <td><input type="text" id="capacity"></td>
-                    </tr>
-                </div>
-
-                <div>
-                    <table>
-                    <tr>
-                        <td>操作人</td>
-                        <td><select id="operator"></select></td>
-                        <td>班组</td>
-                        <td><select id="team"></select></td>>
-                    </tr>
-                    <tr>
-                        <td>操作日期</td>
-                        <td><input type="text" id="operationDate"></td>
-                        <td>班次</td>
-                        <td><select id="clazz"></select></td>
-                    </tr>
-                    </table>
-                </div>
+        <!-- <div>
+            <span>备注：</span><br/>
+            <div style="width:4px;"></div>
+            <input type="text" id="remarks">
+        </div> -->
+        <div>
+        <table>
+            
+        </table>
+       </div>
+        <div>
+            <table>
+                <tr>
+                    <td class="grey">原矿处理量：</td><br/>
+                    <td><input type="text" id="capacity"></td>
+                    <td>备注</td>
+                    <td><input type="text" id="remarks"></td>
+                </tr>
+                <tr>
+                    <td class="grey">操作人</td>
+                    <td><select id="operator"></select></td>
+                    <td class="grey">班组</td>
+                    <td><select id="team"></select></td>
+                </tr>
+                <tr>
+                    <td class="grey">操作日期</td>
+                    <td><input type="text" id="operationDate"></td>
+                    <td class="grey">班次</td>
+                    <td><select id="clazz"></select></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <!--隐藏常规,临时委托表-->
-    <div class="hide" id="conventionalModal">
-            <table id="conventionalTable" style="padding: 20px">
+    <div class="hide layModal" id="conventionalModal" style="padding: 20px">
+            <table id="conventionalTable">
                     <thead id="conventionalThead">
                         <tr>
                             <td rowspan="2">序号</td>

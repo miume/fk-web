@@ -165,7 +165,7 @@ var delegationManagement = {
                     type : 1,
                     title : "送检委托单管理",
                     content : $("#addModal"),
-                    area : ['80%', '70%'],
+                    area: ['75%', '85%'],
                     btn : ['生成委托单' , '返回'],
                     offset : ['10%' , '10%'],
                     closeBtn: 0,
@@ -357,7 +357,7 @@ var delegationManagement = {
                         type: 1,
                         title: "委托单",
                         content: $("#conventionalModal"),
-                        area: ['80%', '70%'],
+                        area: ['80%', '85%'],
                         btn: ['确定', '取消'],
                         offset: ['10%', '10%'],
                         closeBtn: 0,
@@ -676,14 +676,14 @@ var delegationManagement = {
             $.get(home.urls.delegationInfo.findAll(),{},function(result){
                 var checks = result.data;
                 checks.forEach(function(e){
-                    $("#commission").append("<input class='radio' type='radio'  name='commi' id='com-"+(e.id)+"'>"+e.name)
+                    $("#commission").append("<input class='radio' type='radio'  name='commi' id='com-"+(e.id)+"'><span style='padding-right:10px;'> "+(e.name)+"</span>")
                 })
             })
             $("#method").empty();
             $.get(home.urls.testMethodInfo.findAll(),{},function(result){
                 var checks = result.data;
                 checks.forEach(function(e){
-                    $("#method").append("<input type='radio' name='met'  id="+(e.id)+">"+e.name)
+                    $("#method").append("<input class='radio' type='radio' name='met'  id="+(e.id)+"><span style='padding-right:10px;'> "+(e.name)+"</span>")
                 })
             })
         }
@@ -693,7 +693,7 @@ var delegationManagement = {
             $.get(home.urls.sample.getAllByPage(),{},function(result){
                 var checks = result.data.content;
                 checks.forEach(function(e){
-                    $("#sample").append("<input name='sample' class='"+e.sampleCode+"' value='"+e.name+"' type='checkbox' id='check-"+(e.id)+"'>"+e.name)
+                    $("#sample").append("<input name='sample' class='"+e.sampleCode+"' value='"+e.name+"' type='checkbox' id='check-"+(e.id)+"'><span style='padding-right:30px;'> "+(e.name)+"</span>")
                 })
             })
         }
