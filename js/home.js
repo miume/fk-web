@@ -1113,7 +1113,27 @@ var home = {
             exportByGet : function(){
                 return servers.backup() + "electricUsedMonthPlanHeader/exportByGet"
             },
-
+        }
+        /**计算公式配置 */
+        ,caculationFormula : {
+            getBySectionIdAndFlag : function(){
+                return servers.backup() + "energySectionController/getBySectionIdAndFlag"
+            },
+            getBySectionIdAndFlagByPage : function(){
+                return servers.backup() + "energySectionController/getBySectionIdAndFlagByPage"
+            },
+            updateSection : function(){
+                return servers.backup() + "energySectionController/update"
+            },
+            getByProcedureIdAndFlag : function(){
+                return servers.backup() + "energyWorkProcedureController/getByProcedureIdAndFlag"
+            },
+            getByProcedureIdAndFlagByPage : function(){
+                return servers.backup() + "energyProcedureController/getByProcedureIdAndFlagByPage"
+            },
+            updateProcedure : function(){
+                return servers.backup() + "energyProcedureController/update"
+            },
         }
     }
    
