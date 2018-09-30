@@ -1,6 +1,10 @@
 <div class="display-component-container">
     <style>
-
+        #setAbnormalIndex {
+            padding: 40px;
+            width: 100%;
+            height: 95%;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -70,11 +74,37 @@
                 <td>标准名字</td>
                 <td>符号</td>
                 <td>值</td>
-                <td>单位</td>
-                <td>操作</td>
+                <td>编辑</td>
+                <td>删除</td>
             </thead>
             <tbody id="setAbnormalIndexTbody">
 
+            </tbody>
+        </table>
+        <div class="whitespace"></div>
+        <div style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+            <button id="addLine"
+                    style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+            </button>
+        </div>
+    </div>
+    <!--异常指标设置 新增一行界面-->
+    <div class="hide layerModal" id="updateAbnormalModal">
+        <table id="updateAbnormalTable">
+            <tbody>
+            <tr>
+                <td class="grey">标准名字</td>
+                <td><select id="norName"></select></td>
+            </tr>
+            <tr>
+                <td class="grey">符号</td>
+                <td><select id='operate'><option value='0'>></option><option value='1'>>=</option><option value='2'><</option><option value='3'><=</option></select></td>
+            </tr>
+            <tr>
+                <td class="grey">值</td>
+                <td><input type="text" id="value" /></td>
+            </tr>
             </tbody>
         </table>
     </div>

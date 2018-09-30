@@ -972,6 +972,18 @@ var home = {
         ,sampleIndexSetup : {
             getAll : function(){
                 return servers.backup() + "sampleIndexSetup/getAll"
+            },
+            add : function(){
+                return servers.backup() + "sampleIndexSetup/add"
+            },
+            getById : function(){
+                return servers.backup() + "sampleIndexSetup/getById"
+            },
+            update : function(){
+                return servers.backup() + "sampleIndexSetup/update"
+            },
+            deleteById : function(){
+                return servers.backup() + "sampleIndexSetup/deleteById"
             }
         }
         ,complianceReport : {
@@ -1096,6 +1108,21 @@ var home = {
                 return servers.backup() + "electricUsedMonthPlanHeader/exportByGet"
             },
 
+        }
+        /**设备用电监控 */
+        ,powerConsumptionRealtime : {
+            getLatestData : function(){
+                return servers.backup() + "powerConsumptionRealtime/getLatestData"
+            }
+        }
+        /**日用电维护 */
+        ,powerConsumptionDay : {
+            getAllByPage : function(){
+                return servers.backup() + "powerConsumptionDay/getAllByPage"
+            },
+            getByDate : function(){
+                return servers.backup() + "powerConsumptionDay/getByDate"
+            }
         }
     }
    

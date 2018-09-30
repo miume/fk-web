@@ -102,7 +102,7 @@ var sulphurDetails = {
                     var detailDatas = result.data.content;
                     const $tbody = $("#sulphurDetailTbody");
                     sulphurDetails.funcs.renderTbodyData($tbody, detailDatas, 0);
-                    layer.msg('查询成功', {
+                    layer.msg(result.message, {
                         offset : ['40%', '55%'],
                         time : 700
                     });
