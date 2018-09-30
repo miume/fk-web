@@ -1,0 +1,36 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">设备/线路用电数据实时监控</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                时间：<input id="nowDate" type="text" disabled>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="powerRealtimeTable">
+        <thead>
+        <tr>
+            <td>序号</td>
+            <td>时间</td>
+            <td>名称</td>
+            <td>电表DP点</td>
+            <td>有功电度</td>
+            <td>有功用电</td>
+            <td>无功电度</td>
+            <td>无功用电</td>
+        </tr>
+        </thead>
+        <tbody id="powerRealtimeTbody">
+
+        </tbody>
+    </table>
+    <div id="powerRealtimePage"></div>
+    <script src="selfjs/powerConsumptionRealtime.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            powerRealtime.init();
+        })
+    </script>
+</div>

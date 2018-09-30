@@ -188,6 +188,10 @@ var sampleManagement = {
                 var types = result.data.content;
                 const $tbody = $("#sampleTable").children("tbody");
                 sampleManagement.funcs.renderHandler($tbody, types , 0);
+                layer.msg(result.message, {
+                    offset : ['40%', '55%'],
+                    time : 700
+                });
                 sampleManagement.pageSize = result.data.length;
                 var page = result.data;
                 /**分页信息 */

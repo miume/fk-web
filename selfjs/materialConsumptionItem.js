@@ -5,7 +5,6 @@ var materialConsumptionItem = {
         materialConsumptionItem.funcs.renderTable();
         materialConsumptionItem.funcs.renderDropBox();
 
-        // materialConsumptionItem.funcs.renderDropBox();
         var out = $("#materialConsumptionItemPage").width();
         var time = setTimeout(function(){
             var inside = $(".layui-laypage").width();

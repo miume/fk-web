@@ -55,7 +55,7 @@ var abnormalIndex = {
                     var detailDatas = result.data;
                     const $tbody = $("#abnormalIndexTbody");
                     abnormalIndex.funcs.renderTbodyData($tbody, detailDatas);
-                    layer.msg('查询成功', {
+                    layer.msg(result.message, {
                         offset : ['40%', '55%'],
                         time : 700
                     });
@@ -84,17 +84,213 @@ var abnormalIndex = {
         /**绑定异常指标设置事件 */
         ,bindAbnormalEvents : function(buttons) {
             buttons.off('click').on('click',function() {
-                // $.get(home.urls.sampleIndexType.getAll(),{},function(result) {
-                //     var sampleIndex = result.data;
-                //     const $tbody = $("#setAbnormalIndexTbody");
-                //     abnormalIndex.funcs.renderSetAbnormalTbody($tbody,sampleIndex);
-                // })
-
+                abnormalIndex.funcs.renderSetAbnormalTbody();
+                $("#setAbnormalIndex").removeClass("hide");
+                layer.open({
+                    type: 1,
+                    title: '异常指标设置',
+                    content: $("#setAbnormalIndex"),
+                    area: ['50%', '50%'],
+                    btn: ['保存', '取消'],
+                    offset: ['25%', '25%'],
+                    closeBtn: 0,
+                    yes : function(index) {
+                        $("#setAbnormalIndex").addClass("hide");
+                        layer.close(index);
+                    },
+                    btn2 : function(index) {
+                        $("#setAbnormalIndex").addClass("hide");
+                        layer.close(index);
+                    },
+                })
             })
         }
         /**渲染异常指标设置中的数据*/
-        ,renderSetAbnormalTbody : function($tbody, sampleIndex) {
+        ,renderSetAbnormalTbody : function() {
+            $.get(home.urls.sampleIndexSetup.getAll(),{},function(result) {
+                var sampleIndex = result.data;
+                const $tbody = $("#setAbnormalIndexTbody");
+                $tbody.empty();
+                var operate = [">","≥","<","≤"];
+                sampleIndex.forEach(function(e) {
+                    $tbody.append(
+                        "<tr>"+
+                        "<td id='"+ e.type.id +"'>"+ e.type.name+"</td>"+
+                        "<td id='"+ e.operate +"'>"+ operate[e.operate]+"</td>"+
+                        "<td id='value-"+e.value+"'>"+ e.value +"</td>"+
+                        "<td><a href='#' class = 'editor' id='edit-"+ e.id +"'><i class='layui-icon'>&#xe642;</i></a></td>"+
+                        "<td><a href='#' class = 'delete' id='del-"+ e.id +"'><i class='layui-icon'>&#xe640;</i></a></td>"+
+                        "</tr>"
+                    )
+                });
+                /**绑定新增一行操作名称事件 */
+                abnormalIndex.funcs.bindAddLinesEvent($("#addLine"));
+                /**绑定编辑操作名称事件 */
+                abnormalIndex.funcs.bindEditEvents($(".editor"));
+                /**绑定删除操作名称事件 */
+                abnormalIndex.funcs.bindDeleteEvents($(".delete"));
+            });
+        }
+        /**绑定新增一行操作名称事件 */
+        ,bindAddLinesEvent : function(buttons) {
+            buttons.off('click').on('click',function() {
+                $("#norName").empty();
+                $("#operate option[value='0']").attr("selected","selected");
+                $("#value").val("");
+                $("#updateAbnormalModal").removeClass("hide");
+                $.get(home.urls.sampleIndexType.getAll(),{},function(result) {
+                    var sampleTypes = result.data;
+                    const $norName = $("#norName");
+                    sampleTypes.forEach(function(e) {
+                        $norName.append(
+                            "<option value='"+ e.id +"'>"+ e.name+"</option>"
+                        )
+                    })
+                });
+                layer.open({
+                    type : 1,
+                    title : "新增",
+                    content : $("#updateAbnormalModal"),
+                    area : ["300px","300px"],
+                    btn : ["保存","返回"],
+                    offset : "auto",
+                    closeBtn : 0,
+                    yes : function(index) {
+                        var norId = $("#norName").val();
+                        var operate = $("#operate").val();
+                        var value = $("#value").val();
+                        console.log(norId)
+                        console.log(operate)
+                        console.log(value)
+                        $.post(home.urls.sampleIndexSetup.add(),{
+                            'type.id' : norId,
+                            operate : operate,
+                            value : value
+                        },function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%', '55%'],
+                                time : 700
+                            });
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    abnormalIndex.init();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        });
+                        $("#updateAbnormalModal").addClass("hide");
+                        layer.close(index);
+                    }
+                    ,btn2 : function(index) {
+                        $("#updateTasteModal").addClass("hide");
+                        layer.close(index);
+                    }
+                })
+            })
+        }
+        /**绑定编辑操作名称事件 */
+        ,bindEditEvents : function(buttons) {
+            buttons.off("click").on("click",function() {
+                var id = $(this).attr("id").substr(5);
+                $.get(home.urls.sampleIndexType.getAll(),{},function(result) {
+                    var sampleTypes = result.data;
+                    const $norName = $("#norName");
+                    $norName.empty();
+                    sampleTypes.forEach(function(e) {
+                        $norName.append(
+                            "<option value='"+ e.id +"'>"+ e.name+"</option>"
+                        )
+                    });
+                    $("#norName option[value="+(nameVal)+"]").attr("selected","selected");
 
+                });
+                var e = $(this).parent("td").parent("tr");
+                var td = e.find("td");
+                console.log(td);
+                var nameVal = td.eq(0).attr("id");
+                var val = td.eq(1).attr("id");
+                var setValue = td.eq(2).attr("id").substr(6);
+                $("#operate option[value="+(val)+"]").attr("selected","selected");
+                $("#value").val(setValue);
+                $("#updateAbnormalModal").removeClass("hide");
+                //  使操作符下拉框出去选订状态
+                layer.open({
+                    type : 1,
+                    title : "修改",
+                    content : $("#updateAbnormalModal"),
+                    area : ["300px","300px"],
+                    btn : ["保存","返回"],
+                    offset : "auto",
+                    closeBtn : 0,
+                    yes : function(index) {
+                        var norId = $("#norName").val();
+                        var operate = $("#operate").val();
+                        var value = $("#value").val();
+                        $.post(home.urls.sampleIndexSetup.update(),{
+                            id : id,
+                            'type.id' : norId,
+                            operate : operate,
+                            value : value
+                        },function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%', '55%'],
+                                time : 700
+                            });
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    //  应该需要增加  当成功的时候  刷新异常指标设置
+                                    abnormalIndex.funcs.renderSetAbnormalTbody();
+                                    abnormalIndex.init();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        });
+                        $("#updateAbnormalModal").addClass("hide");
+                        layer.close(index);
+                    }
+                    ,btn2 : function(index) {
+                        $("#updateAbnormalModal").addClass("hide");
+                        layer.close(index);
+                    }
+                })
+            })
+        }
+        /**绑定删除操作名称事件 */
+        ,bindDeleteEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
+                var id = $(this).attr("id").substr(4);
+                console.log(id);
+                layer.open({
+                    type : 1,
+                    title : "删除",
+                    content : "<h5 style='text-align:center;'>确定要删除该记录吗？</h5>",
+                    area : ["240px","140px"],
+                    btn : ["确定","取消"] ,
+                    offset : "auto",
+                    closeBtn : 0,
+                    yes : function(index) {
+                        $.post(home.urls.sampleIndexSetup.deleteById(),{
+                            _method : "delete" , id : id
+                        },function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%', '55%'],
+                                time : 700
+                            });
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    abnormalIndex.init();
+                                    abnormalIndex.funcs.renderSetAbnormalTbody();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        });
+                        layer.close(index);
+                    }
+                    ,btn2 : function(index) {
+                        layer.close(index);
+                    }
+                })
+            })
         }
         /**渲染数据*/
         ,renderTbodyData : function($tbody, detailDatas) {
@@ -103,10 +299,8 @@ var abnormalIndex = {
             for(var name in detailDatas) {
                 //  其中name为对象名
                 var detailData = detailDatas[name];
-                console.log(detailData);
                 var flag = 0;
                 detailData.forEach(function(e) {
-                    console.log(e);
                     if(flag === 0){
                         // 1.写类型
                         $tbody.append(
