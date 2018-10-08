@@ -1206,6 +1206,9 @@ var home = {
             },
             statistic : function(){
                 return servers.backup() + "sectionUseElec/statistic"
+            },
+            countSectionUseElec : function(){
+                return servers.backup() + "sectionUseElec/countSectionUseElec"
             }
         }
         /**工序用电统计 */
@@ -1219,8 +1222,8 @@ var home = {
             getById : function(){
                 return servers.backup() + "procedureUseElec/getById"
             },
-            realAndPlan : function(){
-                return servers.backup() + "procedureUseElec/realAndPlan"
+            countProcedureUseElec : function(){
+                return servers.backup() + "procedureUseElec/countProcedureUseElec"
             },
             statistic : function(){
                 return servers.backup() + "procedureUseElec/gestatistictById"
