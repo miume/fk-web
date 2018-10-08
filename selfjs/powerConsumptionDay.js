@@ -2,7 +2,7 @@ var powerDay = {
     init : function() {
         powerDay.funcs.renderTable();
 
-        var out = $("#powerDayPage").width();
+        // var out = $("#powerDayPage").width();
         // var time = setTimeout(function(){
         //     var inside = $(".layui-laypage").width();
         //     $('#powerDayPage').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%');
@@ -19,10 +19,8 @@ var powerDay = {
                 date : currentDate
             },function(result) {
                 var powerDayDatas = result.data;
-                const $tbody = $("#powerDayTbody")
+                const $tbody = $("#powerDayTbody");
                 powerDay.funcs.renderHandler($tbody , powerDayDatas , 0);
-                // powerDay.pageSize = result.data.length;
-                // var page = result.data;
             });
             /**绑定搜索事件 */
             powerDay.funcs.bindSearchEvents($("#searchButton"));

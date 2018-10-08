@@ -1187,6 +1187,60 @@ var home = {
                 return servers.backup() + "powerConsumptionDay/getByDate"
             }
         }
+        /**工段用电统计 */
+        ,sectionUseElec : {
+            getAll : function(){
+                return servers.backup() + "sectionUseElec/getAll"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "sectionUseElec/getAllByPage"
+            },
+            getByDate : function(){
+                return servers.backup() + "sectionUseElec/getByDate"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "sectionUseElec/getByDateByPage"
+            },
+            getById : function(){
+                return servers.backup() + "sectionUseElec/getById"
+            },
+            statistic : function(){
+                return servers.backup() + "sectionUseElec/statistic"
+            }
+        }
+        /**工序用电统计 */
+        ,procedureUseElec : {
+            getAllByPage : function(){
+                return servers.backup() + "procedureUseElec/getAllByPage"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "procedureUseElec/getByDateByPage"
+            },
+            getById : function(){
+                return servers.backup() + "procedureUseElec/getById"
+            },
+            realAndPlan : function(){
+                return servers.backup() + "procedureUseElec/realAndPlan"
+            },
+            statistic : function(){
+                return servers.backup() + "procedureUseElec/gestatistictById"
+            }
+        }
+        /**事件报警 */
+        ,eventAlarm : {
+            exportByDpPointLike : function(){
+                return servers.backup() + "eventAlarm/exportByDpPointLike"
+            },
+            getByDpPointAndTimeByPage : function(){
+                return servers.backup() + "eventAlarm/getByDpPointAndTimeByPage"
+            },
+            getByIsResponseByPage : function(){
+                return servers.backup() + "eventAlarm/getByIsResponseByPage"
+            },
+            updateResponseStatusById : function(){
+                return servers.backup() + "eventAlarm/updateResponseStatusById"
+            }
+        }
     }
    
     /** start */

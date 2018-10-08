@@ -2,22 +2,24 @@
     <div class="block-quote">
         <div class="fl">
             <p>
-                <span style="font-size:20px">设备/线路日用电数据维护</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                时间：<input id="nowDate" type="text">&nbsp;&nbsp;&nbsp;
+                <span style="font-size:20px">选矿工段/工序用电计算</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                时间：<input id="searchDate" type="text">&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" checked="checked"  name="spElec" value="1" />&nbsp;工段&nbsp;&nbsp;
+                <input type="radio"   name="spElec" value="2" />&nbsp;工序&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="calculButton"><a href="#"><i class="layui-icon">&#xe615;</i>统计计算</a></span>
             </p>
         </div>
     </div>
     <!--留白-->
     <div class="whitespace"></div>
     <div style="overflow-x: scroll;width:100%;height:73%" >
-        <table id="powerDayTable" style="width: 150%;">
+        <table id="spUseElecTable" style="width: 150%;">
             <thead>
             <tr>
                 <td style="width: 3%">序号</td>
-                <td style="width: 4%">设备线路编号</td>
-                <td style="width: 4%">设备线路名称</td>
-                <td style="width: 4%">电表DP点</td>
+                <td style="width: 4%">工段/工序编号</td>
+                <td style="width: 4%">工段/工序名称</td>
                 <td>0：00</td>
                 <td>1：00</td>
                 <td>2：00</td>
@@ -44,23 +46,23 @@
                 <td>23：00</td>
             </tr>
             </thead>
-            <tbody id="powerDayTbody">
+            <tbody id="spUseElecTbody">
 
             </tbody>
         </table>
-        <!--<div id="powerDayPage"></div>-->
+        <div id="spUseElecPage"></div>
     </div>
-    <script src="selfjs/powerConsumptionDay.js"></script>
+    <script src="selfjs/sectionProcedureUseElec.js"></script>
     <script type="application/javascript">
         $(function() {
-            powerDay.init();
+            spUseElec.init();
         })
     </script>
     <script type="application/javascript">
         layui.use('laydate',function() {
             var laydate = layui.laydate;
             laydate.render({
-                elem: '#nowDate',
+                elem: '#searchDate',
                 btns : ['now']
             })
         })
