@@ -35,7 +35,7 @@
                 送检系统：<select id="sampleType" class="sampleType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 委托类型：<select id="delegationType"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 操作日期：<input id="startDate" type="text">&nbsp;&nbsp;至&nbsp;&nbsp;<input id="endDate" type="text">&nbsp;&nbsp;&nbsp;&nbsp;
-                化验：<select id="assay"><option value="-1"></option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                化验：<select id="assay"><option value="-1">所有</option><option value="0">未化验</option><option value="1">已化验</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
                 <span id="refreshButton"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
@@ -158,7 +158,7 @@
             </table>
         </div>
     </div>
-    <!--隐藏常规,临时委托表-->
+    <!--隐藏常规委托表-->
     <div class="hide layModal" id="conventionalModal" style="padding: 20px">
             <table id="conventionalTable">
                     <thead id="conventionalThead">
@@ -173,6 +173,26 @@
                         </tr>
                     </thead>
                     <tbody id="conventionalTbody">
+
+                    </tbody>
+            </table>
+    </div>
+    <!--隐藏临时委托表-->
+    <div class="hide layModal" id="conventionalTemporary" style="padding: 20px">
+            <table id="temporaryTable">
+                    <thead id="temporaryThead">
+                        <tr>
+                            <td rowspan="2">序号</td>
+                            <td rowspan="2">样品名称</td>
+                            <td rowspan="2">编号</td>
+                            <td rowspan="2">化验方式</td>
+                            <td colspan="" id="temporaryResult">分析结果（%）</td>
+                        </tr>
+                        <tr id="temporaryAdd">
+
+                        </tr>
+                    </thead>
+                    <tbody id="temporaryTbody">
 
                     </tbody>
             </table>

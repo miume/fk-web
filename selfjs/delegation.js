@@ -169,6 +169,7 @@ var delegationManagement = {
                 var delegationArrays = [];
                 $("#remarks").val("");
                 $("#capacity").val("");
+                $("#capacity").removeAttr("disabled");
                 $("#operationDate").val("")
                 $("#team").val("-1")
                 $("#operator").empty();
@@ -188,68 +189,211 @@ var delegationManagement = {
                     title : "送检委托单管理",
                     content : $("#addModal"),
                     area: ['75%', '85%'],
-                    btn : ['生成委托单' , '返回'],
+                    btn : ['生成表单' , '返回'],
                     offset : ['10%' , '10%'],
                     closeBtn: 0,
-                    yes : function(index){
-                        // 实现json格式传数据
-                        var item = $("input[name='sample']:checked")
-                        var userStr = $.session.get('user');
-                        var userJson = JSON.parse(userStr);
-                        var data = {
-                            clazz : {id : $("#clazz").val()},
-                            delegationInfo : {id : $("input[name='commi']:checked").attr('id').substr(4)},
-                            delegationOrderDetailFlags : [],
-                            description : $("#remarks").val(),
-                            mineDeal : $("#capacity").val(),
-                            operationDate : $("#operationDate").val(),
-                            operationUser : {id : $("#operator option:selected").val()},
-                            sendToCheckInfo : {id : $("#sampleTypeHide option:selected").val()},
-                            signUser : {id : userJson.id},
-                            testMethodInfo : {id : $("input[name='met']:checked").attr('id')||""}
-                        }
-                        var flag = []
-                        var flags = $(".item")
-                        flags.each(function(){
-                            if($(this).prop("checked")){
-                                flag.push(1)
-                            }else{
-                                flag.push(0)
-                            }
-                        })
-                        console.log(flag)
-                        item.each(function(){
-                            delegationArrays.push({
-                                sampleManageInfo : {id : $(this).attr('id').substr(6)},
-                                sampleName : $(this).val(),
-                                sflag : flag[3],
-                                znFlag : flag[1],
-                                feFlag : flag[2],
-                                pbFlag : flag[0]
+                    yes : function(index1){
+                        var commission = $("input:radio[name='commi']:checked").attr("id").substr(4)
+                        if(commission == 1){
+                            const $tbody = $("#conventionalTbody");
+                            var items = $("input[name='sample']:checked")
+                            var types = $("input[name='item']:checked")
+                            var clazz = $("#clazz option:selected").text()
+                            var operator = $("#operator option:selected").text()
+                            var team = $("#team option:selected").text()
+                            var capacity = $("#capacity").val()
+                            var remarks = $("#remarks").val()
+                            var time = $("#operationDate").val()
+                            var type = {}
+                            types.each(function(e){
+                                type[$(this).val()]=$(this).attr("class")
                             })
-                        })
-                        data.delegationOrderDetailFlags = delegationArrays;
-                        $.ajax({
-                            url : home.urls.delegation.add(),
-                            contentType: 'application/json',
-                            data: JSON.stringify(data),
-                            dataType: 'json',
-                            type: 'post',
-                            success: function (result) {
-                                if (result.code === 0) {
-                                    var time = setTimeout(function () {
-                                        delegationManagement.init()
-                                        clearTimeout(time)
-                                    }, 500);
+                            var arr = Object.keys(type)
+                            var length = arr.length
+                            $("#dynResult").attr("colspan",length)
+                            const $tr = $("#dynAdd")
+                            delegationManagement.funcs.renderHead1($tr,type)
+                            delegationManagement.funcs.renderNormal($tbody,items,clazz,operator,team,capacity,remarks,time,type,length)
+                            $("#conventionalModal").removeClass("hide");
+                            layer.open({
+                                type: 1,
+                                title: "常规化验表单",
+                                content: $("#conventionalModal"),
+                                area: ['80%', '70%'],
+                                btn: ['新增', '取消'],
+                                offset: ['10%', '10%'],
+                                closeBtn: 0,
+                                yes: function(index) {
+                                    // 实现json格式传数据
+                                    var item = $("input[name='sample']:checked")
+                                    var userStr = $.session.get('user');
+                                    var userJson = JSON.parse(userStr);
+                                    var data = {
+                                        clazz : {id : $("#clazz").val()},
+                                        delegationInfo : {id : $("input[name='commi']:checked").attr('id').substr(4)},
+                                        delegationOrderDetailFlags : [],
+                                        description : $("#remarks").val(),
+                                        mineDeal : $("#capacity").val(),
+                                        operationDate : $("#operationDate").val(),
+                                        operationUser : {id : $("#operator option:selected").val()},
+                                        sendToCheckInfo : {id : $("#sampleTypeHide option:selected").val()},
+                                        signUser : {id : userJson.id},
+                                        testMethodInfo : {id : $("input[name='met']:checked").attr('id')||""}
+                                    }
+                                    var flag = []
+                                    var flags = $(".item")
+                                    flags.each(function(){
+                                        if($(this).prop("checked")){
+                                            flag.push(1)
+                                        }else{
+                                            flag.push(0)
+                                        }
+                                    })
+                                    console.log(flag)
+                                    item.each(function(){
+                                        delegationArrays.push({
+                                            sampleManageInfo : {id : $(this).attr('id').substr(6)},
+                                            sampleName : $(this).val(),
+                                            sflag : flag[3],
+                                            znFlag : flag[1],
+                                            feFlag : flag[2],
+                                            pbFlag : flag[0]
+                                        })
+                                    })
+                                    data.delegationOrderDetailFlags = delegationArrays;
+                                    $.ajax({
+                                        url : home.urls.delegation.add(),
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        dataType: 'json',
+                                        type: 'post',
+                                        success: function (result) {
+                                            if (result.code === 0) {
+                                                var time = setTimeout(function () {
+                                                    delegationManagement.init()
+                                                    clearTimeout(time)
+                                                }, 500);
+                                                $("#addModal").css("display","none");
+                                                layer.close(index);
+                                            }
+                                            layer.msg(result.message, {
+                                                offset: ['40%', '55%'],
+                                                time: 700
+                                            })
+                                        }
+                                    })
+                                    $("#conventionalModal").css("display","none");
+                                    layer.close(index);
                                     $("#addModal").css("display","none");
+                                    layer.close(index1);
+                                }
+                                ,btn2: function (index) {
+                                    $("#conventionalModal").css("display","none");
                                     layer.close(index);
                                 }
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
-                                    time: 700
-                                })
-                            }
-                        })
+                            })
+                        }else if(commission == 2){
+                            const $tbody = $("#conventionalTbody");
+                            var items = $("input[name='sample']:checked")
+                            var types = $("input[name='item']:checked")
+                            var clazz = $("#clazz option:selected").text()
+                            var operator = $("#operator option:selected").text()
+                            var team = $("#team option:selected").text()
+                            var method = $("input:radio[name='met']:checked").val()
+                            var remarks = $("#remarks").val()
+                            var time = $("#operationDate").val()
+                            var type = {}
+                            types.each(function(e){
+                                type[$(this).val()]=$(this).attr("class")
+                            })
+                            var arr = Object.keys(type)
+                            var length = arr.length
+                            $("#dynResult").attr("colspan",length)
+                            const $tr = $("#dynAdd")
+                            delegationManagement.funcs.renderHead1($tr,type)
+                            delegationManagement.funcs.renderNormal1($tbody,items,clazz,operator,team,method,remarks,time,type,length)
+                            $("#conventionalModal").removeClass("hide");
+                            layer.open({
+                                type: 1,
+                                title: "临时化验表单",
+                                content: $("#conventionalModal"),
+                                area: ['80%', '70%'],
+                                btn: ['新增', '取消'],
+                                offset: ['10%', '10%'],
+                                closeBtn: 0,
+                                yes: function(index) {
+                                    // 实现json格式传数据
+                                    var item = $("input[name='sample']:checked")
+                                    var userStr = $.session.get('user');
+                                    var userJson = JSON.parse(userStr);
+                                    var data = {
+                                        clazz : {id : $("#clazz").val()},
+                                        delegationInfo : {id : $("input[name='commi']:checked").attr('id').substr(4)},
+                                        delegationOrderDetailFlags : [],
+                                        description : $("#remarks").val(),
+                                        mineDeal : $("#capacity").val(),
+                                        operationDate : $("#operationDate").val(),
+                                        operationUser : {id : $("#operator option:selected").val()},
+                                        sendToCheckInfo : {id : $("#sampleTypeHide option:selected").val()},
+                                        signUser : {id : userJson.id},
+                                        testMethodInfo : {id : $("input[name='met']:checked").attr('id')||""}
+                                    }
+                                    var flag = []
+                                    var flags = $(".item")
+                                    flags.each(function(){
+                                        if($(this).prop("checked")){
+                                            flag.push(1)
+                                        }else{
+                                            flag.push(0)
+                                        }
+                                    })
+                                    console.log(flag)
+                                    item.each(function(){
+                                        delegationArrays.push({
+                                            sampleManageInfo : {id : $(this).attr('id').substr(6)},
+                                            sampleName : $(this).val(),
+                                            sflag : flag[3],
+                                            znFlag : flag[1],
+                                            feFlag : flag[2],
+                                            pbFlag : flag[0]
+                                        })
+                                    })
+                                    data.delegationOrderDetailFlags = delegationArrays;
+                                    $.ajax({
+                                        url : home.urls.delegation.add(),
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        dataType: 'json',
+                                        type: 'post',
+                                        success: function (result) {
+                                            if (result.code === 0) {
+                                                var time = setTimeout(function () {
+                                                    delegationManagement.init()
+                                                    clearTimeout(time)
+                                                }, 500);
+                                                $("#addModal").css("display","none");
+                                                layer.close(index);
+                                            }
+                                            layer.msg(result.message, {
+                                                offset: ['40%', '55%'],
+                                                time: 700
+                                            })
+                                        }
+                                    })
+                                    $("#conventionalModal").css("display","none");
+                                    layer.close(index);
+                                    $("#addModal").css("display","none");
+                                    layer.close(index1);
+                                }
+                                ,btn2: function (index) {
+                                    $("#conventionalModal").css("display","none");
+                                    layer.close(index);
+                                }
+                            })
+                        }else{
+                            layer.msg("请选择委托类型")
+                        }
+                        
                     }
                     ,btn2: function (index) {
                         $("#addModal").css("display","none");
@@ -257,6 +401,96 @@ var delegationManagement = {
                     }
                 })
             })
+        }
+        ,renderNormal : function($tbody,items,clazz,operator,team,capacity,remarks,time,type,length){
+            $tbody.empty();
+            var a = 1;
+            items.each(function(e){
+                $tbody.append(
+                    "<tr>")
+                $tbody.append(
+                    "<td>" + (a++) + "</td>"
+                )
+                $tbody.append(
+                    "<td>" + ($(this).val()) + "</td>"+
+                    "<td>" + ($(this).attr("class")) + "</td>"
+                )
+                for(var i =0;i<length;i++){
+                    $tbody.append("<td></td>")
+                }
+                $tbody.append(
+                    "</tr>"
+                )
+            })
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作人") +"</td>" + 
+                "<td>" + (operator) + "</td>" + 
+                "<td>" + ("班组") + "</td>" + 
+                "<td colspan="+(length)+">" + (team) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作日期") +"</td>" + 
+                "<td>" + (time) + "</td>" + 
+                "<td>" + ("班次") + "</td>" + 
+                "<td colspan="+(length)+">" + (clazz) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("原矿处理量") +"</td>" + 
+                "<td>" + (capacity) + "</td>" + 
+                "<td>" + ("备注") + "</td>" + 
+                "<td colspan="+(length)+">" + (remarks) + "</td>" + 
+                "</tr>"
+            )
+        }
+        ,renderNormal1 : function($tbody,items,clazz,operator,team,method,remarks,time,type,length){
+            $tbody.empty();
+            var a = 1
+            items.each(function(e){
+                $tbody.append(
+                    "<tr>")
+                $tbody.append(
+                    "<td>" + (a++)+ "</td>"
+                )
+                $tbody.append(
+                    "<td>" + ($(this).val()) + "</td>"+
+                    "<td>" + ($(this).attr("class")) + "</td>"
+                )
+                for(var i =0;i<length;i++){
+                    $tbody.append("<td></td>")
+                }
+                $tbody.append(
+                    "</tr>"
+                )
+            })
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作人") +"</td>" + 
+                "<td>" + (operator) + "</td>" + 
+                "<td>" + ("班组") + "</td>" + 
+                "<td colspan="+(length)+">" + (team) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作日期") +"</td>" + 
+                "<td>" + (time) + "</td>" + 
+                "<td>" + ("班次") + "</td>" + 
+                "<td colspan="+(length)+">" + (clazz) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("化验方法") +"</td>" + 
+                "<td>" + (method) + "</td>" + 
+                "<td>" + ("备注") + "</td>" + 
+                "<td colspan="+(length)+">" + (remarks) + "</td>" + 
+                "</tr>"
+            )
         }
         ,renderHandler : function($tbody,delegations,page){
             //清空表格
@@ -294,52 +528,101 @@ var delegationManagement = {
             buttons.off('click').on("click",function(){
                 var id = $(this).attr("id").substr(5);
                 $.get(home.urls.delegation.getById(),{id:id},function(result){
-                    var detailData = result.data;
-                    var orderFlag = detailData.delegationOrderDetails;
-                    const $tbody = $("#conventionalTbody");
-                    var maps = {}
-                    var map = {}
-                    var itemMap = {}
-                    orderFlag.forEach(function(flag){
-                        itemMap[id] = flag.id
-                    })
-                    maps["pb"] = detailData.delegationOrderDetailFlags[0].pbFlag
-                    maps["zn"] = detailData.delegationOrderDetailFlags[0].znFlag
-                    maps["sf"] = detailData.delegationOrderDetailFlags[0].sflag
-                    maps["fe"] = detailData.delegationOrderDetailFlags[0].feFlag
-                    var item = {"pb":"铅","zn":"锌","sf":"硫","fe":"铁"}
-                    for(var i in maps){
-                        if(maps[i]==1){
-                            map[i]=item[i]
+                    if(result.data.delegationInfo.id==1){
+                        var detailData = result.data;
+                        var orderFlag = detailData.delegationOrderDetails;
+                        const $tbody = $("#conventionalTbody");
+                        var maps = {}
+                        var map = {}
+                        var itemMap = {}
+                        orderFlag.forEach(function(flag){
+                            itemMap[id] = flag.id
+                        })
+                        maps["pb"] = detailData.delegationOrderDetailFlags[0].pbFlag
+                        maps["zn"] = detailData.delegationOrderDetailFlags[0].znFlag
+                        maps["sf"] = detailData.delegationOrderDetailFlags[0].sflag
+                        maps["fe"] = detailData.delegationOrderDetailFlags[0].feFlag
+                        var item = {"pb":"铅","zn":"锌","sf":"硫","fe":"铁"}
+                        for(var i in maps){
+                            if(maps[i]==1){
+                                map[i]=item[i]
+                            }
                         }
+                        var arr = Object.keys(map)
+                        var length = arr.length
+                        $("#dynResult").attr("colspan",length)
+                        const $tr = $("#dynAdd")
+                        var keyDyn = delegationManagement.funcs.renderHead($tr,map)
+                        keys = delegationManagement.funcs.getHeadKey(keyDyn);
+                        // console.log(keys)
+                        delegationManagement.funcs.renderResult($tbody,detailData,keys,map)
+                        // console.log(key)
+                        $("#conventionalModal").removeClass("hide");
+                        layer.open({
+                            type: 1,
+                            title: "常规化验结果",
+                            content: $("#conventionalModal"),
+                            area: ['80%', '70%'],
+                            btn: ['导出', '取消'],
+                            offset: ['10%', '10%'],
+                            closeBtn: 0,
+                            yes: function(index) {
+                                var href = home.urls.delegation.exportById()+"?id=" + id;
+                                location.href = href;
+                            }
+                            ,btn2: function (index) {
+                                $("#conventionalModal").css("display","none");
+                                layer.close(index);
+                            }
+                        })
+                    }else if(result.data.delegationInfo.id==2){
+                        var detailData = result.data;
+                        var orderFlag = detailData.delegationOrderDetails;
+                        const $tbody = $("#temporaryTbody");
+                        var maps = {}
+                        var map = {}
+                        var itemMap = {}
+                        orderFlag.forEach(function(flag){
+                            itemMap[id] = flag.id
+                        })
+                        maps["pb"] = detailData.delegationOrderDetailFlags[0].pbFlag
+                        maps["zn"] = detailData.delegationOrderDetailFlags[0].znFlag
+                        maps["sf"] = detailData.delegationOrderDetailFlags[0].sflag
+                        maps["fe"] = detailData.delegationOrderDetailFlags[0].feFlag
+                        var item = {"pb":"铅","zn":"锌","sf":"硫","fe":"铁"}
+                        for(var i in maps){
+                            if(maps[i]==1){
+                                map[i]=item[i]
+                            }
+                        }
+                        var arr = Object.keys(map)
+                        var length = arr.length
+                        $("#temporaryResult").attr("colspan",length)
+                        const $tr = $("#temporaryAdd")
+                        var keyDyn = delegationManagement.funcs.renderHead($tr,map)
+                        keys = delegationManagement.funcs.getHeadKey(keyDyn);
+                        // console.log(keys)
+                        delegationManagement.funcs.renderTemporaryResult($tbody,detailData,keys,map)
+                        // console.log(key)
+                        $("#conventionalTemporary").removeClass("hide");
+                        layer.open({
+                            type: 1,
+                            title: "临时化验结果",
+                            content: $("#conventionalTemporary"),
+                            area: ['80%', '70%'],
+                            btn: ['导出', '取消'],
+                            offset: ['10%', '10%'],
+                            closeBtn: 0,
+                            yes: function(index) {
+                                var href = home.urls.delegation.exportById()+"?id=" + id;
+                                location.href = href;
+                            }
+                            ,btn2: function (index) {
+                                $("#conventionalTemporary").css("display","none");
+                                layer.close(index);
+                            }
+                        })
                     }
-                    var arr = Object.keys(map)
-                    var length = arr.length
-                    $("#dynResult").attr("colspan",length)
-                    const $tr = $("#dynAdd")
-                    var keyDyn = delegationManagement.funcs.renderHead($tr,map)
-                    keys = delegationManagement.funcs.getHeadKey(keyDyn);
-                    // console.log(keys)
-                    delegationManagement.funcs.renderResult($tbody,detailData,keys,map)
-                    // console.log(key)
-                    $("#conventionalModal").removeClass("hide");
-                    layer.open({
-                        type: 1,
-                        title: "化验结果",
-                        content: $("#conventionalModal"),
-                        area: ['80%', '70%'],
-                        btn: ['导出', '取消'],
-                        offset: ['10%', '10%'],
-                        closeBtn: 0,
-                        yes: function(index) {
-                            var href = home.urls.delegation.exportById()+"?id=" + id;
-                            location.href = href;
-                        }
-                        ,btn2: function (index) {
-                            $("#conventionalModal").css("display","none");
-                            layer.close(index);
-                        }
-                    })
                 })
             })
         }
@@ -350,48 +633,153 @@ var delegationManagement = {
                 $.get(home.urls.delegation.getById(),{
                     id : id
                 },function(result) {
-                    var detailData = result.data;
-                    const $tbody = $("#conventionalTbody");
-                    var maps = {}
-                    var map = {}
-                    maps["铅"] = detailData.delegationOrderDetailFlags[0].pbFlag
-                    maps["锌"] = detailData.delegationOrderDetailFlags[0].znFlag
-                    maps["硫"] = detailData.delegationOrderDetailFlags[0].sflag
-                    maps["铁"] = detailData.delegationOrderDetailFlags[0].feFlag
-                    for(var i in maps){
-                        if(maps[i]==1){
-                            map[i]=maps[i]
+                    if(result.data.delegationInfo.id==1){
+                        var detailData = result.data;
+                        const $tbody = $("#conventionalTbody");
+                        var maps = {}
+                        var map = {}
+                        maps["铅"] = detailData.delegationOrderDetailFlags[0].pbFlag
+                        maps["锌"] = detailData.delegationOrderDetailFlags[0].znFlag
+                        maps["硫"] = detailData.delegationOrderDetailFlags[0].sflag
+                        maps["铁"] = detailData.delegationOrderDetailFlags[0].feFlag
+                        for(var i in maps){
+                            if(maps[i]==1){
+                                map[i]=maps[i]
+                            }
                         }
+                        var arr = Object.keys(map)
+                        var length = arr.length
+                        $("#dynResult").attr("colspan",length)
+                        const $tr = $("#dynAdd")
+                        delegationManagement.funcs.renderHead1($tr,map)
+                        // delegationManagement.funcs.renderDetails($tbody,detailData);
+                        delegationManagement.funcs.renderDetails($tbody,detailData,map)
+                        $("#conventionalModal").removeClass("hide");
+                        layer.open({
+                            type: 1,
+                            title: "常规委托单",
+                            content: $("#conventionalModal"),
+                            area: ['80%', '85%'],
+                            btn: ['确定', '取消'],
+                            offset: ['10%', '10%'],
+                            closeBtn: 0,
+                            yes: function(index) {
+                                $("#conventionalModal").css("display","none");
+                                layer.close(index);
+                            }
+                            ,btn2: function (index) {
+                                $("#conventionalModal").css("display","none");
+                                layer.close(index);
+                            }
+                        })
+                    }else if(result.data.delegationInfo.id==2){
+                        var detailData = result.data;
+                        const $tbody = $("#temporaryTbody");
+                        var maps = {}
+                        var map = {}
+                        maps["铅"] = detailData.delegationOrderDetailFlags[0].pbFlag
+                        maps["锌"] = detailData.delegationOrderDetailFlags[0].znFlag
+                        maps["硫"] = detailData.delegationOrderDetailFlags[0].sflag
+                        maps["铁"] = detailData.delegationOrderDetailFlags[0].feFlag
+                        for(var i in maps){
+                            if(maps[i]==1){
+                                map[i]=maps[i]
+                            }
+                        }
+                        var arr = Object.keys(map)
+                        var length = arr.length
+                        $("#temporaryResult").attr("colspan",length)
+                        const $tr = $("#temporaryAdd")
+                        delegationManagement.funcs.renderHead1($tr,map)
+                        delegationManagement.funcs.renderTemporary($tbody,detailData,map)
+                        $("#conventionalTemporary").removeClass("hide");
+                        layer.open({
+                            type: 1,
+                            title: "临时委托单",
+                            content: $("#conventionalTemporary"),
+                            area: ['80%', '85%'],
+                            btn: ['确定', '取消'],
+                            offset: ['10%', '10%'],
+                            closeBtn: 0,
+                            yes: function(index) {
+                                $("#conventionalTemporary").css("display","none");
+                                layer.close(index);
+                            }
+                            ,btn2: function (index) {
+                                $("#conventionalTemporary").css("display","none");
+                                layer.close(index);
+                            }
+                        })
                     }
-                    var arr = Object.keys(map)
-                    var length = arr.length
-                    $("#dynResult").attr("colspan",length)
-                    const $tr = $("#dynAdd")
-                    delegationManagement.funcs.renderHead1($tr,map)
-                    // delegationManagement.funcs.renderDetails($tbody,detailData);
-                    delegationManagement.funcs.renderDetails($tbody,detailData,map)
-                    $("#conventionalModal").removeClass("hide");
-                    layer.open({
-                        type: 1,
-                        title: "委托单",
-                        content: $("#conventionalModal"),
-                        area: ['80%', '85%'],
-                        btn: ['确定', '取消'],
-                        offset: ['10%', '10%'],
-                        closeBtn: 0,
-                        yes: function(index) {
-                            $("#conventionalModal").css("display","none");
-                            layer.close(index);
-                        }
-                        ,btn2: function (index) {
-                            $("#conventionalModal").css("display","none");
-                            layer.close(index);
-                        }
-                    })
                 })
             })
         }
-        /**渲染化验结果数据 */
+        /**渲染临时化验结果数据 */
+        ,renderTemporaryResult : function($tbody,detailData,keys,map){
+            $tbody.empty();
+            var arr = Object.keys(map)
+            var length = arr.length
+            var i = 1;
+            var orderFlags = detailData.delegationOrderDetails
+            orderFlags.forEach(function(orderFlag){
+                $tbody.append(
+                    "<tr>")
+                $tbody.append(
+                    "<td>" + (i++)+ "</td>"
+                )
+                
+                keys.forEach(function(key){
+                    // console.log(key)
+                    if(key == "sampleManageInfo"){
+                        var code = orderFlag.sampleManageInfo.sampleCode
+                        $tbody.append(
+                            "<td>"+ (code) +"</td>"+
+                            "<td>" + (detailData.testMethodInfo.name)+ "</td>"
+                        )
+                    }else{
+                        $tbody.append(
+                            "<td>"+ (orderFlag[key]||"") +"</td>"
+                        )
+                    }
+                })
+                $tbody.append(
+                    "</tr>"
+                )  
+            })
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("委托人") +"</td>" + 
+                "<td>" + (detailData.signUser.name) + "</td>" + 
+                "<td>" + ("委托时间") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.signDate) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("化验人") +"</td>" + 
+                "<td>" + (detailData.testUser.name) + "</td>" + 
+                "<td>" + ("化验时间") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.testDate||"") + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作人") +"</td>" + 
+                "<td>" + (detailData.operationUser.name) + "</td>" + 
+                "<td>" + ("班组") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.team.name) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作日期") +"</td>" + 
+                "<td>" + (detailData.operationDate) + "</td>" + 
+                "<td>" + ("班次") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.clazz.name) + "</td>" + 
+                "</tr>"
+            )
+        }
+        /**渲染常规化验结果数据 */
         ,renderResult : function($tbody,detailData,keys,map){
             $tbody.empty();
             var arr = Object.keys(map)
@@ -417,6 +805,7 @@ var delegationManagement = {
                         )
                     }
                 })
+
                 $tbody.append(
                     "</tr>"
                 )  
@@ -434,7 +823,7 @@ var delegationManagement = {
                 "<td>" + ("化验人") +"</td>" + 
                 "<td>" + (detailData.testUser.name) + "</td>" + 
                 "<td>" + ("化验时间") + "</td>" + 
-                "<td colspan="+(length)+">" + (detailData.testDate) + "</td>" + 
+                "<td colspan="+(length)+">" + (detailData.testDate||"") + "</td>" + 
                 "</tr>"
             )
             $tbody.append(
@@ -462,7 +851,57 @@ var delegationManagement = {
                 "</tr>"
             )
         }
-        /**渲染详情数据 */
+        /**渲染临时数据 */
+        ,renderTemporary : function($tbody,detailData,map){
+            $tbody.empty();
+            var arr = Object.keys(map)
+            var length = arr.length
+            var i = 1;
+            var itemFlags = detailData.delegationOrderDetailFlags
+            itemFlags.forEach(function(e){
+                $tbody.append(
+                    "<tr>")
+                $tbody.append(
+                    "<td>" + (i++) + "</td>"+
+                    "<td>" + (e.sampleManageInfo.name) + "</td>"+
+                    "<td>" + (e.sampleManageInfo.sampleCode) + "</td>" +
+                    "<td>" + (detailData.testMethodInfo.name) + "</td>"
+                )
+                for(var t in map){
+                    $tbody.append(
+                        "<td></td>"
+                    )
+                }
+                $tbody.append(
+                    "</tr>"
+                )
+            })
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("委托人") +"</td>" + 
+                "<td>" + (detailData.signUser.name) + "</td>" + 
+                "<td>" + ("委托时间") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.signDate) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作人") +"</td>" + 
+                "<td>" + (detailData.operationUser.name) + "</td>" + 
+                "<td>" + ("班组") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.team.name) + "</td>" + 
+                "</tr>"
+            )
+            $tbody.append(
+                "<tr>" + 
+                "<td>" + ("操作日期") +"</td>" + 
+                "<td>" + (detailData.operationDate) + "</td>" + 
+                "<td>" + ("班次") + "</td>" + 
+                "<td colspan="+(length+1)+">" + (detailData.clazz.name) + "</td>" + 
+                "</tr>"
+            )
+        }
+        /**渲染常规数据 */
         ,renderDetails : function($tbody,detailData,map){
             $tbody.empty();
             var arr = Object.keys(map)
@@ -513,7 +952,7 @@ var delegationManagement = {
             $tbody.append(
                 "<tr>" + 
                 "<td>" + ("原矿处理量") +"</td>" + 
-                "<td>"+(detailData.mineDeal)+"</td>" + 
+                "<td>"+(detailData.mineDeal || "")+"</td>" + 
                 "<td>" + ("比例系数") + "</td>" + 
                 "<td colspan="+(length)+">" + (detailData.coEfficientCode) + "</td>" + 
                 "</tr>"
@@ -643,7 +1082,7 @@ var delegationManagement = {
             $.get(home.urls.testMethodInfo.findAll(),{},function(result){
                 var checks = result.data;
                 checks.forEach(function(e){
-                    $("#method").append("<input class='radio' type='radio' name='met'  id="+(e.id)+"><span style='padding-right:10px;'> "+(e.name)+"</span>")
+                    $("#method").append("<input class='radio' type='radio' name='met'  id="+(e.id)+" value="+(e.name)+"><span style='padding-right:10px;'> "+(e.name)+"</span>")
                 })
             })
         }
