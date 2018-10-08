@@ -1,0 +1,156 @@
+<div class="display-component-container">
+    <style type="text/css" rel="stylesheet">
+        .hidePage{
+            display : none;
+        }
+    </style>
+    <div id="block1">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:130px;">分析报告书管理</span>
+                    <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>班次：</span><select style="width : 90px" id="class">
+                        <option value="-1">所有班次</option>
+                        <option value="1">早班</option>
+                        <option value="2">中班</option>
+                        <option value="3">晚班</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>系统：</span><select style="width : 100px" id="system">
+                        <option value="-1">所有系统</option>
+                        <option value="1">铅锌系统</option>
+                        <option value="2">选硫系统</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>操作人：</span><select  style="width : 80px" id="operator"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <td>日期</td>
+                    <td>系统</td>
+                    <td>班次</td>
+                    <td>操作人</td>
+                    <td>所属班组</td>
+                    <td>原矿处理量</td>
+                    <td>比例系数</td>
+                    <td>委托人</td>
+                    <td>委托时间</td>
+                    <td>化验人</td>
+                    <td>化验时间</td>
+                    <td>明细</td>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+        <div id="report_page"></div>
+    </div>
+
+    <div id="block2" class="hidePage">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:250px;">铅锌品位分析报告</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="expertButton2"><a href="#" id="download-id2"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="backButton"><a href="#"><i class="layui-icon">&#xe633;</i> 返回</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="detailTable">
+            <thead>
+                <tr>
+                    <td rowspan="2">序号</td>
+                    <td rowspan="2">样品名称</td>
+                    <td rowspan="2">样品编号</td>
+                    <td colspan="4">分析结果（%）</td>
+                </tr>
+                <tr>
+                    <td>铅</td>
+                    <td>锌</td>
+                    <td>硫</td> 
+                    <td>铁</td>     
+                </tr>
+            </thead>
+            <tbody>
+                            
+            </tbody>
+        </table>
+    </div>
+
+    <script src="selfjs/analysisReport.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            analysisReport.init();
+        });
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var m = a.getMonth();
+            var d = a.getDate();
+            m = m + 1;
+            if(m<10){
+                m = "0" + m;
+            }
+            if(d<10){
+                d = "0" + d;
+            }
+            var str = y + "-" + m + "-" + d;
+        //    console.log(str);
+            laydate.render({
+                elem:'#endTime',
+                type:'date',
+                value: str,
+                done : function(value){
+                //    crushing.funcs.bindProduceReport(value);
+                }
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var date = new Date(a.getTime() - 7 * 24 * 3600 * 1000);
+            var y = date.getFullYear();
+            var m = date.getMonth();
+            var d = date.getDate();
+            m = m + 1;
+            if(m<10){
+                m = "0" + m;
+            }
+            if(d<10){
+                d = "0" + d;
+            }
+            var str = y + "-" + m + "-" + d;
+        //    console.log(str)
+            laydate.render({
+                elem:'#startTime',
+                type:'date',
+                value: str,
+                done : function(value){
+                //    crushing.funcs.bindProduceReport(value);
+                }
+            })
+        })
+    </script>
+    <script>
+        $("#backButton").off('click').on('click',function(){
+            $("#block2").addClass("hidePage");
+            $("#block1").removeClass("hidePage");
+        })
+    </script>
+
+</div>

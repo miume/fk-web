@@ -193,7 +193,7 @@ var grapple ={
             // grapple.funcs.bindAddRow($("#addRow"));
         }
         ,//渲染增加一行页面
-        renderAddRow :function($tbody,id,name,maps){
+        renderAddRow :function($tbody,maps){
             $tbody.empty();
             for(var key in maps){
                 var rowNum=0

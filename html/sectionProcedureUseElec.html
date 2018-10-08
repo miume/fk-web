@@ -1,0 +1,70 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">选矿工段/工序用电计算</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                时间：<input id="searchDate" type="text">&nbsp;&nbsp;&nbsp;
+                <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i>查询</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" checked="checked"  name="spElec" value="1" />&nbsp;工段&nbsp;&nbsp;
+                <input type="radio"   name="spElec" value="2" />&nbsp;工序&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="calculButton"><a href="#"><i class="layui-icon">&#xe615;</i>统计计算</a></span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div style="overflow-x: scroll;width:100%;height:73%" >
+        <table id="spUseElecTable" style="width: 150%;">
+            <thead>
+            <tr>
+                <td style="width: 3%">序号</td>
+                <td style="width: 4%">工段/工序编号</td>
+                <td style="width: 4%">工段/工序名称</td>
+                <td>0：00</td>
+                <td>1：00</td>
+                <td>2：00</td>
+                <td>3：00</td>
+                <td>4：00</td>
+                <td>5：00</td>
+                <td>6：00</td>
+                <td>7：00</td>
+                <td>8：00</td>
+                <td>9：00</td>
+                <td>10：00</td>
+                <td>11：00</td>
+                <td>12：00</td>
+                <td>13：00</td>
+                <td>14：00</td>
+                <td>15：00</td>
+                <td>16：00</td>
+                <td>17：00</td>
+                <td>18：00</td>
+                <td>19：00</td>
+                <td>20：00</td>
+                <td>21：00</td>
+                <td>22：00</td>
+                <td>23：00</td>
+            </tr>
+            </thead>
+            <tbody id="spUseElecTbody">
+
+            </tbody>
+        </table>
+        <div id="spUseElecPage"></div>
+    </div>
+    <script src="selfjs/sectionProcedureUseElec.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            spUseElec.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#searchDate',
+                btns : ['now']
+            })
+        })
+    </script>
+</div>

@@ -581,7 +581,7 @@ var crushing = {
                 var y = date.substr(0,4)
                 var m = date.substr(4)
                 var d = y + "-" + m;
-                $.get(home.urls.monthreport.able(),{id : e.id},function(result){
+                $.get(home.urls.monthreport.regenerateAble(),{id : e.id},function(result){
                     var able = result.code;
                     console.log(able)
                     if(able === 0){

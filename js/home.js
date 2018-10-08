@@ -750,9 +750,6 @@ var home = {
             getAllParams : function() {
                 return servers.backup() + "parameter/getAll";
             } 
-
-           
-
         }
         ,production : {
             findByUserId : function(){
@@ -855,7 +852,35 @@ var home = {
             },
             exportById : function(){
                 return servers.backup() + "delegationOrderHeader/exportById"
+            },
+            getByFour : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateAndClazzAndSendToCheckInfoAndOperator"
+            },
+            download : function(){
+                return servers.backup() + "delegationOrderHeader/exportHeadBySearchResult"
+            },
+            download1 : function(){
+                return servers.backup() + "delegationOrderHeader/exportById"
+            },
+            download2 : function(){
+                return servers.backup() + "delegationOrderHeader/exportHeadByOrder"
+            },
+            getSampleAnalysis : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndSampleId"
+            },
+            getReportAnalysis1 : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndProject1"
+            },
+            getReportAnalysis2 : function(){
+                return servers.backup() + "delegationOrderHeader/getByDateClazzAndSendToCheckInfoAndProject2"
+            },
+            getAssayManage : function(){
+                return servers.backup() + "delegationOrderHeader/getBySendCheckIdAndDelegationIdAndOrderCodeLikeByPage"
+            },
+            update : function(){
+                return servers.backup() + "delegationOrderHeader/update"
             }
+
         }
         ,delegationInfo : {
             findAll : function(){
@@ -984,6 +1009,18 @@ var home = {
         ,sampleIndexSetup : {
             getAll : function(){
                 return servers.backup() + "sampleIndexSetup/getAll"
+            },
+            add : function(){
+                return servers.backup() + "sampleIndexSetup/add"
+            },
+            getById : function(){
+                return servers.backup() + "sampleIndexSetup/getById"
+            },
+            update : function(){
+                return servers.backup() + "sampleIndexSetup/update"
+            },
+            deleteById : function(){
+                return servers.backup() + "sampleIndexSetup/deleteById"
             }
         }
         ,complianceReport : {
@@ -1134,6 +1171,75 @@ var home = {
             updateProcedure : function(){
                 return servers.backup() + "energyProcedureController/update"
             },
+        }
+        /**设备用电监控 */
+        ,powerConsumptionRealtime : {
+            getLatestData : function(){
+                return servers.backup() + "powerConsumptionRealtime/getLatestData"
+            }
+        }
+        /**日用电维护 */
+        ,powerConsumptionDay : {
+            getAllByPage : function(){
+                return servers.backup() + "powerConsumptionDay/getAllByPage"
+            },
+            getByDate : function(){
+                return servers.backup() + "powerConsumptionDay/getByDate"
+            }
+        }
+        /**工段用电统计 */
+        ,sectionUseElec : {
+            getAll : function(){
+                return servers.backup() + "sectionUseElec/getAll"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "sectionUseElec/getAllByPage"
+            },
+            getByDate : function(){
+                return servers.backup() + "sectionUseElec/getByDate"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "sectionUseElec/getByDateByPage"
+            },
+            getById : function(){
+                return servers.backup() + "sectionUseElec/getById"
+            },
+            statistic : function(){
+                return servers.backup() + "sectionUseElec/statistic"
+            }
+        }
+        /**工序用电统计 */
+        ,procedureUseElec : {
+            getAllByPage : function(){
+                return servers.backup() + "procedureUseElec/getAllByPage"
+            },
+            getByDateByPage : function(){
+                return servers.backup() + "procedureUseElec/getByDateByPage"
+            },
+            getById : function(){
+                return servers.backup() + "procedureUseElec/getById"
+            },
+            realAndPlan : function(){
+                return servers.backup() + "procedureUseElec/realAndPlan"
+            },
+            statistic : function(){
+                return servers.backup() + "procedureUseElec/gestatistictById"
+            }
+        }
+        /**事件报警 */
+        ,eventAlarm : {
+            exportByDpPointLike : function(){
+                return servers.backup() + "eventAlarm/exportByDpPointLike"
+            },
+            getByDpPointAndTimeByPage : function(){
+                return servers.backup() + "eventAlarm/getByDpPointAndTimeByPage"
+            },
+            getByIsResponseByPage : function(){
+                return servers.backup() + "eventAlarm/getByIsResponseByPage"
+            },
+            updateResponseStatusById : function(){
+                return servers.backup() + "eventAlarm/updateResponseStatusById"
+            }
         }
     }
    
