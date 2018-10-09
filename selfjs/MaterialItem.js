@@ -60,6 +60,7 @@ var MaterialItem = {
                         time : 700
                     })
                     MaterialItem.init();
+                    $("#searchName").val("");
                     layer.close(index);
                     clearTimeout(time);
                 }, 200)

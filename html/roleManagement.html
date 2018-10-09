@@ -3,7 +3,7 @@
         #rolesPermissiomTable {
             width:100%;
             background-color: white;
-            margin-top:20px;
+            margin-top:5px;
         }
         #tableHead {
             width : 90%;
@@ -11,7 +11,7 @@
         }
         #tableDiv {
             width : 90%;
-            height : 500px;
+            height : 480px;
             margin : 0 auto;
             overflow-y: auto;
         }
@@ -79,6 +79,7 @@
             border-bottom: rgb(112,118,139) solid 1px;
             border-top: rgb(112,118,139) solid 1px;
         }
+        
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -130,7 +131,7 @@
         <p><span>角色描述:</span><input type="text" placeholder="请输入角色描述" id="roledescription"></p>
     </div>
     <!--编辑权限 弹出界面-->
-    <div id="rolesPermissiomTable" class="hide">
+    <div class="hide" id="rolesPermissiomTable">
         <!--固定表头-->
         <table id="tableHead">
             <colgroup style="width:29.5%;"></colgroup>
@@ -156,7 +157,7 @@
     </div>
     </div>
     <!--设置角色 弹出界面-->
-    <div id="assignRole" class="hide">
+    <div class="hide" id="assignRole">
         <!--固定表头-->
         <header style="width:40%;">
             <li class="theHead">未分配角色</li>

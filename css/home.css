@@ -242,7 +242,8 @@ input {
     border:1px solid #c8cccf;
 }
 .hideModal p {
-    margin: 10px 0 10 0;
+    padding: 5px 0px 5px 0px;
+
 }
 .display-component-container {
     min-width: 880px;
@@ -292,7 +293,7 @@ input {
     background: rgba(236, 225, 225, 0.548) !important;
 } */
 .display-component-container button { 
-    background-color:#1E9FFF;
+    background-color:#666666;
     color: #ffffff;
 }
 /*覆盖部分内容*/
@@ -364,6 +365,7 @@ input {
 }
 .blue_font a{
     color:#1E9FFF;
+    font-size: 18px;
 }
 .vertical_center {
     display: flex;
@@ -386,6 +388,10 @@ input {
 .layerModal {
     width : 100%;
     padding: 20px;
+}
+.layerModal span {
+    vertical-align: right !important;
+    margin-right:5px;
 }
 .layerModal input {
     border: none;

@@ -120,7 +120,7 @@ var dataManagement = {
                     type : 1,
                     title : "新增",
                     content : $("#updateModal"),
-                    area : ['300px', '220px'],
+                    area : ['300px', '250px'],
                     btn : ['确定' , '取消'],
                     offset : ['40%' , '45%'],
                     closeBtn: 0,
@@ -265,11 +265,11 @@ var dataManagement = {
                     "<tr>" +
                     "<td><input type='checkbox' class='data_checkbox' value='" + (e.id) + "'></td>" +
                     "<td>" + (e.id) + "</td>" +
-                    "<td>" + (e.dicName) + "</td>" +
-                    "<td>" + (e.dicContent) + "</td>" +
-                    "<td>" + (e.dicDescription) + "</td>" +
+                    "<td>" + (e.dicName?e.dicName:"") + "</td>" +
+                    "<td>" + (e.dicContent?e.dicContent:"") + "</td>" +
+                    "<td>" + (e.dicDescription?e.dicDescription:"") + "</td>" +
                     "<td><a href='#' class='edit' id='edit-" + (e.id) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='delete' id='de-" + (e.id) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='delete' id='de-" + (e.id) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })
 
@@ -340,7 +340,7 @@ var dataManagement = {
                         type: 1,
                         title: '编辑',
                         content: $("#updateModal"),
-                        area: ['300px', '220px'],
+                        area: ['300px', '250px'],
                         btn: ['确定', '取消'],
                         offset: ['40%','45%'],
                         closeBtn: 0,
