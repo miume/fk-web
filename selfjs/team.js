@@ -36,6 +36,8 @@ var team = {
             team.funcs.bindDeleteByIdsEvent($("#deleteButton"));
             /**绑定搜索事件 */
             team.funcs.bindSearchByNameEvent($("#searchButton"));
+            /**绑定刷新事件 */
+            team.funcs.bindRefreshEvent($("#refreshButton"));
         }
         ,renderHandler : function($tbody,data,page) {
             var i = page * 10 + 1;
@@ -194,6 +196,12 @@ var team = {
                     }
                 })
                 })
+            })
+        }
+        /**刷新事件 */
+        ,bindRefreshEvent :function(buttons){
+            buttons.off('click').on('click',function(){
+                team.funcs.renderTable();
             })
         }
         /**绑定编辑事件 */
