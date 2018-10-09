@@ -1,6 +1,10 @@
 var assayManage = {
     init : function(){
         assayManage.funcs.renderTable();
+        assayManage.funcs.renderSelector();
+        setInterval(function(){
+            assayManage.funcs.renderTable();
+        },1800000);
         var out = $("#report_page").width();
          var time = setTimeout(function(){
              var inside = $(".layui-laypage").width();
@@ -58,11 +62,37 @@ var assayManage = {
             /** 绑定导出事件*/
             assayManage.funcs.bindExpertReportEvent($("#expertButton1"));
         }
+        ,renderSelector : function(){
+            const $selector1 = $("#system");
+            $.get(home.urls.check.getAll(),{},function(result){
+                var systems = result.data;
+                assayManage.funcs.renderHandler4($selector1,systems);
+            })
+            const $selector2 = $("#type");
+            $.get(home.urls.delegationInfo.findAll(),{},function(result) {
+                var types = result.data;
+                assayManage.funcs.renderHandler4($selector2,types);
+            })
+        }
+        /** 下拉框*/
+        ,renderHandler4 : function($selector, datas) {    
+            $selector.empty() ;
+            $selector.append(
+                "<option value= '-1'>"+ "所有" + "</option>"
+            )
+            datas.forEach(function(e){
+                $selector.append(
+                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
+                )
+            })
+        }
         /**查询事件 */
         ,bindSearchReportEvent : function(buttons){
             buttons.off('click').on('click',function(){
                 var sys = $("#system").val();
+                console.log(sys)
                 var type = $("#type").val();
+                console.log(type)
                 var orderCode = $("#number").val();
                 $.get(home.urls.delegation.getAssayManage(),{
                     sendToCheckId : sys,
@@ -167,17 +197,17 @@ var assayManage = {
         /**渲染详情表 */
         ,renderHandler2 : function($tbody,a){
             $tbody.empty();
-            var i = 0;
+            var i = 1;
             a.delegationOrderDetailFlags.forEach(function(e){
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.name : '') + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.sampleCode : '') + "</td>" +
-                    "<td>" + (e.pbFlag ? e.pbFlag : '') + "</td>" +
-                    "<td>" + (e.znFlag ? e.znFlag : '') + "</td>" +
-                    "<td>" + (e.sflag ? e.sflag : '') + "</td>" +
-                    "<td>" + (e.feFlag ? e.feFlag : '') + "</td>" +
+                    "<td>" + '' + "</td>" +
+                    "<td>" + '' + "</td>" +
+                    "<td>" + '' + "</td>" +
+                    "<td>" + '' + "</td>" +
                     "</tr>"
                 )
             })
@@ -243,72 +273,77 @@ var assayManage = {
                     var details = result.data;
                     var delegationId = details.delegationInfo.id;
                     var testUser = (details.testUser ? testUser.id : '');
-
-                    var header = {
-                        "id": id,
-                        "delegationInfo": {
-                          "id": delegationId
-                        },
-                        "delegationOrderDetails": [
-                          {
-                            "fe": 0.1,
-                            "id": 0.2,
-                            "pb": 0.3,
-                            "sampleManageInfo": {
-                              "id": 2
+                    var data;
+                    var details = [];
+                    $(".editline").each(function(e) {
+                        var line = $(this).children("td");
+                        details.push({
+                            "id" : line.eq(0).attr('id').substr(5) ,
+                            "sampleManageInfo" : {
+                                "id" : line.eq(1).attr('id').substr(7)
                             },
-                            "sampleName": "原矿",
-                            "sf": 3.4,
-                            "zn": 3.5
-                          },
-                          {
-                            "fe": 0.1,
-                            "id": 0.2,
-                            "pb": 0.3,
-                            "sampleManageInfo": {
-                              "id": 3
-                            },
-                            "sampleName": "铅精",
-                            "sf": 3.4,
-                            "zn": 3.5
-                          }
-                        ],
-                        "testUser": {
-                          "id": testUser
-                        }
-                      }
-                    $.post(home.urls.delegation.update(),{
-                        delegationOrderHeader : header
-                    },function(result){
-                        if (result.code === 0) {
-                            var time = setTimeout(function () {
-                                plan.init();
-                                clearTimeout(time)
-                            }, 500)
-                        }
-                        layer.msg(result.message, {
-                            offset: ['40%', '55%'],
-                            time: 700
+                            "sampleName" : line.eq(1).text(),
+                            pb : line.eq(3).children("input").val(),
+                            zn : line.eq(4).children("input").val(),
+                            sf : line.eq(5).children("input").val(),
+                            fe : line.eq(6).children("input").val()
                         })
+                    })
+
+                    data = {
+                        "id" : id ,
+                        "delegationInfo" : {
+                            "id" : delegationId
+                        },
+                        "delegationOrderDetails" : details,
+                        "testUser" : {
+                            id : home.user.id
+                        }
+                    }
+                    console.log(data);
+                      $.ajax({
+                        url : home.urls.delegation.update(),
+                        contentType : "application/json" ,
+                        dataType : "JSON",
+                        type : "post",
+                        data : JSON.stringify(data),
+                        success : function(result) {
+                        //    if(result.message == "数据已录入, 不要重复录入") {
+                        //        layer.msg(result.message, {
+                        //            offset : ['40%', '55%'],
+                        //            time : 700
+                        //        })
+                        //    }    
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                //    plan.init();
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                        }
                     })
                 }) 
                 
             })
         }
-        /**渲染详情表 */
+        /**渲染可编辑的详情表 */
         ,renderHandler3 : function($tbody,a){
             $tbody.empty();
             var i = 0;
             a.delegationOrderDetailFlags.forEach(function(e){
                 $tbody.append(
-                    "<tr>" +
-                    "<td>" + (i++) + "</td>" +
-                    "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.name : '') + "</td>" +
+                    "<tr class='editline'>" +
+                    "<td id='data-" + e.id + "'>" + (i++) + "</td>" +
+                    "<td id='sample-" + e.sampleManageInfo.id + "'>" + (e.sampleManageInfo ? e.sampleManageInfo.name : '') + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.sampleCode : '') + "</td>" +
-                    "<td>" + (e.pbFlag ? e.pbFlag : '') + "</td>" +
-                    "<td>" + (e.znFlag ? e.znFlag : '') + "</td>" +
-                    "<td>" + (e.sflag ? e.sflag : '') + "</td>" +
-                    "<td>" + (e.feFlag ? e.feFlag : '') + "</td>" +
+                    "<td>" + "<input style='width: 100%; height: 100%' >" + "</td>" +
+                    "<td>" + "<input style='width: 100%; height: 100%' >" + "</td>" +
+                    "<td>" + "<input style='width: 100%; height: 100%' >" + "</td>" +
+                    "<td>" + "<input style='width: 100%; height: 100%' >" + "</td>" +
                     "</tr>"
                 )
             })

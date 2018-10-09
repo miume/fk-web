@@ -1,10 +1,18 @@
 var sampleAnalysis = {
     init : function(){
+        sampleAnalysis.funcs.renderSelector1();
         sampleAnalysis.funcs.renderSelector();
     }
     ,funcs : {
         /**渲染下拉框 */
         renderSelector : function(){
+            const $selector = $("#sample");
+                $.get(home.urls.sample.getAllBySendIdAndNameLike(),{
+                    sendId : 1
+                },function(result) {
+                var samples = result.data.content;
+                sampleAnalysis.funcs.renderHandler($selector, samples);
+                })
             $("#system").on('click',function(){
                 var sys = $("#system").val();
                 $("#syatem").off('click')
@@ -25,6 +33,25 @@ var sampleAnalysis = {
                 })
             })
             sampleAnalysis.funcs.renderChart($("#analysisButton"))
+        }
+        /**渲染下拉框 */
+        ,renderSelector1 :function(){
+            const $selector1 = $("#classType1");
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var clazz1 = result.data;
+                sampleAnalysis.funcs.renderHandler($selector1, clazz1);
+            })
+            const $selector2 = $("#classType2");
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var clazz2 = result.data;
+                sampleAnalysis.funcs.renderHandler($selector2, clazz2);
+            })
+            const $selector3 = $("#system");
+            $.get(home.urls.check.getAll(),{},function(result){
+                var systems = result.data;
+                sampleAnalysis.funcs.renderHandler($selector3, systems);
+            })
+
         }
         /** 绘制柱形图 */
         ,renderChart : function(buttons) {

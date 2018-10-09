@@ -60,10 +60,20 @@ var analysisReport = {
         }
         /**渲染下拉框 */
         ,renderSelector :function(){
-            const $selector = $("#operator");
+            const $selector1 = $("#operator");
             $.get(home.urls.user.getAll(),{},function(result) {
                 var users = result.data;
-                analysisReport.funcs.renderHandler3($selector, users);
+                analysisReport.funcs.renderHandler3($selector1, users);
+            })
+            const $selector2 = $("#class");
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var clazz = result.data;
+                analysisReport.funcs.renderHandler3($selector2, clazz);
+            })
+            const $selector3 = $("#system");
+            $.get(home.urls.check.getAll(),{},function(result){
+                var systems = result.data;
+                analysisReport.funcs.renderHandler3($selector3, systems);
             })
 
         }
@@ -74,11 +84,13 @@ var analysisReport = {
                 var endDate = $("#endTime").val();
                 var clazz = $("#class").val();
                 var sys = $("#system").val();
+                var operator = $("#operator").val();
                 $.get(home.urls.delegation.getByFour(),{
                     startDate : startDate,
                     endDate: endDate,
                     sendToCheckId : sys,
-                    clazzId : clazz
+                    clazzId : clazz,
+                    operatorId : operator
                 },function(result){
                     var reports = result.data.content;
                     const $tbody = $("#reportTable").children("tbody");
@@ -135,7 +147,7 @@ var analysisReport = {
                     "<td>" + (e.signUser ? e.signUser.name : '') + "</td>" +
                     "<td>" + (e.signDate) + "</td>" +
                     "<td>" + (e.testUser ? e.testUser.name : '') + "</td>" +
-                    "<td>" + (e.testDate) + "</td>" +
+                    "<td>" + (e.testDate ? e.testDate : '') + "</td>" +
                     "<td>" + 
                     "<a href='#' class='detail' id='detail-" + (e.id) +"'>明细</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
                     "<a href='#' class='update' id='update-" + (e.id) + "'>修改</a>" + "</td>" +
@@ -174,17 +186,17 @@ var analysisReport = {
         /**渲染详情表 */
         ,renderHandler2 : function($tbody,a){
             $tbody.empty();
-            var i = 0;
-            a.delegationOrderDetailFlags.forEach(function(e){
+            var i = 1;
+            a.delegationOrderDetails.forEach(function(e){
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.name : '') + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.sampleCode : '') + "</td>" +
-                    "<td>" + (e.pbFlag ? e.pbFlag : '') + "</td>" +
-                    "<td>" + (e.znFlag ? e.znFlag : '') + "</td>" +
-                    "<td>" + (e.sflag ? e.sflag : '') + "</td>" +
-                    "<td>" + (e.feFlag ? e.feFlag : '') + "</td>" +
+                    "<td>" + (e.pb ? e.pb*100 : '') + "</td>" +
+                    "<td>" + (e.zn ? e.zn*100 : '') + "</td>" +
+                    "<td>" + (e.sf ? e.sf*100 : '') + "</td>" +
+                    "<td>" + (e.fe ? e.fe*100 : '') + "</td>" +
                     "</tr>"
                 )
             })
@@ -229,7 +241,7 @@ var analysisReport = {
         ,renderHandler3 : function($selector, users) {    
             $selector.empty() ;
             $selector.append(
-                "<option value= '-1'>"+ "所有用户" + "</option>"
+                "<option value= '-1'>"+ "所有" + "</option>"
             )
             users.forEach(function(e){
                 $selector.append(
