@@ -34,6 +34,8 @@ var team = {
             team.funcs.bindAddEvent($("#addButton"));
             /**绑定批量删除事件 */
             team.funcs.bindDeleteByIdsEvent($("#deleteButton"));
+            /**绑定搜索事件 */
+            team.funcs.bindSearchByNameEvent($("#searchButton"));
         }
         ,renderHandler : function($tbody,data,page) {
             var i = page * 10 + 1;
@@ -161,6 +163,37 @@ var team = {
                     })
                 }
                 
+            })
+        }
+        /**搜索事件 */
+        ,bindSearchByNameEvent :function(buttons){
+            buttons.off('click').on('click',function(){
+                var name = $("#teamName").val();
+                $.get(home.urls.team.getByNameLikeByPage(),{name : name},function(result){
+                    var teams = result.data.content;
+                //console.log(teams)
+                const $tbody = $("#teamTable").children("tbody");
+                team.funcs.renderHandler($tbody, teams, 0);
+                var data = result.data;
+                /**分页 */
+                layui.laypage.render({
+                    elem : "teamPage",
+                    count : 10 * data.totalPages,
+                    jump : function(obj,first) {
+                        if(!first) {
+                            $.get(home.urls.team.getAllByPage(), {
+                                page : obj.curr - 1 ,
+                                size : obj.limit
+                            } , function(result) {
+                                var teams = result.data.content;
+                                var page = obj.curr - 1;
+                                const $tbody = $("#teamTable").children("tbody");
+                                team.funcs.renderHandler($tbody,teams,page);
+                            })
+                        }
+                    }
+                })
+                })
             })
         }
         /**绑定编辑事件 */
