@@ -1,0 +1,53 @@
+<div class="display-component-container">
+    <div id="block1">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:130px;">报表记录管理</span>
+                    <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>操作人：</span><select  style="width : 80px" id="operator"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="addButton" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 新增</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <td>时间</td>
+                    <td>污水站用电量（kwh）</td>
+                    <td>1200T矿量（t）</td>
+                    <td>本月砂量（t）</td>
+                    <td>碎矿用水（t）</td>
+                    <td>磨浮用水（t）</td>
+                    <td>精矿用水（t）</td>
+                    <td>尾砂用水（t）</td>
+                    <td>本月照明（kwh）</td>
+                    <td>本月柴油（kg）</td>
+                    <td>本月汽油（kg）</td>
+                    <td>录入人</td>
+                    <td>录入时间</td>
+                    <td>修改人</td>
+                    <td>修改时间</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+        <div id="report_page"></div>
+    </div>
+
+    <script src="selfjs/reportRecordManage.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            reportRecord.init();
+        });
+    </script>
+    
+
+</div>

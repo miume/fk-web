@@ -10,12 +10,12 @@
                 <p>
                     <span style="display: inline-block;width:150px;">送检委托单化验管理</span>
                     <span>送检系统：</span><select style="width : 100px" id="system">
-                        <option value="1">铅锌系统</option>
-                        <option value="2">选硫系统</option>
+                    <!--    <option value="1">铅锌系统</option> -->
+                    <!--    <option value="2">选硫系统</option>-->
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>委托类型：</span><select  style="width : 100px" id="type">
-                        <option value="1">常规委托</option>
-                        <option value="2">临时委托</option>
+                    <!--    <option value="1">常规委托</option>-->
+                    <!--    <option value="2">临时委托</option>-->
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>委托单号：</span><input  style="width : 100px" id="number">&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
@@ -59,6 +59,7 @@
         </div>
         <!--留白-->
         <div class="whitespace"></div>
+        <div style="height:70%;overflow-y: auto">
         <table id="detailTable">
             <thead>
                 <tr>
@@ -78,6 +79,7 @@
                             
             </tbody>
         </table>
+        </div>
     </div>
     <div id="block3" class="hidePage">
         <div class="block-quote">
@@ -97,7 +99,7 @@
                     <td rowspan="2">序号</td>
                     <td rowspan="2">样品名称</td>
                     <td rowspan="2">样品编号</td>
-                    <td colspan="4">分析结果（%）</td>
+                    <td colspan="4" width="50%">分析结果（%）</td>
                 </tr>
                 <tr>
                     <td>铅</td>

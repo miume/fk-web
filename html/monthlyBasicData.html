@@ -1,0 +1,56 @@
+<div class="display-component-container">
+    <div id="block1">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:130px;">月基础数据</span>
+                    <span>时间：</span><input type="text" id="startTime" placeholder="请选择年"><span>&nbsp;&nbsp;
+                    <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
+                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>名称</td>
+                    <td>ID</td>
+                    <td>单位</td>
+                    <td>采集频率</td>
+                    <td>是否参与计算</td>
+                    <td>编辑人</td>
+                    <td>编辑时间</td>
+                    <td>1月</td>
+                    <td>2月</td>
+                    <td>3月</td>
+                    <td>4月</td>
+                    <td>5月</td>
+                    <td>6月</td>
+                    <td>7月</td>
+                    <td>8月</td>
+                    <td>9月</td>
+                    <td>10月</td>
+                    <td>11月</td>
+                    <td>12月</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+        <div id="report_page"></div>
+    </div>
+
+    <script src="selfjs/monthlyBasicData.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            basicData.init();
+        });
+    </script>
+    
+
+</div>
