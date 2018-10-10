@@ -24,7 +24,7 @@ var team = {
                                 var teams = result.data.content;
                                 var page = obj.curr - 1;
                                 const $tbody = $("#teamTable").children("tbody");
-                                team.funcs.renderHandler($tbody,teams,page);
+                                team.funcs.renderHandler($tbody,teams,page);3
                             })
                         }
                     }

@@ -879,6 +879,9 @@ var home = {
             },
             update : function(){
                 return servers.backup() + "delegationOrderHeader/update"
+            },
+            publish : function(){
+                return servers.backup() + "delegationOrderHeader/publish"
             }
 
         }

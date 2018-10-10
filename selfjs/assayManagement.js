@@ -100,9 +100,9 @@ var assayManage = {
                     orderCode : orderCode
                 },function(result){
                     var reports = result.data.content;
-                    if(reports == null){
-                        return;
-                    }
+                //    if(reports == null){
+                //        return;
+                //    }
                     const $tbody = $("#reportTable").children("tbody");
                     assayManage.funcs.renderHandler1($tbody,reports,0);
                     assayManage.pageSize = result.data.length;
@@ -258,10 +258,17 @@ var assayManage = {
                     id : id
                 },function(result){
                     var details = result.data;
+                    $("#release").empty();
+                    if((details.delegationInfo.name=="常规委托")&&(details.signFlag == 2)){
+                        $("#release").append(
+                            "<a href='#'><i class='layui-icon'>&#xe619;</i> 发布</a>"
+                        )
+                    }
                     const $tbody = $("#editTable").children("tbody");
                     assayManage.funcs.renderHandler3($tbody,details);
                 }) 
                 assayManage.funcs.bindUpdateEvent($("#submitButton"),id);
+                assayManage.funcs.bindPublishEvent($("#release"),id);
           })
         }
         /**提交委托单 */
@@ -328,6 +335,25 @@ var assayManage = {
                     })
                 }) 
                 
+            })
+        }
+        /**发布 */
+        ,bindPublishEvent : function(buttons,id){
+            buttons.off('click').on('click',function(){
+                $.get(home.urls.delegation.publish(),{
+                    id : id
+                },function(result){
+                    if (result.code === 0) {
+                        var time = setTimeout(function () {
+                        //    plan.init();
+                            clearTimeout(time)
+                        }, 500)
+                    }
+                    layer.msg(result.message, {
+                        offset: ['40%', '55%'],
+                        time: 700
+                    })
+                })
             })
         }
         /**渲染可编辑的详情表 */
