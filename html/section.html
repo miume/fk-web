@@ -1,0 +1,41 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">工段实际能耗与计划能耗对比分析</span>&nbsp;&nbsp;&nbsp;
+                时间：<input type="text" id="year" placeholder="请选择时间">&nbsp;&nbsp;&nbsp;
+                工段：<select id="section1" ></select>&nbsp;&nbsp;&nbsp;
+               <a href="#" id="searchButton"><i class="layui-icon">&#xe615;</i>搜索</a>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <div>
+        <div>
+            <div style="font-size:20px;">>>用电量对比分析</div><br>
+            <div>本年用电(kwh)：<input type="text" id="yearUse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            本年计划用电(kwh)：<input type="text" id="yearPlanUse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            净差值(kwh)：<input type="text" id="difference">
+            </div><br>
+            <div style="font-size:20px;">>>用电量对比图表分析</div>
+            <div  id="useChart" style="width:60% ;height:60%;float:left;margin-left: 2%;margin-right: 2%" class="hide">
+
+            </div>
+        </div>
+    </div>
+    <script src="selfjs/section.js"></script>
+    <script>
+        $(function() {
+            section.init();
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#year',
+                type : 'year'
+            })
+        })
+    </script>
+</div>
