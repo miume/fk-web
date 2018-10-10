@@ -342,7 +342,7 @@ var sampleManagement = {
         ,renderDropBox : function() {
             $("#sampleType").empty();
 
-            $("#sampleType").append('<option></option>');
+            $("#sampleType").append('<option value="-1">'+("所有")+'</option>');
             $.get(home.urls.check.getAll(),{},function(result) {
                 var checks = result.data;
                 checks.forEach(function(e) {
