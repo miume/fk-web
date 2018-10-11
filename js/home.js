@@ -879,6 +879,9 @@ var home = {
             },
             update : function(){
                 return servers.backup() + "delegationOrderHeader/update"
+            },
+            publish : function(){
+                return servers.backup() + "delegationOrderHeader/publish"
             }
 
         }
@@ -1209,6 +1212,9 @@ var home = {
             },
             countSectionUseElec : function(){
                 return servers.backup() + "sectionUseElec/countSectionUseElec"
+            },
+            realAndPlan : function(){
+                return servers.backup() + "sectionUseElec/realAndPlan"
             }
         }
         /**工序用电统计 */
@@ -1227,6 +1233,9 @@ var home = {
             },
             statistic : function(){
                 return servers.backup() + "procedureUseElec/gestatistictById"
+            },
+            realAndPlan : function(){
+                return servers.backup() + "procedureUseElec/realAndPlan"
             }
         }
         /**事件报警 */
