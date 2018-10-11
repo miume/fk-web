@@ -455,8 +455,9 @@ var roleManagement = {
                     type : 1,
                     title : '权限分配',
                     content : $('#rolesPermissiomTable'),
-                    area : ['750px', '658px'],
+                    area : ['750px', '635px'],
                     btn : ['确定', '取消'],
+                    scrollbar: false,
                     offset : 'auto',
                     closeBtn : 0,
                     yes : function(index) {
@@ -506,32 +507,16 @@ var roleManagement = {
         /**绑定成员管理事件 */
         ,bindAssignRoleToUsers : function(buttons) {
             buttons.off('click').on('click', function() {
-                console.log(1)
-                $("#assignRole").removeClass('hide');
                 var roleId = $(this).attr('id').substr(11);
-                $.get(home.urls.role.getAssignUsersById(), { id : roleId }, function(result) {
-                    var res = result.data;
-                    var assignUsers = res.assignUsers;
-                    var unassignUsers = res.unassignUsers;
-                    $("#unsignedRoles").empty();
-                    $("#signedRoles").empty();
-                    unassignUsers.forEach(function(e) {
-                        $("#unsignedRoles").append(
-                            "<li class='roles' id='leftRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input type='checkbox' class='leftRoles' value="+ (e.id) +" /></li>"
-                        )
-                    })
-                    assignUsers.forEach(function(e) {
-                        $("#signedRoles").append(
-                            "<li class='roles' id='rightRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input class='rightRoles' type='checkbox' value="+ (e.id) +" /></li>"
-                        )
-                    })
+                roleManagement.funcs.bindSetRoleData(roleId);
+                    $("#assignRole").removeClass('hide');
                     layer.open({
                         type : 1,
                         title : "设置角色",
                         content : $("#assignRole"), 
                         area : ['620px', '500px'],
                         btn : ['确定' , '取消'],
-                        offset: ['20%', '35%'],
+                        offset: "auto",
                         closeBtn : 0,
                         yes : function(index) {
                             /**分配角色给用户 */
@@ -539,7 +524,6 @@ var roleManagement = {
                             $(".rightRoles").each(function() {
                                 userIds.push($(this).val());
                             })
-                            console.log(userIds);
                             $.post(home.urls.role.assignRoleToUsers() , {
                                 roleId : roleId,
                                 userIds : userIds.toString()
@@ -565,6 +549,25 @@ var roleManagement = {
                     })
                     roleManagement.funcs.bindrightMoveEvents($("#add_roles"));
                     roleManagement.funcs.bindleftMoveEvents($("#delete_roles"));
+                })
+        }
+        /**绑定设置角色里渲染数据 */
+        ,bindSetRoleData : function(id){
+            $.get(home.urls.role.getAssignUsersById(), { id : id }, function(result) {
+                var res = result.data;
+                var assignUsers = res.assignUsers;
+                var unassignUsers = res.unassignUsers;
+                $("#unsignedRoles").empty();
+                $("#signedRoles").empty();
+                unassignUsers.forEach(function(e) {
+                    $("#unsignedRoles").append(
+                        "<li class='roles' id='leftRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input type='checkbox' class='leftRoles' value="+ (e.id) +" /></li>"
+                    )
+                })
+                assignUsers.forEach(function(e) {
+                    $("#signedRoles").append(
+                        "<li class='roles' id='rightRoles-"+ (e.id) +"'>"+ (e.name) +"&nbsp;&nbsp;&nbsp;<input class='rightRoles' type='checkbox' value="+ (e.id) +" /></li>"
+                    )
                 })
             })
         }

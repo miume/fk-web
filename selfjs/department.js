@@ -259,7 +259,7 @@ var department = {
                     "<td>"+(e.parentDepartment ? e.parentDepartment.id : ' ')+"</td>" +
                     "<td>"+(e.parentDepartment ? e.parentDepartment.name : ' ')+"</td>" +
                     "<td><a href='#' class='editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='delete' id='delete-"+(e.id)+"'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='delete' id='delete-"+(e.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>"
                 )
             })

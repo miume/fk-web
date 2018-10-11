@@ -60,9 +60,9 @@ var materialTypeInfo = {
                     type: 1,
                     title: "新增",
                     content: $("#updateModal"),
-                    area : ['380px', '200px'],
+                    area : ['350px', '180px'],
                     btn : ['确定' , '取消'],
-                    offset : ['40%' , '45%'],
+                    offset : "auto",
                     closeBtn: 0,
                     yes: function(index) {
                         var name = $("#materialNames").val();
@@ -227,9 +227,9 @@ var materialTypeInfo = {
                         type: 1,
                         title: '编辑',
                         content: $("#updateModal"),
-                        area: ['380px', '200px'],
+                        area: ['350px', '180px'],
                         btn: ['确定', '取消'],
-                        offset: ['40%','45%'],
+                        offset: "auto",
                         closeBtn: 0,
                         yes: function(index) {
                             var name = $("#materialNames").val();

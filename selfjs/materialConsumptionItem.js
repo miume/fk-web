@@ -71,9 +71,9 @@ var materialConsumptionItem = {
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
-                    title: '编辑',
+                    title: '新增',
                     content: $("#updateModal"),
-                    area: ['350px', '250px'],
+                    area: ['350px', '230px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     closeBtn: 0,
@@ -253,7 +253,7 @@ var materialConsumptionItem = {
                             })
                         })
                     }else{
-                        $("#materialTypeName").append('<option value='+id+'>'+ materialItems.materialType.name +'</option>');
+                        $("#materialTypeName").append('<option value='+materialItems.materialType.id+'>'+ materialItems.materialType.name +'</option>');
                         $.get(home.urls.materialTypeInfo.getAll(),{},function(result) {
                             var materialTypes = result.data;
                             materialTypes.forEach(function(e) {
@@ -268,7 +268,7 @@ var materialConsumptionItem = {
                         type: 1,
                         title: '编辑',
                         content: $("#updateModal"),
-                        area: ['350px', '250px'],
+                        area: ['350px', '230px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         closeBtn: 0,
@@ -306,7 +306,7 @@ var materialConsumptionItem = {
         ,renderDropBox : function() {
             $("#mtn").empty();
 
-            $("#mtn").append('<option></option>');
+            $("#mtn").append('<option value="">所有物料类型</option>');
             $.get(home.urls.materialTypeInfo.getAll(),{},function(result) {
                 var materialTypes = result.data;
                 materialTypes.forEach(function(e) {

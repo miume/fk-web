@@ -65,7 +65,6 @@ var caculationFormula = {
                          )
                     }
                 })
-                console.log(id1)
                 caculationFormula.funcs.render(0,id1);
                 caculationFormula.funcs.bindClickEvent($("#sectionTable tbody tr"));
             })
@@ -96,7 +95,7 @@ var caculationFormula = {
                     }
                      
                 })
-                console.log(id2)
+                // console.log(id2)
                 //caculationFormula.funcs.render(1,id2);
                 caculationFormula.funcs.bindClickEvent($("#processTable tbody tr"));
              })
@@ -181,10 +180,10 @@ var caculationFormula = {
                     data.forEach(function(ele) {
                     var e = ele.energyDeviceRoute;
                     $tbody.append(
-                        "<tr>" +
+                        "<tr id="+ (e.id) +">" +
                         "<td>"+ (i++) +"</td>"+
                         "<td>"+ (e.code?e.code:"") +"</td>"+
-                        "<td>1.0</td>"+
+                        "<td>"+ (e.name?e.name:"") +"</td>"+
                         "</tr>"
                     )
                 })    
@@ -227,8 +226,15 @@ var caculationFormula = {
                     var e = $(".selected-line").find("td");
                     const $tbody = $("#countItem").children("tbody");
                     var lens = $("#countItem tbody tr").length;
-                    $tbody.append("<tr><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
+                    var id = $(".selected-line").attr("id");
+                    $tbody.append("<tr id="+ (id) +"><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
                     $(".selected-line").remove();
+                    /**重新渲染设备线路的序号 */
+                    var i = 1;
+                    $("#equipmentLine tbody tr").each(function(){
+                        var e = $(this).find("td");
+                        e.eq(0).text(i++);
+                    })
                 }
                 else{
                     layer.msg("请先选择设备/线路",{
@@ -236,6 +242,7 @@ var caculationFormula = {
                         time : 1000
                     })
                 }
+                caculationFormula.funcs.bindForCountClicks($("#countItem tbody tr"));
              })
          }
          /**绑定计入项到设备线路 */
@@ -245,8 +252,15 @@ var caculationFormula = {
                     var e = $(".selected-count").find("td");
                     const $tbody = $("#equipmentLine").children("tbody");
                     var lens = $("#equipmentLine tbody tr").length;
-                    $tbody.append("<tr><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
+                    var id = $(".selected-count").attr("id");
+                    $tbody.append("<tr id="+ (id) +"><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
                     $(".selected-count").remove();
+                     /**重新渲染计入项的序号 */
+                     var i = 1;
+                     $("#countItem tbody tr").each(function(){
+                         var e = $(this).find("td");
+                         e.eq(0).text(i++);
+                     })
                 }
                 else{
                     layer.msg("请先选择计入项",{
@@ -254,6 +268,7 @@ var caculationFormula = {
                         time : 1000
                     })
                 }
+                caculationFormula.funcs.bindForLineClicks($("#equipmentLine tbody tr"));
             })
         }
         /**绑定设备线路到扣除项 */
@@ -263,8 +278,15 @@ var caculationFormula = {
                     var e = $(".selected-line").find("td");
                     const $tbody = $("#deduction").children("tbody");
                     var lens = $("#deduction tbody tr").length;
-                    $tbody.append("<tr><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
+                    var id = $(".selected-line").attr("id");
+                    $tbody.append("<tr id="+ (id) +"><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
                     $(".selected-line").remove();
+                     /**重新渲染设备线路的序号 */
+                     var i = 1;
+                     $("#equipmentLine tbody tr").each(function(){
+                         var e = $(this).find("td");
+                         e.eq(0).text(i++);
+                     })
                 }
                 else{
                     layer.msg("请先选择设备/线路",{
@@ -272,6 +294,7 @@ var caculationFormula = {
                         time : 1000
                     })
                 }
+                caculationFormula.funcs.bindForDeductionClicks($("#deduction tbody"));
             })
         }
         /**绑定扣除项到设备线路 */
@@ -281,8 +304,15 @@ var caculationFormula = {
                     var e = $(".selected-deduction").find("td");
                     const $tbody = $("#equipmentLine").children("tbody");
                     var lens = $("#equipmentLine tbody tr").length;
-                    $tbody.append("<tr><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
+                    var id = $(".selected-deduction").attr("id");
+                    $tbody.append("<tr id="+ (id) +"><td>"+ (lens+1) +"</td><td>"+(e.eq(1).text())+"</td><td>"+(e.eq(2).text())+"</td></tr>")
                     $(".selected-deduction").remove();
+                     /**重新渲染设备线路的序号 */
+                     var i = 1;
+                     $("#deduction tbody tr").each(function(){
+                         var e = $(this).find("td");
+                         e.eq(0).text(i++);
+                     })
                 }
                 else{
                     layer.msg("请先选择扣除项",{
@@ -290,6 +320,7 @@ var caculationFormula = {
                         time : 1000
                     })
                 }
+                caculationFormula.funcs.bindForLineClicks($("#equipmentLine tbody tr"));
             })
         }
         /**绑定最后保存事件 */
@@ -307,26 +338,13 @@ var caculationFormula = {
                         var urls ,data = [];
                         if(caculationFormula.flag === 0) {
                             urls = home.urls.caculationFormula.updateSection();
-                            var energySectionInfo = $(".selected-section").attr("id").substr(8);
-                            $("#equipmentLine tbody tr").each(function(){
-                                data.push({
-                                    energyDeviceRoute : { id : $(this).attr("id") } ,
-                                    flag : 0,
-                                    energySectionInfo : { id : energySectionInfo }
-                                })
-                            })
+                            data = caculationFormula.funcs.saveData();
                         }
                         else {
                             urls = home.urls.caculationFormula.updateProcedure();
-                            var energyWorkProcedure = $(".selected-process").attr("id").substr(8);
-                            $("#equipmentLine tbody tr").each(function(){
-                                data.push({
-                                    energyDeviceRoute : { id : $(this).attr("id") } ,
-                                    flag : 0,
-                                    energyWorkProcedure : { id : energyWorkProcedure }
-                                })
-                            })
+                            data = caculationFormula.funcs.saveData();
                         }
+                        //console.log(data)
                         $.ajax({
                             url : urls,
                             contentType : "application/json",
@@ -353,6 +371,33 @@ var caculationFormula = {
                     }
                 })
             })
+        }
+        /**保存计入项和扣除项数据 */
+        ,saveData : function(){
+            var data = [];
+            var energySectionInfo = $(".selected-section").attr("id").substr(8);
+            $("#countItem tbody tr").each(function(){
+                data.push({
+                    energyDeviceRoute : { id : $(this).attr("id") } ,
+                    flag : 0,
+                    energySectionInfo : { id : energySectionInfo }
+                    })
+            })
+            $("#deduction tbody tr").each(function(){
+                data.push({
+                    energyDeviceRoute : { id : $(this).attr("id") } ,
+                    flag : 1,
+                    energySectionInfo : { id : energySectionInfo }
+                })
+            })
+            $("#equipmentLine tbody tr").each(function(){
+                data.push({
+                    energyDeviceRoute : { id : $(this).attr("id") } ,
+                    flag : 2,
+                    energySectionInfo : { id : energySectionInfo }
+                    })
+            })
+            return data;
         }
     }
 }

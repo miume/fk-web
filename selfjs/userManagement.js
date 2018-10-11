@@ -556,7 +556,7 @@ var userManage = {
                     "<td><a href='#' class='editdepart' id='depart-" + (e.id) + "'><i class='fa fa-window-restore' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class='editrole' id='role-" + (e.id) + "'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class='edituser' id='edit-" + (e.id) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deleteuser' id='de-" + (e.id) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='deleteuser' id='de-" + (e.id) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })
 

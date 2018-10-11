@@ -60,6 +60,7 @@ var clazz = {
                         time : 700
                     })
                     clazz.init();
+                    $("#searchName").val("");
                     layer.close(index);
                     clearTimeout(time);
                 }, 200)
@@ -166,9 +167,9 @@ var clazz = {
                     type : 1,
                     title : "新增",
                     content : $("#updateModal"),
-                    area : ['650px', '250px'],
+                    area : ['610px', '250px'],
                     btn : ['确定' , '取消'],
-                    offset : ['40%' , '45%'],
+                    offset : "auto",
                     closeBtn: 0,
                     yes : function(index) {
                         var name = $("#clazzName").val();
@@ -301,9 +302,9 @@ var clazz = {
                         type: 1,
                         title: '编辑',
                         content: $("#updateModal"),
-                        area: ['650px', '250px'],
+                        area: ['610px', '250px'],
                         btn: ['确定', '取消'],
-                        offset: ['40%','45%'],
+                        offset: "auto",
                         closeBtn: 0,
                         yes: function(index){
                             var name = $("#clazzName").val();
