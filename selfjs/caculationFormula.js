@@ -327,8 +327,6 @@ var caculationFormula = {
                                 })
                             })
                         }
-                        
-                        
                         $.ajax({
                             url : urls,
                             contentType : "application/json",

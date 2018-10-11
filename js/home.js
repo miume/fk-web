@@ -1169,7 +1169,7 @@ var home = {
                 return servers.backup() + "energyProcedureController/getByProcedureIdAndFlagByPage"
             },
             updateProcedure : function(){
-                return servers.backup() + "energyProcedureController/update"
+                return servers.backup() + "energyWorkProcedureController/update"
             },
         }
         /**设备用电监控 */
