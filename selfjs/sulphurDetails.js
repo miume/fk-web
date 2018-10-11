@@ -19,7 +19,7 @@ var sulphurDetails = {
             var preMonthDate = sulphurDetails.funcs.getPreMonth();
             /**界面显示初值 */
             $("#beginDate").val(preMonthDate);
-            // $("#beginTeam").append('<option value='+3+'>晚班</option>');
+            // $("#beginTeam").text("晚班");
             $("#endDate").val(currentDate);
             // $("#endTeam").val("中班");
             /**获取所有数据 */
@@ -208,19 +208,27 @@ var sulphurDetails = {
             $("#clazzId").empty();
             // $("#optName").empty();
             //  获取开始班次
-            $("#beginTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var beginClazzTypes = result.data;
                 beginClazzTypes.forEach(function(e) {
-                    $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===3){
+                        $("#beginTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
             //  获取结束班次
-            $("#endTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var endClazzTypes = result.data;
                 endClazzTypes.forEach(function(e) {
-                    $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===2){
+                        $("#endTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
             //  获取人员班组

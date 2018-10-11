@@ -86,13 +86,12 @@ var operationCompetition = {
         ,renderTbodyData : function($tbody, detailDatas) {
             //  page标签只是用来控制序号的，若不需要序号，则可以不使用
             $tbody.empty();
+            console.log(detailDatas);
             for(var name in detailDatas) {
                 //  其中name为对象名
                 var detailData = detailDatas[name];
-                console.log(detailData);
                 var flag = 0;
                 detailData.forEach(function(e) {
-                    console.log(e);
                     if(flag === 0){
                         flag = flag +1 ;
                         // 1.写类型
@@ -145,19 +144,27 @@ var operationCompetition = {
             $("#shift").empty();
             // $("#optName").empty();
             //  获取开始班次
-            $("#beginTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var beginClazzTypes = result.data;
                 beginClazzTypes.forEach(function(e) {
-                    $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===3){
+                        $("#beginTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
             //  获取结束班次
-            $("#endTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var endClazzTypes = result.data;
                 endClazzTypes.forEach(function(e) {
-                    $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===2){
+                        $("#endTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
         }

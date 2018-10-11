@@ -207,60 +207,30 @@ var laborCompetition = {
             $("#shift").empty();
             // $("#optName").empty();
             //  获取开始班次
-            $("#beginTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var beginClazzTypes = result.data;
                 beginClazzTypes.forEach(function(e) {
-                    $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===3){
+                        $("#beginTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#beginTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
             //  获取结束班次
-            $("#endTeam").append('<option></option>');
             $.get(home.urls.clazz.getAll(),{},function(result) {
                 var endClazzTypes = result.data;
                 endClazzTypes.forEach(function(e) {
-                    $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    if(e.id===2){
+                        $("#endTeam").append('<option selected="selected" value='+e.id+'>'+e.name+'</option>')
+                    }
+                    else{
+                        $("#endTeam").append('<option value='+e.id+'>'+e.name+'</option>')
+                    }
                 })
             });
-            // //  获取人员班组
-            // $("#team").append('<option ></option>');
-            // $.get(home.urls.team.getAll(),{},function(result) {
-            //     var teamTypes = result.data;
-            //     teamTypes.forEach(function(e) {
-            //         $("#team").append("<option value='"+e.id+"' class='setTeam'>"+e.name+"</option>")
-            //     });
-            // });
-            // //  获取班次
-            // $("#clazzId").append('<option></option>');
-            // $.get(home.urls.clazz.getAll(),{},function(result) {
-            //     var ClazzTypes = result.data;
-            //     ClazzTypes.forEach(function(e) {
-            //         $("#clazzId").append('<option value='+e.id+'>'+e.name+'</option>')
-            //     })
-            // });
         }
-        // /**根据班组 渲染操作员下拉框*/
-        // ,renderOptName : function() {
-        //     $("#optName").empty();
-        //     var id = $("#team").val();
-        //     if(id === ""){
-        //         layer.msg('请先选择班组,再选操作员!',{
-        //             offset : ['40%', '55%'],
-        //             time : 700
-        //         });
-        //         return
-        //     }else {
-        //         $("#optName").append('<option></option>');
-        //         $.get(home.urls.user.getByTeam(),{
-        //             teamId : id
-        //         },function(result) {
-        //             var optName = result.data;
-        //             optName.forEach(function(e) {
-        //                 $("#optName").append('<option value='+e.id+'>'+e.name+'</option>')
-        //             })
-        //         });
-        //     }
-        // }
         /**得到当前日期的前一个月 */
         ,getPreMonth : function() {
             var preDate = new Date();
