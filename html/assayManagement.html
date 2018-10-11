@@ -60,25 +60,43 @@
         <!--留白-->
         <div class="whitespace"></div>
         <div style="height:70%;overflow-y: auto">
-        <table id="detailTable">
-            <thead>
-                <tr>
-                    <td rowspan="2">序号</td>
-                    <td rowspan="2">样品名称</td>
-                    <td rowspan="2">样品编号</td>
-                    <td colspan="4">分析结果（%）</td>
-                </tr>
-                <tr>
-                    <td>铅</td>
-                    <td>锌</td>
-                    <td>硫</td> 
-                    <td>铁</td>     
-                </tr>
-            </thead>
-            <tbody>
-                            
-            </tbody>
-        </table>
+            <div id="conventionalModal" class="hidePage">
+                    <table id="detailTable">
+                        <thead id="conventionalThead">
+                            <tr>
+                                <td rowspan="2">序号</td>
+                                <td rowspan="2">样品名称</td>
+                                <td rowspan="2">样品编号</td>
+                                <td colspan="" id="dynResult">分析结果（%）</td>
+                            </tr>
+                            <tr id="dynAdd">
+            
+                            </tr>
+                        </thead>
+                        <tbody id="conventionalTbody">
+                                            
+                        </tbody>
+                    </table>
+            </div>
+            <div id="temporalModal" class="hidePage">
+                    <table id="detailTable1">
+                            <thead id="temporalThead">
+                                <tr>
+                                    <td rowspan="2">序号</td>
+                                    <td rowspan="2">样品名称</td>
+                                    <td rowspan="2">样品编号</td>
+                                    <td rowspan="2">化验方式</td>
+                                    <td colspan="" id="tempResult">分析结果（%）</td>
+                                </tr>
+                                <tr id="tempAdd">
+            
+                                </tr>
+                            </thead>
+                            <tbody id="tempTbody">
+                                            
+                            </tbody>
+                        </table>
+            </div>   
         </div>
     </div>
     <div id="block3" class="hidePage">
@@ -94,25 +112,24 @@
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        <table id="editTable">
-            <thead>
-                <tr>
-                    <td rowspan="2">序号</td>
-                    <td rowspan="2">样品名称</td>
-                    <td rowspan="2">样品编号</td>
-                    <td colspan="4" width="50%">分析结果（%）</td>
-                </tr>
-                <tr>
-                    <td>铅</td>
-                    <td>锌</td>
-                    <td>硫</td> 
-                    <td>铁</td>     
-                </tr>
-            </thead>
-            <tbody>
-                            
-            </tbody>
-        </table>
+        <div style="height:70%;overflow-y: auto">
+        <table id="detailTable">
+                <thead id="entryThead">
+                    <tr>
+                        <td rowspan="2">序号</td>
+                        <td rowspan="2">样品名称</td>
+                        <td rowspan="2">样品编号</td>
+                        <td colspan="" id="entryResult">分析结果（%）</td>
+                    </tr>
+                    <tr id="entryAdd">
+    
+                    </tr>
+                </thead>
+                <tbody id="entryTbody">
+                                    
+                </tbody>
+            </table>
+    </div>
     </div>
 
 
