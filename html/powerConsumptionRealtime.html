@@ -31,6 +31,16 @@
     <script type="application/javascript">
         $(function() {
             powerRealtime.init();
-        })
+            // 每整点刷新一次
+            setInterval(reIntFresh,1000);
+        });
+        function reIntFresh(){
+            var intTime = new Date();
+            var min = intTime.getMinutes();
+            var sec = intTime.getSeconds();
+            if(min===0&&sec===0){
+                powerRealtime.init();
+            }
+        }
     </script>
 </div>

@@ -119,7 +119,7 @@ var materialTypeInfo = {
                                 if($(this).prop("checked")) {
                                     materialIdS.push(parseInt($(this).val()));
                                 }
-                            })
+                            });
                             //console.log(rolesIdS.toString())
                             $.post(home.urls.materialTypeInfo.deleteByIds(), {
                                 _method : "delete", ids : materialIdS.toString()

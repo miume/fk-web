@@ -1,0 +1,39 @@
+<div class="display-component-container">
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px">事件报警实时记录</span>
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <table id="alarmMonitorTable">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>优先级</td>
+                <td>报警时间</td>
+                <td>电表DP点</td>
+                <td>报警信息</td>
+                <td>报警值</td>
+                <td>设定值</td>
+                <td>是否应答</td>
+                <td>是否报警</td>
+            </tr>
+        </thead>
+        <tbody id="alarmMonitorTbody">
+
+        </tbody>
+    </table>
+    <div id="alarmMonitorPage"></div>
+    <script src="selfjs/eventAlarmMonitor.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            // self.setInterval("alarmMonitor.init",30000);
+            alarmMonitor.init();
+            // 每30S刷新一次
+            setInterval(alarmMonitor.init,30000);
+        })
+    </script>
+</div>
