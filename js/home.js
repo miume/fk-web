@@ -1188,6 +1188,9 @@ var home = {
             },
             getByDate : function(){
                 return servers.backup() + "powerConsumptionDay/getByDate"
+            },
+            realAndPlan : function(){
+                return servers.backup() + "powerConsumptionDay/realAndPlan"
             }
         }
         /**工段用电统计 */

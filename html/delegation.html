@@ -112,10 +112,10 @@
             <span>选择送检项目：</span><br/>
             <div style="width:4px;"></div>
             <span class="border">
-                <input value='铅' type='checkbox' class="item" name="item" id="pbFlag"><span style='padding-right:30px;'>铅</span>
-                <input value='锌' type='checkbox' class="item" name="item" id="znFlag"><span style='padding-right:30px;'>锌</span>
-                <input value='铁' type='checkbox' class="item" name="item" id="feFlag"><span style='padding-right:30px;'>铁</span>
-                <input value='硫' type='checkbox' class="item" name="item" id="sflag"><span style='padding-right:30px;'>硫</span>
+                <input value='铅' type='checkbox' class="item" name="item" id="pbFlag"><a class="itemFlag"><span style='padding-right:30px;'>铅</span></a>
+                <input value='锌' type='checkbox' class="item" name="item" id="znFlag"><a class="itemFlag"><span style='padding-right:30px;'>锌</span></a>
+                <input value='铁' type='checkbox' class="item" name="item" id="feFlag"><a class="itemFlag"><span style='padding-right:30px;'>铁</span></a>
+                <input value='硫' type='checkbox' class="item" name="item" id="sflag"><a class="itemFlag"><span style='padding-right:30px;'>硫</span></a>
             </span>
         </div>
         <div>
@@ -202,5 +202,6 @@
         $(function() {
             delegationManagement.init();
         })
+        
     </script>
 </div>

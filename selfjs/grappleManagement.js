@@ -69,7 +69,7 @@ var grapple ={
                         $.get(home.urls.truckLoading.isExists(),{
                             id : value,
                         },function(result){
-                            if(!result.data){                                          
+                            if(!result.data){
                                 $("#modal").removeClass("hide");
                                 layer.open({
                                     type: 1,
@@ -138,7 +138,7 @@ var grapple ={
                             maps[id]['data'].push({});
                         }
                         const $tbody = $("#reportChartTbody");
-                        grapple.funcs.renderAddRow($tbody,id,name,maps)
+                        grapple.funcs.renderAddRow($tbody,maps)
                         $("#addModal").css("display","none");
                         layer.close(index);
                     }
@@ -183,7 +183,7 @@ var grapple ={
             $("#sel").empty();
             $.get(home.urls.clazz.getAll(),{},function(result){
                 var classData = result.data;
-                $("#clazz").append("<option></option>");
+                $("#clazz").append("<option value="+(-1)+">"+("所有班次")+"</option>");
                 classData.forEach(function(e){
                     $("#clazz").append("<option value="+e.id+">"+e.name+"</option>");
                     $("#sel").append("<option value="+e.id+">"+e.name+"</option>");
