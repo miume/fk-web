@@ -81,7 +81,7 @@ var materialStatistics = {
                     );
                 });
                 $tbody.append(
-                    "<td><a href='#' class = 'details' id='detail-"+mapData["id"]+"'><i class='layui-icon'>&#xe642;</i></a></td>",
+                    "<td><a href='#' class = 'details' id='detail-"+mapData["id"]+"'><i class='layui-icon'>&#xe642;</i></a></td>"+
                     "<td><a href='#' class = 'regenerate' id='generate-"+mapData["month"]+"'><i class='layui-icon'>&#xe642;</i></a></td>"
                 );
                 $tbody.append(

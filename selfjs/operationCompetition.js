@@ -92,6 +92,7 @@ var operationCompetition = {
                 var detailData = detailDatas[name];
                 var flag = 0;
                 detailData.forEach(function(e) {
+                    //  因为通过flag来执行数组循环，所以没有调用e
                     if(flag === 0){
                         flag = flag +1 ;
                         // 1.写类型

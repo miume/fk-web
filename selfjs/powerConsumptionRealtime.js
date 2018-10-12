@@ -17,11 +17,26 @@ var powerRealtime = {
             $.get(home.urls.powerConsumptionRealtime.getLatestData(),{},function(result) {
                 var powerDatas = result.data;
                 const $tbody = $("#powerRealtimeTbody");
-                powerRealtime.funcs.renderHandler($tbody , powerDatas , 0);
+                powerRealtime.funcs.renderHandler($tbody , powerDatas);
             })
         }
-        ,renderHandler : function($tbody , powerDatas , page) {
-
+        ,renderHandler : function($tbody , powerDatas ) {
+            $tbody.empty();
+            var i = 1 ;
+            powerDatas.forEach(function(e) {
+                $tbody.append(
+                    "<tr>" +
+                    "<td>"+ (i++) +"</td>" +
+                    "<td>" + e.hour+ "</td>" +
+                    "<td>" + e.device.name+"</td>" +
+                    "<td>" + e.dpPoint.dpPoint+"</td>" +
+                    "<td>" + e.activePower+"</td>" +
+                    "<td>" + e.activeUsePower+"</td>" +
+                    "<td>" + e.unactivePower+"</td>" +
+                    "<td>" + e.unctiveUsePower+"</td>" +
+                    "</tr>"
+                )
+            })
         }
     }
 };

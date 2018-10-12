@@ -1179,6 +1179,9 @@ var home = {
         ,powerConsumptionRealtime : {
             getLatestData : function(){
                 return servers.backup() + "powerConsumptionRealtime/getLatestData"
+            },
+            getByDateAndDevice : function(){
+                return servers.backup() + "powerConsumptionRealtime/getByDateAndDevice"
             }
         }
         /**日用电维护 */
@@ -1251,6 +1254,36 @@ var home = {
             },
             updateResponseStatusById : function(){
                 return servers.backup() + "eventAlarm/updateResponseStatusById"
+            }
+        }
+        /**电表dp点接口 */
+        ,energyDpPoint : {
+            getAll : function(){
+                return servers.backup() + "energyDpPoint/getAll"
+            }
+        }
+        /**报警设定管理*/
+        ,alarmSetting : {
+            add : function(){
+                return servers.backup() + "alarmSetting/add"
+            },
+            deleteByIds : function(){
+                return servers.backup() + "alarmSetting/deleteByIds"
+            },
+            exportByDpPointLike : function(){
+                return servers.backup() + "alarmSetting/exportByDpPointLike"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "alarmSetting/getAllByPage"
+            },
+            getByDpPointLikeByPage : function(){
+                return servers.backup() + "alarmSetting/getByDpPointLikeByPage"
+            },
+            getById : function(){
+                return servers.backup() + "alarmSetting/getById"
+            },
+            update : function(){
+                return servers.backup() + "alarmSetting/update"
             }
         }
     }
