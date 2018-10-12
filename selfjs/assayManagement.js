@@ -307,30 +307,63 @@ var assayManage = {
         ,bindUpdateEvent : function(buttons,id,detailData,keys,map){
             buttons.off('click').on('click',function(){
             //    console.log(detailData)
-            console.log(keys)
                     var delegationId = detailData.delegationInfo.id;
+                    var orderFlags = detailData.delegationOrderDetailFlags
+                    var len = orderFlags.length;
                     var data;
                     var details = [];
-                    var orderFlags = detailData.delegationOrderDetails
-                        orderFlags.forEach(function(orderFlag){ 
-                            details.push({
-                                "id" : orderFlag.id ,
+                    var inputKey = new Array();
+                    var inputVal = new Array();
+                    for( var j = 0; j < len; j++){
+                        inputKey[j] = new Array();
+                        inputVal[j] = new Array();
+                        for(var i in map){
+                            inputKey[j].push(i);
+                        }
+                    }
+                    console.log(inputKey);
+                    var inputData = [];
+                    for( var n = 0; n < len; n++){
+                        $(".inputData-" + (n + 1)).each(function(){
+                            inputVal[n].push($(this).children('input').val())
+                        })
+                    }
+                   console.log(inputVal);
+                    
+                    var i = -1;
+                    orderFlags.forEach(function(orderFlag){ 
+                        i ++ ;
+                        console.log(i)
+                        details.push({
+                            "id" : orderFlag.id ,
                             "sampleManageInfo" : {
                                 "id" : orderFlag.sampleManageInfo.id
                             },
-                            "sampleName" : orderFlag[key]
-                            }) 
-                            keys.forEach(function(key){
-                                if(key == "sampleManageInfo"){
-                                    
-                                }else if(key == "sampleName"){
-                                 
-                                }else{
-                                details.key = orderFlag[key];
-                                }   
-                            })
+                            "sampleName" : orderFlag.sampleName,
+                            "pb" : "",
+                            "zn" : "",
+                            "sf" : "",
+                            "fe" : ""
                         })
-                        console.log(details)
+                        for(var m = 0; m < inputKey[i].length; m ++) {
+                            if(inputKey[i][m] == "pb"){
+                                console.log("pb")
+                                details[i].pb = inputVal[i][m]
+                            }else if(inputKey[i][m] == "zn"){
+                                console.log("zn")
+                                details[i].zn = inputVal[i][m]
+                            }else if(inputKey[i][m] == "sf"){
+                                console.log("sf")
+                                details[i].sf = inputVal[i][m]
+                            }else if(inputKey[i][m] == "fe"){
+                                console.log("fe")
+                                details[i].fe = inputVal[i][m]
+                            }else{
+
+                            }
+                        }
+                    })
+                //    console.log(details)
                     data = {
                         "id" : id ,
                         "delegationInfo" : {
@@ -342,7 +375,7 @@ var assayManage = {
                         }
                     }
                     console.log(data);
-                /*      $.ajax({
+                        $.ajax({
                         url : home.urls.delegation.update(),
                         contentType : "application/json" ,
                         dataType : "JSON",
@@ -366,7 +399,7 @@ var assayManage = {
                                 time: 700
                             })
                         }
-                    }) */
+                    }) 
                 }) 
                 
         }
@@ -395,12 +428,14 @@ var assayManage = {
             var arr = Object.keys(map)
             var length = arr.length
             var i = 1;
+            var c = 0;
             var orderFlags = detailData.delegationOrderDetails
             var flags = detailData.delegationOrderDetailFlags
         //    console.log(keys)
         //    console.log(map)
             if(orderFlags.length){
                 orderFlags.forEach(function(orderFlag){
+                    c = c + 1;
                     $tbody.append(
                         "<tr class='editline'>")
                     $tbody.append(
@@ -419,7 +454,7 @@ var assayManage = {
                             )      
                         }else{
                             $tbody.append(
-                                "<td class='inputData'>"+ "<input value='" + (orderFlag[key]||"") + "' style='width: 100%; height: 100%; align: center' >" +"</td>"
+                                "<td class='inputData-" + c + "'>"+ "<input value='" + (orderFlag[key]||"") + "' style='width: 100%; height: 100%; align: center' >" +"</td>"
                             )
                         }
                     })
@@ -430,6 +465,7 @@ var assayManage = {
                 })
             }else{
                 flags.forEach(function(e){
+                    c = c + 1;
                     $tbody.append(
                         "<tr class='editline'>")
                     $tbody.append(
@@ -448,7 +484,7 @@ var assayManage = {
                             )      
                         }else{
                             $tbody.append(
-                                "<td class='inputData'>"+ (e[key]||"<input value='' style='width: 100%; height: 100%' >") +"</td>"
+                                "<td class='inputData-" + c + "'>"+ (e[key]||"<input value='' style='width: 100%; height: 100%' >") +"</td>"
                             )
                         }
                     })
