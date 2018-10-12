@@ -60,8 +60,8 @@ var delegationManagement = {
             delegationManagement.funcs.bindSearchEvents($("#searchButton"));
             /**绑定刷新事件 */
             delegationManagement.funcs.bindRefreshEvents($("#refreshButton"));
-            /**绑定类型选择事件 */
-            delegationManagement.funcs.bindClickEvents();
+            // /**绑定类型选择事件 */
+            // delegationManagement.funcs.bindClickEvents();
         }
         /**得到当前日期的前一个周 */
         ,getPreDate : function() {
@@ -177,11 +177,12 @@ var delegationManagement = {
                 $("#operator").val("-1")
                 $("#clazz").val("-1")
                 $("input:radio[name='met']").prop("checked",false);
-                $("input:radio[name='commi']").prop("checked",false);
-                $("input:radio[name='met']").prop("disabled",false);
-                $("input:checkbox[name='item']").prop("checked", false);
+                $("input:radio[name='commi']").get(0).checked=true;
+                $("input:radio[name='met']").prop("disabled",true);
+                $("input:checkbox[name='item']").prop("checked", true);
                 $("input:checkbox[name='sample']").prop("checked", false);
                 delegationManagement.funcs.bindClickEvents()
+                delegationManagement.funcs.clickEvents($(".itemFlag"))
                 delegationManagement.funcs.selectTeam($("#team"))
                 $("#addModal").removeClass("hide");
                 layer.open({
@@ -1085,16 +1086,50 @@ var delegationManagement = {
                     $("#method").append("<input class='radio' type='radio' name='met'  id="+(e.id)+" value="+(e.name)+"><span style='padding-right:10px;'> "+(e.name)+"</span>")
                 })
             })
+            // delegationManagement.funcs.bindSingle($(".singleC"))
+            // delegationManagement.funcs.bindSingle($(".singleClick"))
         }
+        // ,/**点击单选框选中事件 */
+        // bindSingle : function(buttons){
+        //     buttons.off("click").on("click",function(){
+        //         obj = $(this)
+        //         console.log(obj.prev())
+        //         if(obj.prev().prop("checked")){
+        //             obj.prev().prop("checked",false);
+        //         }else{
+        //             obj.prev().prop("checked",true);
+        //         }
+        //     })
+        // }
         /**渲染复选框 */
-        ,renderCheckBox : function(){    
+        ,renderCheckBox : function(){
             $("#sample").empty();
             $.get(home.urls.sample.getAllByPage(),{},function(result){
                 var checks = result.data.content;
                 checks.forEach(function(e){
-                    $("#sample").append("<input name='sample' class='"+e.sampleCode+"' value='"+e.name+"' type='checkbox' id='check-"+(e.id)+"'><span style='padding-right:30px;'> "+(e.name)+"</span>")
+                    $("#sample").append("<input name='sample' class='"+e.sampleCode+"' value='"+e.name+"' type='checkbox' id='check-"+(e.id)+"'><a class='onclick'><span style='padding-right:30px;'>"+(e.name)+"</span></a>")
                 })
+                delegationManagement.funcs.clickEvents($(".onclick"))
             })
+        }
+        ,/**点击文字选中事件 */
+        clickEvents : function(buttons){
+            buttons.off("click").on("click",function(){
+            //     $(this).toggle(
+            //         function(){
+            //             $(this).prev().prop("checked","true");
+            //        },
+            //        function(){
+            //            $(this).prev().prop("checked","false");
+            //    })
+                obj = $(this)
+                console.log(obj.prev())
+                if(obj.prev().prop("checked")){
+                    obj.prev().prop("checked",false);
+                }else{
+                    obj.prev().prop("checked",true);
+                }
+            }) 
         }
     }
 }

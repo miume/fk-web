@@ -1,0 +1,103 @@
+<div class="display-component-container">
+    <style>
+        #leftDiv {
+            position: absolute;
+            width: 45%;
+            float: left;
+        }   
+        #rightDiv {
+            position: absolute;
+            width: 45%;
+            left: 50%;
+            float: left;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+                <span style="font-size:20px;">设备/线路实际能耗与计划能耗对比分析</span>&nbsp;&nbsp;&nbsp;
+                时间：<select id="timeType"><option value="1">年</option><option value="2">月</option></select>
+                <span id="yearTime" class="hide"><input type="text" id="yearT" placeholder="请选择年份"></span>
+                <span id="monthTime" class="hide"><input type="text" id="monthT" placeholder="请选择月份"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#" id="selectButton"><i class="layui-icon">&#xe608;</i>设备选择</a>&nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#" id="searchButton"><i class="layui-icon">&#xe615;</i>查询</a>&nbsp;&nbsp;&nbsp;&nbsp;
+               <span id="graphButton"><a href="#"><i class="layui-icon">&#xe60d;</i>图表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <!--留白-->
+    <div class="whitespace"></div>
+    <div class="hide" id="selectDevice">
+        <div>
+            <span>设备选择：</span> <br/>
+            <div style="width:4px;"></div>
+            <span class="border" id="sample">
+            </span>
+        </div>
+    </div>
+    <!--左div-->
+    <div class="hide" id="leftDiv">
+        <div class="topDiv">
+            <h4>选矿车间设备实际用电列表</h4>
+            <table>
+                <thead>
+                <tr>
+                    <td>设备名称</td>
+                    <td>用电量(kwh)</td>
+                    <td>处理量(t)</td>
+                    <td>单耗(kwh)</td>
+                </tr>
+                </thead>
+                <tbody id="useTbody"></tbody>
+            </table>
+        </div>
+    </div>
+    <!--右div-->
+    <div class="hide" id="rightDiv">
+            <div class="topDiv">
+                <h4>选矿车间设备计划用电列表</h4>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>设备名称</td>
+                        <td>计划用电量(kwh)</td>
+                        <td>处理量(t)</td>
+                        <td>单耗(kwh)</td>
+                    </tr>
+                    </thead>
+                    <tbody id="planTbody"></tbody>
+                </table>
+            </div>
+    </div>
+
+    <div  id="parameterChart" style="width:60% ;height:60%;float:left;margin-left: 2%;margin-right: 2%" class="hide">
+
+    </div>
+
+    <script src="selfjs/equipment.js"></script>
+
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#yearT',
+                type : 'year'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#monthT',
+                type : 'month'
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        $(function() {
+            equipment.init();
+        })
+        
+    </script>
+</div>
