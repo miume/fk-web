@@ -1257,6 +1257,9 @@ var home = {
             },
             updateResponseStatusById : function(){
                 return servers.backup() + "eventAlarm/updateResponseStatusById"
+            },
+            deleteByIds : function(){
+                return servers.backup() + "eventAlarm/deleteByIds"
             }
         }
         /**电表dp点接口 */

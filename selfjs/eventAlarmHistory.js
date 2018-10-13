@@ -26,7 +26,6 @@ var alarmHistory = {
                 startTime : preWeekDate ,
                 endTime : currentDate
             },function(result) {
-                console.log(result)
                 var alarmDatas = result.data.content;
                 var page = result.data;
                 const $tbody = $("#alarmHistoryTbody");
@@ -64,7 +63,6 @@ var alarmHistory = {
         }
         ,renderHandler : function ($tbody, alarmDatas) {
             $tbody.empty();
-            console.log(alarmDatas);
             var alertResponseStatus;
             alarmDatas.forEach(function(e) {
                 if(e.responseStatus === false){
@@ -113,7 +111,6 @@ var alarmHistory = {
                     startTime : beginDates ,
                     endTime : endDates
                 },function(result) {
-                    console.log(result)
                     var alarmDatas = result.data.content;
                     var page = result.data;
                     const $tbody = $("#alarmHistoryTbody");
@@ -155,10 +152,10 @@ var alarmHistory = {
                 }else{
                     layer.open({
                         type : 1,
-                        title : "批量删除",
-                        content : "<h5 style='text-align:center;'>您确定要删除所有数据吗？</h5>",
+                        title : "删除",
+                        content : "<h5 style='text-align:center;'>您确定要删除选中数据吗？</h5>",
                         area: ['200px','140px'],
-                        offset : ['40%', '55%'],
+                        offset : 'auto',
                         btn: ['确定', '取消'],
                         closeBtn: 0,
                         yes : function(index) {
@@ -169,7 +166,6 @@ var alarmHistory = {
                                     alarmIdS.push(parseInt($(this).val()));
                                 }
                             });
-                            //console.log(rolesIdS.toString())
                             $.post(home.urls.eventAlarm.deleteByIds(), {
                                 _method : "delete", ids : alarmIdS.toString()
                             },function(result) {
@@ -183,7 +179,7 @@ var alarmHistory = {
                                     offset: ['40%', '55%'],
                                     time: 700
                                 })
-                            })
+                            });
                             layer.close(index);
                         }
                         ,btn2 : function(index) {

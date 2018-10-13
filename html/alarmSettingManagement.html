@@ -1,4 +1,11 @@
 <div class="display-component-container">
+    <style>
+        #updateModal {
+            padding: 40px;
+            width: 100%;
+            height: 95%;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p>
@@ -37,4 +44,33 @@
             alarmSetting.init();
         })
     </script>
+    <!--新增 弹出界面-->
+    <div id="updateModal" class="hide">
+        <table id="alarmUpTable">
+            <tbody id="alarmUpTbody">
+                <tr>
+                    <td>电表DP点</td>
+                    <td><select id='upDpPoint' style="width:100%;height: 100%;border:none;text-align:center"></select></td>
+                </tr>
+                <tr>
+                    <td>优先级</td>
+                    <td>
+                        <div class="spinner">
+                            <button class="decrease">-</button>
+                            <input type="text" class="spinner value" maxlength="2">
+                            <button class="increase">+</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>设定值</td>
+                    <td><input id='upValue' type="text" style="width:100%;height: 100%;border:none;text-align:center"/></td>
+                </tr>
+                <tr>
+                    <td>报警描述</td>
+                    <td><input id='upAlarmInfo' type="text" style="width:100%;height: 100%;border:none;text-align:center"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

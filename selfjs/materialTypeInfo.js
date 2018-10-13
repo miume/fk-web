@@ -220,7 +220,7 @@ var materialTypeInfo = {
                 $("#materialNames").val("");
                 $.get(home.urls.materialTypeInfo.getById(),{ id:id }, function(result) {
                     var materials = result.data;
-                    var id = materials.id;
+                    var materId = materials.id;
                     $("#materialNames").val(materials.name);
                     $("#updateModal").removeClass("hide");
                     layer.open({
@@ -238,20 +238,20 @@ var materialTypeInfo = {
                                 return
                             }
                             $.post(home.urls.materialTypeInfo.update(), {
-                                id : id,
+                                id : materId,
                                 name : name
                             }, function(result) {
                                 layer.msg(result.message, {
                                     offset : ['40%', '55%'],
                                     time : 700
-                                })
+                                });
                                 if(result.code === 0) {
                                     var time = setTimeout(function() {
                                         materialTypeInfo.init();
                                         clearTimeout(time);
                                     },500)
                                 }
-                            })
+                            });
                             $("#updateModal").css("display","none");
                             layer.close(index);
                         },
