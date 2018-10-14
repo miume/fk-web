@@ -65,7 +65,7 @@ var equipmentLine = {
                     "<td>"+ (e.energySectionInfo?e.energySectionInfo.name:'') +"</td>" + 
                     "<td>"+ (e.energyWorkProcedure?e.energyWorkProcedure.name:'') +"</td>" +
                     "<td>"+ (e.energyWorkType?e.energyWorkType.name:'') +"</td>" +
-                    "<td>"+ (e.citeInfo?e.citeInfo:'') +"</td>" + 
+                    // "<td>"+ (e.citeInfo?e.citeInfo:'') +"</td>" + 
                     "<td>"+ (e.electricPredict1H?e.electricPredict1H:'0') +"</td>" + 
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
@@ -97,7 +97,7 @@ var equipmentLine = {
                     $("#energyWorkType option[value="+ (energyWorkType) +"]").attr("selected","selected");
                     $("#code").val(res.code);
                     $("#name").val(res.name);
-                    $("#citeInfo").val(res.citeInfo);
+                    //$("#citeInfo").val(res.citeInfo);
                     $("#electricPredict1H").val(res.electricPredict1H);
                 
                 $("#equipmentLayerModal").removeClass("hide");
@@ -117,7 +117,7 @@ var equipmentLine = {
                         var energyWorkProcedure = $("#energyWorkProcedure").val();
                         var energyWorkType = $("#energyWorkType").val();
                         var electricPredict1H = $("#electricPredict1H").val();
-                        var citeInfo = $("#citeInfo").val();
+                        //var citeInfo = $("#citeInfo").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
                         $.post(home.urls.equipmentLine.update(),{
                             id : id,
@@ -127,7 +127,7 @@ var equipmentLine = {
                             'energySectionInfo.id' : energySectionInfo,
                             'energyWorkProcedure.id' : energyWorkProcedure,
                             'energyWorkType.id' : energyWorkType,
-                             citeInfo : citeInfo,
+                             //citeInfo : citeInfo,
                              electricPredict1H : electricPredict1H?parseInt(electricPredict1H):0,
                              date : date
                         },function(result) {
@@ -208,9 +208,9 @@ var equipmentLine = {
                         var energyWorkProcedure = $("#energyWorkProcedure").val();
                         var energyWorkType = $("#energyWorkType").val();
                         var electricPredict1H = $("#electricPredict1H").val() ;
-                        var citeInfo = $("#citeInfo").val();
+                        //var citeInfo = $("#citeInfo").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
-                        console.log($("#electricPredict1H").val())
+                        //console.log($("#electricPredict1H").val())
                         if(code === "" && name === ""){
                             layer.msg("设备/线路编号和设备/线路名称不能为空！",{
                                 offset : ["44%","50%"],
@@ -227,7 +227,7 @@ var equipmentLine = {
                             'energySectionInfo.id' : energySectionInfo,
                             'energyWorkProcedure.id' : energyWorkProcedure,
                             'energyWorkType.id' : energyWorkType,
-                            citeInfo : citeInfo,
+                            //citeInfo : citeInfo,
                             electricPredict1H : electricPredict1H?parseInt(electricPredict1H):0,
                             date : date
                         },function(result) {
@@ -259,7 +259,7 @@ var equipmentLine = {
             $("#energyDpPoint").empty();
             $("#energySectionInfo").empty();
             $("#energyWorkProcedure").empty();
-            $("#citeInfo").val("");
+            //$("#citeInfo").val("");
             $("#electricPredict1H").val("");
             $("#autoFlag option[value='1']").attr("selected","selected");
             /**电表DP点 */

@@ -55,7 +55,6 @@ var processName = {
                     "<td>"+ (e.name?e.name:'') +"</td>" + 
                     "<td>"+ (e.energyWorkType?e.energyWorkType.name:'') +"</td>" + 
                     "<td>"+ (e.energySectionInfo?e.energySectionInfo.name:'') +"</td>" + 
-                    "<td>"+ (e.workShopInfo?e.workShopInfo:'') +"</td>" + 
                     "<td>"+ (e.electricUsedType?e.electricUsedType.name:'') +"</td>" +
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
@@ -78,13 +77,13 @@ var processName = {
                     var energySectionInfo = res.energySectionInfo?res.energySectionInfo.id:"-1";
                     var electricUsedType = res.electricUsedType?res.electricUsedType.id:"-1";
                     var energyWorkType = res.energyWorkType ? res.energyWorkType.id : "-1";
-                    console.log(energySectionInfo)
+                    //console.log(energySectionInfo)
                     $("#workCode").val(res.workCode);
                     $("#name").val(res.name);
                     $("#energyWorkType option[value="+ (energyWorkType) +"]").attr("selected","selected");
                     $("#energySectionInfo option[value="+ (energySectionInfo) +"]").attr("selected","selected");
                     $("#electricUsedType option[value="+ (electricUsedType) +"]").attr("selected","selected");
-                    $("#workShopInfo").val(res.workShopInfo)
+                    //$("#workShopInfo").val(res.workShopInfo)
                 $("#processLayerModal").removeClass("hide");
                 layer.open({
                     type : 1,
@@ -99,14 +98,14 @@ var processName = {
                         var name = $("#name").val();
                         var energySectionInfo = $("#energySectionInfo").val();
                         var energyWorkType = $("#energyWorkType").val();
-                        var workShopInfo = $("#workShopInfo").val();
+                        //var workShopInfo = $("#workShopInfo").val();
                         var electricUsedType = $("#electricUsedType").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
                         $.post(home.urls.processName.update(),{
                              id : id,
                              workCode : workCode,
                              name : name,
-                             workShopInfo : workShopInfo,
+                            // workShopInfo : workShopInfo,
                              'electricUsedType.id' : electricUsedType,
                              'energyWorkType.id' : energyWorkType,
                              'energySectionInfo.id' : energySectionInfo,
@@ -201,7 +200,7 @@ var processName = {
                         $.post(home.urls.processName.add(),{
                             workCode : workCode,
                             name : name,
-                            workShopInfo : workShopInfo,
+                            //workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             'energyWorkType.id' : energyWorkType,
                             'energySectionInfo.id' : energySectionInfo?energySectionInfo:"-1",

@@ -1292,6 +1292,33 @@ var home = {
                 return servers.backup() + "alarmSetting/update"
             }
         }
+        /**工段用电分析 */
+        ,sectionAnalysis : {
+            getAll : function(){
+                return servers.backup() + "sectionUseElec/getAll"
+            },
+            getAllByPage : function(){
+                return servers.backup() + "sectionUseElec/getAllByPage"
+            },
+            getAll : function(){
+                return servers.backup() + "sectionUseElec/getByDate"
+            },
+            sectionStatistic : function(){
+                return servers.backup() + "sectionUseElec/statistic"
+            },
+            procedureStatistic : function(){
+                return servers.backup() + "procedureUseElec/statistic"
+            },
+        }
+        /**设备能耗分析 */
+        ,equipmentAnalysis : {
+            statistic : function(){
+                return servers.backup() + "powerConsumptionDay/statistic"
+            },
+            statisticByDevice : function(){
+                return servers.backup() + "procedureUseElec/statisticByDevice"
+            },
+        }
     }
    
     /** start */
