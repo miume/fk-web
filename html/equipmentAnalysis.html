@@ -1,0 +1,138 @@
+<div class="display-component-container">
+    <style>
+         .topDiv {
+            width: 100%;
+            height: 70%;
+        }  
+        .bottomDiv {
+            position: relative;
+            width : 100%;
+            margin: 0 auto;
+        } 
+        .leftDiv{
+            width: 45%;
+            float: left;
+        }
+        .rightDiv{
+            width: 45%;
+            float: right;
+        }
+        .font {
+            font-size: 20px;
+            padding: 10px;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p>
+               <span style="font-size:20px;">设备用电同比环比能耗分析</span>&nbsp;&nbsp;&nbsp; 
+               时间：<select id="time"><option value="0">日</option><option value="1" selected>月</option><option value="2">年</option></select>&nbsp;&nbsp;&nbsp; 
+               <input type="text" id="date" class="hide"/>
+               <input type="text" id="date1" />
+               <input type="text" class="hide" id="date2"  />&nbsp;&nbsp;&nbsp;
+               <a id="equipmentSelect" style="padding: 0 10px 15px;"><i class="layui-icon">&#xe631;</i>设备选择</a>
+               <a href="#" id="searchButton"><i class="layui-icon">&#xe615;</i>搜索</a>
+            </p>
+         </div> 
+    </div>
+    <div class="whitespace"></div>
+    <!-- <div class="topDiv"> -->
+        <div style="margin:0 20px 5px;font-size:19px;" id="radio">
+            <input type="radio" name="name" id="use" value="同比" title="同比" checked="" > 同比 &nbsp;&nbsp;
+            <input type="radio" name="name" id="ring" value="环比" title="环比"> 环比
+            <a id="chartShow" style="padding: 0 50px 0;"><i class="layui-icon">&#xe60d;</i> 图形分析</a>
+        </div>
+    <!-- </div> -->
+        <div class="bottomDiv">
+            <div id="table">
+                <!--左div-->
+                <div class="leftDiv">
+                    <div class="font"><span id="changeName"></span>设备用电列表</div>
+                    <table class="tableHead">
+                        <thead>
+                            <tr>
+                                <td>设备名称</td>
+                                <td>用电量(kwh)</td>
+                                <td>处理量(t)</td>
+                                <td>单耗(kwh/t)</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="overflowTable">
+                        <table class="tableBody" id="table1">
+                            <tbody>
+                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--右div-->
+                <div class="rightDiv" id="yearOnyearDiv">
+                    <div class="font"><span id="changeName1"></span>设备用电列表</div>
+                    <table class="tableHead">
+                        <thead>
+                            <tr>
+                                <td>设备名称</td>
+                                <td>用电量(kwh)</td>
+                                <td>处理量(t)</td>
+                                <td>单耗(kwh/t)</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="overflowTable">
+                        <table class="tableBody" id="table2">
+                            <tbody>
+                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="rightDiv hide"  id="monthOnmonthDiv">
+                    <div class="font"><span id="changeName2"></span>设备用电列表</div>
+                    <table class="tableHead">
+                        <thead>
+                            <tr>
+                                <td>设备名称</td>
+                                <td>用电量(kwh)</td>
+                                <td>处理量(t)</td>
+                                <td>单耗(kwh/t)</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="overflowTable">
+                        <table class="tableBody" id="table3">
+                            <tbody>
+                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="hide" id="charts">
+                <div id="bar" style="width:1000px;height:500px;"></div>
+            </div>
+        </div>   
+    <script src="selfjs/equipmentAnalysis.js"></script>
+    <script>
+        $(function(){
+            equipmentAnalysis.init();
+        })
+        $(function() {
+            layui.use("laydate",function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem : "#date2",
+                    type : "year"
+                });
+                laydate.render({
+                    elem : "#date1",
+                    type : "month"
+                });
+                laydate.render({
+                    elem : "#date",
+                    type : "date"
+                });        
+            })
+        })
+    </script>
+</div>

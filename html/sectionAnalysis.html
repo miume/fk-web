@@ -1,44 +1,45 @@
 <div class="display-component-container">
     <style>
-        .leftDiv {
-            position: absolute;
-            width: 45%;
-            float: left;
-        }   
-        .rightDiv {
-            position: absolute;
-            width: 45%;
-            left: 50%;
-            float: left;
-        }    
-        table tr td{
-            width: 25%;
-        }
-        .chartDiv {
+        .topDiv {
+            width: 100%;
+            height: 70%;
+        }  
+        .bottomDiv {
             position: relative;
-            top:10px;
+            width : 100%;
+            margin: 0 auto;
+        } 
+        .bottomDiv h3{
+            margin: 10px;
         }
-        #bar {
-            position: absolute;
-            width : 110%;
+        #useAnalysis span,#ringAnalysis span{
+            width: 150px;
+            padding: 5px;
+            font-size: 16px;
+            /* margin-right: 10px; */
+            display:inline-block;
+            text-align: center;
+        }
+        .bar {
+            position: relative;
+            height: 70%;
+            top: 10px;
+        }
+        #bar,#bar1{
+            width: 1000px;
             height: 350px;
-            left: -30px;
+            /* margin: 0 auto; */
         }
-        #bar1 {
-            position: absolute;
-            width : 110%;
-            height: 350px;
-            left: -30px;
-        }
+
     </style>
     <div class="block-quote">
         <div class="fl">
             <p>
                <span style="font-size:20px;">工段用电同比环比能耗分析</span>&nbsp;&nbsp;&nbsp; 
-               时间：<select id="time"><option value="1">年</option><option value="2">月</option><option value="3">日</option></select>&nbsp;&nbsp;&nbsp; 
-               <input type="text" id="date1"  />
-               <input type="text" class="hide" id="date2"  />
-               <input type="text" class="hide" id="date3"  />&nbsp;&nbsp;&nbsp;
+               时间：<select id="time"><option value="0">日</option><option value="1" selected>月</option><option value="2">年</option></select>&nbsp;&nbsp;&nbsp; 
+               <input type="text" id="date" class="hide"/>
+               <input type="text" id="date1" />
+               <input type="text" class="hide" id="date2"  />&nbsp;&nbsp;&nbsp;
                工段：<select id="section" ></select>&nbsp;&nbsp;&nbsp;
                <a href="#" id="searchButton"><i class="layui-icon">&#xe615;</i>搜索</a>
             </p>
@@ -46,73 +47,83 @@
     </div>
     <div class="whitespace"></div>
     <!--左div-->
-    <div class="leftDiv">
-        <div class="topDiv">
-            <h4>用电同比分析</h4>
-            <table id="useAnalysis">
-                <tr>
-                    <td class="grey">本月用电(kwh)</td>
-                    <td></td>
-                    <td class="grey">去年同期(kwh)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="grey">同比</td>
-                    <td colspan="3"></td>
-                </tr>
-            </table>
+    <div class="topDiv">
+        <div style="margin:0 20px 5px;font-size:19px;" id="radio">
+            <input type="radio" name="name" id="use" value="同比" title="同比" checked="" > 同比 &nbsp;&nbsp;
+            <input type="radio" name="name" id="ring" value="环比" title="环比"> 环比
         </div>
-        <div class="chartDiv">
-            <h4>用电量同比分析</h4>
-            <div id="bar"></div>
-        </div>
+        <div class="bottomDiv">
+            <div id="yearOnyearDiv">
+                <h3>用电同比分析</h3>
+                <div id="useAnalysis" style="padding:10px 0">
+                    <span class="curText">本月用电(kwh)：</span>
+                    <span class="curSum" style="border: 1px solid grey;"></span>
+                    <span id="yearOnYearSumTd">去年同期(kwh)：</span>
+                    <span id="yearOnYearSum" style="border: 1px solid grey;"></span>
+                    <span>同比：</span>
+                    <span id="yearOnYear" style="border: 1px solid grey;"></span>
+                </div>
+                <div class="bar">
+                    <div id="bar"></div>
+                </div>
+            </div>          
+            <div class="hide" id="monthOnmonthDiv">
+                <h3>用电环比分析</h3>
+                <div id="ringAnalysis" style="padding:10px 0">
+                    <span class="curText">本月用电(kwh)：</span>
+                    <span class="curSum" style="border: 1px solid grey;"></span>
+                    <span id="monthOnMonthSumTd" >上月用电(kwh)：</span>
+                    <span id="monthOnMonthSum" style="border: 1px solid grey;"></span>
+                    <span>环比：</span>
+                    <span id="monthOnMonth" style="border: 1px solid grey;"></span>
+                </div>
+                <div class="bar">
+                    <div id="bar1"></div>
+                </div>
+            </div>
+        </div>      
     </div>
     <!--右div-->
-    <div class="rightDiv">
+    <!-- <div class="rightDiv hide">
         <div class="topDiv1">
-            <h4>用电同比分析</h4>
+            <h4>用电环比分析</h4>
             <table id="ringAnalysis">
                 <tr>
-                    <td class="grey">本月用电(kwh)</td>
-                    <td></td>
-                    <td class="grey">去年同期(kwh)</td>
-                    <td></td>
+                    <td class="grey curText">本月用电(kwh)</td>
+                    <td class="curSum"></td>
+                    <td class="grey" >上月用电(kwh)</td>
+                    <td id="monthOnMonthSum"></td>
                 </tr>
                 <tr>
                     <td class="grey">环比</td>
-                    <td colspan="3"></td>
+                    <td colspan="3" id="monthOnMonth"></td>
                 </tr>
             </table>
-        </div>
-        <div class="chartDiv">
-            <h4>用电量环比分析</h4>
             <div id="bar1"></div>
         </div>
-    </div>
-    <div class="rightDiv"></div>
+        <div class="chartDiv">
+            
+        </div>
+    </div> -->
     <script src="selfjs/sectionAnalysis.js"></script>
     <script>
         $(function() {
+            type = 1;
             sectionAnalysis.init();
         })
         $(function() {
-            var date1 = new Date();
-            date1.setFullYear(date1.getFullYear() - 1);
-            var date = new Date(date1).Format("yyyy");
-            console.log(date)
-            $("#date1").val(date);
             layui.use("laydate",function() {
                 var laydate = layui.laydate;
                 laydate.render({
-                    elem : "#date1",
+                    elem : "#date2",
                     type : "year"
                 });
                 laydate.render({
-                    elem : "#date2",
+                    elem : "#date1",
                     type : "month"
                 });
                 laydate.render({
-                    elem : "#date3",
+                    elem : "#date",
                     type : "date"
                 });        
             })

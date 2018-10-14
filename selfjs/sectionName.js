@@ -53,7 +53,6 @@ var sectionName = {
                     "<td>"+ (i++) +"</td>" + 
                     "<td>"+ (e.sectionCode?e.sectionCode:'') +"</td>" + 
                     "<td>"+ (e.name?e.name:'') +"</td>" + 
-                    "<td>"+ (e.workShopInfo?e.workShopInfo:'') +"</td>" + 
                     "<td>"+ (e.electricUsedType?e.electricUsedType.name:'') +"</td>" +
                     "<td>"+ (e.date?e.date:'') +"</td>" + 
                     "<td><a href='#' class='editor' id='editor-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" + 
@@ -79,11 +78,9 @@ var sectionName = {
                     id : id
                 },function(result) {
                     var res = result.data;
-                    var workShopInfo = res.workShopInfo;
                     var electricUsedType = res.electricUsedType?res.electricUsedType.id:"-1";
                     $("#sectionCode").val(res.sectionCode);
                     $("#name").val(res.name);
-                    $("#workShopInfo").val(res.workShopInfo);
                     $("#electricUsedType option[value="+ (electricUsedType) +"]").attr("selected","selected");
                 
                 $("#sectionLayerModal").removeClass("hide");
@@ -98,7 +95,7 @@ var sectionName = {
                     yes : function(index) {
                         var sectionCode = $("#sectionCode").val();
                         var name = $("#name").val();
-                        var workShopInfo = $("#workShopInfo").val();
+                        //var workShopInfo = $("#workShopInfo").val();
                         var electricUsedType = $("#electricUsedType").val();
                         var date = new Date().Format("yyyy-MM-dd hh:mm:ss");
                         if(sectionCode === "" && name === ""){
@@ -112,7 +109,6 @@ var sectionName = {
                             id : id,
                             sectionCode : sectionCode,
                             name : name,
-                            workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             date : date
                         },function(result) {
@@ -190,7 +186,7 @@ var sectionName = {
                     type : 1,
                     title : "新增",
                     content : $("#sectionLayerModal"),
-                    area : ["350px","350px"],
+                    area : ["350px","300px"],
                     offset : "auto",
                     btn : ["保存","取消"],
                     closeBtn : 0,
@@ -211,7 +207,6 @@ var sectionName = {
                         $.post(home.urls.sectionName.add(),{
                             sectionCode : sectionCode,
                             name : name,
-                            workShopInfo : workShopInfo,
                             'electricUsedType.id' : electricUsedType,
                             date : date
                         },function(result) {
