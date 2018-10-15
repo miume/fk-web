@@ -50,16 +50,12 @@
             <tbody id="alarmUpTbody">
                 <tr>
                     <td>电表DP点</td>
-                    <td><select id='upDpPoint' style="width:100%;height: 100%;border:none;text-align:center"></select></td>
+                    <td><select id='upDpPoint' style="width:100%;height: 100%;border:none;text-align:center" /></td>
                 </tr>
                 <tr>
                     <td>优先级</td>
                     <td>
-                        <div class="spinner">
-                            <button class="decrease">-</button>
-                            <input type="text" class="spinner value" maxlength="2">
-                            <button class="increase">+</button>
-                        </div>
+                        <input type="text" class="spinner" id="upPriority" style="width: 100%"/>
                     </td>
                 </tr>
                 <tr>
@@ -72,5 +68,11 @@
                 </tr>
             </tbody>
         </table>
+        <script type="text/javascript">
+            $('.spinner').spinner({
+                min : 0,
+                step: 1,
+            });
+        </script>
     </div>
 </div>
