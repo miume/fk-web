@@ -37,13 +37,69 @@ var alarmSetting = {
                 })
             });
             /**绑定新增事件 */
-            // alarmSetting.funcs.bindAddByIdsEvents($("#addButton"));
+            alarmSetting.funcs.bindAddByIdsEvents($("#addButton"));
             /**绑定批量删除事件 */
             alarmSetting.funcs.bindDeleteByIdsEvents($("#deleteButton"));
             /**绑定导出事件 */
             alarmSetting.funcs.bingDownloadEvents($("#downloadButton"));
             /**绑定搜索事件 */
             alarmSetting.funcs.bindSearchEvents($("#searchButton"));
+        }
+        /**绑定新增事件 */
+        ,bindAddByIdsEvents : function(buttons) {
+            buttons.off('click').on('click',function() {
+                //  置空
+                $("#upDpPoint").empty();
+                $("#upPriority").val("");
+                $("#upValue").val("");
+                $("#upAlarmInfo").val("");
+                $.get(home.urls.energyDpPoint.getAll(),{},function(result) {
+                    var dpDatas = result.data;
+                    //  渲染弹出框内容
+                    dpDatas.forEach(function(e) {
+                        $("#upDpPoint").append('<option value='+e.id+'>'+e.dpPoint+'</option>')
+                    });
+                    $("#updateModal").removeClass("hide");
+                    layer.open({
+                        type: 1,
+                        title: '新增',
+                        content: $("#updateModal"),
+                        area: ['400px', '300px'],
+                        btn: ['确定', '取消'],
+                        offset: "auto",
+                        closeBtn: 0,
+                        yes: function(index) {
+                            var upDpPoint = $("#upDpPoint").val();
+                            var upPriority = $("#upPriority").val();
+                            var upValue = $("#upValue").val();
+                            var upAlarmInfo = $("#upAlarmInfo").val();
+                            $.post(home.urls.alarmSetting.add(), {
+                                upValue : upValue,
+                                priority : upPriority,
+                                info : upAlarmInfo,
+                                'dpPoint.id' : upDpPoint
+                            }, function(result) {
+                                layer.msg(result.message, {
+                                    offset : ['40%', '55%'],
+                                    time : 700
+                                });
+                                if(result.code === 0) {
+                                    var time = setTimeout(function() {
+                                        alarmSetting.init();
+                                        clearTimeout(time);
+                                    },500)
+                                }
+                            })
+                            $("#updateModal").css("display","none");
+                            layer.close(index);
+                        },
+                        btn2 : function(index) {
+                            $("#updateModal").css("display","none");
+                            layer.close(index);
+                        }
+                    })
+                })
+            })
         }
         /**绑定搜索事件 */
         ,bindSearchEvents : function (buttons) {
@@ -157,74 +213,71 @@ var alarmSetting = {
             var checkedBoxLength = $(".alarm-checkBox:checked").length;
             home.funcs.bindselectAll($("#alarm-checkBoxAll"), $(".alarm-checkbox"), checkedBoxLength, $("#alarmSettingTable"));
             /**绑定编辑操作名称事件 */
-            // alarmSetting.funcs.bindEditorAlarmEvents($(".editor"));
+            alarmSetting.funcs.bindEditorAlarmEvents($(".editor"));
         }
-        // ,bindEditorAlarmEvents: function(buttons) {
-        //     buttons.off('click').on('click',function() {
-        //         var id = $(this).attr('id').substr(5);
-        //         $.get(home.urls.alarmSetting.getById(),{ id:id }, function(result) {
-        //             var alarmDatas = result.data;
-        //             var alarmId = alarmDatas.id;
-        //             $("#upDpPoint").empty();
-        //             $.get(home.urls.energyDpPoint.getAll(),{},function(result) {
-        //                 var dpDatas = result.data;
-        //                 //  渲染弹出框内容
-        //                 dpDatas.forEach(function(e) {
-        //                     $("#upDpPoint").append('<option value='+e.id+'>'+e.dpPoint+'</option>')
-        //                 });
-        //                 //  优先级
-        //                 // $("#upPriority").spinner({
-        //                 //     max:10,
-        //                 //     min:0,
-        //                 //     step:1
-        //                 // });
-        //                 //  设定值以及报警描述
-        //                 $("#upValue").val(alarmDatas.upValue);
-        //                 $("#upAlarmInfo").val(alarmDatas.info);
-        //                 $("#updateModal").removeClass("hide");
-        //                 layer.open({
-        //                     type: 1,
-        //                     title: '编辑',
-        //                     content: $("#updateModal"),
-        //                     area: ['400px', '300px'],
-        //                     btn: ['确定', '取消'],
-        //                     offset: "auto",
-        //                     closeBtn: 0,
-        //                     yes: function(index) {
-        //                         var upDpPoint = $("#upDpPoint").val();
-        //                         var upPriority = $("#upPriority").val();
-        //                         var upValue = $("#upValue").val();
-        //                         var upAlarmInfo = $("#upAlarmInfo").val();
-        //                         $.post(home.urls.alarmSetting.update(), {
-        //                             id : alarmId,
-        //                             upValue : upValue,
-        //                             priority : upPriority,
-        //                             info : upAlarmInfo,
-        //                             'dpPoint.id' : upDpPoint
-        //                         }, function(result) {
-        //                             layer.msg(result.message, {
-        //                                 offset : ['40%', '55%'],
-        //                                 time : 700
-        //                             });
-        //                             if(result.code === 0) {
-        //                                 var time = setTimeout(function() {
-        //                                     alarmSetting.init();
-        //                                     clearTimeout(time);
-        //                                 },500)
-        //                             }
-        //                         })
-        //                         $("#updateModal").css("display","none");
-        //                         layer.close(index);
-        //                     },
-        //                     btn2 : function(index) {
-        //                         $("#updateModal").css("display","none");
-        //                         layer.close(index);
-        //                     }
-        //                 })
-        //             });
-        //
-        //         })
-        //     })
-        // }
+        /**绑定编辑事件 */
+        ,bindEditorAlarmEvents: function(buttons) {
+            buttons.off('click').on('click',function() {
+                var id = $(this).attr('id').substr(5);
+                $.get(home.urls.alarmSetting.getById(),{ id:id }, function(result) {
+                    var alarmDatas = result.data;
+                    var alarmId = alarmDatas.id;
+                    $("#upDpPoint").empty();
+                    $.get(home.urls.energyDpPoint.getAll(),{},function(result) {
+                        var dpDatas = result.data;
+                        //  渲染弹出框内容
+                        dpDatas.forEach(function(e) {
+                            $("#upDpPoint").append('<option value='+e.id+'>'+e.dpPoint+'</option>')
+                        });
+                        //  优先级
+                        $("#upPriority").val(alarmDatas.priority);
+                        //  设定值以及报警描述
+                        $("#upValue").val(alarmDatas.upValue);
+                        $("#upAlarmInfo").val(alarmDatas.info);
+                        $("#updateModal").removeClass("hide");
+                        layer.open({
+                            type: 1,
+                            title: '编辑',
+                            content: $("#updateModal"),
+                            area: ['400px', '300px'],
+                            btn: ['确定', '取消'],
+                            offset: "auto",
+                            closeBtn: 0,
+                            yes: function(index) {
+                                var upDpPoint = $("#upDpPoint").val();
+                                var upPriority = $("#upPriority").val();
+                                var upValue = $("#upValue").val();
+                                var upAlarmInfo = $("#upAlarmInfo").val();
+                                $.post(home.urls.alarmSetting.update(), {
+                                    id : alarmId,
+                                    upValue : upValue,
+                                    priority : upPriority,
+                                    info : upAlarmInfo,
+                                    'dpPoint.id' : upDpPoint
+                                }, function(result) {
+                                    layer.msg(result.message, {
+                                        offset : ['40%', '55%'],
+                                        time : 700
+                                    });
+                                    if(result.code === 0) {
+                                        var time = setTimeout(function() {
+                                            alarmSetting.init();
+                                            clearTimeout(time);
+                                        },500)
+                                    }
+                                })
+                                $("#updateModal").css("display","none");
+                                layer.close(index);
+                            },
+                            btn2 : function(index) {
+                                $("#updateModal").css("display","none");
+                                layer.close(index);
+                            }
+                        })
+                    });
+
+                })
+            })
+        }
     }
 };
