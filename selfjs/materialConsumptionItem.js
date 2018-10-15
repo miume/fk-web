@@ -225,6 +225,7 @@ var materialConsumptionItem = {
                    "<td>"+(e.materialType ? e.materialType.name : ' ')+"</td>" +
                    "<td>"+(e.name ? e.name : ' ')+"</td>" +
                    "<td><a href='#' class = 'editor' id='edit-"+(e.id)+"'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class = 'delete' id='delete-"+(e.id)+"'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                    "</tr>"
                 )
             });
@@ -232,7 +233,44 @@ var materialConsumptionItem = {
             home.funcs.bindselectAll($("#materialItem-checkBoxAll"), $(".materialItem-checkbox"), checkedBoxLength, $("#materialConsumptionItemTable"));
             /**绑定编辑操作名称事件 */
             materialConsumptionItem.funcs.bindEditorMaterialItemEvents($(".editor"));
+            /**绑定单条记录删除事件 */
+            materialConsumptionItem.funcs.bindDeleteByIdEvents($(".delete"));
         }
+        /**绑定单条记录删除事件 */
+        ,bindDeleteByIdEvents : function(buttons) {
+            buttons.off('click').on('click',function(){
+                var _this = $(this);
+                layer.open({
+                    type: 1,
+                    title: '删除',
+                    content: "<h5 style='text-align:center;'>确定要删除删除该记录吗？</h5>",
+                    area: ['200px','140px'],
+                    btn: ['确定', '取消'],
+                    offset: ['40%', '55%'],
+                    closeBtn: 0,
+                    yes: function(index){
+                        var id = parseInt(_this.attr('id').substr(7))
+                        $.post(home.urls.materialConsumptionItem.deleteById() , { _method : "delete", id : id }, function (result) {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    materialConsumptionItem.init()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                        })
+                        layer.close(index)
+                    },
+                    btn2 : function(index){
+                        layer.close(index);
+                    }
+                })
+            })
+        }
+        /**绑定编辑操作名称事件 */
         ,bindEditorMaterialItemEvents: function(buttons) {
             buttons.off('click').on('click',function() {
                 var id = $(this).attr('id').substr(5);
