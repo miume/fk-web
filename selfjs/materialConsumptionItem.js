@@ -80,6 +80,13 @@ var materialConsumptionItem = {
                     yes: function(index) {
                         var materialItemNames = $("#materialItemNames").val();
                         var materialTypeId = $('#materialTypeName').val();
+                        if(materialItemNames===""){
+                            layer.msg("物料项目名称不能为空",{
+                                offset: ['40%', '55%'],
+                                time: 700
+                            });
+                            return;
+                        }
                         $.post(home.urls.materialConsumptionItem.add(),{
                             name : materialItemNames,
                             'materialType.id' : materialTypeId,
