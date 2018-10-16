@@ -1194,6 +1194,15 @@ var home = {
             },
             realAndPlan : function(){
                 return servers.backup() + "powerConsumptionDay/realAndPlan"
+            },
+        }
+        /**全厂用电数据 */
+        ,powerConsumptionMonthTotal : {
+            export : function(){
+                return servers.backup() + "powerConsumptionMonthTotal/export"
+            },
+            getByDateBetween : function(){
+                return servers.backup() + "powerConsumptionMonthTotal/getByDateBetween"
             }
         }
         /**工段用电统计 */
