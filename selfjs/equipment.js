@@ -2,7 +2,6 @@ var equipment = {
     init : function(){
         equipment.funcs.renderTable();
         equipment.funcs.renderCheckbox();
-        
     }
     ,funcs : {
         /**渲染左右两个表格 */

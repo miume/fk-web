@@ -81,52 +81,56 @@ var process = {
                     procedureId : procedureId
                 },function(result){
                     var data = result.data
-                    $("#yearUse").val(data.thisYearUsedSum)
-                    $("#yearPlanUse").val(data.thisYearPlanSum)
-                    $("#difference").val(data.thisMinus)
-                    $('#useChart').removeClass('hide');
-                    var planUse = []
-                    var month = []
-                    for(var i in data.thisYearPlan){
-                        month.push(i)
-                        planUse.push(data.thisYearPlan[i])
-                    }
-                    var use = []
-                    for(var i in data.thisYearUsed){
-                        use.push(data.thisYearUsed[i])
-                    }
-                    var myChart = echarts.init(document.getElementById('useChart'));
-                    var option = {
-                        title : {
-                            text : '用电对比'
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: month
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        legend:{
-                            data: ["计划使用","本月使用"]
-                        },
-                        series:[
-                            {
-                                name:"计划使用",
-                                data:planUse,
-                                type:"bar"
+                    if(data == null){
+                        layer.msg(result.message)
+                    }else{
+                        $("#yearUse").val(data.thisYearUsedSum)
+                        $("#yearPlanUse").val(data.thisYearPlanSum)
+                        $("#difference").val(data.thisMinus)
+                        $('#useChart').removeClass('hide');
+                        var planUse = []
+                        var month = []
+                        for(var i in data.thisYearPlan){
+                            month.push(i)
+                            planUse.push(data.thisYearPlan[i])
+                        }
+                        var use = []
+                        for(var i in data.thisYearUsed){
+                            use.push(data.thisYearUsed[i])
+                        }
+                        var myChart = echarts.init(document.getElementById('useChart'));
+                        var option = {
+                            title : {
+                                text : '用电对比'
                             },
-                            {
-                                name:"本月使用",
-                                data:use,
-                                type:"bar"
+                            xAxis: {
+                                type: 'category',
+                                data: month
                             },
-                        ]
-                    };
-                    myChart.setOption(option,notMerge=true);
-                    // 根据窗口大小变动图标  无需刷新
-                    window.onresize = function() {
-                        myChart.resize();
+                            yAxis: {
+                                type: 'value'
+                            },
+                            legend:{
+                                data: ["计划使用","本月使用"]
+                            },
+                            series:[
+                                {
+                                    name:"计划使用",
+                                    data:planUse,
+                                    type:"bar"
+                                },
+                                {
+                                    name:"本月使用",
+                                    data:use,
+                                    type:"bar"
+                                },
+                            ]
+                        };
+                        myChart.setOption(option,notMerge=true);
+                        // 根据窗口大小变动图标  无需刷新
+                        window.onresize = function() {
+                            myChart.resize();
+                        }
                     }
                 })
             })
