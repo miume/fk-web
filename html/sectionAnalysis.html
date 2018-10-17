@@ -20,6 +20,10 @@
             display:inline-block;
             text-align: center;
         }
+         tr td {
+            width: 150px !important;
+            border:  solid 1px grey;
+        }
         .bar {
             position: relative;
             height: 70%;
@@ -28,9 +32,11 @@
         #bar,#bar1{
             width: 1000px;
             height: 350px;
-            /* margin: 0 auto; */
+            margin: 0 auto;
         }
-
+        #yearOnyearDiv,#monthOnmonthDiv{
+            text-align: center;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -54,28 +60,48 @@
         </div>
         <div class="bottomDiv">
             <div id="yearOnyearDiv">
-                <h3>用电同比分析</h3>
-                <div id="useAnalysis" style="padding:10px 0">
-                    <span class="curText">本月用电(kwh)：</span>
-                    <span class="curSum" style="border: 1px solid grey;"></span>
+                <div style="padding:10px 16px 0;font-weight: bold;">用电量同比分析</div>
+                <div id="useAnalysis" style="padding:10px 0;">
+                    <table style="width:70%;margin: 0 auto;">
+                        <tr>
+                            <td class="curText">本月用电(kwh)：</td>
+                            <td class="curSum">0</td>
+                            <td  id="yearOnYearSumTd">去年同期(kwh)：</td>
+                            <td id="yearOnYearSum">0</td>
+                            <td>同比：</td>
+                            <td id="yearOnYear">0</td>
+                        </tr>
+                    </table>
+                    <!-- <span class="curText">本月用电(kwh)：</span>
+                    <span class="curSum">0</span>
                     <span id="yearOnYearSumTd">去年同期(kwh)：</span>
-                    <span id="yearOnYearSum" style="border: 1px solid grey;"></span>
+                    <span id="yearOnYearSum">0</span>
                     <span>同比：</span>
-                    <span id="yearOnYear" style="border: 1px solid grey;"></span>
+                    <span id="yearOnYear">0</span> -->
                 </div>
                 <div class="bar">
                     <div id="bar"></div>
                 </div>
             </div>          
             <div class="hide" id="monthOnmonthDiv">
-                <h3>用电环比分析</h3>
+                <div style="padding:10px 16px 0;font-weight: bold;">用电量环比分析</div>
                 <div id="ringAnalysis" style="padding:10px 0">
-                    <span class="curText">本月用电(kwh)：</span>
-                    <span class="curSum" style="border: 1px solid grey;"></span>
+                    <table style="width:70%;margin: 0 auto;">
+                        <tr>
+                            <td class="curText">本月用电(kwh)：</td>
+                            <td class="curSum">0</td>
+                            <td  id="monthOnMonthSumTd">上月用电(kwh)：</td>
+                            <td id="monthOnMonthSum">0</td>
+                            <td>环比：</td>
+                            <td id="monthOnMonth">0</td>
+                        </tr>
+                    </table>
+                    <!-- <span class="curText">本月用电(kwh)：</span>
+                    <span class="curSum">0</span>
                     <span id="monthOnMonthSumTd" >上月用电(kwh)：</span>
-                    <span id="monthOnMonthSum" style="border: 1px solid grey;"></span>
+                    <span id="monthOnMonthSum">0</span>
                     <span>环比：</span>
-                    <span id="monthOnMonth" style="border: 1px solid grey;"></span>
+                    <span id="monthOnMonth">0</span> -->
                 </div>
                 <div class="bar">
                     <div id="bar1"></div>
