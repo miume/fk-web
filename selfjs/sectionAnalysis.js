@@ -128,17 +128,19 @@ var sectionAnalysis = {
                 switch(flag){
                     case "0" :
                         date = $("#date").val();
+                        $("#ring").attr("disabled",false);
                         $(".curText").text("本日用电(kwh)");
                         $("#monthOnMonthSumTd").text("上日用电(kwh)");
-                        sectionAnalysis.legend1 = ["本日","去年同期"];
+                        sectionAnalysis.legend1 = ["本日","上月同期"];
                         sectionAnalysis.legend2 = ["本日","上日"];
                         sectionAnalysis.name11 = "本日";
-                        sectionAnalysis.name12 = "去年同期";
+                        sectionAnalysis.name12 = "上月同期";
                         sectionAnalysis.name22 = "上日";
                         $("#radio").removeClass("hide");
                         break;
                     case "1" :
                         date = $("#date1").val()+"-01";
+                        $("#ring").attr("disabled",false);
                         $(".curText").text("本月用电(kwh)");
                         $("#monthOnMonthSumTd").text("上月用电(kwh)");
                         sectionAnalysis.legend1 = ["本月","去年同期"];
@@ -150,7 +152,7 @@ var sectionAnalysis = {
                         break;
                     case "2" :
                         date = $("#date2").val()+"-01-01";
-                        $("#radio").addClass("hide");
+                        $("#ring").attr("disabled",true);
                         $(".curText").text("本年用电(kwh)");
                         $("#yearOnYearSumTd").text("上年用电(kwh)");
                         sectionAnalysis.legend1 = ["本年","上年用电"];
@@ -218,7 +220,7 @@ var sectionAnalysis = {
         }  
         /**绑柱状图渲染 */
         ,bindRenderChart : function(){
-            console.log(sectionAnalysis.data2)
+            //console.log(sectionAnalysis.data2)
             var myChart = echarts.init(document.getElementById('bar'));
             var option = {
                 xAxis : {
@@ -245,7 +247,7 @@ var sectionAnalysis = {
                     }
                 ]
             };
-            console.log(sectionAnalysis.name11)
+            //console.log(sectionAnalysis.name11)
             myChart.setOption(option,notMerge=true);
             // 根据窗口大小变动图标  无需刷新
             window.onresize = function() {

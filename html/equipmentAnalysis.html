@@ -20,6 +20,24 @@
         .font {
             font-size: 20px;
             padding: 10px;
+            text-align: center;
+        }
+        #selectTable tr td{
+            border: none;
+            font-size: 15px;
+        }
+        .tableHead tr td{
+            width: 25% !important;
+        }
+        /* .tableBody tbody td:first-child {
+            width: 26%;
+        }
+        .tableBody tbody tr td:not(:first-child) {
+            width: 25%;
+        } */
+        .overflowTable {
+            height: 54%;
+            overflow-y: scroll;
         }
     </style>
     <div class="block-quote">
@@ -37,17 +55,17 @@
     </div>
     <div class="whitespace"></div>
     <!-- <div class="topDiv"> -->
-        <div style="margin:0 20px 5px;font-size:19px;" id="radio">
+        <div style="margin:15px 5px;font-size:19px;" id="radio">
             <input type="radio" name="name" id="use" value="同比" title="同比" checked="" > 同比 &nbsp;&nbsp;
             <input type="radio" name="name" id="ring" value="环比" title="环比"> 环比
-            <a id="chartShow" style="padding: 0 50px 0;"><i class="layui-icon">&#xe60d;</i> 图形分析</a>
+            <a id="chartShow" style="margin-left:30px;"><i class="layui-icon">&#xe60d;</i> 图形分析</a>
         </div>
     <!-- </div> -->
         <div class="bottomDiv">
             <div id="table">
                 <!--左div-->
                 <div class="leftDiv">
-                    <div class="font"><span id="changeName"></span>设备用电列表</div>
+                    <div class="font"><span id="changeName">本月</span>设备用电列表</div>
                     <table class="tableHead">
                         <thead>
                             <tr>
@@ -60,6 +78,10 @@
                     </table>
                     <div class="overflowTable">
                         <table class="tableBody" id="table1">
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;" ></colgroup>
+                            <colgroup ></colgroup>
                             <tbody>
                 
                             </tbody>
@@ -68,7 +90,7 @@
                 </div>
                 <!--右div-->
                 <div class="rightDiv" id="yearOnyearDiv">
-                    <div class="font"><span id="changeName1"></span>设备用电列表</div>
+                    <div class="font"><span id="changeName1">去年同期</span>设备用电列表</div>
                     <table class="tableHead">
                         <thead>
                             <tr>
@@ -81,6 +103,10 @@
                     </table>
                     <div class="overflowTable">
                         <table class="tableBody" id="table2">
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;" ></colgroup>
+                            <colgroup ></colgroup>
                             <tbody>
                 
                             </tbody>
@@ -88,7 +114,7 @@
                     </div>
                 </div>
                 <div class="rightDiv hide"  id="monthOnmonthDiv">
-                    <div class="font"><span id="changeName2"></span>设备用电列表</div>
+                    <div class="font"><span id="changeName2">上月</span>设备用电列表</div>
                     <table class="tableHead">
                         <thead>
                             <tr>
@@ -101,6 +127,10 @@
                     </table>
                     <div class="overflowTable">
                         <table class="tableBody" id="table3">
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;"></colgroup>
+                            <colgroup style="width:25.9%;" ></colgroup>
+                            <colgroup ></colgroup>
                             <tbody>
                 
                             </tbody>
@@ -109,9 +139,18 @@
                 </div>
             </div>
             <div class="hide" id="charts">
-                <div id="bar" style="width:1000px;height:500px;"></div>
+                <div id="bar" style="width:1000px;height:400px;"></div>
+                <div id="bar1" class="hide" style="width:1000px;height:400px;"></div>
             </div>
         </div>   
+    <!--弹出框 设备选择隐藏部分-->
+    <div class="hide" id="selectEquipment" style="padding:20px;border:none;">
+        <table id="selectTable">
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
     <script src="selfjs/equipmentAnalysis.js"></script>
     <script>
         $(function(){
@@ -135,4 +174,5 @@
             })
         })
     </script>
+    
 </div>

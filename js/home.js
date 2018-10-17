@@ -1321,11 +1321,11 @@ var home = {
         }
         /**设备能耗分析 */
         ,equipmentAnalysis : {
-            statistic : function(){
-                return servers.backup() + "powerConsumptionDay/statistic"
+            deviceUseEnergyAnalysis : function(){
+                return servers.backup() + "devicePowerConsumptionDayTotal/deviceUseEnergyAnalysis"
             },
-            statisticByDevice : function(){
-                return servers.backup() + "procedureUseElec/statisticByDevice"
+            singleDeviceUseEnergyAnalysis : function(){
+                return servers.backup() + "devicePowerConsumptionMonthTotal/singleDeviceUseEnergyAnalysis"
             },
         }
     }

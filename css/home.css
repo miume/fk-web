@@ -105,7 +105,7 @@ ul {
 
 .navigations ul li a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 17px !important;
     float: left;
     padding:5px;
 }
@@ -127,7 +127,7 @@ ul {
 }
 
 .menus1 ul .menu1-tab-bar li a {
-    font-size: 14px;
+    font-size: 15px !important;
     text-decoration: none;
     color: #ffffff;
 }
@@ -144,6 +144,7 @@ ul {
 .menus1 .models ul li a {
     text-decoration: none;
     position: relative;
+    font-size: 15px !important;
 }
 
 body .layui-ext-yourskin .layui-layer-btn {
@@ -251,6 +252,7 @@ input {
 }
 .display-component-container a {
     text-decoration: none !important;
+    cursor: pointer !important;
     color: #1E9FFF;
 }
 .display-component-container a:link a:hover, a:active {
@@ -268,7 +270,7 @@ input {
 .display-component-container thead td {
     padding: 5px;
     border: 1px darkgrey solid;
-    font-size: 15px;
+    font-size: 15px !important;
     color: white;
     background: #666666;
     text-align: center;
