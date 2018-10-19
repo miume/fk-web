@@ -124,7 +124,7 @@ var materialConsumptionItem = {
                     layer.open({
                         type : 1,
                         title : "批量删除",
-                        content : "<h5 style='text-align:center;'>您确定要删除所有数据吗？</h5>",
+                        content : "<h5 style='text-align:center;'>您确定要删除所选数据吗？</h5>",
                         area: ['200px','140px'],
                         offset : ['40%', '55%'],
                         btn: ['确定', '取消'],
@@ -250,7 +250,7 @@ var materialConsumptionItem = {
                 layer.open({
                     type: 1,
                     title: '删除',
-                    content: "<h5 style='text-align:center;'>确定要删除删除该记录吗？</h5>",
+                    content: "<h5 style='text-align:center;'>确定要删除该记录吗？</h5>",
                     area: ['200px','140px'],
                     btn: ['确定', '取消'],
                     offset: ['40%', '55%'],
