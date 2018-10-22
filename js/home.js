@@ -1327,6 +1327,9 @@ var home = {
             singleDeviceUseEnergyAnalysis : function(){
                 return servers.backup() + "devicePowerConsumptionMonthTotal/singleDeviceUseEnergyAnalysis"
             },
+            export : function(){
+                return servers.backup() + "devicePowerConsumptionMonthTotal/export"
+            },
         }
     }
    

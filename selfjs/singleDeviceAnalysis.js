@@ -128,7 +128,7 @@ var singleDeviceAnalysis = {
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
                 var deviceId = $("#equipmentSelect").val();
-                var href = home.urls.singleDeviceAnalysis.getByDateAndDeviceId()+ "?startDate="+(startDate)+"&endDate="+endDate+"&deviceId="+deviceId;
+                var href = home.urls.equipmentAnalysis.export()+ "?startDate="+(startDate)+"&endDate="+endDate+"&deviceId="+deviceId;
                 location.href = href;
             })
         }

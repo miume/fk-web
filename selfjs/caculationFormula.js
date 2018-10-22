@@ -191,7 +191,7 @@ var caculationFormula = {
             }
             caculationFormula.funcs.bindForCountClicks($("#countItem tbody tr"));
             caculationFormula.funcs.bindForLineClicks($("#equipmentLine tbody tr"));
-            caculationFormula.funcs.bindForDeductionClicks($("#deduction tbody"));
+            caculationFormula.funcs.bindForDeductionClicks($("#deduction tbody tr"));
 
         } 
         ,bindForCountClicks : function(items) {
@@ -294,7 +294,7 @@ var caculationFormula = {
                         time : 1000
                     })
                 }
-                caculationFormula.funcs.bindForDeductionClicks($("#deduction tbody"));
+                caculationFormula.funcs.bindForDeductionClicks($("#deduction tbody tr"));
             })
         }
         /**绑定扣除项到设备线路 */
