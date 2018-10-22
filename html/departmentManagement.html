@@ -23,7 +23,7 @@
                 <tr>
                     <td class="checkBox_td"><input type="checkbox" id = "department-checkBoxAll" /></td>
                     <td>序号</td>
-                    <td>部门编码</td>
+                <!--    <td>部门编码</td>-->
                     <td>部门名称</td>
                     <td>部门信息</td>
                     <td>所属部门编码</td>
@@ -47,17 +47,15 @@
             })
         </script>
         <!--隐藏部分（弹出框显示部分）-->
-        <div id="addDptModal" class="hide hideModal">
-                <p><span>部门编码:</span>&nbsp;&nbsp;<input type="text" placeholder="自增长（无需传参）" id="addDepartmentId" disabled="disabled"></p>
+        <div id="addDptModal" class="hide hideModal">   
                 <p><span>部门名称:</span>&nbsp;&nbsp;<input type="text" placeholder="新增部门名称" id="addDepartmentName"></p>
                 <p><span>部门信息:</span>&nbsp;&nbsp;<input type="text" placeholder="新增部门信息" id="addDepartmentInfo"></p>
-                <p><span>所属部门:</span>&nbsp;&nbsp;<select style="width: 172px;" id="addParentDepartmentName">
+                <p><span>所属部门:</span>&nbsp;&nbsp;<select style="width: 150px;" id="addParentDepartmentName">
                 </select></p>
         </div>
         <div id="updateDptModal" class="hide hideModal">
-            <p><span>部门编码:</span>&nbsp;&nbsp;<input type="text" placeholder="" id="updateDepartmentId" disabled="disabled"></p>
             <p><span>部门名称:</span>&nbsp;&nbsp;<input type="text" placeholder="" id="updateDepartmentName"></p>
             <p><span>部门信息:</span>&nbsp;&nbsp;<input type="text" placeholder="" id="updateDepartmentInfo"></p>
-            <p><span>所属部门:</span>&nbsp;&nbsp;<select style="width: 172px;" id="updateParentDepartmentName"></select></p>
+            <p><span>所属部门:</span>&nbsp;&nbsp;<select style="width: 150px;" id="updateParentDepartmentName"></select></p>
         </div>
       </div

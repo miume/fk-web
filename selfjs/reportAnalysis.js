@@ -1,76 +1,112 @@
-var reportAnalysis = {
+var reportAlysis = {
     init : function(){
-        reportAnalysis.funcs.renderSelector();
-    }
-    ,funcs: {
+        reportAlysis.funcs.renderSelector1();
+        reportAlysis.funcs.renderSelector();
+    },
+    funcs : {
         /**渲染下拉框 */
         renderSelector : function(){
-            $("#system").on('click',function(){
-                var sys = $("#system").val();
-                $("#syatem").off('click');
-                const here = $("#sample");
-                var types =[];
+            const $selector = $("#sample");
+                var projects = [];
+                var len;
                 $.get(home.urls.sample.getAllBySendIdAndNameLike(),{
-                    sendId : sys
+                    sendId : 1
                 },function(result) {
                 var samples = result.data.content;
-                samples.forEach(function(e){
-                    types.push(e.name);
+                reportAlysis.funcs.renderHandler1($selector,samples)
                 })
-                reportAnalysis.funcs.renderHandler(here, samples);
-                })
-            //    console.log(types);
-                if(sys == 1){
-                   // do something ..
-                   $("#project").empty();
+                $("#project").empty();
                    $("#project").append(
                     "<option value=\"" + 1 +"\""+ ">"+ "铅" + "</option>" +
                     "<option value=\"" + 2 +"\""+ ">"+ "锌" + "</option>" +
                     "<option value=\"" + 3 +"\""+ ">"+ "铁" + "</option>" 
                    )   
+            $("#system").off('click').on('click',function(){
+                var sys = $("#system").val();
+                if(sys == 1){
+                    $("#project").empty();
+                    $("#project").append(
+                     "<option value=\"" + 1 +"\""+ ">"+ "铅" + "</option>" +
+                     "<option value=\"" + 2 +"\""+ ">"+ "锌" + "</option>" +
+                     "<option value=\"" + 3 +"\""+ ">"+ "铁" + "</option>" 
+                    )   
                 } else{
-                   // do somthing..
-                   $("#project").empty();
-                   $("#project").append(
-                    "<option value=\"" + 1 +"\""+ ">"+ "铅" + "</option>" +
-                    "<option value=\"" + 2 +"\""+ ">"+ "锌" + "</option>" +
-                    "<option value=\"" + 3 +"\""+ ">"+ "铁" + "</option>" +
-                    "<option value=\"" + 4 +"\""+ ">"+ "硫" + "</option>" 
-                   )
+                    $("#project").empty();
+                    $("#project").append(
+                     "<option value=\"" + 1 +"\""+ ">"+ "铅" + "</option>" +
+                     "<option value=\"" + 2 +"\""+ ">"+ "锌" + "</option>" +
+                     "<option value=\"" + 3 +"\""+ ">"+ "铁" + "</option>" +
+                     "<option value=\"" + 4 +"\""+ ">"+ "硫" + "</option>" 
+                    )
                 }
-                reportAnalysis.funcs.renderChart($("#analysisButton"),types)
-            }) 
+                $.get(home.urls.sample.getAllBySendIdAndNameLike(),{
+                    sendId : sys
+                },function(result) {
+                var samples = result.data.content;
+                projects.splice(0,projects.length);
+                samples.forEach(function(e){
+                    projects.push(e.name)
+                })
+                len = samples.length;
+            //    console.log(len)
+            //    console.log(projects)
+                reportAlysis.funcs.renderHandler1($selector, samples);
+                })
+            })
+            reportAlysis.funcs.renderChart($("#analysisButton"),projects,len)
+        }
+        /**渲染下拉框 */
+        ,renderSelector1 :function(){
+            const $selector1 = $("#classType1");
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var clazz1 = result.data;
+                reportAlysis.funcs.renderHandler($selector1, clazz1);
+            })
+            const $selector2 = $("#classType2");
+            $.get(home.urls.clazz.getAll(),{},function(result){
+                var clazz2 = result.data;
+                reportAlysis.funcs.renderHandler($selector2, clazz2);
+            })
+            const $selector3 = $("#system");
+            $.get(home.urls.check.getAll(),{},function(result){
+                var systems = result.data;
+                reportAlysis.funcs.renderHandler($selector3, systems);
+            })
         }
         /** 下拉框*/
-        ,renderHandler : function(here,samples) {    
-            here.empty();
+        ,renderHandler : function($selector,samples) {    
+            $selector.empty();
             samples.forEach(function(e){
-                here.append(
+                $selector.append(
+                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
+                )
+            })
+        }
+        /** 下拉框*/
+        ,renderHandler1 : function($selector,samples) {    
+            $selector.empty();
+            samples.forEach(function(e){
+                $selector.append(
                         "<input type='checkbox' value=\"" + (e.id) +"\""+ "checked >"+ (e.name) + "&nbsp;&nbsp;" 
                 )
             })
         }
         /** 绘制曲线图 */
-        ,renderChart : function(buttons,types){
+        ,renderChart : function(buttons,projects,len){
             buttons.off('click').on('click',function(){
-            //    var data = [];
-            //    $ckb = $("#sample").children('input');
-            //    $ckb.each(function(){
-            //       if($(this).prop('checked')){
-            //        data.push($(this).val())
-            //       }
-            //    })
                 var sys = $("#system").val();
                 var startDate = $("#startTime").val();               
                 var class1 = $("#classType1").val();               
                 var endDate = $("#endTime").val();              
                 var class2 = $("#classType2").val();
                 var project = $("#project").val();
-                var times = []
-                var tArray = new Array();   //先声明一维
-                for(var k = 0; k < types.length; k++){        //一维长度为i,i为变量，可以根据实际情况改变  
-                    tArray[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
+                var datas = [];
+                var times = [];
+                var tArray = new Array();
+                for( var i = 0; i < len; i++){
+                    tArray[i] = new Array();
                 }
+                var series = [];
                 if(sys == 1){
                     $.get(home.urls.delegation.getReportAnalysis1(),
                     {
@@ -80,58 +116,40 @@ var reportAnalysis = {
                         endClazzId : class2
                     },function(result){
                         var details = result.data
-                        var 
+                        console.log(details)
+                        console.log(details.dqcp)
+                        var len = details.length;
+                        console.log(len);
                         if(details == null){
                             return;
                         } else{
-                            for( var i = 0; i < datails[0].length; i++){
-                                var d = details[0][i].sampleManageInfo.updateDate;
-                                var t = d.substr(0,10);
-                                times.push(t)
-                            }
-                            console.log(times);
                             if(project == 1){
-                                for( var i = 0; i < types.length; i++){
-                                
-                                }
+                                details.dqcp.forEach(function(e){
+                                    datas.push(e.pb)
+                                })
+                            }else if(project == 2){
+                                details.dqcp.forEach(function(e){
+                                    datas.push(e.zn)
+                                })
+                            }else if(project == 3){
+                                details.dqcp.forEach(function(e){
+                                    datas.push(e.fe)
+                                })
+                            }else if(project == 4){
+                                details.dqcp.forEach(function(e){
+                                    datas.push(e.sf)
+                                })
                             }
-                            else if(project == 2){
-                                
-                            }
-                            else if(project == 2){
-                                
-                            }
-                            else{
-
-                            }
-                            var len = details.length;
-                            console.log(len);
-                            var times = [];
-                            for (var i = 0; i < len; i++){
-                                var d = details[i].sampleManageInfo.updateDate;
-                                var t = d.substr(0,10);
+                            
+                            for( var i = 0; i < details.dqcp.length; i++){
+                                var t = details.dqcp[i].sampleManageInfo.addDate.substr(0,10);
                                 times.push(t)
                             }
+                            console.log(datas)
                             console.log(times)
-                            var tArray = new Array();   //先声明一维
-                            for(var k = 0; k < data.length; k++){        //一维长度为i,i为变量，可以根据实际情况改变  
-                                tArray[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
-                            }
-                            for (var i = 0; i < len; i++){
-                                var p = details[i].pb*100;
-                                tArray[0].push(p)
-                                var p = details[i].zn*100;
-                                tArray[1].push(p)
-                                var p = details[i].fe*100;
-                                tArray[2].push(p)
-                                if(data.length == 4){
-                                    var p = details[i].sf*100;
-                                    tArray[3].push(p)
-                                } 
-                            }   
                         }
                     })
-                }else{
+                } else{
                     $.get(home.urls.delegation.getReportAnalysis2(),
                         {   
                             startDate : startDate,
@@ -139,109 +157,88 @@ var reportAnalysis = {
                             endDate : endDate,
                             endClazzId : class2       
                         },function(result){
-                            var details = result.data[0].delegationOrderDetails
+                            var details = result.data
                             if(details == null){
                                 return;
                             } else{
-                                var len = details.length;
-                                console.log(len);
-                                var times = [];
-                                for (var i = 0; i < len; i++){
-                                    var d = details[i].sampleManageInfo.updateDate;
-                                    var t = d.substr(0,10);
-                                    times.push(t)
-                                }
-                                console.log(times)
-                                var tArray = new Array();   //先声明一维
-                                for(var k = 0; k < data.length; k++){        //一维长度为i,i为变量，可以根据实际情况改变  
-                                    tArray[k]=new Array();    //声明二维，每一个一维数组里面的一个元素都是一个数组
-                                }
-                                for (var i = 0; i < len; i++){
-                                    var p = details[i].pb*100;
-                                    tArray[0].push(p)
-                                    var p = details[i].zn*100;
-                                    tArray[1].push(p)
-                                    var p = details[i].fe*100;
-                                    tArray[2].push(p)
-                                    if(data.length == 4){
-                                        var p = details[i].sf*100;
-                                        tArray[3].push(p)
-                                    } 
-                                }   
+                               
                             }
                     })
-                }
-                    
-            })
-
-        }
-        
-
-        /*
-        var myChart = echarts.init(document.getElementById("sampleChart"));
-                        var option = {
-                            // 标题
-                            title : {
-                                text : '单项目分析'
-                            }, 
-                            // 图例
-                            legend: {
-                            //    data: ["铅","锌","硫"]
-                                data : types
-                            },
-                            //鼠标放上去提示文字
-                            tooltip: {
-                                //    trigger: 'axis'
-                                    show : true
-                                },
-                            grid: {
-                                left: '3%',
-                                right: '4%',
-                                bottom: '3%',
-                                containLabel: true
-                            },
-                            toolbox: {
-                                show : true,
-                                feature: {
-                                    saveAsImage: {show: true}
-                                }
-                            },
-                            // 横坐标
-                            xAxis : {
-                                type : 'category',
-                                name : "时间（年/月/日）",
-                                boundaryGap: true,
-                                data : times
-                            //    data : ["2018/08/01","2018/08/02","2018/08/03","2018/08/04","2018/08/05","2018/08/06","2018/08/07"]
-                            },
-                            //纵坐标
-                            yAxis : {
-                                type : 'value',
-                                name : "品味（%）"
-                            },
-                            // 数据
-                            series : [{
-                                name: types[0],
-                                data : tArray[0],
-                                type : 'line'  
-                            },{
-                                name: types[1],
-                                data : tArray[1],
-                                type : 'line'
-                            },{
-                                name: types[2],
-                                data : tArray[2],
-                                type : 'line'
-                            }]
-                        };
-                        // 图形实例化
-                        myChart.setOption(option);
-                        // 根据窗口大小变动图标  无需刷新
-                        window.onresize = function() {
-                            myChart.resize();
+                }      
+                var myChart = echarts.init(document.getElementById("sampleChart"));
+                var option = {
+                    // 标题
+                    title : {
+                        text : '单项目品味分析'
+                    }, 
+                    // 图例
+                    legend: {
+                        data: ["原矿","低铅粗泡","铅精"]
+                    //    data : projects
+                    },
+                    //鼠标放上去提示文字
+                    tooltip: {
+                        //    trigger: 'axis'
+                            show : true
+                        },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        show : true,
+                        feature: {
+                            saveAsImage: {show: true}
                         }
+                    },
+                    // 横坐标
+                    xAxis : {
+                        type : 'category',
+                        name : "时间（年/月/日）",
+                        boundaryGap: true,
+                    //    data : times
+                        data : ["2018/08/01","2018/08/02","2018/08/03"]
+                    },
+                    //纵坐标
+                    yAxis : {
+                        type : 'value',
+                        name : "品味（%）"
+                    },
+                    // 数据
+                //    series : [{
+                //        name: projects[0],
+                //        data : datas,
+                //        type : 'line'  
+                //    }]
+                //  series : series
+                    series : [{
+                        name: "原矿",
+                        data : [123,23,145],
+                        type : 'line'  
+                    },
+                    {
+                        name: "低铅粗泡",
+                        data : [13,232,100],
+                        type : 'line'  
+                    },
+                    {
+                        name: "铅精",
+                        data : [63,145,165],
+                        type : 'line'  
+                    }]
+                };
+                // 图形实例化
+                myChart.setOption(option);
+                // 根据窗口大小变动图标  无需刷新
+                window.onresize = function() {
+                    myChart.resize();
+                }
 
-*/
+            })
+        }
+
 
 
     }

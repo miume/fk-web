@@ -1301,6 +1301,7 @@ var home = {
                 return servers.backup() + "alarmSetting/update"
             }
         }
+<<<<<<< HEAD
         /**工段用电分析 */
         ,sectionAnalysis : {
             getAll : function(){
@@ -1331,6 +1332,43 @@ var home = {
                 return servers.backup() + "devicePowerConsumptionMonthTotal/export"
             },
         }
+=======
+        /**月用电基础信息 */
+        ,monthPower : {
+            add : function(){
+                return servers.backup() + "powerConsumptionBasicInfoMonth/add"
+            },
+            getAllByYear : function(){
+                return servers.backup() + "powerConsumptionBasicInfoMonth/getAllByYear"
+            },
+            getById : function(){
+                return servers.backup() + "powerConsumptionBasicInfoMonth/getById"
+            },
+            update : function(){
+                return servers.backup() + "powerConsumptionBasicInfoMonth/update"
+            },
+            export : function(){
+                return servers.backup() + "powerConsumptionBasicInfoMonth/exportByYear"
+            }
+
+        }
+        /**选厂月用电报表 */
+        ,monthPowerReport : {
+            getByYearMonth : function(){
+                return servers.backup() + "electricMonthReport/getAllByYear"
+            },
+            getAll : function(){
+                return servers.backup() + "electricMonthReport/getAllByPage"
+            },
+            produceReport : function(){
+                return servers.backup() + ""
+            },
+            getById : function(){
+                return servers.backup() + "electricMonthReport/getById"
+            }
+        }
+
+>>>>>>> zl-25
     }
    
     /** start */
