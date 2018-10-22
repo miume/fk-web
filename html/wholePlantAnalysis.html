@@ -4,6 +4,9 @@
             height: 70%;
             overflow-y: scroll;
         }
+        .tableHead tr td{
+            width: 33.3% !important;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -25,7 +28,7 @@
     <div class="whitespace"></div>
     <div id="table">
         <table id="useTable">
-            <thead>
+            <thead class="tableHead">
                 <tr>
                     <td>时间</td>
                     <td>单耗(kwh/t)</td>
@@ -35,6 +38,9 @@
         </table>
         <div class="overflowTable" id="table11">
             <table class="tableBody" id="processTable">
+                <colgroup style="width:33.3%;"></colgroup>
+                <colgroup style="width:33.3%;" ></colgroup>
+                <colgroup ></colgroup>
                 <tbody id="useTbody">
 
                 </tbody>

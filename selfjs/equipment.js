@@ -9,16 +9,15 @@ var equipment = {
             $("#leftDiv").removeClass("hide")
             $("#rightDiv").removeClass("hide")
             $("#parameterChart").addClass("hide")
-            $("#monthTime").removeClass("hide");
+            $("#monthT").removeClass("hide");
             $("#timeType").val(2)
             
             var date1 = new Date();
-            date1.setMonth(date1.getMonth()-1);
-            var year1=date1.getFullYear(); 
-            var month1=date1.getMonth()+2;
-            month1 =(month1<10 ? "0"+month1:month1); 
-            sDate = (year1.toString()+'-'+month1.toString());
+            date1.setMonth(date1.getMonth());
+            var sDate = new Date(date1).Format("yyyy-MM");
+            var yDate = new Date(date1).Format("yyyy");
             $("#monthT").val(sDate)
+            $("#yearT").val(yDate)
             var deviceId = [];
             $.get(home.urls.equipmentLine.getAll(),{},function(result){
                 var checks = result.data
@@ -281,11 +280,11 @@ var equipment = {
             select.change(function(){
                 var value = $(this).children("option:selected").val();
                 if(value == 1){
-                    $("#monthTime").addClass("hide");
-                    $("#yearTime").removeClass("hide");
+                    $("#monthT").addClass("hide");
+                    $("#yearT").removeClass("hide");
                 }else if(value==2){
-                    $("#yearTime").addClass("hide");
-                    $("#monthTime").removeClass("hide");
+                    $("#yearT").addClass("hide");
+                    $("#monthT").removeClass("hide");
                 }
             })
         }
