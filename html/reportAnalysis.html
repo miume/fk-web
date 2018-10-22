@@ -3,8 +3,6 @@
             <div >
                 <p>
                     <span>所属系统：</span><select style="width : 100px" id="system">
-                        <option value="1">铅锌系统</option>
-                        <option value="2">选硫系统</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>分析项目：</span><select  style="width : 80px" id="project"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span>样品列表：</span><span id ="sample"></span>
@@ -15,15 +13,9 @@
                 <p>
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择开始时间">&nbsp;&nbsp;
                     <select style="width: 75px" id="classType1">
-                    <!--    <option value="1">早班</option>-->
-                    <!--    <option value="2">中班</option>-->
-                    <!--   <option value="3">晚班</option>-->
                     </select><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择结束时间">&nbsp;&nbsp;
                     <select style="width: 75px" id="classType2">
-                    <!--    <option value="1">早班</option>-->
-                    <!--    <option value="2">中班</option>-->
-                    <!--    <option value="3">晚班</option>-->
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="analysisButton"><a href="#"><i class="layui-icon" style='text-decoration: none;'>&#xe62c;</i>开始分析</a></span>&nbsp;&nbsp;&nbsp;
                 </p>
@@ -36,7 +28,7 @@
         <script src="selfjs/reportAnalysis.js"></script>
         <script>
             $(function() {
-                reportAnalysis.init();
+                reportAlysis.init();
             });
         </script>
         <script type="application/javascript">

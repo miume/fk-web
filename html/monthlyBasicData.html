@@ -1,56 +1,133 @@
 <div class="display-component-container">
-    <div id="block1">
+        <style type="text/css" rel="stylesheet">
+            .hidePage{
+                display : none;
+            }
+        </style>
         <div class="block-quote">
             <div class="fl">
                 <p>
                     <span style="display: inline-block;width:130px;">月基础数据</span>
-                    <span>时间：</span><input type="text" id="startTime" placeholder="请选择年"><span>&nbsp;&nbsp;
+                    <span>时间：</span><input width="50px" type="text" id="yearTime"><span>&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
+                    <span id="expertButton" ><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
                 </p>
             </div>
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        <table id="reportTable">
-            <thead>
-                <tr>
-                    <td>序号</td>
-                    <td>名称</td>
-                    <td>ID</td>
-                    <td>单位</td>
-                    <td>采集频率</td>
-                    <td>是否参与计算</td>
-                    <td>编辑人</td>
-                    <td>编辑时间</td>
-                    <td>1月</td>
-                    <td>2月</td>
-                    <td>3月</td>
-                    <td>4月</td>
-                    <td>5月</td>
-                    <td>6月</td>
-                    <td>7月</td>
-                    <td>8月</td>
-                    <td>9月</td>
-                    <td>10月</td>
-                    <td>11月</td>
-                    <td>12月</td>
-                    <td>操作</td>
-                </tr>
-            </thead>
-            <tbody>
-            
-            </tbody>
-        </table>
+        <div style="width : 100%;overflow-x: auto;">
+            <table id="monthPowerTable">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>名称</td>
+                        <td>ID</td>
+                        <td>单位</td>
+                        <td>采集频率</td>
+                        <td>是否参与计算</td>
+                        <td>编辑人</td>
+                        <td>编辑时间</td>
+                        <td>1月</td>
+                        <td>2月</td>
+                        <td>3月</td>
+                        <td>4月</td>
+                        <td>5月</td>
+                        <td>6月</td>
+                        <td>7月</td>
+                        <td>8月</td>
+                        <td>9月</td>
+                        <td>10月</td>
+                        <td>11月</td>
+                        <td>12月</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+        
         <div id="report_page"></div>
-    </div>
-
+        
     <script src="selfjs/monthlyBasicData.js"></script>
     <script type="application/javascript">
         $(function() {
             basicData.init();
         });
     </script>
-    
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var str = "  " + y + " ";
+        //    console.log(str);
+            laydate.render({
+                elem:'#yearTime',
+                type:'year',
+                value: str,
+                done : function(value){
+                //    crushing.funcs.bindProduceReport(value);
+                }
+            })
+        })
+    </script>
+
+    <div id="updatePowerModal" class="hidePage"> <!--class="hidePage"-->
+        <table>
+            <tr>
+                <td>设备/线路名称： </td>
+                <td><input id="equipmentName" disabled="disabled" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>设备/线路ID： </td>
+                <td><input id="equipmentName1" disabled="disabled" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>电表DP点： </td>
+                <td><input id="powerDp" disabled="disabled" style="width:100%; height: 100%;"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>1月： </td>
+                <td><input id="firstMonth" style="width:100%; height: 100%;"></td>
+                <td>2月： </td>
+                <td><input id="secondMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>3月： </td>
+                <td><input id="thirdMonth" style="width:100%; height: 100%;"></td>
+                <td>4月： </td>
+                <td><input id="fourthMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>5月： </td>
+                <td><input id="fifthMonth" style="width:100%; height: 100%;"></td>
+                <td>6月： </td>
+                <td><input id="sixthMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>7月： </td>
+                <td><input id="seventhMonth" style="width:100%; height: 100%;"></td>
+                <td>8月： </td>
+                <td><input id="eighthMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>9月： </td>
+                <td><input id="ninthMonth" style="width:100%; height: 100%;"></td>
+                <td>10月： </td>
+                <td><input id="tenthMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>11月： </td>
+                <td><input id="eleventhMonth" style="width:100%; height: 100%;"></td>
+                <td>12月： </td>
+                <td><input id="twelvthMonth" style="width:100%; height: 100%;"></td>
+            </tr>
+        </table>
+    </div>
 
 </div>
