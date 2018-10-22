@@ -29,24 +29,37 @@ var equipmentAnalysis = {
             var arr = Object.keys(data);
             var lengths = arr.length;
             for( var i = 0; i < parseInt(lengths / 4); i++ ) {
-                $tbody.append("<tr><td><input type='checkbox' id="+(data[3*i].id)+" checked /><span>"+(data[3*i].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+1].id)+" checked /><span>"+(data[3*i+1].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+2].id)+" checked /><span>"+(data[3*i+2].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+3].id)+" checked /><span>"+(data[3*i+3].name)+"</span></td></tr>")
+                $tbody.append("<tr><td><input type='checkbox' id="+(data[3*i].id)+" checked /><span class='onclick'>"+(data[3*i].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+1].id)+" checked /><span class='onclick'>"+(data[3*i+1].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+2].id)+" checked /><span class='onclick'>"+(data[3*i+2].name)+"</span></td><td><input type='checkbox' id="+(data[3*i+3].id)+" checked /><span class='onclick'>"+(data[3*i+3].name)+"</span></td></tr>")
             }  
             var temp = parseInt(lengths / 4) * 4 ;
             if(lengths % 4 === 3){
-                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" checked /><span>"+(data[temp+1].name)+"</span></td><td><input type='checkbox' id="+(data[temp+2].id)+" checked /><span>"+(data[temp+2].name)+"</span></td><td></td></tr>")
+                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span class='onclick'>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" checked /><span class='onclick'>"+(data[temp+1].name)+"</span></td><td><input type='checkbox' id="+(data[temp+2].id)+" checked /><span class='onclick'>"+(data[temp+2].name)+"</span></td><td></td></tr>")
             }        
             if(lengths % 4 === 2){
-                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" checked /><span>"+(data[temp+1].name)+"</span></td><td></td><td></td></tr>")
+                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span class='onclick'>"+(data[temp].name)+"</span></td><td><input type='checkbox' id="+(data[temp+1].id)+" checked /><span class='onclick'>"+(data[temp+1].name)+"</span></td><td></td><td></td></tr>")
             }  
             if(lengths % 4 === 1){
-                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span>"+(data[temp].name)+"</span></td><td></td><td></td><td></td></tr>")
+                $tbody.append("<tr><td><input type='checkbox' id="+(data[temp].id)+" checked /><span class='onclick'>"+(data[temp].name)+"</span></td><td></td><td></td><td></td></tr>")
             }
+            equipmentAnalysis.funcs.bindClickEvent($(".onclick"));
             equipmentAnalysis.funcs.bindSelectChangeEvent();
             equipmentAnalysis.funcs.bindDefaultSearchEvent();
             equipmentAnalysis.funcs.bindEquipmentSelect($("#equipmentSelect"));
             equipmentAnalysis.funcs.bindRenderChart();
         })
     }
+        /**绑定设备选择，实现点击文字改变checkbox的状态 */
+        ,bindClickEvent : function(buttons){
+            buttons.off("click").on("click",function(){
+                var obj = $(this);
+                if(obj.prev().prop("checked")){
+                    obj.prev().prop("checked",false);
+                }
+                else{
+                    obj.prev().prop("checked",true);
+                }
+            })
+        }
         /**年月日选择 控件变化 */
         ,bindSelectChangeEvent : function(){
             $("select").change(function() {
