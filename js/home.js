@@ -1301,7 +1301,6 @@ var home = {
                 return servers.backup() + "alarmSetting/update"
             }
         }
-<<<<<<< HEAD
         /**工段用电分析 */
         ,sectionAnalysis : {
             getAll : function(){
@@ -1332,7 +1331,6 @@ var home = {
                 return servers.backup() + "devicePowerConsumptionMonthTotal/export"
             },
         }
-=======
         /**月用电基础信息 */
         ,monthPower : {
             add : function(){
@@ -1367,8 +1365,6 @@ var home = {
                 return servers.backup() + "electricMonthReport/getById"
             }
         }
-
->>>>>>> zl-25
     }
    
     /** start */
