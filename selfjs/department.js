@@ -98,7 +98,7 @@ var department = {
                     type: 1,
                     title: '增加部门',
                     content: $("#addDptModal"),
-                    area: ['380px','300px'],
+                    area: ['380px','250px'],
                     btn: ['确定', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -253,7 +253,7 @@ var department = {
                     "<tr>" + 
                     "<td><input type='checkbox' value="+e.id+" class='department-checkbox'></td>" +
                     "<td>"+(i++)+"</td>" +
-                    "<td>"+(e.id)+"</td>" +
+                //    "<td>"+(e.id)+"</td>" +
                     "<td>"+(e.name ? e.name : ' ')+"</td>" +
                     "<td>"+(e.info ? e.info : ' ')+"</td>" +
                     "<td>"+(e.parentDepartment ? e.parentDepartment.id : ' ')+"</td>" +
@@ -278,7 +278,7 @@ var department = {
         ,renderHandler1 : function($selector, departments) {    
             $selector.empty() ;
             var v = -1;
-            var s = "无父部门";
+            var s = "请选择部门";
             $selector.append(
                 "<option value=\"" + (v) +"\""+ ">"+ (s) + "</option>"
             )
@@ -358,7 +358,7 @@ var department = {
                        type: 1,
                        title: '修改部门',
                        content: $("#updateDptModal"),
-                       area: ['380px', '300px'],
+                       area: ['380px', '250px'],
                        btn: ['确定', '取消'],
                        offset: ['40%','45%'],
                        yes: function(index){

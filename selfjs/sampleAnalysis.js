@@ -7,24 +7,20 @@ var sampleAnalysis = {
         /**渲染下拉框 */
         renderSelector : function(){
             const $selector = $("#sample");
+            var sys = $("#system").val();
                 $.get(home.urls.sample.getAllBySendIdAndNameLike(),{
-                    sendId : 1
+                    sendId : sys
                 },function(result) {
                 var samples = result.data.content;
                 sampleAnalysis.funcs.renderHandler($selector, samples);
                 })
-            $("#system").on('click',function(){
+            $("#system").off('click').on('click',function(){
                 var sys = $("#system").val();
-                $("#syatem").off('click')
                 if(sys == 1){
-                //    console.log("1")
-                //   $("#sInfo").attr("checked","false")
                     $("#sInfo").checked = false
                 } else{
-                //    console.log("2")
                     $("#sInfo").attr("checked","true")
                 }
-                const $selector = $("#sample");
                 $.get(home.urls.sample.getAllBySendIdAndNameLike(),{
                     sendId : sys
                 },function(result) {
@@ -69,6 +65,7 @@ var sampleAnalysis = {
                 var endDate = $("#endTime").val();              
                 var class2 = $("#classType2").val();
                 var sample = $("#sample").val();
+                console.log(sample)
                 $.get(home.urls.delegation.getSampleAnalysis(),
                 {
                     startDate : startDate,
@@ -78,19 +75,20 @@ var sampleAnalysis = {
                     sendToCheckId : sys,
                     sampleId :sample
                 },function(result){
-                    if(result.data == null){
-                        return ;
+                    if(result.data[0] == null){
+                        alert("该时间段或所选项目没有数据！")
                     }
                     var details = result.data[0].delegationOrderDetails
+                    console.log(details)
                     if(details == null){
+
                         return;
                     } else{
                         var len = details.length;
                         console.log(len);
                         var times = [];
                         for (var i = 0; i < len; i++){
-                            var d = details[i].sampleManageInfo.updateDate;
-                            var t = d.substr(0,10);
+                            var t = details[i].sampleManageInfo.addDate.substr(0,10);
                             times.push(t)
                         }
                             console.log(times)
