@@ -9,6 +9,7 @@
                 <p>
                     <span style="display: inline-block;width:130px;">月基础数据</span>
                     <span>时间：</span><input width="50px" type="text" id="yearTime"><span>&nbsp;&nbsp;
+                    <span id="addButton"><a href="#"><i class="layui-icon">&#xe608;</i> 新增</a></span>&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
                     <span id="expertButton" ><a href="#" id="download-id"><i class="layui-icon">&#xe62f;</i> 导出</a></span>
                 </p>
@@ -16,8 +17,8 @@
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        <div style="width : 100%;overflow-x: auto;">
-            <table id="monthPowerTable">
+        <div style="overflow-x: scroll; width: 100%; height: 75%;">
+            <table id="monthPowerTable" style="width: 120%;">
                 <thead>
                     <tr>
                         <td>序号</td>
@@ -47,9 +48,10 @@
                     
                 </tbody>
             </table>
+            <div id="report_page"></div>
         </div>
         
-        <div id="report_page"></div>
+        
         
     <script src="selfjs/monthlyBasicData.js"></script>
     <script type="application/javascript">
@@ -66,6 +68,23 @@
         //    console.log(str);
             laydate.render({
                 elem:'#yearTime',
+                type:'year',
+                value: str,
+                done : function(value){
+                //    crushing.funcs.bindProduceReport(value);
+                }
+            })
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var str = "  " + y + " ";
+        //    console.log(str);
+            laydate.render({
+                elem:'#addYear',
                 type:'year',
                 value: str,
                 done : function(value){
@@ -129,5 +148,20 @@
             </tr>
         </table>
     </div>
-
+    <div id="addReportModal" class="hidePage">
+        <table>
+            <tr>
+                <td>设备/线路名称：</td> <td><select id="equipmentName2" style="width:100%; height: 100%;"></select></td> <td>电表DP点：</td> <td><input id="powerDp1" disabled="disabled" style="width:100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>年份：</td> <td><input id="addYear" style="width:100%; height: 100%;"></td> <td>单位：</td> <td><input id="addDpt" style="width:100%; height: 100%;" value="KW/h"></td>
+            </tr>
+            <tr>
+                <td>采集频率：</td> <td><input id="addTimes" style="width:100%; height: 100%;" value="h"></td> <td>是否参与计算：</td> <td><input id="addCal" style="width:100%; height: 100%;" value="1"></td>
+            </tr>
+            <tr>
+                <td>编辑人：</td> <td><input id="editor" style="width:100%; height: 100%;"></td> <td>编辑时间：</td> <td><input id="editTime" style="width:100%; height: 100%;"></td>
+            </tr>
+        </table>
+    </div>
 </div>
