@@ -1,4 +1,9 @@
 <div class="display-component-container">
+    <style type="text/css" rel="stylesheet">
+        .hidePage{
+            display : none;
+        }
+    </style>
     <div id="block1">
         <div class="block-quote">
             <div class="fl">
@@ -7,7 +12,7 @@
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>
+                    <span id="expertButton1" ><a href="#"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>
                 </p>
             </div>
         </div>
@@ -21,23 +26,167 @@
                     <td>报表类型</td>
                     <td>制表人</td>
                     <td>制表时间</td>
-                    <td>详情</td>
                     <td>操作</td>
                 </tr>
             </thead>
             <tbody>
-            
+                
             </tbody>
         </table>
-        <div id="report_page"></div>
+        <div id="report_page1"></div>
     </div>
+    <div id="block2" class="hidePage">
+        <div class="block-quote">
+            <div class="fl">
+                <p>
+                    <span style="display: inline-block;width:160px;">选矿厂月用电报表</span>
+                    <span id="expertButton2" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
+                    <span id="closeButton"><a href="#"><i class="layui-icon">&#x1006;</i> 关闭</a></span>
+                </p>
+            </div>
+        </div>
+        <!--留白-->
+        <div class="whitespace"></div>
+        <div style="height:75%;overflow-y: auto">
+            <table>
+                <thead>
+                    <tr>
+                        <td colspan="4">各工段用电情况</td> 
+                        <td colspan="4">各工段用水情况</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">名称</td> 
+                        <td>本月用电</td> 
+                        <td>累计用电</td> 
+                        <td rowspan="2">备注</td> 
+                        <td rowspan="2">名称</td> 
+                        <td>本月用水</td> 
+                        <td>累计用水</td> 
+                        <td rowspan="2">备注</td>
+                    </tr>
+                    <tr>
+                        <td>KWh</td> <td>KWh</td> <td>m<sup>3</sup></td> <td>m<sup>3</sup></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>碎矿工段</td> 
+                        <td><input id="skyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="skydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="skydbz" style="width: 100%; height: 100%;"></td> 
+                        <td>碎矿工段</td> 
+                        <td><input id="skys" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="skyslj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="skysbz" style="width: 100%; height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td>磨浮工段</td> 
+                        <td><input id="mfyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="mfydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="mfydbz" style="width: 100%; height: 100%;"></td>
+                        <td>磨浮工段</td> 
+                        <td><input id="mfys" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="mfyslj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="mfysbz" style="width: 100%; height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td>精矿工段</td> 
+                        <td><input id="jkyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="jkydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="jkydbz" style="width: 100%; height: 100%;"></td>
+                        <td>精矿工段</td> 
+                        <td><input id="jkys" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="jkyslj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="jkysbz" style="width: 100%; height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td>尾砂工段</td> 
+                        <td><input id="wsyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wsydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wsydbz" style="width: 100%; height: 100%;"></td>
+                        <td>尾砂工段</td> 
+                        <td><input id="wsys" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wsyslj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wsysbz" style="width: 100%; height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td>污水站</td> 
+                        <td><input id="wszyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wszydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="wszydbz" style="width: 100%; height: 100%;"></td>
+                        <td></td> 
+                        <td></td> 
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>合计</td> 
+                        <td><input id="hjyd" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="hjydlj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="hjydbz" style="width: 100%; height: 100%;"></td>
+                        <td>合计</td> 
+                        <td><input id="hjys" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="hjyslj" style="width: 100%; height: 100%;"></td> 
+                        <td><input id="hjysbz" style="width: 100%; height: 100%;"></td>
+                    </tr>   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <script src="selfjs/sectionWaterAndElecConsumption.js"></script>
     <script type="application/javascript">
         $(function() {
-            powerReport.init();
+            energySection.init();
         });
     </script>
-    
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#startTime',
+            type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#endTime',
+            type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            var a = new Date();
+            var y = a.getFullYear();
+            var m = a.getMonth();
+            m = m + 1;
+            if(m<10){
+                m = "0" + m;
+            }
+            var str = y + "-" + m
+            laydate.render({
+                elem:'#produceMonthTime',
+                type:'month',
+                value: str
+            })
+        })
+    </script>
+    <script>
+        $("#closeButton").off('click').on('click',function(){
+            $("#block2").addClass("hidePage");
+            $("#block1").removeClass("hidePage");
+        })
+    </script>
+    <div id="produceMonthReportModal" class="hide hideModal">
+        <p>
+            <span>时间：</span><input type="text" id="produceMonthTime" placeholder="请选择月份">
+        </p>
+    </div>
 
 </div>

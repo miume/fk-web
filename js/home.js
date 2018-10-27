@@ -1343,7 +1343,7 @@ var home = {
                 return servers.backup() + "powerConsumptionBasicInfoMonth/getById"
             },
             update : function(){
-                return servers.backup() + "powerConsumptionBasicInfoMonth/update"
+                return servers.backup() + "powerConsumptionBasicInfoMonth/updateMonthData"
             },
             export : function(){
                 return servers.backup() + "powerConsumptionBasicInfoMonth/exportByYear"
@@ -1358,13 +1358,65 @@ var home = {
             getAll : function(){
                 return servers.backup() + "electricMonthReport/getAllByPage"
             },
-            produceReport : function(){
-                return servers.backup() + ""
-            },
             getById : function(){
                 return servers.backup() + "electricMonthReport/getById"
+            },
+            exportByDate : function(){
+                return servers.backup() + "electricMonthReport/exportByYearMonth"
+            },
+            produceReport : function(){
+                return servers.backup() + "electricMonthReport/generate"
+            },
+            reproduceReport : function(){
+                return servers.backup() + "electricMonthReport/regenerateAble"
             }
         }
+        /**工段用水用电 */
+        ,sectionWaterAndElec : {
+            getAll : function(){
+                return servers.backup() + "energySectionMonthReport/getAllByPage"
+            },
+            getAllByYearMonth : function(){
+                return servers.backup() + "energySectionMonthReport/getAllByYear"
+            },
+            getById : function(){
+                return servers.backup() + "energySectionMonthReport/getById"
+            },
+            exportByDate : function(){
+                return servers.backup() + "energySectionMonthReport/exportByYearMonth"
+            },
+            produceReport : function(){
+                return servers.backup() + "energySectionMonthReport/generate"
+            },
+            reproduceReport : function(){
+                return servers.backup() + "energySectionMonthReport/regenerateAble"
+            }
+
+        }
+        /**报表参数管理 */
+        ,reportRecordManagement : {
+            add : function(){
+                return servers.backup() + "energyReportParamManagement/add"
+            },
+            getAll : function() {
+                return servers.backup() + "energyReportParamManagement/getAllByPage"
+            },
+            getByYearMonth : function(){
+                return servers.backup() + "energyReportParamManagement/getAllByYear"
+            },
+            getById : function() {
+                return servers.backup() + "energyReportParamManagement/getById"
+            },
+            update : function(){
+                return servers.backup() + "energyReportParamManagement/update"
+            }
+
+
+        }
+<<<<<<< HEAD
+=======
+
+>>>>>>> zl-26
     }
    
     /** start */

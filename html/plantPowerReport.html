@@ -12,7 +12,7 @@
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="expertButton1" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>
+                    <span id="expertButton1" ><a href="#" ><i class="layui-icon">&#xe62f;</i> 生成报表</a></span>
                 </p>
             </div>
         </div>
@@ -30,18 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>
-                        <a href='#' class='detail' id="detail-2">查看报表</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <a style='color: gray' id="expert-3">重新生成</a></td>
-                    </td>
-            
-                </tr>
+                
             </tbody>
         </table>
         <div id="report_page"></div>
@@ -50,7 +39,7 @@
         <div class="block-quote">
             <div class="fl">
                 <p>
-                    <span style="display: inline-block;width:130px;">选矿厂月用电报表</span>
+                    <span style="display: inline-block;width:160px;">选矿厂月用电报表</span>
                     <span id="expertButton2" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 导出</a></span>&nbsp;&nbsp;
                     <span id="closeButton"><a href="#"><i class="layui-icon">&#x1006;</i> 关闭</a></span>
                 </p>
@@ -58,9 +47,276 @@
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        <table id="powerDetailTable">
-
-        </table>
+        <div style="height:70%;overflow-y: auto">
+            <div style="display: inline-block; width:50%;float:left;">
+                <table id="totalTable">
+                    <thead>
+                        <tr>
+                            <td>使用单位</td> 
+                            <td>本月用电（Kwh）</td> 
+                            <td>月单耗（Kwh/t）</td> 
+                            <td>累计电量（Kwh）</td> 
+                            <td>累计单耗（Kwh/t）</td> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>全厂总计</td> 
+                            <td><input id="qczjyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="qczjdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                        </tr>
+                        <tr>
+                            <td>碎矿</td> 
+                            <td><input id="skyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="skdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>  
+                        </tr>
+                        <tr>
+                            <td>磨浮</td> 
+                            <td><input id="mfyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="mfdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>  
+                        </tr>
+                        <tr>
+                            <td>精矿</td> 
+                            <td><input id="jkyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="jkdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>  
+                        </tr>
+                        <tr>
+                            <td>尾砂</td> 
+                            <td><input id="wsyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="wsdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>  
+                        </tr>
+                        <tr>
+                            <td>污水站</td> 
+                            <td><input id="wszyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="wszdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>  
+                        </tr>
+                        <tr>
+                            <td>转外单位</td> 
+                            <td><input id="zwdwyd" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="zwdwdh" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                        </tr>
+                        <tr>
+                            <td >本月矿量（t）</td> 
+                            <td><input id="bykl" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计矿量（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>1200T矿量（t）</td> 
+                            <td><input id="tkl" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>1200T累计矿量（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                        </tr>
+                        <tr>
+                            <td>本月砂量（t）</td> 
+                            <td><input id="bysl" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>本月砂量（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>本月用水（t）</td> 
+                            <td><input id="" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计用水（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>碎矿用水（t）</td> 
+                            <td><input id="skys" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计用水（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>浮磨用水（t）</td> 
+                            <td><input id="mfys" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计用水（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>精矿用水（t）</td> 
+                            <td><input id="jkys" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计用水（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td>尾砂用水（t）</td> 
+                            <td><input id="wsys" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td>累计用水（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td >本月照明（Kwh）</td> 
+                            <td ><input id="byzm" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td >累计照明（Kwh）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td >本月柴油（t）</td> 
+                            <td ><input id="bycy" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td >累计柴油（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <td >本月汽油（t）</td> 
+                            <td ><input id="byqy" style="width: 100%;height : 100%" disabled="disabled"></td> 
+                            <td >累计汽油（t）</td> 
+                            <td colspan="2"><input id="" style="width: 100%;height : 100%" disabled="disabled"></td>
+                        </tr>  
+                    </tbody>
+                </table>
+            </div>
+            <div style="display: inline-block;width:50%">
+                <table id="detailTable">
+                    <thead>
+                        <tr>
+                            <td colspan="2">使用单位</td> 
+                            <td>本月用电（Kwh）</td> 
+                            <td>月单耗（Kwh/t）</td> 
+                            <td>累计电量（Kwh）</td> 
+                            <td>累计单耗（Kwh/t）</td> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="5">精矿工段</td> 
+                            <td>回水</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>泵站</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>选厂抽水</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>中科院实验</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>内部线损</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">尾砂工段</td> 
+                            <td>F24</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1#泵柜</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>3#泵柜</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">碎矿工段</td> 
+                            <td>索道</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>圆锥</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>碎矿工艺</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6">磨浮工段</td> 
+                            <td>磨矿</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                        </tr>
+                        <tr>
+                            <td>浮选</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>石灰</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>制药</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1200T</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>选硫</td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 
@@ -112,7 +368,6 @@
             $("#block1").removeClass("hidePage");
         })
     </script>
-
     <div id="produceMonthReportModal" class="hide hideModal">
         <p>
             <span>时间：</span><input type="text" id="produceMonthTime" placeholder="请选择月份">

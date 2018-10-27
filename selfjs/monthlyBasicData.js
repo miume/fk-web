@@ -46,10 +46,94 @@ var basicData = {
                     }
                 })
             })
+            /**绑定新增事件 */
+            basicData.funcs.bindAddReportEvent($("#addButton"));
             /** 绑定查询事件*/
             basicData.funcs.bindSearchReportEvent($("#searchButton"));
             /** 绑定导出事件*/
             basicData.funcs.bindExpertReportEvent($("#expertButton"));
+        }
+        /**渲染设备下拉框 */
+        ,renderEquipmentSelector : function(){
+            const $selector = $("#equipmentName2");    
+                $.get(home.urls.equipmentLine.getByCodeLikeAndNameLike(),{code : -1,name : -1},function(result) {
+                    var equipments = result.data.content;
+                    basicData.funcs.renderHandler2($selector, equipments);
+                })
+                $selector.off('click').on('click',function(){
+                    var code = $(this).val();
+                    console.log(code);
+                    $.get(home.urls.equipmentLine.getById(),{id : code},function(result){
+                        console.log(result.data)
+                        $("#powerDp1").val(result.data.energyDpPoint.dpPoint);
+                        $("#powerDp1").attr('name',result.data.energyDpPoint.id);
+                    })
+                })
+        }
+        ,renderHandler2 : function($selector, equipments) {    
+            $selector.empty() ;
+            equipments.forEach(function(e){
+                $selector.append(
+                        "<option value=\"" + (e.id) +"\""+ ">"+ (e.name) + "</option>"
+                )
+            })
+        }
+        /**新增事件 */
+        ,bindAddReportEvent : function(buttons){
+            buttons.off('click').on('click',function(){
+                $("#addReportModal").removeClass("hidePage");
+                basicData.funcs.renderEquipmentSelector();
+                layer.open({
+                    type: 1,
+                    title: '新增',
+                    content: $("#addReportModal"),
+                    area: ['600px', '250px'],
+                    btn: ['确定', '取消'],
+                    offset: "auto",
+                    yes: function(index){
+                        /**收集手动输入数据 */
+                            var equipmentId = $("#equipmentName2").val();
+                            console.log(equipmentId)
+                            var dpPoint = $("#powerDp1").attr("name");
+                            console.log(dpPoint)
+                            var year = $("#addYear").val();
+                            console.log(year)
+                            var unit = $("#addDpt").val();
+                            console.log(unit)
+                            var cal = $("#addCal").val();
+                            console.log(cal)
+                            var times = $("#addTimes").val();
+                            console.log(times)
+                        $.post(home.urls.monthPower.add() ,{ 
+                           "energyDeviceRoute.id" : equipmentId,
+                           "energyDpPoint.id" : dpPoint,
+                           "year" : year,
+                           "unit" : unit,
+                           "isCal" : cal,
+                           "times" : times,
+                           "editor.id" : home.user.id
+                        }, function(result) {
+                            layer.msg(result.message, {
+                                offset : ['40%', '55%'],
+                                time : 700
+                            })
+                            if(result.code === 0) {
+                                var time = setTimeout(function() {
+                                    basicData.init();
+                                    clearTimeout(time);
+                                },500)
+                            }
+                        })
+                        $("#addReportModal").css("display","none");
+                        layer.close(index);
+                    },
+                    closeBtn : 0,
+                    btn2 : function(index) {
+                        $("#addReportModal").css("display","none");
+                        layer.close(index);
+                    }  
+                })
+            })
         }
         /**查询事件 */
         ,bindSearchReportEvent : function(buttons){
@@ -111,7 +195,7 @@ var basicData = {
                     "<td>" + (e.unit) + "</td>" + 
                     "<td>" + (e.times) + "</td>" + 
                     "<td>" + (e.isCal) + "</td>" + 
-                    "<td>" + (e.editor ? e.editor : '') + "</td>" + 
+                    "<td>" + (e.editor ? e.editor.name : '') + "</td>" + 
                     "<td>" + (e.editTime ? e.editTime : '') + "</td>" + 
                     "<td>" + (e.one) + "</td>" + 
                     "<td>" + (e.two) + "</td>" + 
@@ -136,6 +220,7 @@ var basicData = {
         ,bindUpdateReportEvent : function(buttons){
             buttons.off('click').on('click',function(){
                 var id = $(this).attr('id').substr(7);
+                console.log(id)
             //    $("#updatePowerModal").removeClass("hidePage");
                 $.get(home.urls.monthPower.getById(),{
                     id : id

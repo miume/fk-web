@@ -1,46 +1,50 @@
 <div class="display-component-container">
-    <div id="block1">
+        <style type="text/css" rel="stylesheet">
+            .hidePage{
+                display : none;
+            }
+        </style>
         <div class="block-quote">
             <div class="fl">
                 <p>
                     <span style="display: inline-block;width:130px;">报表记录管理</span>
                     <span>日期：</span><input type="text" id="startTime" placeholder="请选择日期"><span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
                     <input type="text" id="endTime" placeholder="请选择日期">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>操作人：</span><select  style="width : 80px" id="operator"></select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="searchButton"><a href="#"><i class="layui-icon">&#xe615;</i> 查询</a></span>&nbsp;&nbsp;
-                    <span id="addButton" ><a href="#" id="download-id1"><i class="layui-icon">&#xe62f;</i> 新增</a></span>
+                    <span id="addButton" ><a href="#" ><i class="layui-icon">&#xe608; </i> 新增</a></span>
                 </p>
             </div>
         </div>
         <!--留白-->
         <div class="whitespace"></div>
-        <table id="reportTable">
-            <thead>
-                <tr>
-                    <td>时间</td>
-                    <td>污水站用电量（kwh）</td>
-                    <td>1200T矿量（t）</td>
-                    <td>本月砂量（t）</td>
-                    <td>碎矿用水（t）</td>
-                    <td>磨浮用水（t）</td>
-                    <td>精矿用水（t）</td>
-                    <td>尾砂用水（t）</td>
-                    <td>本月照明（kwh）</td>
-                    <td>本月柴油（kg）</td>
-                    <td>本月汽油（kg）</td>
-                    <td>录入人</td>
-                    <td>录入时间</td>
-                    <td>修改人</td>
-                    <td>修改时间</td>
-                    <td>操作</td>
-                </tr>
-            </thead>
-            <tbody>
-            
-            </tbody>
-        </table>
-        <div id="report_page"></div>
-    </div>
+        <div style="overflow-x: scroll; width: 100%; height: 75%;">
+            <table id="reportTable" style="width: 150%;">
+                <thead>
+                    <tr>
+                        <td>时间</td>
+                        <td>污水站用电量（kwh）</td>
+                        <td>1200T矿量（t）</td>
+                        <td>本月砂量（t）</td>
+                        <td>碎矿用水（t）</td>
+                        <td>磨浮用水（t）</td>
+                        <td>精矿用水（t）</td>
+                        <td>尾砂用水（t）</td>
+                        <td>本月照明（kwh）</td>
+                        <td>本月柴油（kg）</td>
+                        <td>本月汽油（kg）</td>
+                        <td>录入人</td>
+                        <td>录入时间</td>
+                        <td>修改人</td>
+                        <td>修改时间</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                        
+                </tbody>
+            </table>
+            <div id="report_page"></div>
+        </div>
 
     <script src="selfjs/reportRecordManage.js"></script>
     <script type="application/javascript">
@@ -48,6 +52,116 @@
             reportRecord.init();
         });
     </script>
-    
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#startTime',
+            type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#endTime',
+            type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#addTime',
+            type:'month',
+            })
+        })
+    </script>
+    <script>
+        layui.use('laydate',function(){
+            var laydate = layui.laydate;
+            laydate.render({
+            elem:'#updateTime',
+            type:'month',
+            })
+        })
+    </script>
+
+    <div id="addRecordModal" class="hidePage">
+        <table frame = void>
+            <tr>
+                <td>日期：</td> <td><input id="addTime" style="width: 100%; height: 100%;"></td> <td></td> <td></td>
+            </tr>
+            <tr>
+                <td>污水站用电量：</td> 
+                <td><input id="addWszyd" style="width: 100%; height: 100%;"></td> 
+                <td>1200T矿量：</td> 
+                <td><input id="addTkl" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>本月砂量：</td> 
+                <td><input id="addBykl" style="width: 100%; height: 100%;"></td> 
+                <td>碎矿用水：</td> 
+                <td><input id="addSkys" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>磨浮用水：</td> 
+                <td><input id="addMfys" style="width: 100%; height: 100%;"></td> 
+                <td>精矿用水：</td> 
+                <td><input id="addJkys" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>尾砂用水：</td> 
+                <td><input id="addWsys" style="width: 100%; height: 100%;"></td> 
+                <td>本月照明：</td> 
+                <td><input id="addByzm" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>本月柴油：</td> 
+                <td><input id="addBycy" style="width: 100%; height: 100%;"></td> 
+                <td>本月汽油：</td> 
+                <td><input id="addByqy" style="width: 100%; height: 100%;"></td>
+            </tr>
+        </table>
+    </div>
+    <div id="updateRecordModal" class="hidePage">
+        <table frame = void>
+            <tr>
+                <td>日期：</td> <td><input id="updateTime" style="width: 100%; height: 100%;" disabled="disabled"></td> <td></td> <td></td>
+            </tr>
+            <tr>
+                <td>污水站用电量：</td> 
+                <td><input id="updateWszyd" style="width: 100%; height: 100%;"></td> 
+                <td>1200T矿量：</td> 
+                <td><input id="updateTkl" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>本月砂量：</td> 
+                <td><input id="updateBysl" style="width: 100%; height: 100%;"></td> 
+                <td>碎矿用水：</td> 
+                <td><input id="updateSkys" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>磨浮用水：</td> 
+                <td><input id="updateMfys" style="width: 100%; height: 100%;"></td> 
+                <td>精矿用水：</td> 
+                <td><input id="updateJkys" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>尾砂用水：</td> 
+                <td><input id="updateWsys" style="width: 100%; height: 100%;"></td> 
+                <td>本月照明：</td> 
+                <td><input id="updateByzm" style="width: 100%; height: 100%;"></td>
+            </tr>
+            <tr>
+                <td>本月柴油：</td> 
+                <td><input id="updateBycy" style="width: 100%; height: 100%;"></td> 
+                <td>本月汽油：</td> 
+                <td><input id="updateByqy" style="width: 100%; height: 100%;"></td>
+            </tr>
+        </table>
+    </div>
 
 </div>
