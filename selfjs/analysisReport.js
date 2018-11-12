@@ -193,10 +193,10 @@ var analysisReport = {
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.name : '') + "</td>" +
                     "<td>" + (e.sampleManageInfo ? e.sampleManageInfo.sampleCode : '') + "</td>" +
-                    "<td>" + (e.pb ? e.pb*100 : '') + "</td>" +
-                    "<td>" + (e.zn ? e.zn*100 : '') + "</td>" +
-                    "<td>" + (e.sf ? e.sf*100 : '') + "</td>" +
-                    "<td>" + (e.fe ? e.fe*100 : '') + "</td>" +
+                    "<td>" + (e.pb ? e.pb : '') + "</td>" +
+                    "<td>" + (e.zn ? e.zn : '') + "</td>" +
+                    "<td>" + (e.sf ? e.sf : '') + "</td>" +
+                    "<td>" + (e.fe ? e.fe : '') + "</td>" +
                     "</tr>"
                 )
             })
