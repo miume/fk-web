@@ -1,7 +1,14 @@
 servers = {
-	 backup: function(){
-		 return "http://218.77.105.241:40080/fk/"
-	 },
+	 // backup: function(){
+		//  return "http://218.77.105.241:30080/fk/"
+	 // },
+	// backup: function(){
+	// 	return "http://127.0.0.1:8099/fk/"
+	// }
+	backup: function(){
+		return "http://10.12.19.2:8099/fk/"
+	}
+
      //backup : function () {
      //    return "http://127.0.0.1:8080/fk/"
      //},
